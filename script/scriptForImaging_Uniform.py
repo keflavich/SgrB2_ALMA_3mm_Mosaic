@@ -34,7 +34,7 @@ clean(vis = 'SgrB2_a_03_7M.lowres.cal',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 1000, threshold = '300mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Creating cube for spw 1 with low velocity resolution, to check for lines/line free regions
 os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw1.*')
@@ -52,7 +52,7 @@ clean(vis = 'SgrB2_a_03_7M.lowres.cal',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 1000, threshold = '300mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Creating cube for spw 2 with low velocity resolution, to check for lines/line free regions
 os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw2.*')
@@ -70,7 +70,7 @@ clean(vis = 'SgrB2_a_03_7M.lowres.cal',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 1000, threshold = '300mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Creating cube for spw 2 with low velocity resolution, to check for lines/line free regions
 os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw3.*')
@@ -88,7 +88,7 @@ clean(vis = 'SgrB2_a_03_7M.lowres.cal',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 1000, threshold = '300mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 
 # Continuum subtraction on low spectral resolution data. Not easy to spot the continuum, but...
@@ -131,7 +131,7 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 20000, threshold = '300mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Spw 0, CH3CN (K=3)
 os.system('rm -rf SgrB2_a_03_7M.CH3CN_5-4_3.uniform.*')
@@ -149,7 +149,7 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 2000, threshold = '450mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Spw 1, HCO+
 os.system('rm -rf SgrB2_a_03_7M.HCOp.uniform.*')
@@ -167,7 +167,7 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 2000, threshold = '450mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Spw 1, HCN
 os.system('rm -rf SgrB2_a_03_7M.HCN.uniform.*')
@@ -185,7 +185,7 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 2000, threshold = '450mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Spw 2, H2CS
 os.system('rm -rf SgrB2_a_03_7M.H2CS.uniform.*')
@@ -198,12 +198,12 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   imagermode = 'mosaic',
   interactive = F,
   imsize = imsize,
-  cell = '2.2arcsec',
+  cell = cell,
   phasecenter = 'J2000 17h47m19.4 -28d23m29',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 2000, threshold = '450mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Spw 2, H2CO
 os.system('rm -rf SgrB2_a_03_7M.H2CO615-616.uniform.*')
@@ -216,12 +216,12 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   imagermode = 'mosaic',
   interactive = F,
   imsize = imsize,
-  cell = '2.2arcsec',
+  cell = cell,
   phasecenter = 'J2000 17h47m19.4 -28d23m29',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 2000, threshold = '450mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Spw 3, H2CS 303-202
 os.system('rm -rf SgrB2_a_03_7M.H2CS303-202.uniform.*')
@@ -234,12 +234,12 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   imagermode = 'mosaic',
   interactive = F,
   imsize = imsize,
-  cell = '2.2arcsec',
+  cell = cell,
   phasecenter = 'J2000 17h47m19.4 -28d23m29',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 1500, threshold = '650mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Spw 3, H2CS 321-220
 os.system('rm -rf SgrB2_a_03_7M.H2CS321-220.uniform.*')
@@ -252,12 +252,12 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   imagermode = 'mosaic',
   interactive = F,
   imsize = imsize,
-  cell = '2.2arcsec',
+  cell = cell,
   phasecenter = 'J2000 17h47m19.4 -28d23m29',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 1500, threshold = '650mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 # Spw 3, CF+ (continuum subtracted data seem dominated by artifacts, try on non continuum subtracted data, but CF+ seems largely undetected, except possibly on SgrB2(N))
 os.system('rm -rf SgrB2_a_03_7M.CFp.uniform.*')
@@ -270,12 +270,12 @@ clean(vis = 'SgrB2_a_03_7M.cal',
   imagermode = 'mosaic',
   interactive = F,
   imsize = imsize,
-  cell = '2.2arcsec',
+  cell = cell,
   phasecenter = 'J2000 17h47m19.4 -28d23m29',
   mask = ['box[[83pix,95pix],[135pix,156pix]]','box[[62pix,143pix],[71pix,149pix]]','box[[142pix,69pix],[149pix,78pix]]'],
   weighting = 'uniform',
   niter = 1000, threshold = '250mJy',
-  robust = 0.5, usescratch = True)
+  usescratch = True)
 
 myimages = ['SgrB2_a_03_7M.HNC.uniform', 'SgrB2_a_03_7M.CH3CN_5-4_3.uniform',
             'SgrB2_a_03_7M.HCOp.uniform', 'SgrB2_a_03_7M.HCN.uniform', 'SgrB2_a_03_7M.H2CS.uniform',
@@ -288,8 +288,8 @@ myimages = ['SgrB2_a_03_7M.HNC.uniform', 'SgrB2_a_03_7M.CH3CN_5-4_3.uniform',
            ]
 for myimagebase in myimages:
   impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
-  exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits')
-  exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits')
+  exportfits,(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True)
+  exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True)
 
 
 
