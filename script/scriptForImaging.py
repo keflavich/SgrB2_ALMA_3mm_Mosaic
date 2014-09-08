@@ -130,6 +130,43 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   niter = 20000, threshold = '300mJy',
   robust = 0.5, usescratch = True)
 
+# Spw 0, HC3N
+os.system('rm -rf SgrB2_a_03_7M.HC3N.*')
+#default(clean)
+clean(vis = 'SgrB2_a_03_7M.cal.contsub',
+  imagename = 'SgrB2_a_03_7M.HC3N',
+  field = '0~52', # SgrB2
+  spw = '0,4,8,12',
+  mode = 'velocity', restfreq='90979.02MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
+  imagermode = 'mosaic',
+  interactive = F,
+  imsize = [216, 216],
+  cell = '2.5arcsec',
+  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+#  mask = 'box[[83pix,95pix],[135pix,156pix]]',
+  weighting = 'briggs',
+  niter = 20000, threshold = '300mJy',
+  robust = 0.5, usescratch = True)
+
+# Spw 0, H42a
+os.system('rm -rf SgrB2_a_03_7M.H41a.*')
+#default(clean)
+clean(vis = 'SgrB2_a_03_7M.cal.contsub',
+  imagename = 'SgrB2_a_03_7M.H41a',
+  field = '0~52', # SgrB2
+  spw = '0,4,8,12',
+  mode = 'velocity', restfreq='92034.43MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
+  imagermode = 'mosaic',
+  interactive = F,
+  imsize = [216, 216],
+  cell = '2.5arcsec',
+  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+#  mask = 'box[[83pix,95pix],[135pix,156pix]]',
+  weighting = 'briggs',
+  niter = 20000, threshold = '300mJy',
+  robust = 0.5, usescratch = True)
+
+
 # Spw 0, CH3CN (K=3)
 os.system('rm -rf SgrB2_a_03_7M.CH3CN_5-4_3.*')
 #default(clean)
