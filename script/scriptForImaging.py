@@ -148,7 +148,7 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   niter = 20000, threshold = '300mJy',
   robust = 0.5, usescratch = True)
 
-# Spw 0, H42a
+# Spw 0, H41a
 os.system('rm -rf SgrB2_a_03_7M.H41a.*')
 #default(clean)
 clean(vis = 'SgrB2_a_03_7M.cal.contsub',
@@ -315,6 +315,7 @@ myimages = ['SgrB2_a_03_7M.HNC', 'SgrB2_a_03_7M.CH3CN_5-4_3',
             'SgrB2_a_03_7M.HCOp', 'SgrB2_a_03_7M.HCN', 'SgrB2_a_03_7M.H2CS',
             'SgrB2_a_03_7M.H2CO615-616', 'SgrB2_a_03_7M.H2CS303-202',
             'SgrB2_a_03_7M.H2CS321-220', 'SgrB2_a_03_7M.CFp',
+            'SgrB2_a_03_7M.HC3N', 'SgrB2_a_03_7M.H41a',
             'SgrB2_a_03_7M.lowres.spw0',
             'SgrB2_a_03_7M.lowres.spw1',
             'SgrB2_a_03_7M.lowres.spw2',
