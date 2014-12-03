@@ -131,10 +131,10 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   robust = 0.5, usescratch = True)
 
 # Spw 0, HC3N
-os.system('rm -rf SgrB2_a_03_7M.HC3N.*')
+os.system('rm -rf SgrB2_a_03_7M.HC3N.try2*')
 #default(clean)
 clean(vis = 'SgrB2_a_03_7M.cal.contsub',
-  imagename = 'SgrB2_a_03_7M.HC3N',
+  imagename = 'SgrB2_a_03_7M.HC3N.try2',
   field = '0~52', # SgrB2
   spw = '0,4,8,12',
   mode = 'velocity', restfreq='90979.02MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
@@ -146,7 +146,9 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'briggs',
   niter = 20000, threshold = '300mJy',
-  robust = 0.5, usescratch = True)
+  robust = 0.5, usescratch = True,
+  minpb = 0.8, # attempt to midigate 'inf' artifacts
+     )
 
 # Spw 0, H41a
 os.system('rm -rf SgrB2_a_03_7M.H41a.*')
@@ -221,11 +223,11 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   niter = 2000, threshold = '450mJy',
   robust = 0.5, usescratch = True)
 
-# Spw 2, H2CS
-os.system('rm -rf SgrB2_a_03_7M.H2CS.*')
+# Spw 2, H2CS # WAS PREVIOUSLY .H2CS. - hasn't been run since renaming
+os.system('rm -rf SgrB2_a_03_7M.H2CS313212.*')
 #default(clean)
 clean(vis = 'SgrB2_a_03_7M.cal.contsub',
-  imagename = 'SgrB2_a_03_7M.H2CS',
+  imagename = 'SgrB2_a_03_7M.H2CS313212',
   field = '0~52', # SgrB2
   spw = '2,6,10,14',
   mode = 'velocity', restfreq='101477.885MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
@@ -275,6 +277,26 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   niter = 1500, threshold = '650mJy',
   robust = 0.5, usescratch = True)
 
+#103.03993
+# Spw 3, H2CS 322-221
+os.system('rm -rf SgrB2_a_03_7M.H2CS322-221.*')
+#default(clean)
+clean(vis = 'SgrB2_a_03_7M.cal.contsub',
+  imagename = 'SgrB2_a_03_7M.H2CS322-221',
+  field = '0~52', # SgrB2
+  spw = '3,7,11,15',
+  mode = 'velocity', restfreq='103039.93MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
+  imagermode = 'mosaic',
+  interactive = F,
+  imsize = [216, 216],
+  cell = '2.2arcsec',
+  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+#  mask = 'box[[83pix,95pix],[135pix,156pix]]',
+  weighting = 'uniform',
+  niter = 1500, threshold = '650mJy',
+  usescratch = True)
+
+
 # Spw 3, H2CS 321-220
 os.system('rm -rf SgrB2_a_03_7M.H2CS321-220.*')
 #default(clean)
@@ -312,7 +334,7 @@ clean(vis = 'SgrB2_a_03_7M.cal',
   robust = 0.5, usescratch = True)
 
 myimages = ['SgrB2_a_03_7M.HNC', 'SgrB2_a_03_7M.CH3CN_5-4_3',
-            'SgrB2_a_03_7M.HCOp', 'SgrB2_a_03_7M.HCN', 'SgrB2_a_03_7M.H2CS',
+            'SgrB2_a_03_7M.HCOp', 'SgrB2_a_03_7M.HCN', 'SgrB2_a_03_7M.H2CS313212',
             'SgrB2_a_03_7M.H2CO615-616', 'SgrB2_a_03_7M.H2CS303-202',
             'SgrB2_a_03_7M.H2CS321-220', 'SgrB2_a_03_7M.CFp',
             'SgrB2_a_03_7M.HC3N', 'SgrB2_a_03_7M.H41a',
@@ -323,8 +345,8 @@ myimages = ['SgrB2_a_03_7M.HNC', 'SgrB2_a_03_7M.CH3CN_5-4_3',
            ]
 for myimagebase in myimages:
   impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
-  exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits')
-  exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits')
+  exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True)
+  exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True, overwrite=True)
 
 
 
