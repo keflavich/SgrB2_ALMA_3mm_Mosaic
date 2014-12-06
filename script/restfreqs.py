@@ -1,6 +1,6 @@
 from astropy import units as u
 
-restfreqs = {'HCN': 88.6316*u.GHz,
+restfreqs = {'HCN': 88.63042*u.GHz,
              'HNC': 90.66356*u.GHz,
              'HC3N': 90.97902*u.GHz,
              'HCOp': 89.18852*u.GHz,
