@@ -23,9 +23,9 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
           niter = 0, threshold = '30mJy',
           robust = 0.5, usescratch = True)
 
-    ia.open(imagename.format(freq)+".dirty")
+    ia.open(imagename.format(freq)+".dirty.image")
     maskname = imagename.format(freq)+'.mask'
-    ia.calcmask(mask=imagename.format(freq)+'.dirty > 0.2', name=maskname)
+    ia.calcmask(imagename.format(freq)+'.dirty.image > 0.2', name=maskname)
     ia.done()
 
     clean(vis = vis,
@@ -68,9 +68,9 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
           negcomponent=1,
           usescratch = True)
 
-    ia.open(imagename.format(freq)+".dirty")
+    ia.open(imagename.format(freq)+".dirty.image")
     maskname = imagename.format(freq)+'.mask'
-    ia.calcmask(mask=imagename.format(freq)+'.dirty > 0.2', name=maskname)
+    ia.calcmask(imagename.format(freq)+'.dirty.image > 0.2', name=maskname)
     ia.done()
 
     clean(vis = vis,
