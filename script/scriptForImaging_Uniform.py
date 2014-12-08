@@ -18,77 +18,77 @@ print "# Running clean."
 imsize = [512,512]
 cell = '1.1arcsec'
 
-# Creating cube for spw 0 with low velocity resolution, to check for lines/line free regions
-os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw0.*')
-#default(clean)
-clean(vis = 'SgrB2_a_03_7M.lowres.cal',
-  imagename = 'SgrB2_a_03_7M.lowres.uniform.spw0',
-  field = '0~52', # SgrB2
-  spw = '0,4,8,12',
-  mode = 'channel', width = 1, outframe = 'lsrk',
-  imagermode = 'mosaic',
-  interactive = F,
-  imsize = imsize,
-  cell = cell,
-  phasecenter = 'J2000 17h47m19.4 -28d23m29',
-#  mask = 'box[[83pix,95pix],[135pix,156pix]]',
-  weighting = 'uniform',
-  niter = 1000, threshold = '300mJy',
-  usescratch = True)
-
-# Creating cube for spw 1 with low velocity resolution, to check for lines/line free regions
-os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw1.*')
-#default(clean)
-clean(vis = 'SgrB2_a_03_7M.lowres.cal',
-  imagename = 'SgrB2_a_03_7M.lowres.uniform.spw1',
-  field = '0~52', # SgrB2
-  spw = '1,5,9,13',
-  mode = 'channel', width = 1, outframe = 'lsrk',
-  imagermode = 'mosaic',
-  interactive = F,
-  imsize = imsize,
-  cell = cell,
-  phasecenter = 'J2000 17h47m19.4 -28d23m29',
-#  mask = 'box[[83pix,95pix],[135pix,156pix]]',
-  weighting = 'uniform',
-  niter = 1000, threshold = '300mJy',
-  usescratch = True)
-
-# Creating cube for spw 2 with low velocity resolution, to check for lines/line free regions
-os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw2.*')
-#default(clean)
-clean(vis = 'SgrB2_a_03_7M.lowres.cal',
-  imagename = 'SgrB2_a_03_7M.lowres.uniform.spw2',
-  field = '0~52', # SgrB2
-  spw = '2,6,10,14',
-  mode = 'channel', width = 1, outframe = 'lsrk',
-  imagermode = 'mosaic',
-  interactive = F,
-  imsize = imsize,
-  cell = cell,
-  phasecenter = 'J2000 17h47m19.4 -28d23m29',
-#  mask = 'box[[83pix,95pix],[135pix,156pix]]',
-  weighting = 'uniform',
-  niter = 1000, threshold = '300mJy',
-  usescratch = True)
-
-# Creating cube for spw 2 with low velocity resolution, to check for lines/line free regions
-os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw3.*')
-#default(clean)
-clean(vis = 'SgrB2_a_03_7M.lowres.cal',
-  imagename = 'SgrB2_a_03_7M.lowres.uniform.spw3',
-  field = '0~52', # SgrB2
-  spw = '3,7,11,15',
-  mode = 'channel', width = 1, outframe = 'lsrk',
-  imagermode = 'mosaic',
-  interactive = F,
-  imsize = imsize,
-  cell = cell,
-  phasecenter = 'J2000 17h47m19.4 -28d23m29',
-#  mask = 'box[[83pix,95pix],[135pix,156pix]]',
-  weighting = 'uniform',
-  niter = 1000, threshold = '300mJy',
-  usescratch = True)
+## Creating cube for spw 0 with low velocity resolution, to check for lines/line free regions
+#os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw0.*')
+##default(clean)
+#clean(vis = 'SgrB2_a_03_7M.lowres.cal',
+#  imagename = 'SgrB2_a_03_7M.lowres.uniform.spw0',
+#  field = '0~52', # SgrB2
+#  spw = '0,4,8,12',
+#  mode = 'channel', width = 1, outframe = 'lsrk',
+#  imagermode = 'mosaic',
+#  interactive = F,
+#  imsize = imsize,
+#  cell = cell,
+#  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+##  mask = 'box[[83pix,95pix],[135pix,156pix]]',
+#  weighting = 'uniform',
+#  niter = 1000, threshold = '300mJy',
+#  usescratch = True)
+#
+## Creating cube for spw 1 with low velocity resolution, to check for lines/line free regions
+#os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw1.*')
+##default(clean)
+#clean(vis = 'SgrB2_a_03_7M.lowres.cal',
+#  imagename = 'SgrB2_a_03_7M.lowres.uniform.spw1',
+#  field = '0~52', # SgrB2
+#  spw = '1,5,9,13',
+#  mode = 'channel', width = 1, outframe = 'lsrk',
+#  imagermode = 'mosaic',
+#  interactive = F,
+#  imsize = imsize,
+#  cell = cell,
+#  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+##  mask = 'box[[83pix,95pix],[135pix,156pix]]',
+#  weighting = 'uniform',
+#  niter = 1000, threshold = '300mJy',
+#  usescratch = True)
+#
+## Creating cube for spw 2 with low velocity resolution, to check for lines/line free regions
+#os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw2.*')
+##default(clean)
+#clean(vis = 'SgrB2_a_03_7M.lowres.cal',
+#  imagename = 'SgrB2_a_03_7M.lowres.uniform.spw2',
+#  field = '0~52', # SgrB2
+#  spw = '2,6,10,14',
+#  mode = 'channel', width = 1, outframe = 'lsrk',
+#  imagermode = 'mosaic',
+#  interactive = F,
+#  imsize = imsize,
+#  cell = cell,
+#  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+##  mask = 'box[[83pix,95pix],[135pix,156pix]]',
+#  weighting = 'uniform',
+#  niter = 1000, threshold = '300mJy',
+#  usescratch = True)
+#
+## Creating cube for spw 2 with low velocity resolution, to check for lines/line free regions
+#os.system('rm -rf SgrB2_a_03_7M.lowres.uniform.spw3.*')
+##default(clean)
+#clean(vis = 'SgrB2_a_03_7M.lowres.cal',
+#  imagename = 'SgrB2_a_03_7M.lowres.uniform.spw3',
+#  field = '0~52', # SgrB2
+#  spw = '3,7,11,15',
+#  mode = 'channel', width = 1, outframe = 'lsrk',
+#  imagermode = 'mosaic',
+#  interactive = F,
+#  imsize = imsize,
+#  cell = cell,
+#  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+##  mask = 'box[[83pix,95pix],[135pix,156pix]]',
+#  weighting = 'uniform',
+#  niter = 1000, threshold = '300mJy',
+#  usescratch = True)
 
 
 # Continuum subtraction on low spectral resolution data. Not easy to spot the continuum, but...
@@ -288,7 +288,7 @@ myimages = ['SgrB2_a_03_7M.HNC.uniform', 'SgrB2_a_03_7M.CH3CN_5-4_3.uniform',
            ]
 for myimagebase in myimages:
   impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
-  exportfits,(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True)
+  exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True)
   exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True)
 
 
