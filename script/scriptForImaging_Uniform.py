@@ -187,11 +187,17 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   niter = 2000, threshold = '450mJy',
   usescratch = True)
 
+# H2CS lines:
+# 101.47789
+# 103.03991
+# 103.04045
+# 103.05185
+
 # Spw 2, H2CS
-os.system('rm -rf SgrB2_a_03_7M.H2CS.uniform.*')
+os.system('rm -rf SgrB2_a_03_7M.H2CS313212.uniform.*')
 #default(clean)
 clean(vis = 'SgrB2_a_03_7M.cal.contsub',
-  imagename = 'SgrB2_a_03_7M.H2CS.uniform',
+  imagename = 'SgrB2_a_03_7M.H2CS313212.uniform',
   field = '0~52', # SgrB2
   spw = '2,6,10,14',
   mode = 'velocity', restfreq='101477.885MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
@@ -221,6 +227,25 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'uniform',
   niter = 2000, threshold = '450mJy',
+  usescratch = True)
+
+#103.03993
+# Spw 3, H2CS 322-221
+os.system('rm -rf SgrB2_a_03_7M.H2CS322-221.uniform.*')
+#default(clean)
+clean(vis = 'SgrB2_a_03_7M.cal.contsub',
+  imagename = 'SgrB2_a_03_7M.H2CS322-221.uniform',
+  field = '0~52', # SgrB2
+  spw = '3,7,11,15',
+  mode = 'velocity', restfreq='103039.93MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
+  imagermode = 'mosaic',
+  interactive = F,
+  imsize = imsize,
+  cell = cell,
+  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+#  mask = 'box[[83pix,95pix],[135pix,156pix]]',
+  weighting = 'uniform',
+  niter = 1500, threshold = '650mJy',
   usescratch = True)
 
 # Spw 3, H2CS 303-202
@@ -278,7 +303,7 @@ clean(vis = 'SgrB2_a_03_7M.cal',
   usescratch = True)
 
 myimages = ['SgrB2_a_03_7M.HNC.uniform', 'SgrB2_a_03_7M.CH3CN_5-4_3.uniform',
-            'SgrB2_a_03_7M.HCOp.uniform', 'SgrB2_a_03_7M.HCN.uniform', 'SgrB2_a_03_7M.H2CS.uniform',
+            'SgrB2_a_03_7M.HCOp.uniform', 'SgrB2_a_03_7M.HCN.uniform', 'SgrB2_a_03_7M.H2CS313212.uniform',
             'SgrB2_a_03_7M.H2CO615-616.uniform', 'SgrB2_a_03_7M.H2CS303-202.uniform',
             'SgrB2_a_03_7M.H2CS321-220.uniform', 'SgrB2_a_03_7M.CFp.uniform',
             'SgrB2_a_03_7M.lowres.uniform.spw0',
