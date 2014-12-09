@@ -7,11 +7,11 @@ spw = '0,4,8,12'
 freq = '92GHz'
 
 for niter in (0, 1000, 10000):
-    for briggs, briggsname in zip((-2.,0.5,2.),
-                                  ('m2','05','p2')):
-        for threshold in ('10mJy','30mJy'):
-            for negcomponent,negname in zip((-1,1),
-                                            ('negm1','negp1')):
+    for threshold in ('10mJy','30mJy'):
+        for negcomponent,negname in zip((-1,1),
+                                        ('negm1','negp1')):
+            for briggs, briggsname in zip((-2.,0.5,2.),
+                                          ('m2','05','p2')):
                 for mask,maskname in zip((mask, None), ('mask','nomask')):
 
                     imagename = 'SgrB2_a_03_7M.{0}.{1}.{2}.{3}.{4}.{5}.continuum'.format(freq,
