@@ -23,22 +23,17 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
           niter = 0, threshold = '30mJy',
           robust = 0.5, usescratch = True)
 
-    ia.open(imagename.format(freq)+".dirty.image")
-    maskname = imagename.format(freq)+'.mask'
-    ia.calcmask(imagename.format(freq)+'.dirty.image > 0.2', name=maskname)
-    ia.done()
-    makemask(mode='copy', inpimage=imagename.format(freq)+".dirty.image",
-             inpmask="{imn}:{maskn}".format(imn=imagename.format(freq)+".dirty.image",
-                                            maskn=maskname),
-             output=maskname,
-             overwrite=True
-            )
+    #maskname = imagename.format(freq)+'.mask'
+    #os.system('rm -rf {0}'.format(maskname))
+    #immath(imagename = imagename.format(freq)+".dirty.image",
+    #       outfile = maskname,
+    #       expr = 'iif(IM0 > 0.4, 1.0, 0.0)')
     exportfits(imagename.format(freq)+".dirty.image",
                imagename.format(freq)+".dirty.image.fits", dropdeg=True,
                overwrite=True)
-    exportfits(maskname,
-               maskname+".fits", dropdeg=True,
-               overwrite=True)
+    #exportfits(maskname,
+    #           maskname+".fits", dropdeg=True,
+    #           overwrite=True)
     
 
     clean(vis = vis,
@@ -53,7 +48,7 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
           imsize = [216, 216],
           cell = '2.5arcsec',
           phasecenter = 'J2000 17h47m19.4 -28d23m29',
-          mask = maskname,
+          mask = mask,
           weighting = 'briggs',
           negcomponent=1,
           niter = 10000, threshold = '30mJy',
@@ -81,16 +76,19 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
           negcomponent=1,
           usescratch = True)
 
-    ia.open(imagename.format(freq)+".dirty.image")
-    maskname = imagename.format(freq)+'.mask'
-    ia.calcmask(imagename.format(freq)+'.dirty.image > 0.2', name=maskname)
-    ia.done()
-    makemask(mode='copy', inpimage=imagename.format(freq)+".dirty.image",
-             inpmask="{imn}:{maskn}".format(imn=imagename.format(freq)+".dirty.image",
-                                            maskn=maskname),
-             output=maskname,
-             overwrite=True
-            )
+    #ia.open(imagename.format(freq)+".dirty.image")
+    #maskname = imagename.format(freq)+'.mask'
+    #ia.calcmask(imagename.format(freq)+'.dirty.image > 0.2', name=maskname)
+    #ia.done()
+    #makemask(mode='copy', inpimage=imagename.format(freq)+".dirty.image",
+    #         inpmask="{imn}:{maskn}".format(imn=imagename.format(freq)+".dirty.image",
+    #                                        maskn=maskname),
+    #         output=maskname,
+    #         overwrite=True
+    #        )
+    exportfits(imagename.format(freq)+".dirty.image",
+               imagename.format(freq)+".dirty.image.fits", dropdeg=True,
+               overwrite=True)
 
     clean(vis = vis,
           imagename = imagename.format(freq),
@@ -103,7 +101,7 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
           imsize = [512, 512],
           cell = '1.1arcsec',
           phasecenter = 'J2000 17h47m19.4 -28d23m29',
-          mask = maskname,
+          mask = mask,
           weighting = 'uniform',
           niter = 50000, threshold = '10mJy',
           gain = 0.05,
