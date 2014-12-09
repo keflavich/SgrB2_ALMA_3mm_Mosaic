@@ -27,6 +27,19 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
     maskname = imagename.format(freq)+'.mask'
     ia.calcmask(imagename.format(freq)+'.dirty.image > 0.2', name=maskname)
     ia.done()
+    makemask(mode='copy', inpimage=imagename.format(freq)+".dirty.image",
+             inpmask="{imn}:{maskn}".format(imn=imagename.format(freq)+".dirty.image",
+                                            maskn=maskname),
+             output=maskname,
+             overwrite=True
+            )
+    exportfits(imagename.format(freq)+".dirty.image",
+               imagename.format(freq)+".dirty.image.fits", dropdeg=True,
+               overwrite=True)
+    exportfits(maskname,
+               maskname+".fits", dropdeg=True,
+               overwrite=True)
+    
 
     clean(vis = vis,
           imagename = imagename.format(freq),
@@ -72,6 +85,12 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
     maskname = imagename.format(freq)+'.mask'
     ia.calcmask(imagename.format(freq)+'.dirty.image > 0.2', name=maskname)
     ia.done()
+    makemask(mode='copy', inpimage=imagename.format(freq)+".dirty.image",
+             inpmask="{imn}:{maskn}".format(imn=imagename.format(freq)+".dirty.image",
+                                            maskn=maskname),
+             output=maskname,
+             overwrite=True
+            )
 
     clean(vis = vis,
           imagename = imagename.format(freq),
