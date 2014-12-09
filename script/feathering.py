@@ -9,7 +9,7 @@ acadir = '/Volumes/passport/alma/sgrb2_b3/FITS'
 outdir = '/Volumes/passport/alma/sgrb2_b3/FITS/feathered'
 
 pairs = [('HCOp',  'CMZ_3mm_HCO+.fits', 'SgrB2_a_03_7M.HCOp.image.pbcor.fits', 89188526000.0),
-         ('HCN',   'CMZ_3mm_HCN.fits', 'SgrB2_a_03_7M.HCN.image.pbcor.fits', 88633936000.0),
+         ('HCN',   'CMZ_3mm_HCN.fits', 'SgrB2_a_03_7M.HCN.image.pbcor.fits',  88.6316024e9),
          ('HNC',   'CMZ_3mm_HNC.fits', 'SgrB2_a_03_7M.HNC.image.pbcor.fits', 90663564000.0),
          ('CH3CN', 'CMZ_3mm_CH3CN.fits', 'SgrB2_a_03_7M.CH3CN_5-4_3.image.pbcor.fits', 91.98705*1e9), #91971465000.0),
          ('HC3N',  'CMZ_3mm_HC3N.fits', 'SgrB2_a_03_7M.HC3N.dirty.image.fits', 92034434000.0),
@@ -18,6 +18,8 @@ pairs = [('HCOp',  'CMZ_3mm_HCO+.fits', 'SgrB2_a_03_7M.HCOp.image.pbcor.fits', 8
          ('H2CS303202',  'SgrB2_103_H2CS_nb_cube.fits', 'SgrB2_a_03_7M.H2CS303-202.image.pbcor.fits', 104.61711e9),
          #('13CS',  'CMZ_3mm_13CS.fits', 'SgrB2_a_03_7M.13CS.image.pbcor.fits', 92.49431e9), # BEYOND OUR RANGE =(
          ]
+pairs = [ ('HCN',   'CMZ_3mm_HCN.fits', 'SgrB2_a_03_7M.HCN.image.pbcor.fits',
+           88.6316024e9),]
  
 for species,mopra,aca,restfrq in pairs:
 
