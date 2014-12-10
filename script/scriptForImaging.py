@@ -131,10 +131,10 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   robust = 0.5, usescratch = True)
 
 # Spw 0, HC3N
-os.system('rm -rf SgrB2_a_03_7M.HC3N.try2*')
+os.system('rm -rf SgrB2_a_03_7M.HC3N.dirty*')
 #default(clean)
 clean(vis = 'SgrB2_a_03_7M.cal.contsub',
-  imagename = 'SgrB2_a_03_7M.HC3N.try2',
+  imagename = 'SgrB2_a_03_7M.HC3N.dirty',
   field = '0~52', # SgrB2
   spw = '0,4,8,12',
   mode = 'velocity', restfreq='90979.02MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
@@ -145,10 +145,41 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   phasecenter = 'J2000 17h47m19.4 -28d23m29',
 #  mask = 'box[[83pix,95pix],[135pix,156pix]]',
   weighting = 'briggs',
+  niter = 0, threshold = '300mJy',
+  robust = 0.5, usescratch = True,
+  #minpb = 0.8, # attempt to mitigate 'inf' artifacts
+     )
+
+maskname = 'SgrB2_a_03_7M.HC3N.mask'
+os.system('rm -rf {0}'.format(maskname))
+immath(imagename = 'SgrB2_a_03_7M.HC3N.dirty.image',
+       outfile = maskname,
+       expr = 'iif(IM0 > 1.0, 1.0, 0.0)')
+exportfits("SgrB2_a_03_7M.HC3N.dirty.image",
+           "SgrB2_a_03_7M.HC3N.dirty.image.fits", dropdeg=True,
+           overwrite=True)
+exportfits(maskname,
+           maskname+".fits", dropdeg=True,
+           overwrite=True)
+
+clean(vis = 'SgrB2_a_03_7M.cal.contsub',
+  imagename = 'SgrB2_a_03_7M.HC3N.clean',
+  field = '0~52', # SgrB2
+  spw = '0,4,8,12',
+  mode = 'velocity', restfreq='90979.02MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
+  imagermode = 'mosaic',
+  interactive = F,
+  imsize = [216, 216],
+  cell = '2.5arcsec',
+  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+  mask = maskname,
+  weighting = 'briggs',
   niter = 20000, threshold = '300mJy',
   robust = 0.5, usescratch = True,
-  minpb = 0.8, # attempt to midigate 'inf' artifacts
+  #minpb = 0.8, # attempt to mitigate 'inf' artifacts
      )
+
+
 
 # Spw 0, H41a
 os.system('rm -rf SgrB2_a_03_7M.H41a.*')
