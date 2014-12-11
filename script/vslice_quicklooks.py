@@ -60,16 +60,3 @@ for mol in ("HCN","HNC","HCOp","HC3N","H2CS303-202","H2CS303202"):
             for ii in pl.get_fignums():
                 pl.close(ii)
 
-import aplpy
-for globstr in (("*{0}*image.pbcor.fits"),
-                ("feathered/Feathered*{0}*.fits"),):
-                #("feathered/Regridded*{0}*fits")):
-    for vrange,(zmin,zmax) in zip(((30,51),(52,93),(94,134),(55,66)),
-                             ((-3,35),(-5,60),(-5,40))):
-        rgbfn = [pdir(glob.glob(globstr.format(mol))[0].replace(".fits",".v{0}to{1}.mom0.fits".format(*vrange)))
-                 for mol in ("HCN","HNC","HCO[p+]")
-                 ]
-        out = pngdir(os.path.join(os.path.split(globstr)[0],"rgb_hcn_hnc_hcop.v{0}to{1}.mom0.png".format(*vrange)))
-        print rgbfn,out
-
-        aplpy.rgb.make_rgb_image(rgbfn, out, vmin_r=zmin, vmin_g=zmin, vmin_b=zmin, vmax_r=zmax, vmax_g=zmax, vmax_b=zmax)

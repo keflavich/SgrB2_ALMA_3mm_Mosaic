@@ -15,7 +15,7 @@ files = [
 ]
 
 if 'dd' not in locals():
-    dd = ds9.ds9()
+    dd = ds9.ds9(target='rgbstepped')
 
 vrange = [-95, 135]*u.km/u.s
 
@@ -25,12 +25,33 @@ for fn in files:
         rest_value = 91987.094*u.MHz
     else:
         rest_value = None
-    cube = SpectralCube.read(fn).with_spectral_unit(u.km/u.s, rest_value=rest_value,
-                                                    velocity_convention='radio').spectral_slab(vrange[0],
-                                                                                               vrange[1])
-    cube.to_ds9(dd.id, newframe=True)
+    cubeg = (SpectralCube.read(fn).
+             with_spectral_unit(u.km/u.s, rest_value=rest_value,
+                                velocity_convention='radio').
+             spectral_slab(vrange[0], vrange[1]))
+    cuber = (SpectralCube.read(fn).
+             with_spectral_unit(u.km/u.s, rest_value=rest_value,
+                                velocity_convention='radio').
+             spectral_slab(vrange[0]+3*u.km/u.s, vrange[1]+3*u.km/u.s))
+    cubeb = (SpectralCube.read(fn).
+             with_spectral_unit(u.km/u.s, rest_value=rest_value,
+                                velocity_convention='radio').
+             spectral_slab(vrange[0]-3*u.km/u.s, vrange[1]-3*u.km/u.s))
+
+    dd.set('frame new rgb')
+    dd.set('rgb channel red')
+    cuber.to_ds9(dd.id)
+    dd.set('scale limits -0.1 3')
+    dd.set('rgb channel green')
+    cubeg.to_ds9(dd.id)
+    dd.set('scale limits -0.1 3')
+    dd.set('rgb channel blue')
+    cubeb.to_ds9(dd.id)
+    dd.set('scale limits -0.1 3')
+
+    dd.set('rgb lock slice yes')
+
     dd.set('wcs append', "OBJECT  = '{0}'".format(species))
-    print cube
 
 dd.set('tile yes')
 dd.set('frame frameno 1')

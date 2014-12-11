@@ -12,7 +12,8 @@ files = [
     "Feathered_HNC.fits",
 ]
 
-dd = ds9.ds9()
+if 'dd' not in locals():
+    dd = ds9.ds9()
 
 vrange = [-95, 135]*u.km/u.s
 
