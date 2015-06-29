@@ -24,7 +24,7 @@ clean(vis = vis,
   imsize = [1296, 1296],
   cell = '0.45arcsec',
   phasecenter = 3,
-  interactive = T,
+  interactive = F,
   niter=2000,
   threshold='0.6mJy')
 
@@ -52,7 +52,7 @@ clean(vis = vis,
   imsize = [1296, 1296],
   cell = '0.45arcsec',
   phasecenter = 3,
-  interactive = T,
+  interactive = F,
   niter=2000,
   threshold='0.6mJy',
   weighting = 'briggs',
@@ -84,7 +84,7 @@ for spw in '0123':
            mode = 'channel',
            width = 1,
            outframe = 'LSRK',
-           interactive = T,
+           interactive = F,
            niter = 200,
            imsize = [1296,1296],
            cell = '0.45arcsec',
@@ -114,3 +114,64 @@ for spw in '0123':
     impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
     exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True)
     exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', overwrite=True)
+
+inputvis = vis
+output = 'calibrated.ms.line.hcop'
+#---------------------------------------------------
+# LINE IMAGING (MOSAIC MODE)
+os.system('rm -rf ' + output + '*')
+clean(vis = inputvis,
+      imagename = output,
+      field = '3~151', # SgrB2
+      spw = spw,
+      imagermode = 'mosaic',
+      mode = 'velocity',
+      width = '2km/s',
+      start = '-100km/s',
+      nchan = 200,
+      restfreq = '89.18853GHz',
+      outframe = 'LSRK',
+      interactive = F,
+      niter = 200,
+      imsize = [1296,1296],
+      cell = '0.45arcsec',
+      weighting = 'briggs',
+      phasecenter = 3,
+      robust = 0.5,
+      threshold = '34.1mJy',
+      pbcor = F,
+      usescratch= T)
+myimagebase = output
+impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
+exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True)
+exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', overwrite=True)
+
+output = 'calibrated.ms.line.hcn'
+#---------------------------------------------------
+# LINE IMAGING (MOSAIC MODE)
+os.system('rm -rf ' + output + '*')
+clean(vis = inputvis,
+      imagename = output,
+      field = '3~151', # SgrB2
+      spw = spw,
+      imagermode = 'mosaic',
+      mode = 'velocity',
+      width = '2km/s',
+      start = '-100km/s',
+      nchan = 200,
+      restfreq = '88633.9360MHz',
+      outframe = 'LSRK',
+      interactive = F,
+      niter = 200,
+      imsize = [1296,1296],
+      cell = '0.45arcsec',
+      weighting = 'briggs',
+      phasecenter = 3,
+      robust = 0.5,
+      threshold = '34.1mJy',
+      pbcor = F,
+      usescratch= T)
+myimagebase = output
+impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
+exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True)
+exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', overwrite=True)
