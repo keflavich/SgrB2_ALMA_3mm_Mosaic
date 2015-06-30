@@ -69,51 +69,62 @@ exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', ov
 
 
 
+nchans_total = 7680
+ncubes_per_window = 20
+nchans_per_cube = nchans_total/ncubes_per_window
+
 for spw in '0123':
     print "# running clean on all lines in spw{0}".format(spw)
     inputvis = vis
-    output = 'calibrated.ms.line.spw{0}'.format(spw)
-    #---------------------------------------------------
-    # LINE IMAGING (MOSAIC MODE)
-    os.system('rm -rf ' + output + '*')
-    clean(vis = inputvis,
-           imagename = output,
-           field = '3~151', # SgrB2
-           spw = spw,
-           imagermode = 'mosaic',
-           mode = 'channel',
-           width = 1,
-           outframe = 'LSRK',
-           interactive = F,
-           niter = 200,
-           imsize = [1296,1296],
-           cell = '0.45arcsec',
-           weighting = 'briggs',
-           phasecenter = 3,
-           robust = 0.5,
-           threshold = '34.1mJy',
-           pbcor = F,
-           usescratch= T)
+    for ii in range(ncubes_per_window):
+        start = nchans_per_cube*ii
+        end = nchans_per_cube*(ii+1)
+        output = 'calibrated.ms.line.spw{0}.channels{1}to{2}'.format(spw, start, end)
+        print "Imaging {0}".format(output)
+        #---------------------------------------------------
+        # LINE IMAGING (MOSAIC MODE)
+        os.system('rm -rf ' + output + '*')
+        clean(vis = inputvis,
+               imagename = output,
+               field = '3~151', # SgrB2
+               spw = spw,
+               imagermode = 'mosaic',
+               mode = 'channel',
+               width = 1,
+               start = start,
+               nchan = nchans_per_cube,
+               chaniter = True,
+               outframe = 'LSRK',
+               interactive = F,
+               niter = 200,
+               imsize = [1296,1296],
+               cell = '0.45arcsec',
+               weighting = 'briggs',
+               phasecenter = 3,
+               robust = 0.5,
+               threshold = '34.1mJy',
+               pbcor = F,
+               usescratch= T)
 
-    # RMS 0.0386 Jy/beam
-    # Beam    4.098 arcsec x    1.963 arcsec pa= 74.4 deg
+        # RMS 0.0386 Jy/beam
+        # Beam    4.098 arcsec x    1.963 arcsec pa= 74.4 deg
 
 
-    # RMS 0.0391 Jy/beam
-    # Beam    3.57 arcsec x    1.75 arcsec pa= 73.59 deg
+        # RMS 0.0391 Jy/beam
+        # Beam    3.57 arcsec x    1.75 arcsec pa= 73.59 deg
 
 
-    # RMS 0.03569205 Jy/beam
-    # Beam    4.17 arcsec x    1.99 arcsec pa= 74.54 deg
+        # RMS 0.03569205 Jy/beam
+        # Beam    4.17 arcsec x    1.99 arcsec pa= 74.54 deg
 
 
-    # RMS 0.03676751 Jy/beam
-    # Beam    3.67 arcsec x    1.75 arcsec pa= 74.32 deg
-      
-    myimagebase = 'calibrated.ms.line.spw{0}'.format(spw)
-    impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
-    exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True)
-    exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', overwrite=True)
+        # RMS 0.03676751 Jy/beam
+        # Beam    3.67 arcsec x    1.75 arcsec pa= 74.32 deg
+          
+        myimagebase = output
+        impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
+        exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True)
+        exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', overwrite=True)
 
 inputvis = vis
 output = 'calibrated.ms.line.hcop'
