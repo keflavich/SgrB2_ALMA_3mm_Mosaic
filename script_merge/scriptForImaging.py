@@ -6,6 +6,8 @@ Joint imaging of 7m and 12m data
 inputvis = ['../member.uid___A001_X121_X4ba/calibrated/SgrB2_a_03_TC.calibrated.ms',
             '../member.uid___A001_X121_X4bc/calibrated/SgrB2_a_03_7M.calibrated.ms',
             ]
+concatvis = 'SgrB2_a_03_merge_7m_12m.ms'
+concat(vis=inputvis, concatvis=concatvis)
 
 for line, restfreq in (
                        ('HNC','90.663574GHz'),
@@ -25,15 +27,15 @@ for line, restfreq in (
     #---------------------------------------------------
     # LINE IMAGING (MOSAIC MODE)
     os.system('rm -rf ' + output + '*')
-    clean(vis = inputvis,
+    clean(vis = concatvis,
           imagename = output,
           field = 'SgrB2', # SgrB2
           spw = '',
           imagermode = 'mosaic',
           mode = 'velocity',
           width = '2km/s',
-          start = '-100km/s',
-          nchan = 200,
+          start = '-200km/s',
+          nchan = 400,
           restfreq = restfreq,
           outframe = 'LSRK',
           interactive = F,
