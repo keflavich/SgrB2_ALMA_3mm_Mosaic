@@ -247,7 +247,7 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   imagename = 'SgrB2_a_03_7M.HCN',
   field = '0~52', # SgrB2
   spw = '1,5,9,13',
-  mode = 'velocity', restfreq='88633.9360MHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
+  mode = 'velocity', restfreq='88.631847GHz', start = start, width = '1.0km/s', nchan=nchan, outframe = 'lsrk',
   imagermode = 'mosaic',
   interactive = F,
   imsize = [216, 216],
@@ -350,7 +350,9 @@ clean(vis = 'SgrB2_a_03_7M.cal.contsub',
   niter = 1500, threshold = '650mJy',
   robust = 0.5, usescratch = True)
 
-# Spw 3, CF+ (continuum subtracted data seem dominated by artifacts, try on non continuum subtracted data, but CF+ seems largely undetected, except possibly on SgrB2(N))
+# Spw 3, CF+ (continuum subtracted data seem dominated by artifacts, try on non
+# continuum subtracted data, but CF+ seems largely undetected, except possibly
+# on SgrB2(N))
 os.system('rm -rf SgrB2_a_03_7M.CFp.*')
 #default(clean)
 clean(vis = 'SgrB2_a_03_7M.cal',
