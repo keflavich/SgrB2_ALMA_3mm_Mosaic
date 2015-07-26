@@ -8,6 +8,8 @@ inputvis = ['../member.uid___A001_X121_X4ba/calibrated/SgrB2_a_03_TC.calibrated.
             ]
 concatvis = 'SgrB2_a_03_merge_7m_12m.ms'
 concat(vis=inputvis, concatvis=concatvis)
+plotms(vis=concatvis,yaxis='wt',xaxis='uvdist',spw='0~2:200',
+       coloraxis='spw',plotfile='combine_WT.png')
 
 for line, restfreq in (
                        ('HNC','90.663574GHz'),

@@ -133,7 +133,7 @@ applycal(vis = 'uid___A002_X85b7b2_Xb3.ms.split.cal',
   field = '3,5~56', # J1744-3116,SgrB2
   gaintable = 'uid___A002_X85b7b2_Xb3.ms.split.cal.ampli_inf',
   gainfield = '3', # J1744-3116
-  calwt = F,
+  calwt = T,
   flagbackup = F)
 
 os.system('rm -rf uid___A002_X85c183_X1434.ms.split.cal.ampli_inf') 
@@ -150,7 +150,7 @@ applycal(vis = 'uid___A002_X85c183_X1434.ms.split.cal',
   field = '3,5~56', # J1744-3116,SgrB2
   gaintable = 'uid___A002_X85c183_X1434.ms.split.cal.ampli_inf',
   gainfield = '3', # J1744-3116
-  calwt = F,
+  calwt = T,
   flagbackup = F)
 
 os.system('rm -rf uid___A002_X85dcf7_Xc7c.ms.split.cal.ampli_inf') 
@@ -167,7 +167,7 @@ applycal(vis = 'uid___A002_X85dcf7_Xc7c.ms.split.cal',
   field = '2,4~55', # J1744-3116,SgrB2
   gaintable = 'uid___A002_X85dcf7_Xc7c.ms.split.cal.ampli_inf',
   gainfield = '2', # J1744-3116
-  calwt = F,
+  calwt = T,
   flagbackup = F)
 
 os.system('rm -rf uid___A002_X85dcf7_Xefe.ms.split.cal.ampli_inf') 
@@ -184,7 +184,7 @@ applycal(vis = 'uid___A002_X85dcf7_Xefe.ms.split.cal',
   field = '2,4~55', # J1744-3116,SgrB2
   gaintable = 'uid___A002_X85dcf7_Xefe.ms.split.cal.ampli_inf',
   gainfield = '2', # J1744-3116
-  calwt = F,
+  calwt = T,
   flagbackup = F)
 
 print "# Concatenating the data."

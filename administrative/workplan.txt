@@ -1,0 +1,27 @@
+Work Plan for Sgr B2 ALMA Mosaic analysis
+
+REDUCTION:
+Adam Ginsburg, Fanyi Meng?
+
+PLAN: Combine 7m and 12m data
+1. Set calibration weights correctly
+
+
+Bubbles & Feedback:
+GOALS: Identify the bubbles, their driving sources, and their energy content.
+Determine what was needed to drive them and their likely effects on the "cloud"
+Adam Ginsburg et al
+
+
+Turbulence:
+
+GOALS: Measure turbulent power spectrum, size-linewidth relation.  Determine if
+       Sgr B2 is consistent with CMZ.
+Jaime Pineda
+Erik Koch
+Adam Ginsburg
+
+PLAN: 
+1. Use many different lines to perform VCA, VCS analysis.
+1b. Use combined map of many lines for VCA/VCS?
+2. Dendrogram the cube for size-linewidth relation
