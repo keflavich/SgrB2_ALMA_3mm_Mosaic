@@ -4,7 +4,12 @@ REDUCTION:
 Adam Ginsburg, Fanyi Meng?
 
 PLAN: Combine 7m and 12m data
-1. Set calibration weights correctly
+1. Set calibration weights correctly as per
+   https://casaguides.nrao.edu/index.php?title=DataWeightsAndCombination#What_Are_the_Options_for_Adjusting_the_Weights_for_Older_Reductions.3F
+2. Create combined continuum map
+2b. Spend some time figuring out optimal clean parameters
+3. Create combined line maps
+
 
 
 Bubbles & Feedback:
@@ -25,3 +30,9 @@ PLAN:
 1. Use many different lines to perform VCA, VCS analysis.
 1b. Use combined map of many lines for VCA/VCS?
 2. Dendrogram the cube for size-linewidth relation
+
+
+Cores:
+-Identify and measure mass function
+-If possible, estimate SFR
+Fanyi Meng et al

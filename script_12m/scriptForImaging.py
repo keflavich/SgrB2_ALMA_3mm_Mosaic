@@ -132,6 +132,7 @@ inputvis = vis
 for line, restfreq in (
                        ('HNC','90.663574GHz'),
                        ('H41a','92034.43MHz'),
+                       ('SiO','86.8469850GHz'),
                        ('CH3CN','91971.465MHz'),
                        ('HC3N','90979.02MHz'),
                        ('HCOp','89.18853GHz'),
