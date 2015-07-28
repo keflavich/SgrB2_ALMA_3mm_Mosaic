@@ -9,6 +9,7 @@ PLAN: Combine 7m and 12m data
 2. Create combined continuum map
 2b. Spend some time figuring out optimal clean parameters
 3. Create combined line maps
+4. Feather with IRAM and MOPRA single-dish maps
 
 
 

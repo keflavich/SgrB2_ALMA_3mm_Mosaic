@@ -1,7 +1,8 @@
 import re
 
-if re.search('^4.2.1', casadef.casa_version) == None:
- sys.exit('ERROR: PLEASE USE THE SAME VERSION OF CASA THAT YOU USED FOR GENERATING THE SCRIPT: 4.2.1')
+# OVERRIDE by Adam
+#if re.search('^4.2.1', casadef.casa_version) == None:
+# sys.exit('ERROR: PLEASE USE THE SAME VERSION OF CASA THAT YOU USED FOR GENERATING THE SCRIPT: 4.2.1')
 
 
 print "# Flux calibration of the data."
