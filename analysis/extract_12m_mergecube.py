@@ -16,7 +16,10 @@ mergecubes = [
 ]
 
 
-regions = pyregion.open(rpath('ionizationfront_circle.reg')) + pyregion.open(rpath('extraction_regions_n_and_m.reg'))
+regions = (pyregion.open(rpath('ionizationfront_circle.reg')) +
+           pyregion.open(rpath('extraction_regions_n_and_m.reg')) +
+           pyregion.open(rpath('ch3cn_large_cores.reg'))
+          )
 
 for cubename in mergecubes:
     for reg in regions:
@@ -33,5 +36,6 @@ for cubename in mergecubes:
         spectrum = scube.mean(axis=(1,2))
 
         suffix = os.path.splitext(cubename)[0]
-        spectrum.hdu.writeto(spath("{1}_{0}.fits".format(suffix,fname)))
+        spectrum.hdu.writeto(spath("{1}_{0}.fits".format(suffix,fname)),
+                             clobber=True)
         print(spath("{1}_{0}.fits".format(suffix,fname)))
