@@ -1,4 +1,5 @@
 vis = 'SgrB2_a_03_7M.lowres.cal.cont'
+vis = 'SgrB2_a_03_7M.calibrated.ms'
 
 mask = ['circle[[17h47m20.150s,-28d22m17.35s], 10.2971arcsec]',
         'circle[[17h47m20.067s,-28d23m04.65s], 8.59101arcsec]',]
@@ -8,7 +9,7 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
     imagename = 'SgrB2_a_03_7M.{0}.briggs05.continuum'
     clean(vis = vis,
           imagename = imagename.format(freq)+".dirty",
-          field = '0~52', # SgrB2
+          field = 'SgrB2', # SgrB2
           spw = spw,
           mode = 'mfs', width = 1, outframe = 'lsrk',
           psfmode = 'clark',
@@ -38,7 +39,7 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
 
     clean(vis = vis,
           imagename = imagename.format(freq),
-          field = '0~52', # SgrB2
+          field = 'SgrB2', # SgrB2
           spw = spw,
           mode = 'mfs', width = 1, outframe = 'lsrk',
           psfmode = 'clark',
@@ -51,6 +52,7 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
           mask = mask,
           weighting = 'briggs',
           negcomponent=1,
+          multiscale=[0,4,12,36],
           niter = 10000, threshold = '30mJy',
           robust = 0.5, usescratch = True)
 
@@ -61,7 +63,7 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
     imagename = 'SgrB2_a_03_7M.{0}.uniform.continuum'
     clean(vis = vis,
           imagename = imagename.format(freq)+".dirty",
-          field = '0~52', # SgrB2
+          field = 'SgrB2', # SgrB2
           spw = spw,
           mode = 'mfs', width = 1, outframe = 'lsrk',
           psfmode = 'clark',
@@ -92,7 +94,7 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
 
     clean(vis = vis,
           imagename = imagename.format(freq),
-          field = '0~52', # SgrB2
+          field = 'SgrB2', # SgrB2
           spw = spw,
           mode = 'mfs', width = 1, outframe = 'lsrk',
           psfmode = 'clark',
@@ -103,6 +105,7 @@ for spw,freq in zip(('0,4,8,12', '1,5,9,13', '2,6,10,14', '3,7,11,15'),
           phasecenter = 'J2000 17h47m19.4 -28d23m29',
           mask = mask,
           weighting = 'uniform',
+          multiscale=[0,4,12,36],
           niter = 50000, threshold = '10mJy',
           gain = 0.05,
           negcomponent=1,

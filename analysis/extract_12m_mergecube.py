@@ -27,6 +27,10 @@ for cubename in mergecubes:
         fname = name.replace(" ","_").lower()
         reg = pyregion.ShapeList([reg])
 
+        suffix = os.path.splitext(cubename)[0]
+        if os.path.exists(spath("{1}_{0}.fits".format(suffix,fname))):
+            continue
+
         cube = SpectralCube.read(dpath(cubename))
         print(cube)
         log.info(name)
@@ -35,7 +39,6 @@ for cubename in mergecubes:
         print(scube)
         spectrum = scube.mean(axis=(1,2))
 
-        suffix = os.path.splitext(cubename)[0]
         spectrum.hdu.writeto(spath("{1}_{0}.fits".format(suffix,fname)),
                              clobber=True)
         print(spath("{1}_{0}.fits".format(suffix,fname)))
