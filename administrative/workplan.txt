@@ -1,7 +1,7 @@
 Work Plan for Sgr B2 ALMA Mosaic analysis
 
 REDUCTION:
-Adam Ginsburg, Fanyi Meng?
+Adam Ginsburg, Fanyi Meng
 
 PLAN: Combine 7m and 12m data
 1. Set calibration weights correctly as per
@@ -37,3 +37,7 @@ Cores:
 -Identify and measure mass function
 -If possible, estimate SFR
 Fanyi Meng et al
+
+
+Additional papers:
+Roberto Galvan-Madrid & Chris DePree: 3mm source associations with variable cm sources

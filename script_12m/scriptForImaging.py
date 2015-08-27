@@ -16,8 +16,7 @@ clean(vis = vis,
   imagename = 'calibrated.ms.contWOlines.spw0',
   field = '3~151', # SgrB2
 #  spw = '0',
-  spw = 
-'0:1~700;900~1000;1100~2700;2900~3650;3750~4200;4300~5100;5250~6400;6550~6850;7000~7679', # to avoid strong lines
+  spw = '0:1~700;900~1000;1100~2700;2900~3650;3750~4200;4300~5100;5250~6400;6550~6850;7000~7679', # to avoid strong lines
   mode = 'mfs',
   outframe='LSRK',
   imagermode = 'mosaic',

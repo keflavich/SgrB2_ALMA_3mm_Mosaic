@@ -54,3 +54,27 @@ for line, restfreq in (
     impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True)
     exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True)
     exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', overwrite=True)
+
+
+# spectral window 3 from the concatenated data....
+outfilename = 'SgrB2_a_03_7M_12M_concat.continuum.spw3'
+os.system('rm -rf {0}.*'.format(outfilename))
+#default(clean)
+clean(vis = concatvis,
+  imagename = outfilename,
+  field = 'SgrB2',
+  spw = '3,7,11,15,19,23,27,31',
+  mode = 'mfs', outframe = 'lsrk',
+  psfmode = 'clark',
+  imagermode = 'mosaic',
+  gain = 0.05,
+  interactive = F,
+  imsize = [1296, 1296],
+  cell = '0.45 arcsec',
+  phasecenter = 'J2000 17h47m19.4 -28d23m29',
+  weighting = 'briggs',
+  negcomponent=1,
+  niter = 50000, threshold = '30mJy',
+  robust = 0.5, usescratch = True)
+
+exportfits(imagename=outfilename+'.image', fitsimage=outfilename+'.image.fits', overwrite=True)
