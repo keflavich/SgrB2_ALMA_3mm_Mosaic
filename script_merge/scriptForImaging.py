@@ -47,7 +47,7 @@ for line, restfreq in (
           weighting = 'briggs',
           robust = 0.5,
           phasecenter = 'J2000 17h47m19.4 -28d23m29',
-          threshold = '34.1mJy',
+          threshold = '15mJy',
           pbcor = F,
           usescratch= T)
     myimagebase = output
@@ -56,25 +56,30 @@ for line, restfreq in (
     exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', overwrite=True)
 
 
-# spectral window 3 from the concatenated data....
-outfilename = 'SgrB2_a_03_7M_12M_concat.continuum.spw3'
-os.system('rm -rf {0}.*'.format(outfilename))
-#default(clean)
-clean(vis = concatvis,
-  imagename = outfilename,
-  field = 'SgrB2',
-  spw = '3,7,11,15,19,23,27,31',
-  mode = 'mfs', outframe = 'lsrk',
-  psfmode = 'clark',
-  imagermode = 'mosaic',
-  gain = 0.05,
-  interactive = F,
-  imsize = [1296, 1296],
-  cell = '0.45 arcsec',
-  phasecenter = 'J2000 17h47m19.4 -28d23m29',
-  weighting = 'briggs',
-  negcomponent=1,
-  niter = 50000, threshold = '30mJy',
-  robust = 0.5, usescratch = True)
+for spwname,spwids in (
+                       (0, '0,4,8,12,16,20,24,28'),
+                       (1, '1,5,9,13,17,21,25,29'),
+                       (2, '2,6,10,14,18,22,26,30'),
+                       (3, '3,7,11,15,19,23,27,31',),
+                      ):
 
-exportfits(imagename=outfilename+'.image', fitsimage=outfilename+'.image.fits', overwrite=True)
+    outfilename = 'SgrB2_a_03_7M_12M_concat.continuum.{spwname}'.format(spwname=spwname)
+    os.system('rm -rf {0}.*'.format(outfilename))
+    clean(vis = concatvis,
+          imagename = outfilename+"_deeper",
+          field = 'SgrB2',
+          spw = spwids,
+          mode = 'mfs', outframe = 'lsrk',
+          psfmode = 'clark',
+          imagermode = 'mosaic',
+          gain = 0.05,
+          interactive = F,
+          imsize = [1296, 1296],
+          cell = '0.45 arcsec',
+          phasecenter = 'J2000 17h47m19.4 -28d23m29',
+          weighting = 'briggs',
+          negcomponent=1,
+          niter = 50000, threshold = '1mJy',
+          robust = 0.5, usescratch = True)
+
+    exportfits(imagename=outfilename+'_deeper.image', fitsimage=outfilename+'.image.fits', overwrite=True)
