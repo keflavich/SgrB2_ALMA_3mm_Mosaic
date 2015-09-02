@@ -9,11 +9,11 @@ PLAN: Combine 7m and 12m data
 2. Create combined continuum map
 2b. Spend some time figuring out optimal clean parameters
 3. Create combined line maps
-4. Feather with IRAM and MOPRA single-dish maps
+4. Feather with IRAM and MOPRA single-dish maps (or TP if they become available)
 
 
 
-Bubbles & Feedback:
+Bubbles, HII regions, & Feedback:
 GOALS: Identify the bubbles, their driving sources, and their energy content.
 Determine what was needed to drive them and their likely effects on the "cloud"
 Adam Ginsburg et al
@@ -22,7 +22,7 @@ Adam Ginsburg et al
 Turbulence:
 
 GOALS: Measure turbulent power spectrum, size-linewidth relation.  Determine if
-       Sgr B2 is consistent with CMZ.
+       Sgr B2 is consistent with CMZ.  Compare to The Brick
 Jaime Pineda
 Erik Koch
 Adam Ginsburg

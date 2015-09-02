@@ -11,6 +11,16 @@ https://help.almascience.org/index.php?/Knowledgebase/Article/View/266/5/what-sh
 2. Just run scriptForPI... apparently it worked.
 3. Nope, that's wrong!  I definitely modified the scriptForCalibration's somehow.  I guess I produced them all from the QA2 generator?
    AHA! generateReducScript!
+es.generateReducScript('uid___A002_X95e355_X1f13')
+mysteps=[]
+execfile('uid___A002_X95e355_X1f13.ms.scriptForCalibration.py')
+es.generateReducScript(['uid___A002_X95e355_X1f13.ms.split.cal',
+                        'uid___A002_X95e355_X220a.ms.split.cal',
+                        'uid___A002_X9cffbd_Xefe.ms.split.cal',
+                        'uid___A002_X9d13e3_Xd4f.ms.split.cal'], step='fluxcal')
+execfile("scriptForFluxCalibration.py")
+es.generateReducScript('calibrated.ms',step='imaging')
+execfile("scriptForImaging.py")
 """
 # Start this in the Script directory
 import os

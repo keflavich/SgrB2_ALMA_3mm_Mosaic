@@ -56,6 +56,10 @@ for line, restfreq in (
     exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', overwrite=True)
 
 
+# Attempted 30 mJy, 50000 iters: looks great, except in the center
+# Attempted 1 mJy, 50000 iters: no improvement in the center, and bad
+# instabilities on the bottom part of the image
+# Trying 3 mJy now
 for spwname,spwids in (
                        (0, '0,4,8,12,16,20,24,28'),
                        (1, '1,5,9,13,17,21,25,29'),
@@ -79,7 +83,7 @@ for spwname,spwids in (
           phasecenter = 'J2000 17h47m19.4 -28d23m29',
           weighting = 'briggs',
           negcomponent=1,
-          niter = 50000, threshold = '1mJy',
+          niter = 50000, threshold = '3mJy',
           robust = 0.5, usescratch = True)
 
     exportfits(imagename=outfilename+'_deeper.image', fitsimage=outfilename+'.image.fits', overwrite=True)
