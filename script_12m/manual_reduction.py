@@ -18,15 +18,8 @@ es.generateReducScript(['uid___A002_X95e355_X1f13.ms.split.cal',
                         'uid___A002_X95e355_X220a.ms.split.cal',
                         'uid___A002_X9cffbd_Xefe.ms.split.cal',
                         'uid___A002_X9d13e3_Xd4f.ms.split.cal'], step='fluxcal')
-#execfile("scriptForFluxCalibration.py") # this one misses a file...
-concat(vis=['uid___A002_X9d13e3_Xd4f.ms.split.cal',
-            'uid___A002_X9cffbd_Xefe.ms.split.cal',
-            'uid___A002_X95e355_X1f13.ms.split.cal',
-            'uid___A002_X95e355_X220a.ms.split.cal',
-            ],
-       concatvis='SgrB2_a_03_TC.calibrated.ms', copypointing = False)
-# I guess there's no 'calibrated.ms' ?
-# es.generateReducScript('calibrated.ms',step='imaging')
+execfile("scriptForFluxCalibration.py") # make sure this is the es-generated one!!
+es.generateReducScript('calibrated.ms',step='imaging')
 execfile("scriptForImaging.py")
 """
 # Start this in the Script directory
@@ -57,3 +50,4 @@ execfile('../script/uid___A002_X95e355_X1f13.ms.scriptForCalibration.py')
 execfile('../script/uid___A002_X9cffbd_Xefe.ms.scriptForCalibration.py')
 execfile('../script/uid___A002_X95e355_X220a.ms.scriptForCalibration.py')
 execfile('../script/uid___A002_X9d13e3_Xd4f.ms.scriptForCalibration.py')
+execfile("../script/scriptForFluxCalibration.py") # make sure this is the es-generated one!!

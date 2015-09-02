@@ -1,7 +1,10 @@
 import re
+"""
+Early Science Manual QA2 generated fluxcal script
+"""
 
-if re.search('^4.3.1', casadef.casa_version) == None:
- sys.exit('ERROR: PLEASE USE THE SAME VERSION OF CASA THAT YOU USED FOR GENERATING THE SCRIPT: 4.3.1')
+#if re.search('^4.3.1', casadef.casa_version) == None:
+# sys.exit('ERROR: PLEASE USE THE SAME VERSION OF CASA THAT YOU USED FOR GENERATING THE SCRIPT: 4.3.1')
 
 
 print "# Flux calibration of the data."
