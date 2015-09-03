@@ -7,9 +7,10 @@ inputvis = ['../member.uid___A001_X121_X4ba/calibrated/SgrB2_a_03_TC.calibrated.
             '../member.uid___A001_X121_X4bc/calibrated/SgrB2_a_03_7M.calibrated.ms',
             ]
 concatvis = 'SgrB2_a_03_merge_7m_12m.ms'
-concat(vis=inputvis, concatvis=concatvis)
-plotms(vis=concatvis,yaxis='wt',xaxis='uvdist',spw='0~2:200',
-       coloraxis='spw',plotfile='combine_WT.png')
+if not os.path.exists(concatvis):
+    concat(vis=inputvis, concatvis=concatvis)
+    plotms(vis=concatvis,yaxis='wt',xaxis='uvdist',spw='0~2:200',
+           coloraxis='spw',plotfile='combine_WT.png')
 
 for line, restfreq in (
                        ('HNC','90.663574GHz'),

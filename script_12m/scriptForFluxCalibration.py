@@ -42,11 +42,19 @@ print "# Flux calibration of the data."
 #                                       "J1752-2956"     3     103.23      0.05049      0.05090       2015-04-01T07:28:11      uid___A002_X9cffbd_Xefe.ms.split.cal
 #                                       "J1752-2956"     3     103.23      0.06001      0.05090       2015-04-02T08:41:09      uid___A002_X9d13e3_Xd4f.ms.split.cal
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   field = 'J1744-3116',
   spw = '0',
   standard = 'manual',
   fluxdensity = [5.55588, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
+  field = 'J1744-3116',)
+
 
 setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   field = 'J1744-3116',
@@ -54,17 +62,29 @@ setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   standard = 'manual',
   fluxdensity = [5.55588, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   field = 'J1744-3116',
   spw = '0',
   standard = 'manual',
   fluxdensity = [5.55588, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
   field = 'J1744-3116',
   spw = '0',
   standard = 'manual',
   fluxdensity = [5.55588, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
+  field = 'J1744-3116',)
+
 
 setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   field = 'J1744-3116',
@@ -72,29 +92,49 @@ setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   standard = 'manual',
   fluxdensity = [5.46806, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   field = 'J1744-3116',
   spw = '1',
   standard = 'manual',
   fluxdensity = [5.46806, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   field = 'J1744-3116',
   spw = '1',
   standard = 'manual',
   fluxdensity = [5.46806, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
   field = 'J1744-3116',
   spw = '1',
   standard = 'manual',
   fluxdensity = [5.46806, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   field = 'J1744-3116',
   spw = '2',
   standard = 'manual',
   fluxdensity = [5.45036, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
+  field = 'J1744-3116',)
+
 
 setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   field = 'J1744-3116',
@@ -102,17 +142,29 @@ setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   standard = 'manual',
   fluxdensity = [5.45036, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   field = 'J1744-3116',
   spw = '2',
   standard = 'manual',
   fluxdensity = [5.45036, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
   field = 'J1744-3116',
   spw = '2',
   standard = 'manual',
   fluxdensity = [5.45036, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
+  field = 'J1744-3116',)
+
 
 setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   field = 'J1744-3116',
@@ -120,11 +172,19 @@ setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.56742, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   field = 'J1744-3116',
   spw = '3',
   standard = 'manual',
   fluxdensity = [0.56742, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
+  field = 'J1744-3116',)
+
 
 setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   field = 'J1744-3116',
@@ -132,11 +192,19 @@ setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.56742, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
+  field = 'J1744-3116',)
+
+
 setjy(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
   field = 'J1744-3116',
   spw = '3',
   standard = 'manual',
   fluxdensity = [0.56742, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
+  field = 'J1752-2956',)
+
 
 setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   field = 'J1752-2956',
@@ -144,11 +212,19 @@ setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.05556, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
+  field = 'J1752-2956',)
+
+
 setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   field = 'J1752-2956',
   spw = '0',
   standard = 'manual',
   fluxdensity = [0.05556, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
+  field = 'J1752-2956',)
+
 
 setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   field = 'J1752-2956',
@@ -156,11 +232,19 @@ setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.05556, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
+  field = 'J1752-2956',)
+
+
 setjy(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
   field = 'J1752-2956',
   spw = '0',
   standard = 'manual',
   fluxdensity = [0.05556, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
+  field = 'J1752-2956',)
+
 
 setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   field = 'J1752-2956',
@@ -168,11 +252,19 @@ setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.05595, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
+  field = 'J1752-2956',)
+
+
 setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   field = 'J1752-2956',
   spw = '1',
   standard = 'manual',
   fluxdensity = [0.05595, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
+  field = 'J1752-2956',)
+
 
 setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   field = 'J1752-2956',
@@ -180,11 +272,19 @@ setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.05595, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
+  field = 'J1752-2956',)
+
+
 setjy(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
   field = 'J1752-2956',
   spw = '1',
   standard = 'manual',
   fluxdensity = [0.05595, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
+  field = 'J1752-2956',)
+
 
 setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   field = 'J1752-2956',
@@ -192,11 +292,19 @@ setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.05754, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
+  field = 'J1752-2956',)
+
+
 setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   field = 'J1752-2956',
   spw = '2',
   standard = 'manual',
   fluxdensity = [0.05754, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
+  field = 'J1752-2956',)
+
 
 setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   field = 'J1752-2956',
@@ -204,11 +312,19 @@ setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.05754, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
+  field = 'J1752-2956',)
+
+
 setjy(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
   field = 'J1752-2956',
   spw = '2',
   standard = 'manual',
   fluxdensity = [0.05754, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
+  field = 'J1752-2956',)
+
 
 setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   field = 'J1752-2956',
@@ -216,17 +332,29 @@ setjy(vis = 'uid___A002_X95e355_X1f13.ms.split.cal',
   standard = 'manual',
   fluxdensity = [0.05090, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
+  field = 'J1752-2956',)
+
+
 setjy(vis = 'uid___A002_X95e355_X220a.ms.split.cal',
   field = 'J1752-2956',
   spw = '3',
   standard = 'manual',
   fluxdensity = [0.05090, 0, 0, 0])
 
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
+  field = 'J1752-2956',)
+
+
 setjy(vis = 'uid___A002_X9cffbd_Xefe.ms.split.cal',
   field = 'J1752-2956',
   spw = '3',
   standard = 'manual',
   fluxdensity = [0.05090, 0, 0, 0])
+
+print "vis={vis}, field={field}".format(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
+  field = 'J1752-2956',)
+
 
 setjy(vis = 'uid___A002_X9d13e3_Xd4f.ms.split.cal',
   field = 'J1752-2956',
