@@ -17,7 +17,7 @@ for ii,imslice in enumerate(ProgressBar(subcube)):
         ff = fil_finder.fil_finder_2D(img, hdr, beamwidth=3.5, distance=8500,
                                       skel_thresh=20, branch_thresh=10,
                                       glob_thresh=65, adapt_thresh=10,
-                                      pad_size=0,
+                                      pad_size=1,
                                      )
     except ValueError:
         print("FilFinder creation failed on iter {0}".format(ii))
@@ -39,7 +39,8 @@ for ii,imslice in enumerate(ProgressBar(subcube)):
         print("Skeleton analysis failed on iter {0}".format(ii))
         continue
 
-    newcube[ii,:,:] = skels.skeleton
+    newcube[ii,:,:] = skels.skeleton_nopad
+    newcube[ii,:,:] += skels.skeleton_longpath_nopad*10
 
 newhdu = fits.PrimaryHDU(data=newcube.astype('int16'), header=subcube.header)
 newhdu.writeto(paths.Fpath('12m/SgrB2_b3_12M.HC3N.image.pbcor.skeletons.fits'),
