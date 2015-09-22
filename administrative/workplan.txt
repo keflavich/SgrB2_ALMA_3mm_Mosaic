@@ -1,43 +1,105 @@
 Work Plan for Sgr B2 ALMA Mosaic analysis
 
+AUTHORSHIP RULES:
+- Data reduction team should be included on all papers.  Note that the
+  QA2-produced data products are not usable for most science: Sgr B2 is just too
+  messy (no blame falls on the QA2 analysts, it's our fault for looking at
+  something so hideously complex).
+- All papers are opt-in.  If you opt in to a paper, you commit to at minimum
+  providing a detailed review in <=2 weeks from being given a draft.  More
+  effort is welcome, of course!
+- Coauthors from outside the collaboration may be invited at the discretion
+  of the first author.
+
 REDUCTION:
 Adam Ginsburg, Fanyi Meng
+Consulting Crystal Brogan, Todd Hunter, Thomas Stanke, Betsy Mills
+*will have a separate e-mail list* - you can opt in to this if you're willing to put in some serious work
+
 
 PLAN: Combine 7m and 12m data
 1. Set calibration weights correctly as per
    https://casaguides.nrao.edu/index.php?title=DataWeightsAndCombination#What_Are_the_Options_for_Adjusting_the_Weights_for_Older_Reductions.3F
 2. Create combined continuum map
+2a. Identify line free channels
 2b. Spend some time figuring out optimal clean parameters
+2c. Self-calibrate?
 3. Create combined line maps
-4. Feather with IRAM and MOPRA single-dish maps (or TP if they become available)
+4. Feather with IRAM and MOPRA single-dish maps (or TP if & when they become available)
 
 
 
-Bubbles, HII regions, & Feedback:
-GOALS: Identify the bubbles, their driving sources, and their energy content.
-Determine what was needed to drive them and their likely effects on the "cloud"
-Adam Ginsburg et al
+CURRENTLY POSSIBLE:
+Giant Bubbles:
+The HC3N data clearly reveal sharp-edged bubble features.  These are signs of
+feedback.  They trace either HII regions, winds, radiation, or supernovae.
+GOALS: Determine which mechanism (which driving source) is responsible for the bubbles.
+METHODS: measure the energy within the bubbles, find their driving sources
+ADDITIONAL: Depending on which mechanism is responsible, comment on Sgr B2's place
+in the CMZ and the role of feedback in the Kruijssen, Dale, Longmore, & Krumholz models.
 
+AUTHORS: Adam Ginsburg et al
+
+
+FILAMENTS:
+Are there any?  Looks like 'no' in the gas.  Therefore, simple statement: SF in
+the CMZ doesn't happen in filaments.  It's probably best to have the continuum
+data reduced first, though.
+
+
+
+
+REQUIRES FULLY REDUCED DATA (with long baselines):
 
 Turbulence:
 
-GOALS: Measure turbulent power spectrum, size-linewidth relation.  Determine if
-       Sgr B2 is consistent with CMZ.  Compare to The Brick
-Jaime Pineda
-Erik Koch
-Adam Ginsburg
+    GOALS: Measure turbulent power spectrum, size-linewidth relation.  Determine if
+           Sgr B2 is consistent with CMZ.  Use density PDF to predict SFR using
+           existing theories (so that we can compare to the next paper)
+    Jaime Pineda
+    Erik Koch (invited to use his TurbuStat toolkit)
+    Adam Ginsburg
 
-PLAN: 
-1. Use many different lines to perform VCA, VCS analysis.
-1b. Use combined map of many lines for VCA/VCS?
-2. Dendrogram the cube for size-linewidth relation
+    PLAN: 
+    1. Use many different lines to perform VCA, VCS analysis.
+    1b. Use combined map of many lines for VCA/VCS?
+    2. Dendrogram the cube* for size-linewidth relation
+
+    * Originally, the goal was to use HCN, HNC, and/or HCO+ for this analysis.  It
+    turns out, these 3 lines are self-absorbed to a degree I had never imagined
+    possible, so we will use HC3N instead.
 
 
 Cores:
--Identify and measure mass function
--If possible, estimate SFR
-Fanyi Meng et al
+    -Identify and measure cores.  Measure a mass function
+    -Account for free-free contamination
+    -Using new cores + UCHII region counts, estimate instantaneous SFE and SFR
+    Fanyi Meng et al
+
+Gas Temperature:
+    -Measure it with CH3CN
+    -Determine mass fraction affected by heating feedback
+    -Is fragmentation suppressed by heating?
+    -Is freezeout prevented by heating?
+    -Do temperatures agree with H2CO, NH3?  If not, why?
+    Adam Ginsburg et al
 
 
-Additional papers:
-Roberto Galvan-Madrid & Chris DePree: 3mm source associations with variable cm sources
+OTHER PAPERS:
+    Roberto Galvan-Madrid & Chris DePree: 3mm source associations with variable cm sources
+
+    ? Comparison to Brick? (some comparison will probably happen in other
+    projects, but a dedicated comparison may be justified).  Jill Rathborne,
+    Jim Jackson, et al?
+
+    Continuum modeling - Anika Schmiedeke
+
+
+    Examine the foreground cloud - the HCN, HNC, and HCO+ absorption structure
+    is remarkable.  Does it mean anything?  Can we confirm or deny that it is
+    local to the CMZ, or even local to Sgr B2?
+
+
+    Erik Rosolowsky - Dimensionality reduction
+
+    Spectral Line Survey in any or all of the cores?

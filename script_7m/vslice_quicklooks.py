@@ -18,9 +18,11 @@ def pngdir(fn):
 
 for mol in ("HCN","HNC","HCOp","HC3N","H2CS303-202","H2CS303202"):
     for vrange in ((30,51),(52,93),(94,134),(55,66)):
-        for fn in (glob.glob("*{0}*image.pbcor.fits".format(mol)) +
-                   glob.glob("feathered/Feathered*{0}*.fits".format(mol)) +
-                   glob.glob("feathered/Regridded*{0}*fits".format(mol))):
+        for fn in (glob.glob("12m/*{0}*image.pbcor.fits".format(mol)) +
+                   glob.glob("7m/*{0}*image.pbcor.fits".format(mol))
+                   #glob.glob("feathered/Feathered*{0}*.fits".format(mol)) +
+                   #glob.glob("feathered/Regridded*{0}*fits".format(mol))
+                  ):
 
             if any(x in fn for x in ('mask','max','sum','mom','pvext')):
                 continue
@@ -28,7 +30,7 @@ for mol in ("HCN","HNC","HCOp","HC3N","H2CS303-202","H2CS303202"):
             rcube = (SpectralCube.read(fn)[:,32:-32,32:-32]
                      .with_spectral_unit(u.km/u.s, velocity_convention='radio')
                      .spectral_slab(vrange[0]*u.km/u.s, vrange[1]*u.km/u.s))
-            mask = rcube > 0.5
+            mask = rcube > 0.5*rcube.unit
             cube = rcube.with_mask(mask)
 
             cubemax = rcube.max(axis=0)
