@@ -138,11 +138,13 @@ clean(vis='sourceM_spw1_cont_selfcal.ms', imagename='sourceM_spw1_cont_selfcal_c
 
 applycal(vis='sourceM_spw1.ms', gaintable=['phase.cal'], interp='linear')
 clean(vis='sourceM_spw1.ms', imagename='sourceM_spw1_selfcal_clean', field='',
-      datacolumn='corrected',
+      #datacolumn='corrected',
       spw='', mode='channel', niter=5000, imsize=[512,512], cell='0.5arcsec',
       weighting='briggs', robust=0.5, pbcor=True, usescratch=True)
 clearcal(vis='sourceM_spw1.ms')
 clean(vis='sourceM_spw1.ms', imagename='sourceM_spw1_clean_noselfcal', field='',
-      datacolumn='data',
+      #datacolumn='data',
       spw='', mode='channel', niter=5000, imsize=[512,512], cell='0.5arcsec',
       weighting='briggs', robust=0.5, pbcor=True, usescratch=True)
+exportfits('sourceM_spw1_clean_noselfcal.image', 'sourceM_spw1_clean_noselfcal.image.fits', dropdeg=True, overwrite=True)
+exportfits('sourceM_spw1_selfcal_clean.image', 'sourceM_spw1_selfcal_clean.image.fits', dropdeg=True, overwrite=True)
