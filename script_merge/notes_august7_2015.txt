@@ -1,0 +1,9 @@
+# On ARC machine in directory /lustre/opsw/work/alma08/2013.1.00269.S/analysis/calibrated
+# Because the continuum spw selection for the 7m doesn't obviously work when merging data
+
+inputvis = ['SgrB2_a_03_TC.calibrated.ms', 'SgrB2_a_03_7M.calibrated.ms']
+concatvis = 'SgrB2_a_03_merge_7m_12m.ms'
+concat(vis=inputvis, concatvis=concatvis)
+plotms(vis=concatvis,yaxis='wt',xaxis='uvdist',spw='0~2:200',
+       coloraxis='spw',plotfile='combine_WT.png')
+
