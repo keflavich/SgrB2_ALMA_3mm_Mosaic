@@ -15,17 +15,17 @@ from vamdclib import specmodel as m
 tbl = Splatalogue.query_lines(90*u.GHz, 105*u.GHz, chemical_name='CH3CN',
                               energy_max=140, energy_type='eu_k')
 freqs = np.unique(tbl['Freq-GHz'])
-vdiff = (((freqs-freqs[0])/freqs[0])*constants.c).to(u.km/u.s)
+vdiff = (np.array((freqs-freqs[0])/freqs[0])*constants.c).to(u.km/u.s)
 slaim = Splatalogue.query_lines(90*u.GHz, 105*u.GHz, chemical_name='CH3CN',
                                 energy_max=140, energy_type='eu_k',
                                 line_lists=['SLAIM'],
                                 show_upper_degeneracy=True)
-freqs = np.unique(slaim['Freq-GHz'])*u.GHz
+freqs = np.array(slaim['Freq-GHz'])*u.GHz
 aij = slaim['Log<sub>10</sub> (A<sub>ij</sub>)']
 deg = slaim['Upper State Degeneracy']
-EU = (slaim['E_U (K)']*u.K*constants.k_B).to(u.erg).value
+EU = (np.array(slaim['E_U (K)'])*u.K*constants.k_B).to(u.erg).value
 ref_freq = 91.98705*u.GHz
-vdiff = ((-(freqs-ref_freq)/ref_freq)*constants.c).to(u.km/u.s).value
+vdiff = (np.array(-(freqs-ref_freq)/ref_freq)*constants.c).to(u.km/u.s).value
 
 
 
