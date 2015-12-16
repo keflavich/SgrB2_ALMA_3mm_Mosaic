@@ -1,5 +1,7 @@
 from ch3cn_fits import SpectralCube, pyspeckit, fits, u, np
 import os
+T=True
+F=False
 
 cubefn = '../FITS/merge/SgrB2_b3_7M_12M.CH3CN.image.pbcor_medsub.fits'
 if not os.path.exists(cubefn):
@@ -15,9 +17,10 @@ err = cubeK[:30].std(axis=0)
 peak = cubeK.max(axis=0)
 mask = (peak > 1*u.K) & (peak > 6*err)
 
-pcube = pyspeckit.Cube(cube=cubeK)
+subcube = cubeK.spectral_slab(-50*u.km/u.s, 100*u.km/u.s)
 
-subcube = cube.spectral_slab(-50*u.km/u.s, 100*u.km/u.s)
+pcube = pyspeckit.Cube(cube=subcube)
+
 vguesses = subcube.spectral_axis[subcube.argmax(axis=0)]
 colguesses = np.ones_like(mask)*1e15
 temguesses = np.ones_like(mask)*150.
@@ -35,5 +38,7 @@ position_order[np.isnan(peak)] = np.inf
 pcube.fiteach(fittype='ch3cn', guesses=guesses, integral=False,
               verbose_level=3, start_from_point=start_point,
               use_neighbor_as_guess=True, position_order=position_order,
+              limitedmax=[T,T,T,T],
+              maxpars=[100,15,500,1e17],
               maskmap=mask,
               errmap=err.value, multicore=4)
