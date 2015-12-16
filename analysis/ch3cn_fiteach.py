@@ -7,6 +7,7 @@ cubefn = '../FITS/merge/SgrB2_b3_7M_12M.CH3CN.image.pbcor_medsub.fits'
 if not os.path.exists(cubefn):
     cube = SpectralCube.read('../FITS/merge/SgrB2_b3_7M_12M.CH3CN.image.pbcor.fits').minimal_subcube()
     med = cube.percentile(25, axis=0)
+    cube.allow_huge_operations=True
     cube = cube - med
     cube.write(cubefn)
 else:
@@ -28,7 +29,7 @@ widths = np.ones_like(mask)*5.0
 guesses = np.array([vguesses.value, widths, temguesses, colguesses])
 
 # For laptop
-mask &= (peak>10*u.K)
+#mask &= (peak>10*u.K)
 
 start_point = np.unravel_index(np.nanargmax(peak*mask), peak.shape)
 
