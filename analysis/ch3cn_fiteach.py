@@ -18,7 +18,7 @@ err = cubeK[:30].std(axis=0)
 peak = cubeK.max(axis=0)
 mask = (peak > 1*u.K) & (peak > 6*err)
 
-subcube = cubeK.spectral_slab(-50*u.km/u.s, 100*u.km/u.s)
+subcube = cubeK.spectral_slab(-50*u.km/u.s, 200*u.km/u.s)
 
 pcube = pyspeckit.Cube(cube=subcube)
 
