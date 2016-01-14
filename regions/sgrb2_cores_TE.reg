@@ -1,0 +1,36 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(17:47:23.387,-28:25:55.21) # point=x
+point(17:47:23.450,-28:25:52.04) # point=x
+point(17:47:22.810,-28:25:42.33) # point=x
+point(17:47:21.698,-28:25:43.03) # point=x
+point(17:47:23.190,-28:25:14.45) # point=x
+point(17:47:23.198,-28:25:17.80) # point=x
+point(17:47:23.195,-28:25:18.97) # point=x
+point(17:47:23.357,-28:25:23.58) # point=x
+point(17:47:23.442,-28:25:26.85) # point=x
+point(17:47:23.360,-28:25:34.25) # point=x
+point(17:47:21.829,-28:25:21.41) # point=x
+point(17:47:21.489,-28:25:44.17) # point=x
+point(17:47:18.668,-28:25:54.62) # point=x
+point(17:47:19.178,-28:25:49.17) # point=x
+point(17:47:17.619,-28:25:38.66) # point=x
+point(17:47:20.718,-28:25:42.66) # point=x
+point(17:47:20.646,-28:25:41.79) # point=x
+point(17:47:21.266,-28:25:53.11) # point=x
+point(17:47:22.036,-28:24:42.66) # point=x
+point(17:47:22.072,-28:24:46.31) # point=x
+point(17:47:22.036,-28:24:53.23) # point=x
+point(17:47:21.927,-28:24:40.04) # point=x
+point(17:47:22.217,-28:24:33.86) # point=x
+point(17:47:21.610,-28:24:30.43) # point=x
+point(17:47:21.775,-28:24:34.65) # point=x
+point(17:47:18.783,-28:24:33.04) # point=x
+point(17:47:16.757,-28:24:31.03) # point=x
+point(17:47:26.342,-28:20:39.33) # point=x
+point(17:47:23.611,-28:21:26.44) # point=x
+point(17:47:22.699,-28:21:35.27) # point=x
+point(17:47:23.815,-28:21:41.75) # point=x
+point(17:47:24.019,-28:21:44.97) # point=x
+point(17:47:19.491,-28:20:58.22) # point=x
