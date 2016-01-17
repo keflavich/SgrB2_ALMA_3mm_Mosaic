@@ -1,6 +1,6 @@
 # You should run this with CASA 4.4 
 
-thesteps = []
+thesteps = [0,1,2,3,4,5]
 step_title = {0: 'Image continuum',
               1: 'Image line cube SPW 0',
               2: 'Image line cube SPW 1',
@@ -30,7 +30,7 @@ v3 = '103.04055GHz' # H2CS 3( 0, 3)- 2( 0, 2)
 
 myimages = set([])
 
-myimsize = [2560, 2560]
+myimsize = [4096, 4096]
 
 # Image continuum of the target source and continuum subtraction
 mystep = 0
@@ -38,9 +38,10 @@ if(mystep in thesteps):
   casalog.post('Step '+str(mystep)+' '+step_title[mystep],'INFO')
   print 'Step ', mystep, step_title[mystep]
 
-  os.system('rm -rf '+rootname+'.cont.*')
+  os.system('rm -rf '+rootname+'.cont_robust0.5.*')
+  myimagebase = rootname+'.cont_robust0.5'
   clean(vis=thevis,
-        imagename=rootname+'.cont',
+        imagename=myimagebase,
         #field="3,4,15,14,26,140,151,129,141", # corner and center fields for test image
         field='3~151',
         imagermode='mosaic',
@@ -48,18 +49,46 @@ if(mystep in thesteps):
         spw="",
         #spw="0",
         mode="mfs",
-        niter=100,
+        niter=10000,
         threshold="0.15mJy",
         psfmode="clark",
-        interactive=True,
+        interactive=False,
         mask = [],
         imsize=myimsize,
-        cell="0.2arcsec",
+        cell="0.125arcsec",
         outframe='LSRK',
         weighting="briggs",
         robust = 0.5, 
         usescratch=True)
+  impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
+  exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+  exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True, overwrite=True) # export the PB image
 
+  os.system('rm -rf '+rootname+'.cont_uniform.*')
+  myimagebase = rootname+'.cont_uniform'
+  clean(vis=thevis,
+        imagename=myimagebase,
+        #field="3,4,15,14,26,140,151,129,141", # corner and center fields for test image
+        field='3~151',
+        imagermode='mosaic',
+        phasecenter='3',
+        spw="",
+        #spw="0",
+        mode="mfs",
+        niter=10000,
+        threshold="0.15mJy",
+        psfmode="clark",
+        interactive=False,
+        mask = [],
+        imsize=myimsize,
+        cell="0.125arcsec",
+        outframe='LSRK',
+        weighting="uniform",
+        usescratch=True)
+
+  impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
+  exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+  exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True, overwrite=True) # export the PB image
 
 # Image target SPW 0
 mystep = 1
@@ -77,17 +106,20 @@ if(mystep in thesteps):
         mode="velocity",
         start='-40km/s',
         nchan=50,
+        niter=1000,
         interpolation="linear",
         threshold="1mJy",
-        interactive=True,
+        interactive=False,
         mask=[],
         imsize=myimsize,
-        cell=['0.2arcsec'],
+        cell=['0.125arcsec'],
         restfreq=v0,
         outframe='LSRK',
         weighting="briggs",
         robust=0.5,
         usescratch=True)
+
+  myimages.add(rootname+'.SPW0')
 
 # Image target SPW 1
 mystep = 2
@@ -105,17 +137,19 @@ if(mystep in thesteps):
         mode="velocity",
         start='-40km/s',
         nchan=50,
+        niter=1000,
         interpolation="linear",
         threshold="1mJy",
-        interactive=True,
+        interactive=False,
         mask=[],
         imsize=myimsize,
-        cell=['0.2arcsec'],
+        cell=['0.125arcsec'],
         restfreq=v1,
         outframe='LSRK',
         weighting="briggs",
         robust=0.5,
         usescratch=True)
+  myimages.add(rootname+'.SPW1')
 
 # Image target SPW 2
 mystep = 3
@@ -133,17 +167,19 @@ if(mystep in thesteps):
         mode="velocity",
         start='-40km/s',
         nchan=50,
+        niter=1000,
         interpolation="linear",
         threshold="1mJy",
-        interactive=True,
+        interactive=False,
         mask=[],
         imsize=myimsize,
-        cell=['0.2arcsec'],
+        cell=['0.125arcsec'],
         restfreq=v2,
         outframe='LSRK',
         weighting="briggs",
         robust=0.5,
         usescratch=True)
+  myimages.add(rootname+'.SPW2')
 
 # Image target SPW 3
 mystep = 4
@@ -161,18 +197,20 @@ if(mystep in thesteps):
         mode="velocity",
         start='-40km/s',
         nchan=50,
+        niter=1000,
         interpolation="linear",
         threshold="1mJy",
-        interactive=True,
+        interactive=False,
         mask=[],
         imsize=myimsize,
-        cell=['0.2arcsec'],
+        cell=['0.125arcsec'],
         restfreq=v3,
         outframe='LSRK',
         weighting="briggs",
         robust=0.5,
         usescratch=True)
 
+  myimages.add(rootname+'.SPW3')
 
 
 # export fits
@@ -181,13 +219,8 @@ if(mystep in thesteps):
   casalog.post('Step '+str(mystep)+' '+step_title[mystep],'INFO')
   print 'Step ', mystep, step_title[mystep]
 
-  myimages.add(rootname+'.cont')
-  myimages.add(rootname+'.SPW0')
-  #myimages.add(rootname+'.SPW1')
-  #myimages.add(rootname+'.SPW2')
-  #myimages.add(rootname+'.SPW3')
   
   for myimagebase in myimages:
     impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
-    exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits') # export the corrected image
-    exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits') # export the PB image
+    exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+    exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True, overwrite=True) # export the PB image
