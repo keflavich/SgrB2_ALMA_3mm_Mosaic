@@ -1,6 +1,7 @@
-# You should run this with CASA 4.4 
+# You should run this with CASA 4.4
 
-thesteps = [0,1,2,3,4,5]
+mysteps = [0,1,2,3,4,5]
+thesteps = []
 step_title = {0: 'Image continuum',
               1: 'Image line cube SPW 0',
               2: 'Image line cube SPW 1',
@@ -31,6 +32,7 @@ v3 = '103.04055GHz' # H2CS 3( 0, 3)- 2( 0, 2)
 myimages = set([])
 
 myimsize = [4096, 4096]
+phasecenter = 'J2000 17:47:19.438000 -28.23.29.78000'
 
 # Image continuum of the target source and continuum subtraction
 mystep = 0
@@ -38,9 +40,41 @@ if(mystep in thesteps):
   casalog.post('Step '+str(mystep)+' '+step_title[mystep],'INFO')
   print 'Step ', mystep, step_title[mystep]
 
+  contvis='SgrB2_TE_contsplit.ms'
+  split(vis=thevis, outputvis=contvis,
+        field='SgrB2', width=384, datacolumn='data')
+
+  os.system('rm -rf '+rootname+'.cont_robust0.5_tclean.*')
+  myimagebase = rootname+'.cont_robust0.5_tclean'
+  tclean(vis=contvis,
+         imagename=myimagebase,
+         #field="3,4,15,14,26,140,151,129,141", # corner and center fields for test image
+         field='SgrB2',
+         gridder='mosaic',
+         phasecenter=phasecenter,
+         spw="",
+         #spw="0",
+         specmode="mfs",
+         niter=100000,
+         threshold="0.15mJy",
+         deconvolver="clark",
+         interactive=False,
+         imsize=myimsize,
+         cell="0.125arcsec",
+         outframe='LSRK',
+         weighting="briggs",
+         robust = 0.5, 
+         savemodel='none')
+  impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
+  exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+  exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropdeg=True, overwrite=True) # export the PB image
+  exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
+  exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
+
+
   os.system('rm -rf '+rootname+'.cont_robust0.5.*')
   myimagebase = rootname+'.cont_robust0.5'
-  clean(vis=thevis,
+  clean(vis=contvis,
         imagename=myimagebase,
         #field="3,4,15,14,26,140,151,129,141", # corner and center fields for test image
         field='3~151',
@@ -63,10 +97,11 @@ if(mystep in thesteps):
   impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
   exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
   exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True, overwrite=True) # export the PB image
+  exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
 
   os.system('rm -rf '+rootname+'.cont_uniform.*')
   myimagebase = rootname+'.cont_uniform'
-  clean(vis=thevis,
+  clean(vis=contvis,
         imagename=myimagebase,
         #field="3,4,15,14,26,140,151,129,141", # corner and center fields for test image
         field='3~151',
@@ -89,6 +124,7 @@ if(mystep in thesteps):
   impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
   exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
   exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True, overwrite=True) # export the PB image
+  exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
 
 # Image target SPW 0
 mystep = 1
@@ -224,3 +260,4 @@ if(mystep in thesteps):
     impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.flux', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
     exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
     exportfits(imagename=myimagebase+'.flux', fitsimage=myimagebase+'.flux.fits', dropdeg=True, overwrite=True) # export the PB image
+    exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
