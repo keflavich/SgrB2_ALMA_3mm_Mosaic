@@ -1,4 +1,5 @@
 import numpy as np
+from casa import table as tb
 
 def goodenough_field_solutions(tablename, minsnr=5, maxphasenoise=np.pi/4.,
                                pols=[0]):
