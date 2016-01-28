@@ -1,5 +1,6 @@
 # REDO THIS FROM TESTS...
 import glob
+import selfcal_heuristics
 
 contvis='SgrB2_TE_contsplit.ms'
 selfcal0vis = 'selfcal_SgrB2_TE_full_selfcal_iter0.ms'
@@ -38,10 +39,15 @@ exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', 
 exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
 
 rmtables(['phase_0.cal'])
-gaincal(vis=selfcal0vis, caltable='phase_0.cal', solint='int', gaintype='G', calmode='p')
+gaincal(vis=selfcal0vis, caltable='phase_0.cal', solint='int', gaintype='G',
+        calmode='p')
+
+okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields_str = ",".join(["{0}".format(x) for x in okfields])
+
 selfcal1vis = 'selfcal_SgrB2_TE_full_selfcal_iter1.ms'
 rmtables([selfcal1vis])
-applycal(vis=selfcal0vis, field="", gaintable=["phase_0.cal"],
+applycal(vis=selfcal0vis, field=okfields_str, gaintable=["phase_0.cal"],
          interp="linear", applymode='calonly', calwt=False)
 split(vis=selfcal0vis, outputvis=selfcal1vis, datacolumn='corrected')
 
@@ -75,9 +81,13 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 
 rmtables(['phase_1.cal'])
 gaincal(vis=selfcal1vis, caltable='phase_1.cal', solint='int', gaintype='G', calmode='p')
+
+okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields_str = ",".join(["{0}".format(x) for x in okfields])
+
 selfcal2vis = 'selfcal_SgrB2_TE_full_selfcal_iter2.ms'
 rmtables([selfcal2vis])
-applycal(vis=selfcal1vis, field="", gaintable=["phase_1.cal"],
+applycal(vis=selfcal1vis, field=okfields_str gaintable=["phase_1.cal"],
          interp="linear", applymode='calonly', calwt=False)
 split(vis=selfcal1vis, outputvis=selfcal2vis, datacolumn='corrected')
 
@@ -112,9 +122,13 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 
 rmtables(['phase_2.cal'])
 gaincal(vis=selfcal2vis, caltable='phase_2.cal', solint='int', gaintype='G', calmode='p')
+
+okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields_str = ",".join(["{0}".format(x) for x in okfields])
+
 selfcal3vis = 'selfcal_SgrB2_TE_full_selfcal_iter3.ms'
 rmtables([selfcal3vis])
-applycal(vis=selfcal2vis, field="", gaintable=["phase_2.cal"],
+applycal(vis=selfcal2vis, field=okfields_str gaintable=["phase_2.cal"],
          interp="linear", applymode='calonly', calwt=False)
 split(vis=selfcal2vis, outputvis=selfcal3vis, datacolumn='corrected')
 
@@ -150,9 +164,13 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 rmtables(['ampphase_3.cal'])
 gaincal(vis=selfcal3vis, caltable='ampphase_3.cal', solint='int', gaintype='G',
         calmode='ap')
+
+okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields_str = ",".join(["{0}".format(x) for x in okfields])
+
 selfcal4vis = 'selfcal_SgrB2_TE_full_selfcal_iter4_ampphase.ms'
 rmtables([selfcal4vis])
-applycal(vis=selfcal3vis, field="", gaintable=["ampphase_3.cal"],
+applycal(vis=selfcal3vis, field=okfields_str gaintable=["ampphase_3.cal"],
          interp="linear", applymode='calonly', calwt=False)
 split(vis=selfcal3vis, outputvis=selfcal4vis, datacolumn='corrected')
 
@@ -187,9 +205,13 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 rmtables(['ampphase_4.cal'])
 gaincal(vis=selfcal3vis, caltable='ampphase_4.cal', solint='int', gaintype='G',
         calmode='ap')
+
+okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields_str = ",".join(["{0}".format(x) for x in okfields])
+
 selfcal5vis = 'selfcal_SgrB2_TE_full_selfcal_iter5_ampphase.ms'
 rmtables([selfcal5vis])
-applycal(vis=selfcal4vis, field="", gaintable=["ampphase_4.cal"],
+applycal(vis=selfcal4vis, field=okfields_str gaintable=["ampphase_4.cal"],
          interp="linear", applymode='calonly', calwt=False)
 split(vis=selfcal4vis, outputvis=selfcal5vis, datacolumn='corrected')
 # could try selfcal5vis....
