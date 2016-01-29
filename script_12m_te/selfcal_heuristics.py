@@ -54,7 +54,28 @@ def goodenough_field_solutions(tablename, minsnr=5, maxphasenoise=np.pi/4.,
 
 def flag_extreme_amplitudes(tablename, maxpctchange=50, pols=[0], channels=[0]):
     """
-    Flag out all amplitudes with >``maxpctchange``% change.
+    Flag out all gain amplitudes with >``maxpctchange``% change (e.g., for the
+    default 50%, flag everything outside the range 0.5 < G < 1.5).  This is a
+    *very simple* cut, but it cannot be easily applied with existing tools
+    since it is cutting on the value of the amplitude correction, not on any
+    particular normal data selection type.  It is still highly advisable to
+    plot the amp vs snr or similar diagnostics after running this to make sure
+    you understand what's going on.  For example, after I ran this on a data
+    set, I discovered that one antenna had high gain corrections even in the
+    high SNR regime, which probably indicates a problem with that antenna.
+
+    Parameters
+    ----------
+    maxpctchange : float
+        The maximum percent change permitted in an amplitude
+    pols : list
+        The list of polarizations to include in the heuristics
+    channels : list
+        The list of channels to include in the heuristics
+
+    Returns
+    -------
+    None
     """
 
     tb.open(tablename)
