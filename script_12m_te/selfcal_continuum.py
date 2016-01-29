@@ -1,4 +1,16 @@
-# REDO THIS FROM TESTS...
+"""
+Interesting plotcal commands:
+
+    plotcal(caltable='ampphase_3.cal', xaxis='time', yaxis='phase', iteration='field', subplot=331)
+    plotcal(caltable='ampphase_3.cal', xaxis='time', yaxis='amp', iteration='field', subplot=331)
+    plotcal(caltable='ampphase_3.cal', xaxis='phase', yaxis='amp', iteration='field', subplot=331)
+    plotcal(caltable='ampphase_3.cal', xaxis='snr', yaxis='amp', iteration='field', subplot=331)
+    plotcal(caltable='ampphase_3.cal', xaxis='time', yaxis='amp', antenna='DV18')
+
+ANTENNA DV18 MAY BE BAD: it has a bunch of weird gain amplitudes
+
+plotms(vis='SgrB2_TE_contsplit.ms', iteraxis='antenna', gridrows=3, gridcols=3, xaxis='uvdist', yaxis='amp')
+"""
 import glob
 import selfcal_heuristics
 
@@ -82,7 +94,7 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 rmtables(['phase_1.cal'])
 gaincal(vis=selfcal1vis, caltable='phase_1.cal', solint='int', gaintype='G', calmode='p')
 
-okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields = selfcal_heuristics.goodenough_field_solutions('phase_1.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
 selfcal2vis = 'selfcal_SgrB2_TE_full_selfcal_iter2.ms'
@@ -123,7 +135,7 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 rmtables(['phase_2.cal'])
 gaincal(vis=selfcal2vis, caltable='phase_2.cal', solint='int', gaintype='G', calmode='p')
 
-okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
 selfcal3vis = 'selfcal_SgrB2_TE_full_selfcal_iter3.ms'
@@ -163,10 +175,12 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 
 rmtables(['ampphase_3.cal'])
 gaincal(vis=selfcal3vis, caltable='ampphase_3.cal', solint='int', gaintype='G',
-        calmode='ap')
+        calmode='ap', minsnr=7)
+selfcal_heuristics.flag_extreme_amplitudes('ampphase_3.cal')
 
-okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
-okfields_str = ",".join(["{0}".format(x) for x in okfields])
+# use the fields that were OK before
+#okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+#okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
 selfcal4vis = 'selfcal_SgrB2_TE_full_selfcal_iter4_ampphase.ms'
 rmtables([selfcal4vis])
@@ -206,8 +220,9 @@ rmtables(['ampphase_4.cal'])
 gaincal(vis=selfcal3vis, caltable='ampphase_4.cal', solint='int', gaintype='G',
         calmode='ap')
 
-okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
-okfields_str = ",".join(["{0}".format(x) for x in okfields])
+selfcal_heuristics.flag_extreme_amplitudes('ampphase_4.cal')
+#okfields = selfcal_heuristics.goodenough_field_solutions('phase_3.cal')
+#okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
 selfcal5vis = 'selfcal_SgrB2_TE_full_selfcal_iter5_ampphase.ms'
 rmtables([selfcal5vis])

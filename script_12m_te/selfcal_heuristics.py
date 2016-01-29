@@ -29,6 +29,7 @@ def goodenough_field_solutions(tablename, minsnr=5, maxphasenoise=np.pi/4.,
     solns = tb.getcol('CPARAM')
     fields = tb.getcol('FIELD_ID')
     snr = tb.getcol('SNR')
+    tb.close()
 
     all_angles = []
     all_snrs = []
@@ -51,3 +52,41 @@ def goodenough_field_solutions(tablename, minsnr=5, maxphasenoise=np.pi/4.,
 
     return ufields[good_enough]
 
+def flag_extreme_amplitudes(tablename, maxpctchange=50, pols=[0], channels=[0]):
+    """
+    Flag out all amplitudes with >``maxpctchange``% change.
+    """
+
+    tb.open(tablename)
+    solns = tb.getcol('CPARAM')
+    snr = tb.getcol('SNR')
+    # true flag = flagged out, bad data
+    flags = tb.getcol('FLAG')
+    tb.close()
+
+    amp = np.abs(solns)
+    maxfrac = maxpctchange / 100.
+
+    bad = ((amp[pols, channels] > (1+maxfrac)) |
+           (amp[pols, channels] < maxfrac))
+
+    bad_snr = snr[pols, channels, :][bad]
+
+    print("Found {0} bad amplitudes with mean snr={1}".format(bad.sum(), bad_snr.mean()))
+    print("Total flags in tb.flag: {0}".format(flags.sum()))
+
+    flags[pols, channels, :] = bad | flags[pols, channels, :]
+    assert all(flags[pols, channels, :][bad]), "Failed to modify array"
+
+    tb.open(tablename, nomodify=False)
+    tb.putcol(columnname='FLAG', value=flags)
+    tb.flush()
+    tb.close()
+
+    tb.open(tablename, nomodify=True)
+    flags = tb.getcol('FLAG')
+    print("Total flags in tb.flag after: {0}".format(flags.sum()))
+
+    assert all(flags[pols, channels, :][bad]), "Failed to modify table"
+
+    tb.close()
