@@ -7,7 +7,7 @@ from astropy import constants
 # BGPS center is 271.1 GHz
 # Assume ALMA center freq is 100 GHz
 # use beta = 1.5 for alpha=3.5
-onemmto3mm = (271.1*u.GHz/100*u.GHz)**3.5
+onemmto3mm = (271.1*u.GHz/(100*u.GHz))**3.5
 
 def mass_conversion_factor(TK=20, d=distance.to(u.kpc).value):
     return 14.30 * (np.exp(13.01/TK) - 1)*d**2 * onemmto3mm

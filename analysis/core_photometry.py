@@ -21,14 +21,23 @@ units = {'peak':u.Jy/u.beam,
          'npix':u.dimensionless_unscaled,
          'beam_area':u.sr,
          'peak_mass':u.M_sun,
-         'peak_col':u.cm**-2}
+         'peak_col':u.cm**-2,
+         'RA': u.deg,
+         'Dec': u.deg,
+        }
 
-for reg in regions:
+for ii,reg in enumerate(regions):
     if 'text' not in reg.attr[1]:
-        continue
+        name = str(ii)
+    else:
+        name = reg.attr[1]['text']
+
+    # all regions are points: convert them to 0.5" circles
+    reg.name = 'circle'
+    reg.coord_list.append(0.5/3600.)
+    reg.params.append(pyregion.region_numbers.AngularDistance('0.5"'))
 
     shreg = pyregion.ShapeList([reg])
-    name = reg.attr[1]['text']
     log.info(name)
 
     mask = shreg.get_mask(hdu=contfile[0])
@@ -37,9 +46,11 @@ for reg in regions:
                      'sum': data[mask].sum(),
                      'npix': mask.sum(),
                      'beam_area': beam.sr,
+                     'RA': reg.coord_list[0],
+                     'Dec': reg.coord_list[1],
                     }
-    results[name]['peak_mass'] = masscalc.mass_conversion_factor()*results[name]['peak']
-    results[name]['peak_col'] = masscalc.col_conversion_factor()*results[name]['peak']
+    results[name]['peak_mass'] = masscalc.mass_conversion_factor()*results[name]['peak']*u.M_sun
+    results[name]['peak_col'] = masscalc.col_conversion_factor()*results[name]['peak']*u.cm**-2
 
 # invert the table to make it parseable by astropy...
 # (this shouldn't be necessary....)
@@ -62,7 +73,7 @@ for c in columns:
 
 tbl = Table([Column(data=columns[k],
                     name=k)
-             for k in ['name','peak','sum','npix','beam_area','peak_mass','peak_col']])
+             for k in ['name','RA','Dec','peak','sum','npix','beam_area','peak_mass','peak_col']])
 
 tbl.sort('peak_mass')
 tbl.write(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')

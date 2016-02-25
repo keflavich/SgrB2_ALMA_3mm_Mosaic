@@ -1,7 +1,6 @@
 # Region file format: DS9 version 4.1
 global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 fk5
-# vector(17:47:20.881,-28:25:14.68,24.2",2.69157e-14) vector=0 color=black font="helvetica 16 normal roman" text={1 pc}
 point(17:47:23.387,-28:25:55.21) # point=x
 point(17:47:23.450,-28:25:52.04) # point=x
 point(17:47:22.810,-28:25:42.33) # point=x
