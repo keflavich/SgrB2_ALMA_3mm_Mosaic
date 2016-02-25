@@ -89,7 +89,7 @@ def flag_extreme_amplitudes(tablename, maxpctchange=50, pols=[0], channels=[0]):
     maxfrac = maxpctchange / 100.
 
     bad = ((amp[pols, channels] > (1+maxfrac)) |
-           (amp[pols, channels] < maxfrac))
+           (amp[pols, channels] < (1-maxfrac)))
 
     bad_snr = snr[pols, channels, :][bad]
 
