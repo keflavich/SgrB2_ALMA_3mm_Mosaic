@@ -31,26 +31,18 @@ def goodenough_field_solutions(tablename, minsnr=5, maxphasenoise=np.pi/4.,
     snr = tb.getcol('SNR')
     tb.close()
 
-    all_angles = []
-    all_snrs = []
+    okfields=[]
 
     ufields = np.unique(fields)
 
     for field in ufields:
         sel = fields==field
         angles = np.angle(solns[:,:,sel])
-        all_angles.append(angles)
-        all_snrs.append(snr[:,:,sel])
+        field_ok = (angles.std() < maxphasenoise) & (snr[:,:,sel].mean() > minsnr)
+        if field_ok:
+            okfields.append(field)
 
-    all_angles = np.array(all_angles)
-    all_snrs = np.array(all_snrs)
-    # not sure what 2nd column of these is...
-
-    # first is mean across pols, then mean across all data points
-    good_enough = ((all_snrs[:,pols,0,:].mean(axis=1).mean(axis=1) > minsnr) &
-                   (all_angles[:,pols,0,:].std(axis=2).mean(axis=1) < maxphasenoise))
-
-    return ufields[good_enough]
+    return okfields
 
 def flag_extreme_amplitudes(tablename, maxpctchange=50, pols=[0], channels=[0]):
     """
