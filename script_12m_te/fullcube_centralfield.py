@@ -3,7 +3,7 @@ import numpy as np
 # TODO: check that pointing #'s are the same for each (should be, because I did not split out Sgr B2)
 ptg_numbers = [3, 53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 76, 77, 78, 79, 87,
                88, 89, 90, 91, 98, 99, 100, 101, 102, 110, 111, 112, 113]
-rootpath = '/sciencenfs/aginsbur/sgrb2_alma/'
+rootpath = '../'
 
 TC_Center = os.path.join(rootpath,'center/SgrB2_a_03_TC_center.ms')
 if not os.path.exists(TC_Center):
@@ -34,7 +34,7 @@ imsize = [1024,1024] # size of image in pixels.
 # be controlled within clean.
 
 weighting = 'briggs'
-robust=0.5
+robust=-0.5
 threshold = '50.0mJy'
 
 spws = {'TE':
@@ -69,7 +69,7 @@ nchans_total = {ii: int(np.abs(np.diff(frange[ii])/fstep[ii]*1000.)[0])
 ncubes_per_window = 20
 
 
-for spwnum in '0123':
+for spwnum in '3210':
     spwnum = int(spwnum)
 
     concatvis = os.path.join(rootpath,
