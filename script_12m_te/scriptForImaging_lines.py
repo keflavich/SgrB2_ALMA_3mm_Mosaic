@@ -64,6 +64,7 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 
 inputvis = vis
 for line, restfreq in (
+                       ('Heplus63a','102786.9830702896MHz'),
                        ('HC3N','90979.02MHz'),
                        ('HNC','90.663574GHz'),
                        ('H41a','92034.43MHz'),
