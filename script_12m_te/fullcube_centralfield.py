@@ -8,7 +8,7 @@ rootpath = '../'
 TC_Center = os.path.join(rootpath,'center/SgrB2_a_03_TC_center.ms')
 if not os.path.exists(TC_Center):
     assert split(vis=os.path.join(rootpath,
-                                  'calibrated/SgrB2_a_03_TC.calibrated.ms'),
+                                  'calibrated/SgrB2_a_03_TC2.calibrated.ms'),
                  outputvis=TC_Center,
                  field=",".join(map(str,ptg_numbers)),
                  datacolumn='data',
@@ -34,7 +34,7 @@ imsize = [1024,1024] # size of image in pixels.
 # be controlled within clean.
 
 weighting = 'briggs'
-robust=-2.0
+robust=-0.5
 threshold = '50.0mJy'
 
 spws = {'TE':
@@ -124,7 +124,7 @@ for spwnum in '3210':
         end = nchans_per_cube*(ii+1)
         if end > nchans_total_thiscube:
             end = nchans_total_thiscube
-        output = 'piece_of_full_SgrB2_12m_r-2_cube.spw{0}.channels{1}to{2}'.format(spwnum, start, end)
+        output = 'piece_of_full_SgrB2_12m_r-0.5_cube.spw{0}.channels{1}to{2}'.format(spwnum, start, end)
 
         # Channel-based gridding has major bugs when dealing with CVEL'd data
         # It is therefore necessary to compute the frequency gridding by hand
