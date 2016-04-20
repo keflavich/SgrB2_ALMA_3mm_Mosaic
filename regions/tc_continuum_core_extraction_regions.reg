@@ -1,0 +1,14 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+circle(17:47:23.182,-28:25:14.92,1.92982") # text={tccore1}
+circle(17:47:20.681,-28:25:41.61,1.92982") # text={tccore2}
+circle(17:47:22.837,-28:25:42.04,1.92982") # text={tccore3}
+circle(17:47:17.687,-28:25:38.79,1.92982") # text={tccore4}
+circle(17:47:21.816,-28:25:21.64,1.92982") # text={tccore5}
+circle(17:47:07.535,-28:26:23.90,1.92982") # text={tccore6}
+circle(17:47:19.496,-28:24:40.19,1.92982") # text={tccore7}
+circle(17:47:22.968,-28:25:06.67,1.92982") # text={tccore8}
+circle(17:47:22.211,-28:24:34.12,1.92982") # text={tccore9}
+circle(17:47:16.898,-28:24:35.20,1.92982") # text={tccore10}
+circle(17:47:11.238,-28:26:32.33,1.53264") # text={tccore11}

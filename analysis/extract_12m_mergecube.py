@@ -16,7 +16,8 @@ mergecubes = [
 ]
 
 
-regions = (pyregion.open(rpath('ionizationfront_circle.reg')) +
+regions = (pyregion.open(rpath('tc_continuum_core_extraction_regions.reg')) +
+           pyregion.open(rpath('ionizationfront_circle.reg')) +
            pyregion.open(rpath('extraction_regions_n_and_m.reg')) +
            pyregion.open(rpath('ch3cn_large_cores.reg'))
           )
