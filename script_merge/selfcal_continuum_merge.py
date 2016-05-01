@@ -1,10 +1,12 @@
 import os
+import glob
+import selfcal_heuristics
 
 vis_tc='SgrB2_TC_contsplit.ms'
 #vis_te = 'TE/selfcal_SgrB2_TCTE_full_selfcal_iter4_ampphase.ms'
-vis_te='SgrB2_TCTE_contsplit.ms'
+vis_te='SgrB2_TE_contsplit.ms'
 
-cont_merge_ms = "SgrB2_TETC_cont.ms"
+contvis = cont_merge_ms = "SgrB2_TETC_cont.ms"
 if not os.path.exists(cont_merge_ms):
     concat(vis=[vis_tc, vis_te], concatvis=cont_merge_ms)
 
@@ -41,7 +43,7 @@ tclean(vis=selfcal0vis,
        cell="0.125arcsec",
        outframe='LSRK',
        weighting="briggs",
-       robust = 0.5, 
+       robust = 0.5,
        savemodel='modelcolumn')
 impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
 exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
