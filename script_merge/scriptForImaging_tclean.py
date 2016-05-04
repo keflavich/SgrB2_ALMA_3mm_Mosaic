@@ -38,14 +38,22 @@ for line, restfreq in (
         outputvis = outms_template.format(line=line, array=array)
         if not os.path.exists(outputvis):
             # maybe cvel2?
-            cvel(vis=os.path.join(calpath, vistemplate.format(array)),
-                 outputvis=outputvis,
-                 passall=False, field='SgrB2', selectdata=True, timerange='',
-                 array='', antenna='', scan='', mode='velocity', nchan=nchans,
-                 start='{0}km/s'.format(velocity_range[0]),
-                 width='{0}km/s'.format(velocity_res), interpolation='linear',
-                 phasecenter='', restfreq=restfreq, outframe='LSRK',
-                 veltype='radio', hanning=False,)
+            print("cveling line {0} array {1}".format(line, array))
+            cvel2(vis=os.path.join(calpath, vistemplate.format(array)),
+                  outputvis=outputvis,
+                  datacolumn='data',
+                  field='SgrB2',
+                  mode='velocity',
+                  nchan=nchans,
+                  start='{0}km/s'.format(velocity_range[0]),
+                  width='{0}km/s'.format(velocity_res),
+                  interpolation='linear',
+                  phasecenter='',
+                  restfreq=restfreq,
+                  outframe='LSRK',
+                  veltype='radio',
+                  hanning=False,)
+            
 
     if not os.path.exists(concatvis):
         concat(vis=[outms_template.format(line=line, array=array) for array in ('7M','TC2','TE')],
@@ -56,6 +64,7 @@ for line, restfreq in (
     #---------------------------------------------------
     # LINE IMAGING (MOSAIC MODE)
     os.system('rm -rf ' + output + '*/')
+    print("Imaging {0}".format(output))
     tclean(vis=concatvis,
            imagename=output,
            field='SgrB2', # SgrB2
