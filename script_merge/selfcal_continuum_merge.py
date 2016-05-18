@@ -262,6 +262,7 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 
 
 # test to see if multiscale is any good
+# (it's not)
 outname = 'SgrB2_selfcal_full_TCTE_selfcal4_ampphase_multiscale'
 os.system('rm -rf ' + outname + "*")
 myimagebase = outname
@@ -288,4 +289,3 @@ exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.p
 exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
-

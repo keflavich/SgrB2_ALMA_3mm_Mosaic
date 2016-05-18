@@ -9,13 +9,14 @@ import os
 #rendermask = BooleanArrayMask(rendermask_arr, cube.wcs, cube.shape)
 #rcube = cube.with_mask(rendermask).minimal_subcube()
 os.chdir('/Users/adam/work/sgrb2/SgrB2_ALMA_3mm_Mosaic/FITS/merge/')
+os.chdir('/Volumes/passport/alma/sgrb2_b3/merge/')
 
 files = [
          'SgrB2_b3_7M_12M.CH3CN.image.pbcor_medsub.fits',
-         'SgrB2_b3_7M_12M.H41a.image.pbcor_medsub.fits',
-         'SgrB2_b3_7M_12M.HC3N.image.pbcor_medsub.fits',
+         #'SgrB2_b3_7M_12M.H41a.image.pbcor_medsub.fits',
+         #'SgrB2_b3_7M_12M.HC3N.image.pbcor_medsub.fits',
          'SgrB2_b3_7M_12M.HCN.image.pbcor_medsub.fits',
-         'SgrB2_b3_7M_12M.HCOp.image.pbcor_medsub.fits',
+         #'SgrB2_b3_7M_12M.HCOp.image.pbcor_medsub.fits',
          'SgrB2_b3_7M_12M.HNC.image.pbcor_medsub.fits',
 ]
 
@@ -29,7 +30,7 @@ for fn in files:
         #print("Skipping {0}".format(pfx))
         #continue
 
-    cube = SpectralCube.read(fn).with_spectral_unit(u.km/u.s, velocity_convention='radio')
+    cube = SpectralCube.read(fn).minimal_subcube().with_spectral_unit(u.km/u.s, velocity_convention='radio')
     print(fn,cube)
     m0 = cube.moment0(axis=0)
     max = cube.max(axis=0)
