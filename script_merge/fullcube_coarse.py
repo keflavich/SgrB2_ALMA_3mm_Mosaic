@@ -13,19 +13,17 @@ vis_TE = os.path.join(rootpath, 'calibrated/SgrB2_a_03_TE.calibrated.ms')
 
 
 #phasecenter='J2000 17:47:20.048 -28.23.35.72'
-phasecenter='J2000 17:47:19.434 -28:23:29.22'
+phasecenter='J2000 17:47:19.434 -28.23.29.22'
 cell='0.5arcsec' # cell size for imaging (0.5" resoln)
 imsize = [960,960] # size of image in pixels.
 
 # imaging control
 # ----------------
 
-# The cleaning below is done interactively, so niter and threshold can
-# be controlled within clean.
-
 weighting = 'briggs'
 robust=2.0
-threshold = '50.0mJy'
+# use a high threshold (100 is pretty high!) to make convergence faster
+threshold = '100.0mJy'
 
 spws = {'TE':
         {0: '0,4,8,12',
@@ -165,7 +163,7 @@ for spwnum in '2310':
                    outframe = 'LSRK',
                    deconvolver='clark',
                    interactive = F,
-                   niter = 1000,
+                   niter = 1000000, # force the clean to go to threshold
                    imsize = imsize,
                    cell = cell,
                    weighting = weighting,

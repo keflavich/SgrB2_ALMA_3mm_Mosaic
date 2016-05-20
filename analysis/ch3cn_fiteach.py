@@ -1,4 +1,5 @@
 from ch3cn_fits import SpectralCube, pyspeckit, fits, u, np
+import paths
 import os
 T=True
 F=False
@@ -28,6 +29,8 @@ temguesses = np.ones_like(mask)*150.
 widths = np.ones_like(mask)*5.0
 guesses = np.array([vguesses.value, widths, temguesses, colguesses])
 
+mask &= ((vguesses < 95*u.km/u.s) &
+         (vguesses > -25*u.km/u.s))
 # For laptop
 #mask &= (peak>10*u.K)
 
@@ -40,6 +43,10 @@ pcube.fiteach(fittype='ch3cn', guesses=guesses, integral=False,
               verbose_level=3, start_from_point=start_point,
               use_neighbor_as_guess=True, position_order=position_order,
               limitedmax=[T,T,T,T],
-              maxpars=[100,15,500,1e17],
+              limitedmin=[T,T,T,T],
+              #maxpars=[100,15,500,1e17],
+              maxpars=[100,10,1500,1e18],
+              minpars=[-30,0.1,50,1e13],
               maskmap=mask,
-              errmap=err.value, multicore=4)
+              errmap=err.value, multicore=False)
+pcube.write_fit(paths.dpath('CH3CN_fits_fullfield_960sq.fits'), clobber=True)
