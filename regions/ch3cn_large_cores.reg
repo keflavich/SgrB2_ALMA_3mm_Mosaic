@@ -1,0 +1,12 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+circle(266.83798,-28.405095,1.7206427") # text={CH3CN Large Core 1}
+circle(266.82767,-28.406874,1.9819279") # text={CH3CN Large Core 2}
+circle(266.83327,-28.38855,1.5775198") # text={CH3CN Large Core 3}
+circle(266.83137,-28.382166,1.6910339") # text={CH3CN Large Core 4}
+circle(266.83081,-28.383422,2.1750315") # text={CH3CN Large Core 5}
+circle(266.8444,-28.365355,3.6937255") # text={CH3CN Large Core 6}
+circle(266.83512,-28.396099,3.2582761") # text={CH3CN Large Core 7}
+circle(266.83356,-28.378304,1.7774172") # text={CH3CN Large Core 8}
+circle(266.83044,-28.370926,1.7774172") # text={CH3CN Large Core 9}
