@@ -18,10 +18,11 @@ speciesre = re.compile('SgrB2_b3_7M_12M.([a-zA-Z0-9]*).image.pbcor.fits')
 # '../tp/tp_concat.spw23.image.fits: 102287973625.33496 Hz,104162550974.6752 Hz'
 
 for interferometer_fn in (
+    'SgrB2_b3_7M_12M.HCOp.image.pbcor.fits',
     'SgrB2_b3_7M_12M.HNC.image.pbcor.fits',
-    #'SgrB2_b3_7M_12M.CH3CN.image.pbcor.fits',
-    #'SgrB2_b3_7M_12M.H41a.image.pbcor.fits',
-    #'SgrB2_b3_7M_12M.HC3N.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.CH3CN.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.H41a.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.HC3N.image.pbcor.fits',
 ):
 
     species = speciesre.search(interferometer_fn).groups()[0]
@@ -29,15 +30,20 @@ for interferometer_fn in (
 
     medsubfn = '{species}_7m_12m_medsub.fits'.format(species=species)
     if not os.path.exists(medsubfn):
-        cube = SpectralCube.read(interferometer_fn).with_spectral_unit(u.GHz)
+        cube = SpectralCube.read(interferometer_fn).with_spectral_unit(u.km/u.s,
+                                                                       velocity_convention='radio')
         cube.beam_threshold = 100
-        med = cube.median(axis=0).value
+        # try to avoid contamination... won't work universally; need to examine
+        # individual cubes and have this as a parameter
+        med = cube.spectral_slab(90*u.km/u.s, 160*u.km/u.s).median(axis=0).value
         os.system('cp {0} {1}'.format(interferometer_fn, medsubfn))
         fh = fits.open(medsubfn, mode='update')
         log.info("Median subtracting")
-        for ii,imslice in enumerate(ProgressBar(fh[0].data)):
+        pb = ProgressBar(len(fh[0].data))
+        for ii,imslice in enumerate(fh[0].data):
             fh[0].data[ii] = imslice - med
             fh.flush()
+            pb.update()
         fh.close()
 
     cube = SpectralCube.read(medsubfn).with_spectral_unit(u.GHz)
@@ -103,29 +109,53 @@ for interferometer_fn in (
     #tpkrg.writeto('HC3N_tp_freq_ds_interp.fits', clobber=True)
 
     cube_tpkrg = SpectralCube.read(tpkrg) #'HC3N_tp_freq_ds_interp.fits')
+    tpoutfn = '{species}_TP.fits'.format(species=species)
+    cube_tpkrg.with_spectral_unit(u.km/u.s,
+                                  rest_value=cube.wcs.wcs.restfrq*u.Hz,
+                                  velocity_convention='radio').write(tpoutfn,
+                                                                     overwrite=True)
+    print("Single dish beam = {0}".format(cube_tpkrg.beam))
 
-    # final goal
-    os.system('cp {0} {1}'.format(interferometer_fn, outfilename))
-    assert len(cube) == len(cube_tpkrg)
-    fh = fits.open(outfilename, mode='update')
-    fh[0].header['BUNIT'] = 'K'
+    # intermediate work: test that a single frame has been properly combined
+    frq = cube.wcs.wcs.restfrq*u.Hz * (1-65/3e5) # approximately 65 kms
+    closestchan = cube.closest_spectral_channel(frq)
+    im = cube[closestchan] * jtok[closestchan]
+    sdim = cube_tpkrg[cube_tpkrg.closest_spectral_channel(frq)]
+    im.write('singleframes/{species}_cubek_65kms.fits'.format(species=species), overwrite=True)
+    sdim.write('singleframes/{species}_tpcube_k_rg_65kms.fits'.format(species=species), overwrite=True)
+    combohdu, hdu2 = feather_simple(im.hdu, sdim.hdu, return_regridded_lores=True, return_hdu=True)
+    combohdu.writeto('singleframes/{species}_TP_7m_12m_feather_65kms.fits'.format(species=species), clobber=True)
 
-    pb = ProgressBar(len(cube))
+    if do_full_cube:
+        # final goal
+        os.system('cp {0} {1}'.format(interferometer_fn, outfilename))
+        assert len(cube) == len(cube_tpkrg)
+        fh = fits.open(outfilename, mode='update')
+        fh[0].header['BUNIT'] = 'K'
 
-    for ii,(im, sdim, jtok_int) in enumerate(zip(cube, cube_tpkrg, jtok)):
-        imhdu = im.hdu
-        imhdu.data *= jtok_int
-        comb = feather_simple(im.hdu, sdim.hdu,
-                              lowresfwhm=cube_tpkrg.beam.major)
-        fh[0].data[ii,:,:] = comb
-        fh.flush()
-        pb.update()
+        # first set everything to zero to make sure it's actually working
+        pb = ProgressBar(len(fh[0].data))
+        for ii,layer in (enumerate(fh[0].data)):
+            fh[0].data[ii,:,:] = 0
+            fh.flush()
+            pb.update()
 
-    fh.close()
-        
-    #combhdu = fourier_combine_cubes(cube_k, cube_tpkrg, return_hdu=True,
-    #                                lowresfwhm=cube_tpkrg.beam.major)
-    #combcube = SpectralCube.read(combhdu).with_spectral_unit(u.km/u.s,
-    #                                                         velocity_convention='radio')
-    #combcube.write(outfilename,
-    #               overwrite=True)
+        pb = ProgressBar(len(cube))
+
+        for ii,(im, sdim, jtok_int) in enumerate(zip(cube, cube_tpkrg, jtok)):
+            imhdu = im.hdu
+            imhdu.data *= jtok_int
+            comb = feather_simple(im.hdu, sdim.hdu,
+                                  lowresfwhm=cube_tpkrg.beam.major)
+            fh[0].data[ii,:,:] = comb.real
+            fh.flush()
+            pb.update()
+
+        fh.close()
+            
+        #combhdu = fourier_combine_cubes(cube_k, cube_tpkrg, return_hdu=True,
+        #                                lowresfwhm=cube_tpkrg.beam.major)
+        #combcube = SpectralCube.read(combhdu).with_spectral_unit(u.km/u.s,
+        #                                                         velocity_convention='radio')
+        #combcube.write(outfilename,
+        #               overwrite=True)
