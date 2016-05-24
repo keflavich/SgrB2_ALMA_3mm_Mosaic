@@ -60,7 +60,7 @@ for line, restfreq in (
                concatvis=concatvis)
 
 
-    output = 'SgrB2_b3_7M_12M.{0}'.format(line)
+    output = 'SgrB2_b3_7M_12M_natural.{0}'.format(line)
     #---------------------------------------------------
     # LINE IMAGING (MOSAIC MODE)
     os.system('rm -rf ' + output + '*/')

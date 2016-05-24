@@ -3,7 +3,8 @@ import os
 import glob
 import FITS_tools
 from spectral_cube import SpectralCube
-from singledish_combine import spectral_regrid, feather_simple, fourier_combine_cubes
+# from singledish_combine import spectral_regrid, feather_simple, fourier_combine_cubes
+from uvcombine import feather_simple, spectral_regrid, spectral_smooth_and_downsample
 from astropy.io import fits
 from astropy.utils.console import ProgressBar
 from astropy import units as u
@@ -72,43 +73,19 @@ for interferometer_fn in (
     log.debug("Read tp freq")
     tpcube_k = tpcube.to(u.K, tpcube.beam.jtok_equiv(tpcube.spectral_axis[:,None,None]))
     log.debug("Converted TP to K")
-    # determine smooth factor
+    # determine smooth factor kw = kernel width
     kw = (cube.spectral_axis.diff().mean() / tpcube_k.spectral_axis.diff().mean()).decompose().value
     log.debug("determined kernel")
-    tbcube_k_smooth = FITS_tools.cube_regrid.spectral_smooth_cube(tpcube_k,
-                                                                  kw/np.sqrt(8*np.log(2)))
-    log.debug("completed cube smooth")
 
-    integer_dsfactor = int(np.floor(kw))
-
-    tpcube_k_ds = tbcube_k_smooth[::integer_dsfactor,:,:]
-    log.debug("downsampled")
-    print(tpcube_k)
-    print(tpcube_k.hdu)
-    tpcube_k.hdu
-    log.debug("did nothing")
-    tpcube_k_ds_hdu = tpcube_k.hdu
-    log.debug("made hdu")
-    tpcube_k_ds_hdu.data = tpcube_k_ds
-    log.debug("put data in hdu")
-    tpcube_k_ds_hdu.header['CRPIX3'] = 1
-    # why min? because we're forcing CDELT3 to be positive, therefore the 0'th channel
-    # must be the reference value.  Since we're using a symmetric kernel to downsample,
-    # the reference channel - wherever we pick it - must stay fixed.
-    tpcube_k_ds_hdu.header['CRVAL3'] = tpcube_k.spectral_axis[0].to(u.Hz).value
-    tpcube_k_ds_hdu.header['CUNIT3'] = tpcube_k.spectral_axis[0].to(u.Hz).unit.to_string('FITS')
-    tpcube_k_ds_hdu.header['CDELT3'] = tpcube_k.wcs.wcs.cdelt[2] * integer_dsfactor
-    log.debug("completed header making")
-    #tpcube_k_ds_hdu.writeto('{0}_tp_freq_ds.fits', clobber=True)
-    #log.debug("wrote kelvin tp downsampled cube")
+    tpcube_k_ds_hdu = spectral_smooth_and_downsample(tpcube_k, kw)
 
     tpdscube = SpectralCube.read(tpcube_k_ds_hdu)
-    tpkrg = spectral_regrid(tpdscube,
+    tpkrg_hdu = spectral_regrid(tpdscube,
                             cube.spectral_axis)
     log.debug("done regridding")
     #tpkrg.writeto('HC3N_tp_freq_ds_interp.fits', clobber=True)
 
-    cube_tpkrg = SpectralCube.read(tpkrg) #'HC3N_tp_freq_ds_interp.fits')
+    cube_tpkrg = SpectralCube.read(tpkrg_hdu) #'HC3N_tp_freq_ds_interp.fits')
     tpoutfn = '{species}_TP.fits'.format(species=species)
     cube_tpkrg.with_spectral_unit(u.km/u.s,
                                   rest_value=cube.wcs.wcs.restfrq*u.Hz,
@@ -125,6 +102,7 @@ for interferometer_fn in (
     sdim.write('singleframes/{species}_tpcube_k_rg_65kms.fits'.format(species=species), overwrite=True)
     combohdu, hdu2 = feather_simple(im.hdu, sdim.hdu, return_regridded_lores=True, return_hdu=True)
     combohdu.writeto('singleframes/{species}_TP_7m_12m_feather_65kms.fits'.format(species=species), clobber=True)
+    hdu2.writeto('singleframes/{species}_tpcube_k_spatialandspectralregrid_65kms.fits'.format(species=species), clobber=True)
 
     if do_full_cube:
         # final goal

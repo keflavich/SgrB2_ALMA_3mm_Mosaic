@@ -1,3 +1,4 @@
+""" try to use uvcombine instead of this """
 import image_registration
 from image_registration.fft_tools.zoom import zoom_on_pixel
 from FITS_tools.cube_regrid import regrid_fits_cube,regrid_cube_hdu
@@ -119,6 +120,7 @@ def fourier_combine(highresfitsfile, lowresfitsfile,
     """
     Simple reimplementation of 'feather' for 2D images
     """
+    raise "Obsolete"
     f1 = fits.open(highresfitsfile)
     w1 = wcs.WCS(f1[0].header)
     f2 = fits.open(lowresfitsfile)
