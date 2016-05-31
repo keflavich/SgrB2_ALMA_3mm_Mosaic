@@ -110,13 +110,19 @@ for interferometer_fn in (
     # intermediate work: test that a single frame has been properly combined
     frq = cube.wcs.wcs.restfrq*u.Hz * (1-65/3e5) # approximately 65 kms
     closestchan = cube.closest_spectral_channel(frq)
-    im = cube[closestchan] * jtok[closestchan]
+    imJy = cube[closestchan]
+    im = imJy * jtok[closestchan]
+    im._unit = u.K
     sdim = cube_tpkrg[cube_tpkrg.closest_spectral_channel(frq)]
+    imJy.write('singleframes/{species}{suffix}_cubeJy_65kms.fits'.format(species=species, suffix=suffix), overwrite=True)
     im.write('singleframes/{species}{suffix}_cubek_65kms.fits'.format(species=species, suffix=suffix), overwrite=True)
     sdim.write('singleframes/{species}{suffix}_tpcube_k_rg_65kms.fits'.format(species=species, suffix=suffix), overwrite=True)
+    sdim_Jy = sdim.to(u.Jy, tpcube.beam.jtok_equiv(frq))
+    sdim_Jy._unit = u.Jy/u.beam
+    sdim.write('singleframes/{species}{suffix}_tpcube_Jy_rg_65kms.fits'.format(species=species, suffix=suffix), overwrite=True)
     combohdu, hdu2 = feather_simple(im.hdu, sdim.hdu,
                                     lowresscalefactor=1.0,
-                                    highresscalefactor=0.1,
+                                    highresscalefactor=1.0,
                                     highpassfilterSD=False,
                                     replace_hires=False,
                                     deconvSD=False,
