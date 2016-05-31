@@ -184,3 +184,4 @@ for spwnum in '2310':
             for suffix in ('psf', 'weight', 'sumwt', 'pb', 'model', 'residual',
                            'mask', 'image'):
                 os.system('rm -rf {0}.{1}'.format(myimagebase, suffix))
+        print("Completed {0}".format(output))

@@ -61,34 +61,37 @@ for line, restfreq in (
 
 
     output = 'SgrB2_b3_7M_12M_natural.{0}'.format(line)
-    #---------------------------------------------------
-    # LINE IMAGING (MOSAIC MODE)
-    os.system('rm -rf ' + output + '*/')
-    print("Imaging {0}".format(output))
-    tclean(vis=concatvis,
-           imagename=output,
-           field='SgrB2', # SgrB2
-           spw='',
-           gridder='mosaic',
-           specmode='cube',
-           start='{0}km/s'.format(velocity_range[0]),
-           width='{0}km/s'.format(velocity_res), interpolation='linear',
-           nchan=nchans,
-           restfreq=restfreq,
-           veltype='radio',
-           outframe='LSRK',
-           interactive=F,
-           niter=200,
-           imsize=[1024,1024],
-           cell='0.5arcsec',
-           weighting='briggs',
-           robust=2.0,
-           phasecenter='J2000 17:47:19.242 -28.23.33.22',
-           threshold='15mJy',
-           savemodel='none',
-          )
-    myimagebase = output
-    impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True)
-    exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True, dropdeg=True)
-    exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', overwrite=True, dropdeg=True)
-    exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', overwrite=True, dropdeg=True)
+    if not os.path.exists(output+".image.pbcor.fits"):
+        #---------------------------------------------------
+        # LINE IMAGING (MOSAIC MODE)
+        os.system('rm -rf ' + output + '*/')
+        print("Imaging {0}".format(output))
+        tclean(vis=concatvis,
+               imagename=output,
+               field='SgrB2', # SgrB2
+               spw='',
+               gridder='mosaic',
+               specmode='cube',
+               start='{0}km/s'.format(velocity_range[0]),
+               width='{0}km/s'.format(velocity_res), interpolation='linear',
+               nchan=nchans,
+               restfreq=restfreq,
+               veltype='radio',
+               outframe='LSRK',
+               interactive=F,
+               niter=200,
+               imsize=[1024,1024],
+               cell='0.5arcsec',
+               weighting='briggs',
+               robust=2.0,
+               phasecenter='J2000 17:47:19.242 -28.23.33.22',
+               threshold='15mJy',
+               savemodel='none',
+              )
+        myimagebase = output
+        impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True)
+        exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True, dropdeg=True)
+        exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', overwrite=True, dropdeg=True)
+        exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', overwrite=True, dropdeg=True)
+
+    print("Done with {0}".format(output))
