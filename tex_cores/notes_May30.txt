@@ -1,0 +1,4 @@
+-Could the point sources be externally photoionized proplyds?
+
+  - Maybe: their fluxes are consistent, and the upper limits from the 1cm emission don't rule it out
+  - No: if they're photoionized, the gas around them should be too, but there is no free-free emission around them
