@@ -27,19 +27,37 @@ elif socket.gethostname() == 'shamash':
         'full_SgrB2_12m_r-0.5_spw2_lines.fits',
         'full_SgrB2_12m_r-0.5_spw3_lines.fits',
     ]
+elif socket.gethostname() == 'nergal':
+    dpath = lambda x: os.path.join("/scratch/aginsbur/SgrB2/ALMA/2013.1.00269.S/merge/fullcube/",x)
+    rpath = lambda x: os.path.join("/data/SgrB2/ALMA/2013.1.00269.S/regions",x)
+    spath = lambda x: os.path.join("/data/SgrB2/ALMA/2013.1.00269.S/spectra",x)
+    mergecubes = [
+        'full_SgrB2_TETC7m_r2_spw0_lines.fits',
+        'full_SgrB2_TETC7m_r2_spw1_lines.fits',
+        'full_SgrB2_TETC7m_r2_spw2_lines.fits',
+        'full_SgrB2_TETC7m_r2_spw3_lines.fits',
+    ]
 
 
 regions = (pyregion.open(rpath('tc_continuum_core_extraction_regions.reg')) +
            pyregion.open(rpath('ionizationfront_circle.reg')) +
            pyregion.open(rpath('extraction_regions_n_and_m.reg')) +
-           pyregion.open(rpath('ch3cn_large_cores.reg'))
+           pyregion.open(rpath('ch3cn_large_cores.reg')) +
+           pyregion.open(rpath('cores_with_names.reg'))
           )
 
 for cubename in mergecubes:
     for reg in regions:
         name = reg.attr[1]['text']
         fname = name.replace(" ","_").lower()
-        reg = pyregion.ShapeList([reg])
+        CL = reg.coord_list
+        if reg.name == 'circle':
+            radius = CL[2]
+            reg = pyregion.ShapeList([reg])
+        else:
+            radius = 0.5
+            reg = pyregion.parse("fk5; circle({0},{1},0.5\")"
+                                 .format(CL[0], CL[1]))
 
         suffix = os.path.splitext(cubename)[0]
         if os.path.exists(spath("{1}_{0}.fits".format(suffix,fname))):
@@ -66,3 +84,19 @@ for cubename in mergecubes:
 
         hdu.writeto(spath("{1}_{0}.fits".format(suffix,fname)), clobber=True)
         print(spath("{1}_{0}.fits".format(suffix,fname)))
+
+        bgSL = pyregion.parse("fk5; circle({0},{1},{2}\")"
+                              .format(CL[0],
+                                      CL[1],
+                                      2*radius*3600))
+        bgsc = cube.subcube_from_ds9region(bgSL)
+        npix = np.count_nonzero(np.isfinite(bgsc[0,:,:]))
+        bgspec = (bgsc.sum(axis=(1,2)) - scube.sum(axis=(1,2))) / npix
+        bgspec.meta['beam'] = radio_beam.Beam(major=np.nanmedian([bm.major.to(u.deg).value for bm in spectrum.beams]),
+                                              minor=np.nanmedian([bm.minor.to(u.deg).value for bm in spectrum.beams]),
+                                              pa=np.nanmedian([bm.pa.to(u.deg).value for bm in spectrum.beams]),
+                                             )
+        bgspec.hdu.writeto(spath("{0}_{1}_background_mean{2}.fits".format(fname,
+                                                                          name,
+                                                                          suffix)
+                                ), clobber=True)

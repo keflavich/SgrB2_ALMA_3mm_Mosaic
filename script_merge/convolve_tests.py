@@ -5,7 +5,7 @@ import radio_beam
 from astropy import units as u
 from astropy import wcs
 
-tpfn = 'singleframes/HC3N_natural_tpcube_k_rg_65kms.fits'
+tpfn = 'singleframes/HC3N_natural_tpcube_k_spatialandspectralregrid_65kms.fits'
 featherfn = 'singleframes/HC3N_natural_TP_7m_12m_feather_65kms.fits'
 intfn = 'singleframes/HC3N_natural_cubek_65kms.fits'
 
@@ -25,5 +25,11 @@ feather_conv = convolve_fft(featherfh[0].data, kernel)
 
 featherfh[0].data = feather_conv
 featherfh.writeto("singleframes/_test_HC3N_feather_convolved.fits", clobber=True)
+int_data = intfh[0].data
 intfh[0].data = int_conv
 intfh.writeto("singleframes/_test_HC3N_int_convolved.fits", clobber=True)
+
+tp_minus_intconv = tpfh[0].data - int_conv
+imagespacecombo = tp_minus_intconv + int_data
+rslt = fits.PrimaryHDU(data=imagespacecombo, header=featherfh[0].header)
+rslt.writeto('singleframes/_test_HC3N_imagespace_combination.fits', clobber=True)
