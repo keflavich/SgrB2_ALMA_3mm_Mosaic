@@ -48,6 +48,7 @@ frq7m,pow7m = fft_psd_tools.psds.pspec(fft_psd_tools.psds.PSD2(slc7m.value*jtok_
 frq12m,pow12m = fft_psd_tools.psds.pspec(fft_psd_tools.psds.PSD2(slc12m.value*jtok_12m[ch_65kms_12m]), view=False)
 frq12m_conv,pow12m_conv = fft_psd_tools.psds.pspec(fft_psd_tools.psds.PSD2(slc12m_conv_to_7m*jtok_12m[ch_65kms_12m]), view=False)
 frqTP,powTP = fft_psd_tools.psds.pspec(fft_psd_tools.psds.PSD2(slcTP), view=False)
+frq7m12m,pow7m12m = fft_psd_tools.psds.pspec(fft_psd_tools.psds.PSD2(slc7m12m.value*jtok_7m12m[ch_65kms_7m12m]), view=False)
 
 # some UVcombine tests; useful to compare to the above.  Need psds still
 import uvcombine
@@ -76,8 +77,9 @@ pl.loglog(pixscale7m.to(u.arcsec).value/frq7m, pow7m, label='7m')
 pl.loglog(pixscale12m.to(u.arcsec).value/frq12m, pow12m, label='12m')
 pl.loglog(pixscaleTP.to(u.arcsec).value/frqTP, powTP, label='TP')
 pl.loglog(pixscale12m.to(u.arcsec).value/frq12m_conv, pow12m_conv, label='12m->7m')
-pl.loglog(pixscale7m.to(u.arcsec).value/frq7mTP, pow7mTP, label='7m+TP')
-pl.loglog(pixscale12m.to(u.arcsec).value/frq12m7mTP, pow12m7mTP, label='7m+12m+TP')
+pl.loglog(pixscale7m.to(u.arcsec).value/frq7mTP, pow7mTP, label='7m+TP (feather)')
+pl.loglog(pixscale12m.to(u.arcsec).value/frq12m7mTP, pow12m7mTP, label='7m+12m+TP (feather)')
+pl.loglog(pixscale12m.to(u.arcsec).value/frq7m12m, pow7m12m, label='7m+12m (clean)')
 pl.legend(loc='best')
 pl.xlabel("Angular Scale (arcsec)")
 pl.ylabel("Power Spectrum (K$^2$)")
