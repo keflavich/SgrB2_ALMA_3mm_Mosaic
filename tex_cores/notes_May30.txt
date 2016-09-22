@@ -2,3 +2,8 @@
 
   - Maybe: their fluxes are consistent, and the upper limits from the 1cm emission don't rule it out
   - No: if they're photoionized, the gas around them should be too, but there is no free-free emission around them
+
+
+Title: A catalog of 3mm point sources in the Sgr B2 cloud: signs of extended star formation in a CMZ cloud
+
+Nature of the continuum sources
