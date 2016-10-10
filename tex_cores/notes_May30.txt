@@ -6,4 +6,9 @@
 
 Title: A catalog of 3mm point sources in the Sgr B2 cloud: signs of extended star formation in a CMZ cloud
 
+We report the detection of >100 sources in the Sgr B2 clouds with extents smaller than 5000 AU.  These
+sources are most likely to be protostars or centrally condensed prestellar cores.  The spatial extent
+of these sources demonstrates that Sgr B2 is experiencing a highly extended star formation event, not
+just an isolated `starburst' within the protocluster regions M, N, and S.
+
 Nature of the continuum sources
