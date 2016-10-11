@@ -35,22 +35,48 @@ execfile("scriptForImaging.py")
 """
 # Start this in the Script directory
 import os
-cwd = os.path.split(os.path.getcwd())[1]
+cwd = os.path.split(os.getcwd())[1]
 if cwd != 'script':
     raise ValueError("Start this script in the script/ directory")
 
 # AnalysisUtils required (probably because I didn't disable the QA2 stuff...)
 import sys
 sys.path.append(os.path.join(os.getcwd(), 'analysis_scripts'))
-import analysisUtils as aU
+sys.path.append("/users/thunter/AIV/science/analysis_scripts/")
+import analysisUtils as au
+es = au.stuffForScienceDataReduction()
 
 # yep, start it in script, then immediately chdir
 os.chdir('../calibrated')
 
-os.symlink('../raw/uid___A002_X95e355_X1f13.asdm.sdm/', '.')
-os.symlink('../raw/uid___A002_X9cffbd_Xefe.asdm.sdm/', '.')
-os.symlink('../raw/uid___A002_X95e355_X220a.asdm.sdm/', '.')
-os.symlink('../raw/uid___A002_X9d13e3_Xd4f.asdm.sdm/', '.')
+for source,target in (
+                      ('../raw/uid___A002_X95e355_X1f13.asdm.sdm/', '.'),
+                      ('../raw/uid___A002_X9cffbd_Xefe.asdm.sdm/', '.'),
+                      ('../raw/uid___A002_X95e355_X220a.asdm.sdm/', '.'),
+                      ('../raw/uid___A002_X9d13e3_Xd4f.asdm.sdm/', '.'),
+                      ('../raw/uid___A002_X95e355_X1f13.asdm.sdm/', 'uid___A002_X95e355_X1f13'),
+                      ('../raw/uid___A002_X9cffbd_Xefe.asdm.sdm/', 'uid___A002_X9cffbd_Xefe'),
+                      ('../raw/uid___A002_X95e355_X220a.asdm.sdm/', 'uid___A002_X95e355_X220a'),
+                      ('../raw/uid___A002_X9d13e3_Xd4f.asdm.sdm/', 'uid___A002_X9d13e3_Xd4f'),
+                    ):
+    try:
+        os.symlink(source, target)
+    except OSError:
+        continue
+
+es.generateReducScript('uid___A002_X9d13e3_Xd4f')
+es.generateReducScript('uid___A002_X95e355_X220a')
+es.generateReducScript('uid___A002_X95e355_X1f13')
+es.generateReducScript('uid___A002_X9cffbd_Xefe')
+es.generateReducScript(['uid___A002_X95e355_X1f13.ms.split.cal',
+                        'uid___A002_X95e355_X220a.ms.split.cal',
+                        'uid___A002_X9cffbd_Xefe.ms.split.cal',
+                        'uid___A002_X9d13e3_Xd4f.ms.split.cal'],
+                       step='fluxcal')
+es.generateReducScript('calibrated.ms',step='imaging')
+
+
+
 
 importasdm('uid___A002_X95e355_X1f13.asdm.sdm', 'uid___A002_X95e355_X1f13.ms', asis='Antenna Station Receiver Source CalAtmosphere CalWVR', bdfflags=True, lazy=False)
 importasdm('uid___A002_X9cffbd_Xefe.asdm.sdm',  'uid___A002_X9cffbd_Xefe.ms', asis='Antenna Station Receiver Source CalAtmosphere CalWVR', bdfflags=True, lazy=False)
@@ -62,3 +88,4 @@ execfile('../script/uid___A002_X9cffbd_Xefe.ms.scriptForCalibration.py')
 execfile('../script/uid___A002_X95e355_X220a.ms.scriptForCalibration.py')
 execfile('../script/uid___A002_X9d13e3_Xd4f.ms.scriptForCalibration.py')
 execfile("../script/scriptForFluxCalibration.py") # make sure this is the es-generated one!!
+#execfile("../script/scriptForImaging.py")

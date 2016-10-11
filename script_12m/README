@@ -4,3 +4,5 @@ The original calibration was done with the pipeline.  I (think) I re-did it
 with manual calibration to avoid the flagging from the pipeline, which flagged
 out the entire HCN, HCO+, and HNC lines.  The uid*scriptForCalibration.py
 scripts were therefore not included in the archive.
+
+The script "manual_reduction.py" was used to produce the scripts...
