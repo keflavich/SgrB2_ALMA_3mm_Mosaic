@@ -52,46 +52,51 @@ es = au.stuffForScienceDataReduction()
 # yep, start it in script, then immediately chdir
 os.chdir('../calibrated')
 
-for source,target in (
-                      ('../raw/uid___A002_X95e355_X1f13.asdm.sdm/', '.'),
-                      ('../raw/uid___A002_X9cffbd_Xefe.asdm.sdm/', '.'),
-                      ('../raw/uid___A002_X95e355_X220a.asdm.sdm/', '.'),
-                      ('../raw/uid___A002_X9d13e3_Xd4f.asdm.sdm/', '.'),
-                      ('../raw/uid___A002_X95e355_X1f13.asdm.sdm/', 'uid___A002_X95e355_X1f13'),
-                      ('../raw/uid___A002_X9cffbd_Xefe.asdm.sdm/', 'uid___A002_X9cffbd_Xefe'),
-                      ('../raw/uid___A002_X95e355_X220a.asdm.sdm/', 'uid___A002_X95e355_X220a'),
-                      ('../raw/uid___A002_X9d13e3_Xd4f.asdm.sdm/', 'uid___A002_X9d13e3_Xd4f'),
-                    ):
-    try:
-        os.symlink(source, target)
-    except OSError:
-        continue
+sourcefiles = [
+               '../raw/uid___A002_X95e355_X1f13.asdm.sdm',
+               '../raw/uid___A002_X9cffbd_Xefe.asdm.sdm',
+               '../raw/uid___A002_X95e355_X220a.asdm.sdm',
+               '../raw/uid___A002_X9d13e3_Xd4f.asdm.sdm',
+]
 
-es.generateReducScript('uid___A002_X9d13e3_Xd4f')
-es.generateReducScript('uid___A002_X95e355_X220a')
-es.generateReducScript('uid___A002_X95e355_X1f13')
-es.generateReducScript('uid___A002_X9cffbd_Xefe')
-es.generateReducScript(['uid___A002_X95e355_X1f13.ms.split.cal',
-                        'uid___A002_X95e355_X220a.ms.split.cal',
-                        'uid___A002_X9cffbd_Xefe.ms.split.cal',
-                        'uid___A002_X9d13e3_Xd4f.ms.split.cal'],
-                       step='fluxcal')
+
+
+uidnames = [os.path.basename(sf[:-9]) for sf in sourcefiles]
+
+for source in sourcefiles:
+    for target in (',', os.path.basename(source[:-9])):
+        try:
+            os.symlink(source, target)
+        except OSError:
+            continue
+
+for uidname in uidnames:
+    es.generateReducScript(uidname)
 
 for fn in glob.glob("uid*scriptForCalibration.py"):
     shutil.copy(fn, '../script/')
 
+calnames = [unm+".ms.split.cal" for unm in uidnames]
+
+# Normally shouldn't need to do this?  But, if there are '-'s in the flux
+# column of allFluxes.txt (which gets used by es.generateReducScript), it
+# is needed.
+es.generateFluxFile(calnames)
+
+es.generateReducScript(calnames,
+                       step='fluxcal')
+
 shutil.copy('scriptForFluxCalibration.py', '../script/')
 
 
-importasdm('uid___A002_X95e355_X1f13.asdm.sdm', 'uid___A002_X95e355_X1f13.ms', asis='Antenna Station Receiver Source CalAtmosphere CalWVR', bdfflags=True, lazy=False)
-importasdm('uid___A002_X9cffbd_Xefe.asdm.sdm',  'uid___A002_X9cffbd_Xefe.ms', asis='Antenna Station Receiver Source CalAtmosphere CalWVR', bdfflags=True, lazy=False)
-importasdm('uid___A002_X95e355_X220a.asdm.sdm', 'uid___A002_X95e355_X220a.ms', asis='Antenna Station Receiver Source CalAtmosphere CalWVR', bdfflags=True, lazy=False)
-importasdm('uid___A002_X9d13e3_Xd4f.asdm.sdm',  'uid___A002_X9d13e3_Xd4f.ms', asis='Antenna Station Receiver Source CalAtmosphere CalWVR', bdfflags=True, lazy=False)
+for uidname in uidnames:
+    importasdm(uidname, uidname+".ms",
+               asis='Antenna Station Receiver Source CalAtmosphere CalWVR',
+               bdfflags=True, lazy=False)
 
-execfile('../script/uid___A002_X95e355_X1f13.ms.scriptForCalibration.py')
-execfile('../script/uid___A002_X9cffbd_Xefe.ms.scriptForCalibration.py')
-execfile('../script/uid___A002_X95e355_X220a.ms.scriptForCalibration.py')
-execfile('../script/uid___A002_X9d13e3_Xd4f.ms.scriptForCalibration.py')
+for uidname in uidnames:
+    execfile("../script/{0}.ms.scriptForCalibration.py".format(uidname))
+
 execfile("../script/scriptForFluxCalibration.py") # make sure this is the es-generated one!!
-#execfile("../script/scriptForImaging.py")
 es.generateReducScript('calibrated.ms',step='imaging')
+#execfile("../script/scriptForImaging.py")
