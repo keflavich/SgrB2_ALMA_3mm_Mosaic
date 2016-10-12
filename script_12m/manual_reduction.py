@@ -35,6 +35,8 @@ execfile("scriptForImaging.py")
 """
 # Start this in the Script directory
 import os
+import shutil
+import glob
 cwd = os.path.split(os.getcwd())[1]
 if cwd != 'script':
     raise ValueError("Start this script in the script/ directory")
@@ -44,6 +46,7 @@ import sys
 sys.path.append(os.path.join(os.getcwd(), 'analysis_scripts'))
 sys.path.append("/users/thunter/AIV/science/analysis_scripts/")
 import analysisUtils as au
+import analysisUtils as aU
 es = au.stuffForScienceDataReduction()
 
 # yep, start it in script, then immediately chdir
@@ -73,9 +76,11 @@ es.generateReducScript(['uid___A002_X95e355_X1f13.ms.split.cal',
                         'uid___A002_X9cffbd_Xefe.ms.split.cal',
                         'uid___A002_X9d13e3_Xd4f.ms.split.cal'],
                        step='fluxcal')
-es.generateReducScript('calibrated.ms',step='imaging')
 
+for fn in glob.glob("uid*scriptForCalibration.py"):
+    shutil.copy(fn, '../script/')
 
+shutil.copy('scriptForFluxCalibration.py', '../script/')
 
 
 importasdm('uid___A002_X95e355_X1f13.asdm.sdm', 'uid___A002_X95e355_X1f13.ms', asis='Antenna Station Receiver Source CalAtmosphere CalWVR', bdfflags=True, lazy=False)
@@ -89,3 +94,4 @@ execfile('../script/uid___A002_X95e355_X220a.ms.scriptForCalibration.py')
 execfile('../script/uid___A002_X9d13e3_Xd4f.ms.scriptForCalibration.py')
 execfile("../script/scriptForFluxCalibration.py") # make sure this is the es-generated one!!
 #execfile("../script/scriptForImaging.py")
+es.generateReducScript('calibrated.ms',step='imaging')
