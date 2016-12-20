@@ -31,6 +31,7 @@ for fn in files:
         #continue
 
     cube = SpectralCube.read(fn).minimal_subcube().with_spectral_unit(u.km/u.s, velocity_convention='radio')
+    cube.beam_threshold = 1000
     print(fn,cube)
     m0 = cube.moment0(axis=0)
     max = cube.max(axis=0)

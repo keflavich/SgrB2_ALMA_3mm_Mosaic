@@ -27,15 +27,15 @@ fig1.clf()
 ax1 = fig1.gca()
 
 shift = np.log10(masscalc.mass_conversion_factor())
-h,l,p = ax1.hist(core_phot_tbl['peak']*masscalc.mass_conversion_factor(),
+h,l,p = ax1.hist(core_phot_tbl['peak']*masscalc.mass_conversion_factor(40, beta=1.75),
                  log=False, bins=np.logspace(-4+shift,-1+shift,50))
 ax1.set_xscale('log')
 ax1.set_xlim(l[h>0].min()/1.1, l[h>0].max()*1.1)
 #ax1.set_ylim(0.6, 15)
-ax1.set_xlabel("M(T=20 K, $\\beta=1.5$)")
+ax1.set_xlabel("M(T=40 K, $\\beta=1.75$)")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_mass_histogram.png'))
+fig1.savefig(paths.fpath('core_mass_histogram_40K.png'))
 
 
 fig2 = pl.figure(2)
