@@ -9,8 +9,9 @@ import glob
 #rendermask_arr = (cube[0] > 0.75)
 #rendermask = BooleanArrayMask(rendermask_arr, cube.wcs, cube.shape)
 #rcube = cube.with_mask(rendermask).minimal_subcube()
-os.chdir('/Users/adam/work/sgrb2/SgrB2_ALMA_3mm_Mosaic/FITS/merge/')
-os.chdir('/Volumes/passport/alma/sgrb2_b3/merge/')
+#os.chdir('/Users/adam/work/sgrb2/SgrB2_ALMA_3mm_Mosaic/FITS/merge/')
+#os.chdir('/Volumes/passport/alma/sgrb2_b3/merge/')
+os.chdir('/lustre/aginsbur/sgrb2/2013.1.00269.S/merge')
 
 #files = [
 #         'SgrB2_b3_7M_12M.CH3CN.image.pbcor_medsub.fits',
