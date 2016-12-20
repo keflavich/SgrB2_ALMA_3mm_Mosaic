@@ -49,8 +49,8 @@ for ii,reg in enumerate(regions):
                      'RA': reg.coord_list[0],
                      'Dec': reg.coord_list[1],
                     }
-    results[name]['peak_mass'] = masscalc.mass_conversion_factor()*results[name]['peak']*u.M_sun
-    results[name]['peak_col'] = masscalc.col_conversion_factor()*results[name]['peak']*u.cm**-2
+    results[name]['peak_mass'] = masscalc.mass_conversion_factor()*results[name]['peak']
+    results[name]['peak_col'] = masscalc.col_conversion_factor(beam.sr)*results[name]['peak']
 
 # invert the table to make it parseable by astropy...
 # (this shouldn't be necessary....)
