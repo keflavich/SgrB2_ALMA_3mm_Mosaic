@@ -1,6 +1,30 @@
 \newcommand{\ncores}{138\xspace}
 \begin{document}
 
+\sections{Observation and Data Reduction}
+Data were acquired as part of ALMA project 2013.1.00269.S.  Observations were
+taken with the 12m Total Power array, the ALMA 7m array, and in two
+configurations with the ALMA 12m array.  The setup included the maximum allowed
+number of channels, 15360, across 4 spectral windows in a single polarization;
+the single-polarization mode was adopted to support moderate spectral resolution
+across the broad bandwidth.
+
+The ALMA QA2 calibrated measurement sets were combined to make a single
+high-resolution, high-dynamic range data set.  We imaged the continuum jointly
+across all four bands, and found that the central regions surrounding Sgr B2M
+were severely affected by artifacts that could not be cleaned out.  We
+therefore ran 3 iterations of phase-only self-calibration and one iteration of
+amplitude + phase self-calibration to yield a substantially improved image.
+The total dynamic range, measured as the peak brightness in Sgr B2 to the RMS
+noise in a signal-free region of the image, is 22000 (noise $\sim0.08$
+mJy/beam), while the dynamic range within one primary beam ($\sim0.5$\arcmin)
+of Sgr B2M is only 3700 (noise $\sim0.5$ mJy/beam).  Because of the dynamic
+range limitations, and an empirical determination that clean did not converge
+if allowed to go too deep, we cleaned to a threshold of 0.5 mJy/beam across the
+image.
+
+We also produced cubes of all of the spectral lines.  These were lightly cleaned
+with only 200 iterations of cleaning.  No self-calibration was applied.
 
 \section{Analysis}
 
