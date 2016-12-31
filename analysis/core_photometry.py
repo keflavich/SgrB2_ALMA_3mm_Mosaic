@@ -20,8 +20,8 @@ units = {'peak':u.Jy/u.beam,
          'sum':u.Jy/u.beam,
          'npix':u.dimensionless_unscaled,
          'beam_area':u.sr,
-         'peak_mass':u.M_sun,
-         'peak_col':u.cm**-2,
+         'peak_mass_20K':u.M_sun,
+         'peak_col_20K':u.cm**-2,
          'RA': u.deg,
          'Dec': u.deg,
         }
@@ -49,8 +49,8 @@ for ii,reg in enumerate(regions):
                      'RA': reg.coord_list[0],
                      'Dec': reg.coord_list[1],
                     }
-    results[name]['peak_mass'] = masscalc.mass_conversion_factor()*results[name]['peak']
-    results[name]['peak_col'] = masscalc.col_conversion_factor(beam.sr)*results[name]['peak']
+    results[name]['peak_mass_20K'] = masscalc.mass_conversion_factor()*results[name]['peak']
+    results[name]['peak_col_20K'] = masscalc.col_conversion_factor(results[name]['peak']*u.Jy, beam.sr)
 
 # invert the table to make it parseable by astropy...
 # (this shouldn't be necessary....)
@@ -69,11 +69,18 @@ for k,v in results.items():
 
 for c in columns:
     if c in units:
-        columns[c] = columns[c] * units[c]
+        columns[c] = u.Quantity(columns[c], units[c])
 
 tbl = Table([Column(data=columns[k],
                     name=k)
-             for k in ['name','RA','Dec','peak','sum','npix','beam_area','peak_mass','peak_col']])
+             for k in ['name', 'RA', 'Dec', 'peak', 'sum', 'npix', 'beam_area',
+                       'peak_mass_20K', 'peak_col_20K']])
 
-tbl.sort('peak_mass')
-tbl.write(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
+peak_brightness = (tbl['peak']*u.beam).to(u.K,
+                                          u.brightness_temperature(tbl['beam_area'],
+                                                                   masscalc.centerfreq))
+tbl.add_column(Column(data=peak_brightness, name='peak_K', unit=u.K))
+
+tbl.sort('peak_mass_20K')
+tbl.write(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac',
+          overwrite=True)

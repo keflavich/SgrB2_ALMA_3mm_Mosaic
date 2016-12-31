@@ -9,7 +9,7 @@ pl.matplotlib.rc_file('/Users/adam/.matplotlib/pubfiguresrc')
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 
-peak_brightness = (core_phot_tbl['peak']*u.beam).to(u.K, u.brightness_temperature(core_phot_tbl['beam_area'], masscalc.centerfreq))
+peak_brightness = core_phot_tbl['peak_K']
 
 fig1 = pl.figure(1)
 fig1.clf()

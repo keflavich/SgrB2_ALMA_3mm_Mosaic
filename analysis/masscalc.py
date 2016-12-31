@@ -33,8 +33,8 @@ def mass_conversion_factor(TK=20, d=distance.to(u.kpc), beta=beta):
     return dust.massofsnu(nu=centerfreq, snu=1*u.Jy, distance=d,
                           temperature=u.Quantity(TK, u.K), beta=beta)
 
-def col_conversion_factor(beamomega, TK=20, beta=beta):
-    return dust.colofsnu(nu=centerfreq, snu=1*u.Jy, beamomega=beamomega,
+def col_conversion_factor(snu, beamomega, TK=20, beta=beta):
+    return dust.colofsnu(nu=centerfreq, snu=snu, beamomega=beamomega,
                          temperature=u.Quantity(TK, u.K), beta=beta)
 
 def Jnu(T, nu):
