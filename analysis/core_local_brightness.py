@@ -1,4 +1,5 @@
 import os
+import copy
 
 import numpy as np 
 from astropy.io import fits
@@ -14,7 +15,7 @@ datapath = '/Users/adam/work/sgrb2/continuumdata'
 
 
 files = {"SHARC": {'wavelength': 350*u.um, 'bmarea':9.55e-10*u.sr, 'bunit':u.Jy, 'filename':'SgrB2_350um_gal.fits',},
-         "ATLASGAL": {'wavelength': 870*u.um, 'bmarea':4.91e-9*u.sr, 'bunit':u.Jy, 'filename':'ATLASGAL.1.5_reprojectoverlap9.fits',},
+         "ATLASGAL": {'wavelength': 870*u.um, 'bmarea':4.91e-9*u.sr, 'bunit':u.Jy, 'filename':'AG-Laboca-Planck.1.5.fits',},
          "SCUBA450": {'wavelength': 450*u.um, 'bmarea':7.59e-10*u.sr, 'bunit':u.Jy, 'filename':'gc450_gal_gal_zoom.fits',},
          "SCUBA850": {'wavelength': 850*u.um, 'bmarea':2.71e-9*u.sr, 'bunit':u.Jy, 'filename':'gc850_gal_gal_zoom.fits',},
          #"Herschel70": {'wavelength': 350*u.um, 'bmarea':10*u.arcsec**2, 'bunit':u.Jy, 'filename':'igls_l000_blue_cnr_hh_gal_zoom.fits',},
@@ -22,7 +23,7 @@ files = {"SHARC": {'wavelength': 350*u.um, 'bmarea':9.55e-10*u.sr, 'bunit':u.Jy,
          "Herschel500": {'wavelength': 500*u.um, 'bmarea':1.72e-8*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_plw_deglitch_hh_gal_zoom.fits',},
          "Herschel350": {'wavelength': 350*u.um, 'bmarea':8.43e-9*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_pmw_deglitch_hh_gal_zoom.fits',},
          "Herschel250": {'wavelength': 250*u.um, 'bmarea':4.30*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_psw_deglitch_hh_gal_zoom.fits',},
-         "BGPS": {'wavelength': 1100*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.Jy, 'filename':'igls_l000_psw_deglitch_hh_gal_zoom.fits',},
+         "BGPS": {'wavelength': 1100*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.Jy, 'filename':'v2.1_ds2_l001_13pca_map20.fits',},
         }
 
 """
@@ -46,6 +47,7 @@ alma_hdr = fits.Header(dict(NAXIS=2,
                             CRPIX2=225.0,
                             CUNIT2='deg     ',)
                       )
+
 
 tbl = table.Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac',)
 
@@ -83,6 +85,45 @@ for row in tbl:
 tbl.write(paths.tpath("continuum_photometry_plusbackground.ipac"), format='ascii.ipac',
           overwrite=True)
 
+
+brick_files = copy.deepcopy(files)
+brick_hdr = fits.Header(dict(NAXIS=2,
+                             NAXIS1=450,
+                             NAXIS2=450,
+                             CTYPE1='RA---SIN',
+                             CRVAL1=266.5335253,
+                             CDELT1=-0.0002777777777777778,
+                             CRPIX1=225.0,
+                             CUNIT1='deg     ',
+                             CTYPE2='DEC--SIN',
+                             CRVAL2=-28.70780832,
+                             CDELT2=0.0002777777777777778,
+                             CRPIX2=225.0,
+                             CUNIT2='deg     ',)
+                       )
+brick_files['SHARC']['filename'] = 'SHARC_350_Dowell.fits'
+brick_files['SCUBA450']['filename'] = 'gc450.fits.gz'
+brick_files['SCUBA850']['filename'] = 'gc850.fits.gz'
+brick_files['ATLASGAL']['filename'] = 'AG-Laboca-Planck.0.0.fits'
+brick_files["Herschel500"]['filename'] = 'igls_l000_plw_deglitch_hh.fits'
+brick_files["Herschel350"]['filename'] = 'igls_l000_pmw_deglitch_hh.fits'
+brick_files["Herschel250"]['filename'] = 'igls_l000_psw_deglitch_hh.fits'
+brick_files["BGPS"]['filename'] = 'v2.1_ds2_l000_13pca_map20_crop.fits'
+
+
+
+for imname in brick_files:
+
+    ffile = fits.open(os.path.join(datapath, brick_files[imname]['filename']))
+    new_data,_ = reproject.reproject_interp(ffile, brick_hdr)
+    new_hdu = fits.PrimaryHDU(data=new_data, header=brick_hdr)
+
+    brick_files[imname]['file'] = new_hdu
+
+    ww = wcs.WCS(brick_files[imname]['file'].header)
+    brick_files[imname]['wcs'] = ww
+
+
 def plotit():
     import astropy.stats
     import pylab as pl
@@ -91,7 +132,9 @@ def plotit():
     pl.figure(2).clf()
     for ii,imname in enumerate(files):
 
+        print(imname)
         data = files[imname]['file'].data
+        brickdata = brick_files[imname]['file'].data
         # https://github.com/astropy/astropy/pull/5232 for ignore_nan
         lo = astropy.stats.mad_std(data, ignore_nan=True)
         hi = np.nanmax(data)
@@ -99,7 +142,11 @@ def plotit():
 
         pl.figure(1)
         pl.subplot(3,3,ii+1)
-        H,L,P = pl.hist(data[np.isfinite(data)], bins=bins, log=True, alpha=0.5, normed=True)
+        pl.hist(brickdata[np.isfinite(brickdata)], bins=bins, log=True,
+                alpha=0.5, normed=True, histtype='step', color='b', zorder=-1)
+        H,L,P = pl.hist(data[np.isfinite(data)], bins=bins, log=True, alpha=0.5, normed=True,
+                        color='k',
+                        histtype='step')
         #pl.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
         pl.xlim(L.min(), L.max())
         pl.semilogx()
@@ -117,3 +164,4 @@ def plotit():
         pl.title(imname)
 
     # TODO: plot the same (?) histograms for The Brick
+
