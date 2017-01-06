@@ -21,7 +21,7 @@
 Data were acquired as part of ALMA project 2013.1.00269.S.  Observations were
 taken with the 12m Total Power array, the ALMA 7m array, and in two
 configurations with the ALMA 12m array.  The setup included the maximum allowed
-number of channels, 15360, across 4 spectral windows in a single polarization;
+number of channels, 30720, across 4 spectral windows in a single polarization;
 the single-polarization mode was adopted to support moderate spectral resolution
 across the broad bandwidth.
 
@@ -37,7 +37,13 @@ mJy/beam), while the dynamic range within one primary beam ($\sim0.5$\arcmin)
 of Sgr B2M is only 3700 (noise $\sim0.5$ mJy/beam).  Because of the dynamic
 range limitations, and an empirical determination that clean did not converge
 if allowed to go too deep, we cleaned to a threshold of 0.5 mJy/beam across the
-image.
+image.  We performed this same process for both the longest-baseline data only
+(resolution $\sim0.5\arcsec$, largest angular scale theoretically 15\arcsec\
+[the shortest baseline] but more practically $\sim7$\arcsec\ [the 5th percentile
+baseline length]) and the merged 7m + two 12m configuration data.  The merged
+data are more useful for studying extended structures but have lower dynamic
+range, while the long-baseline-only data are excellent for extracting and
+analyzing pointlike or compact sources.
 
 We also produced cubes of all of the spectral lines.  These were lightly cleaned
 with only 200 iterations of cleaning.  No self-calibration was applied.
