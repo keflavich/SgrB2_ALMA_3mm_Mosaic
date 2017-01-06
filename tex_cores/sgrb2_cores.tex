@@ -1,7 +1,23 @@
+\documentclass{emulateapj}
+\input{preface}
 \newcommand{\ncores}{138\xspace}
-\begin{document}
 
-\sections{Observation and Data Reduction}
+\begin{document}
+\title{Sgr B2 ALMA}
+\titlerunning{Sgr B2 ALMA}
+\authorrunning{Ginsburg et al}
+\input{authors}
+\begin{abstract}
+    Things
+\end{abstract}
+
+\ifpdf
+\maketitle
+\fi
+
+
+
+\section{Observation and Data Reduction}
 Data were acquired as part of ALMA project 2013.1.00269.S.  Observations were
 taken with the 12m Total Power array, the ALMA 7m array, and in two
 configurations with the ALMA 12m array.  The setup included the maximum allowed
@@ -49,12 +65,12 @@ $R<1\arcsec$ ($R<8500$ AU).
 
 \subsection{An examination of star formation thresholds}
 Lada et al, and others, have proposed that star formation can only occur above
-a certain density or column density threshold.  Column density is more commonly
-used because of its observational convenience, but it is physically meaningless
-unless cooling is suppressed by high column density and optical depths.  In
-G0.253+0.016, very little star formation has been observed
-\citep{Longmore2013a,Johnston2014a,Rathborne2015a} despite most of the cloud
-existing above the locally measured column density threshold.
+a certain density or column density threshold\footnote{Column density is more
+commonly used because of its observational convenience, but it is physically
+meaningless unless high column density leads to high optical depths and thereby
+changes the gas's ability to cool.}.  In G0.253+0.016, very little star formation
+has been observed \citep{Longmore2013a,Johnston2014a,Rathborne2015a} despite
+most of the cloud existing above the locally measured column density threshold.
 
 Since we have detected substantial ongoing star formation in the form of
 high-mass protostars and/or protostellar cores, we can assess where these stars
@@ -64,13 +80,27 @@ cumulative distribution function of the background brightness around the cores.
 
 Comparing Sgr B2 to G0.253, the majority of the Sgr B2 cloud is brighter and at
 higher column than G0.253.  The presence of star formation in Sgr B2 nearly all
-occurs at a higher column than exists within G0.253.  The lack of SF in the brick
+occurs at a higher column than exists within G0.253 (Figure \ref{fig:fluxhist}).  The lack of SF in the brick
 is therefore consistent with the active SF in Sgr B2 and the CMZ's higher SF threshold
 is confirmed.
+
+\Figure{figures/flux_histograms_with_core_location_CDF.png}
+{Histograms of the brightness measured with a variety of instruments at
+different submillimeter bands with the cumulative distribution function (CDF)
+of the \emph{background} brightness surrounding each core superposed.  The
+X-axis units are arbitrary (because right now I don't know the units of all of
+these) except for column, which is in units of cm$^{-2}$ of \hh as derived from
+SED fits to Herschel data (Battersby+).  The grey line is of the observed
+region in Sgr B2 and the blue line is of G0.253+0.016.  The thick grey line is
+the CDF of core background brightness, and is labeled by the right axis.}
+{fig:fluxhist}{1}{20cm}
 
 \subsection{TODO}
 Possible approaches:
 -Create a column density map from one or more of the Herschel / Laboca / Bolocam / SCUBA maps,
 then make some cumulative N(cores) vs column plots.  Assess SF thresholds.
+
+
+\input{solobib}
 
 \end{document}

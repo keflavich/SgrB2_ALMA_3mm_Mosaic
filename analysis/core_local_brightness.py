@@ -7,6 +7,7 @@ from astropy import units as u
 from astropy import table
 from astropy import coordinates
 from astropy import wcs
+from astropy.convolution import convolve_fft,Gaussian2DKernel
 import reproject
 
 import paths
@@ -24,6 +25,7 @@ files = {"SHARC": {'wavelength': 350*u.um, 'bmarea':9.55e-10*u.sr, 'bunit':u.Jy,
          "Herschel350": {'wavelength': 350*u.um, 'bmarea':8.43e-9*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_pmw_deglitch_hh_gal_zoom.fits',},
          "Herschel250": {'wavelength': 250*u.um, 'bmarea':4.30*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_psw_deglitch_hh_gal_zoom.fits',},
          "BGPS": {'wavelength': 1100*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.Jy, 'filename':'v2.1_ds2_l001_13pca_map20.fits',},
+         "Column": {'wavelength': 0*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':1e21*u.cm**-2, 'filename':'gcmosaic_column_conv36.fits',},
         }
 
 """
@@ -66,6 +68,15 @@ for imname in files:
     files[imname]['wcs'] = ww
 
     assert ww.naxis == 2
+
+# Fix column around Sgr B2
+col = files['Column']['file'].data
+col_conv = convolve_fft(col, Gaussian2DKernel(5), interpolate_nan=True,
+                        normalize_kernel=True)
+files['Column']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
+files['Column']['file'].data *= 1e21
+files['Column']['bunit'] = u.cm**-2
+
 
 for row in tbl:
     
@@ -110,8 +121,6 @@ brick_files["Herschel350"]['filename'] = 'igls_l000_pmw_deglitch_hh.fits'
 brick_files["Herschel250"]['filename'] = 'igls_l000_psw_deglitch_hh.fits'
 brick_files["BGPS"]['filename'] = 'v2.1_ds2_l000_13pca_map20_crop.fits'
 
-
-
 for imname in brick_files:
 
     ffile = fits.open(os.path.join(datapath, brick_files[imname]['filename']))
@@ -122,6 +131,11 @@ for imname in brick_files:
 
     ww = wcs.WCS(brick_files[imname]['file'].header)
     brick_files[imname]['wcs'] = ww
+
+brick_files['Column']['file'].data *= 1e21
+brick_files['Column']['bunit'] = u.cm**-2
+
+
 
 
 def plotit():
@@ -142,20 +156,30 @@ def plotit():
 
         pl.figure(1)
         pl.subplot(3,3,ii+1)
-        pl.hist(brickdata[np.isfinite(brickdata)], bins=bins, log=True,
-                alpha=0.5, normed=True, histtype='step', color='b', zorder=-1)
-        H,L,P = pl.hist(data[np.isfinite(data)], bins=bins, log=True, alpha=0.5, normed=True,
-                        color='k',
+        brickweights = np.ones(np.isfinite(brickdata).sum(), dtype='float')/np.isfinite(brickdata).sum()*np.isfinite(data).sum()
+        bH,bL,bP = pl.hist(brickdata[np.isfinite(brickdata)], bins=bins,
+                           log=True, alpha=0.5, histtype='step',
+                           #weights=brickweights, 
+                           bottom=1e-100,
+                           color='b', zorder=-1)
+        #weights = np.ones(np.isfinite(data).sum(), dtype='float')/np.isfinite(data).sum()
+        H,L,P = pl.hist(data[np.isfinite(data)], bins=bins, log=True,
+                        alpha=0.5, color='k',
+                        #normed=True, 
                         histtype='step')
         #pl.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
-        pl.xlim(L.min(), L.max())
+        pl.xlim(np.min([bL.min(), L.min()]), L.max())
         pl.semilogx()
+        pl.yscale('log', nonposy='clip')
         ax2 = pl.gca().twinx()
         ax2.plot(sorted(tbl[imname]), np.arange(len(tbl),
-                                                dtype='float')/len(tbl)*H.max(),
+                                                dtype='float')/len(tbl),
                  'k-', linewidth=3, alpha=0.5, zorder=10)
         ax2.set_xlim(L.min(), L.max())
+        ax2.set_ylim(0,1)
         pl.title(imname)
+
+        pl.savefig(paths.fpath("flux_histograms_with_core_location_CDF.png"))
 
         pl.figure(2)
         pl.subplot(3,3,ii+1)
@@ -163,5 +187,10 @@ def plotit():
         pl.contour(data, levels=np.percentile(tbl[imname],[5,10,25,50,75,90,95]))
         pl.title(imname)
 
-    # TODO: plot the same (?) histograms for The Brick
 
+
+    # TODO: plot the same (?) histograms for The Brick
+    # DONE!
+
+if __name__ == "__main__":
+    plotit()
