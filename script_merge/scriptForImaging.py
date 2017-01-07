@@ -1,4 +1,5 @@
 """
+(use tclean instead)
 Joint imaging of 7m and 12m data
 """
 

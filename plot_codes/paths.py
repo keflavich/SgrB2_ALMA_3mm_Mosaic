@@ -25,6 +25,9 @@ def Fpath(x):
 def tmpath(x):
     return os.path.join(root,'FITS/12m',x)
 
+def mergepath(x):
+    return os.path.join(root,'FITS/merge',x)
+
 def acapath(x):
     return os.path.join(root,'FITS/7m',x)
 

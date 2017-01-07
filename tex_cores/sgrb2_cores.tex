@@ -45,8 +45,14 @@ data are more useful for studying extended structures but have lower dynamic
 range, while the long-baseline-only data are excellent for extracting and
 analyzing pointlike or compact sources.
 
-We also produced cubes of all of the spectral lines.  These were lightly cleaned
-with only 200 iterations of cleaning.  No self-calibration was applied.
+We also produced cubes of all of the spectral lines.  These were lightly
+cleaned with only 200 iterations of cleaning.  No self-calibration was applied.
+Before continuum subtraction, dynamic range related artifacts similar to those
+in the continuum images were present, but these structures are identical across
+frequencies, and were therefore removable in the image domain.  We use
+median-subtracted cubes for the majority of our analysis, noting that the only
+location in which an error on the continuum $>5\%$ is expected is the Sgr B2
+North core \citep{Sanchez-Monge2017a}.
 
 \section{Analysis}
 
