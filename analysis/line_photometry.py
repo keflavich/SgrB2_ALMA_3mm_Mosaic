@@ -12,12 +12,11 @@ from astropy.table import Table,Column
 import paths
 from core_photometry import photometry
 
+lines = ["CFp", "CH3OH7m26-716", "H15NC", "H2CO615-616", "H2CS303-202",
+         "H2CS313-212", "H2CS322-221", "H41a", "HC3N", "HCN", "HNC",]
+
 if __name__ == "__main__":
     regs = regions.read_ds9(paths.rpath('sgrb2_cores_TE.reg'))
-
-    lines = ["CFp", "CH3OH7m26-716", "H15NC", "H2CO615-616", "H2CS303-202",
-             "H2CS313-212", "H2CS322-221", "H41a", "HC3N", "HCN", "HNC",]
-
 
     all_results = {}
 
@@ -42,8 +41,12 @@ if __name__ == "__main__":
         results = photometry(data, mywcs, regs, beam)
 
         for name in results:
-            all_results[name] = {line+"_"+key: value
-                                 for key,value in results[name].items()}
+            rslt_dict = {line+"_"+key: value
+                         for key,value in results[name].items()}
+            if name in all_results:
+                all_results[name].update(rslt_dict)
+            else:
+                all_results[name] = rslt_dict
 
             restfrq = header['RESTFRQ'] * u.Hz
             tbmax = (results[name]['peak']*u.Jy).to(u.K,
@@ -80,5 +83,10 @@ if __name__ == "__main__":
                         name=k)
                  for k in colnames])
 
+    tbl.write(paths.tpath("line_photometry.csv"), format='ascii.csv',
+              overwrite=True)
+    tbl.write(paths.tpath("line_photometry.tab"), format='ascii.fixed_width',
+              delimiter='|',
+              overwrite=True)
     tbl.write(paths.tpath("line_photometry.ipac"), format='ascii.ipac',
               overwrite=True)
