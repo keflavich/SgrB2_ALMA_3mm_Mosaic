@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
     tbl = Table([Column(data=columns[k],
                         name=k)
-                 for k in colnames])
+                 for k in sorted(colnames)])
 
     tbl.write(paths.tpath("line_photometry.csv"), format='ascii.csv',
               overwrite=True)

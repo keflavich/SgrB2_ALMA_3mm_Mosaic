@@ -18,7 +18,7 @@ def photometry(data, mywcs, regs, beam):
         if 'text' not in reg.meta:
             name = str(ii)
         else:
-            name = reg.meta['text']
+            name = reg.meta['text'].strip("{}")
 
         # all regions are points: convert them to 0.5" circles
         phot_reg = regions.CircleSkyRegion(center=reg.center, radius=0.5*u.arcsec)

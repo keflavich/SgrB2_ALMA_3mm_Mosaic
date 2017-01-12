@@ -3,12 +3,17 @@
 \newcommand{\ncores}{138\xspace}
 
 \begin{document}
-\title{Sgr B2 ALMA}
+\title{A catalog of 3mm point sources in the Sgr B2 cloud: signs of extended star formation in a CMZ cloud}
 \titlerunning{Sgr B2 ALMA}
 \authorrunning{Ginsburg et al}
 \input{authors}
 \begin{abstract}
-    Things
+We report the detection of $>100$ sources in the Sgr B2 clouds with extents
+smaller than 5000 AU.  These sources are most likely to be protostars or
+centrally condensed prestellar cores.  The spatial distribution of these sources
+demonstrates that Sgr B2 is experiencing a highly extended star formation
+event, not just an isolated `starburst' within the protocluster regions M, N,
+and S.
 \end{abstract}
 
 \ifpdf
@@ -70,22 +75,31 @@ common.
 
 \section{Results}
 We detected \ncores compact continuum sources.  The majority of these are
-likely to be dust-dominated protostellar envelopes, though many are free-free
+likely to be dust-dominated protostellar envelopes, though some are free-free
 dominated hypercompact \hii regions.  They are unlikely to be dusty prestellar
 cores, since they are predominantly unresolved or barely resolved, with
-$R<1\arcsec$ ($R<8500$ AU).
+$R<1\arcsec$ ($R<8500$ AU).  Instead, most of these sources are likely to be
+protostellar cores with a central heating source and a dusty envelope.
 
-\subsection{Source Classification}
-While we identified \ncores sources from the continuum data, since we have only
-a single continuum band available, it is difficult to classify most of these
-except to say that they are certainly forming or recently formed stars.
-However, for a small subset, we have spectral line detections in either
-molecular or ionized species that tell us qualitatively whether a source is
-ionizing an \hii region or is surrounded by interesting molecular species.
 
-\todo{Continue here - give the subset of sources with good line IDs (which is
-probably a by-hand process) and show example spectra of something not Sgr B2 M
-or N}
+Some validation of this hypothesis comes from catalog matching.  The
+\citet{Caswell2010a} Methanol Multibeam Survey identified 11 sources in our
+observed field of view, of which 10 have a clear match in our catalog.
+
+Some of the sources have been identified with known \hii regions from
+\citet{Gaume1995a}.
+
+% \subsection{Source Classification}
+% While we identified \ncores sources from the continuum data, since we have only
+% a single continuum band available, it is difficult to classify most of these
+% except to say that they are certainly forming or recently formed stars.
+% However, for a small subset, we have spectral line detections in either
+% molecular or ionized species that tell us qualitatively whether a source is
+% ionizing an \hii region or is surrounded by interesting molecular species.
+% 
+% \todo{Continue here - give the subset of sources with good line IDs (which is
+% probably a by-hand process) and show example spectra of something not Sgr B2 M
+% or N}
 
 \subsection{An examination of star formation thresholds}
 Lada et al, and others, have proposed that star formation can only occur above
@@ -119,10 +133,6 @@ region in Sgr B2 and the blue line is of G0.253+0.016.  The thick grey line is
 the CDF of core background brightness, and is labeled by the right axis.}
 {fig:fluxhist}{1}{20cm}
 
-\subsection{TODO}
-Possible approaches:
--Create a column density map from one or more of the Herschel / Laboca / Bolocam / SCUBA maps,
-then make some cumulative N(cores) vs column plots.  Assess SF thresholds.
 
 
 \input{solobib}
