@@ -54,10 +54,15 @@ rmtables(['phase_0.cal'])
 gaincal(vis=selfcal0vis, caltable='phase_0.cal', solint='int', gaintype='G',
         calmode='p')
 
-okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
 # plotcal(caltable='phase_0.cal', xaxis='time', yaxis='phase', iteration='antenna', field=okfields_str, subplot=331)
+
+print("Iteration 0: Self-calibrating on field IDs {0}".format(okfields_str))
+# flag out the fields that do not have solutions
+# (this should be overkill/redundant with not applying bad cals in the applycal step)
+flagdata(vis='phase_0.cal', field=",".join(map(str, not_ok_fields)), mode='manual')
 
 selfcal1vis = 'selfcal_SgrB2_TE_full_selfcal_iter1.ms'
 rmtables([selfcal1vis])
@@ -96,8 +101,11 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 rmtables(['phase_1.cal'])
 gaincal(vis=selfcal1vis, caltable='phase_1.cal', solint='int', gaintype='G', calmode='p')
 
-okfields = selfcal_heuristics.goodenough_field_solutions('phase_1.cal')
+okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_1.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
+
+print("Iteration 1: Self-calibrating on field IDs {0}".format(okfields_str))
+flagdata(vis='phase_1.cal', field=",".join(map(str, not_ok_fields)), mode='manual')
 
 selfcal2vis = 'selfcal_SgrB2_TE_full_selfcal_iter2.ms'
 rmtables([selfcal2vis])
@@ -137,8 +145,11 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 rmtables(['phase_2.cal'])
 gaincal(vis=selfcal2vis, caltable='phase_2.cal', solint='int', gaintype='G', calmode='p')
 
-okfields = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
+okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
+
+print("Iteration 2: Self-calibrating on field IDs {0}".format(okfields_str))
+flagdata(vis='phase_2.cal', field=",".join(map(str, not_ok_fields)), mode='manual')
 
 selfcal3vis = 'selfcal_SgrB2_TE_full_selfcal_iter3.ms'
 rmtables([selfcal3vis])
@@ -181,7 +192,7 @@ gaincal(vis=selfcal3vis, caltable='ampphase_3.cal', solint='int', gaintype='G',
 selfcal_heuristics.flag_extreme_amplitudes('ampphase_3.cal')
 
 # use the fields that were OK before
-#okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+#okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
 #okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
 selfcal4vis = 'selfcal_SgrB2_TE_full_selfcal_iter4_ampphase.ms'
@@ -223,7 +234,7 @@ gaincal(vis=selfcal3vis, caltable='ampphase_4.cal', solint='int', gaintype='G',
         calmode='ap')
 
 selfcal_heuristics.flag_extreme_amplitudes('ampphase_4.cal')
-#okfields = selfcal_heuristics.goodenough_field_solutions('phase_3.cal')
+#okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_3.cal')
 #okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
 selfcal5vis = 'selfcal_SgrB2_TE_full_selfcal_iter5_ampphase.ms'
