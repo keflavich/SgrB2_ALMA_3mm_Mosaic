@@ -57,6 +57,8 @@ gaincal(vis=selfcal0vis, caltable='phase_0.cal', solint='int', gaintype='G',
 okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
+# plotcal(caltable='phase_0.cal', xaxis='time', yaxis='phase', iteration='antenna', field=okfields_str, subplot=331)
+
 selfcal1vis = 'selfcal_SgrB2_TE_full_selfcal_iter1.ms'
 rmtables([selfcal1vis])
 applycal(vis=selfcal0vis, field=okfields_str, gaintable=["phase_0.cal"],

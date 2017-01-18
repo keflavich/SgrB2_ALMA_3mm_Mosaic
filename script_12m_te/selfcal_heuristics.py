@@ -32,6 +32,7 @@ def goodenough_field_solutions(tablename, minsnr=5, maxphasenoise=np.pi/4.,
     tb.close()
 
     okfields=[]
+    not_ok_fields = []
 
     ufields = np.unique(fields)
 
@@ -41,8 +42,10 @@ def goodenough_field_solutions(tablename, minsnr=5, maxphasenoise=np.pi/4.,
         field_ok = (angles.std() < maxphasenoise) & (snr[:,:,sel].mean() > minsnr)
         if field_ok:
             okfields.append(field)
+        else:
+            not_ok_fields.append(field)
 
-    return okfields
+    return okfields, not_ok_fields
 
 def flag_extreme_amplitudes(tablename, maxpctchange=50, pols=[0], channels=[0]):
     """
