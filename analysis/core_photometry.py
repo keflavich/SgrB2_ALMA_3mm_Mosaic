@@ -76,9 +76,22 @@ if __name__ == "__main__":
 
     results = photometry(data, mywcs, regs, beam)
 
+    fn_90GHz = paths.tmpath('SgrB2_nocal_TE_continuum_90GHz.image.pbcor.fits')
+    results_90GHz = photometry(fits.getdata(fn_90GHz),
+                               wcs.WCS(fits.getheader(fn_90GHz)), regs,
+                               radio_beam.Beam.from_fits_header(fits.getheader(fn_90GHz)))
+    fn_100GHz = paths.tmpath('SgrB2_nocal_TE_continuum_100GHz.image.pbcor.fits')
+    results_100GHz = photometry(fits.getdata(fn_100GHz),
+                               wcs.WCS(fits.getheader(fn_100GHz)), regs,
+                               radio_beam.Beam.from_fits_header(fits.getheader(fn_100GHz)))
+
     for name in results:
         results[name]['peak_mass_20K'] = masscalc.mass_conversion_factor()*results[name]['peak']
         results[name]['peak_col_20K'] = masscalc.col_conversion_factor(results[name]['peak']*u.Jy, beam.sr)
+        results[name]['peak_90GHz'] = results_90GHz[name]['peak']
+        results[name]['peak_100GHz'] = results_100GHz[name]['peak']
+        results[name]['sum_90GHz'] = results_90GHz[name]['sum']
+        results[name]['sum_100GHz'] = results_100GHz[name]['sum']
 
     # invert the table to make it parseable by astropy...
     # (this shouldn't be necessary....)
