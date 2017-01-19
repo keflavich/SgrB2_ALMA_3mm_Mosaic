@@ -99,13 +99,16 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 
 
 rmtables(['phase_1.cal'])
-gaincal(vis=selfcal1vis, caltable='phase_1.cal', solint='int', gaintype='G', calmode='p')
+gaincal(vis=selfcal1vis, caltable='phase_1.cal', solint='int', gaintype='G', calmode='p',
+        field=okfields_str)
 
-okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_1.cal')
-okfields_str = ",".join(["{0}".format(x) for x in okfields])
+okfields2, not_ok_fields2 = selfcal_heuristics.goodenough_field_solutions('phase_1.cal')
+if not okfields2:
+    raise ValueError("No fields have valid solutions.")
+#okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
-print("Iteration 1: Self-calibrating on field IDs {0}".format(okfields_str))
-flagdata(vis='phase_1.cal', field=",".join(map(str, not_ok_fields)), mode='manual')
+#print("Iteration 1: Self-calibrating on field IDs {0}".format(okfields_str))
+#flagdata(vis='phase_1.cal', field=",".join(map(str, not_ok_fields)), mode='manual')
 
 selfcal2vis = 'selfcal_SgrB2_TE_full_selfcal_iter2.ms'
 rmtables([selfcal2vis])
@@ -145,8 +148,8 @@ exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.f
 rmtables(['phase_2.cal'])
 gaincal(vis=selfcal2vis, caltable='phase_2.cal', solint='int', gaintype='G', calmode='p')
 
-okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
-okfields_str = ",".join(["{0}".format(x) for x in okfields])
+#okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
+#okfields_str = ",".join(["{0}".format(x) for x in okfields])
 
 print("Iteration 2: Self-calibrating on field IDs {0}".format(okfields_str))
 flagdata(vis='phase_2.cal', field=",".join(map(str, not_ok_fields)), mode='manual')
