@@ -92,6 +92,8 @@ if __name__ == "__main__":
         results[name]['peak_100GHz'] = results_100GHz[name]['peak']
         results[name]['sum_90GHz'] = results_90GHz[name]['sum']
         results[name]['sum_100GHz'] = results_100GHz[name]['sum']
+        results[name]['bgmad_90GHz'] = results_90GHz[name]['bgmad']
+        results[name]['bgmad_100GHz'] = results_100GHz[name]['bgmad']
 
     # invert the table to make it parseable by astropy...
     # (this shouldn't be necessary....)
@@ -115,6 +117,9 @@ if __name__ == "__main__":
     tbl = Table([Column(data=columns[k],
                         name=k)
                  for k in ['name', 'RA', 'Dec', 'peak', 'sum', 'npix', 'beam_area',
+                           'bgmad', 
+                           'peak_90GHz', 'sum_90GHz', 'bgmad_90GHz',
+                           'peak_100GHz', 'sum_100GHz', 'bgmad_100GHz',
                            'peak_mass_20K', 'peak_col_20K']])
 
     peak_brightness = (tbl['peak']*u.beam).to(u.K,

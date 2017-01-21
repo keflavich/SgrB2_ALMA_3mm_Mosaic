@@ -66,3 +66,28 @@ ax2.set_ylabel('Galactic Latitude')
 ax2.set_xlabel('Galactic Longitude')
 ax2.set_aspect(1)
 fig2.savefig(paths.fpath('core_spatial_distribution.png'))
+
+
+# spectral index derivation and plotting
+
+cont_tbl = core_phot_tbl
+fluxratio = cont_tbl['peak_100GHz'] / cont_tbl['peak_90GHz']
+spindx = np.log(fluxratio) / np.log(100./90.)
+sigma_R = ((cont_tbl['bgmad_100GHz'] / cont_tbl['peak_100GHz'])**2 +
+           (cont_tbl['bgmad_90GHz'] / cont_tbl['peak_90GHz'])**2
+          )**0.5 * fluxratio
+spindx_err = sigma_R / fluxratio / np.log(100./90.)
+
+significant_mask = np.abs(spindx) - 3*spindx_err > 0
+
+#pl.errorbar(cont_tbl['peak_90GHz'], cont_tbl['peak_100GHz'],
+#            xerr=cont_tbl['bgmad_90GHz'], yerr=cont_tbl['bgmad_100GHz'],
+#            marker='.', linestyle='')
+pl.semilogx()
+pl.errorbar(cont_tbl['peak_90GHz'][significant_mask], spindx[significant_mask],
+            xerr=cont_tbl['bgmad_90GHz'][significant_mask], yerr=spindx_err[significant_mask],
+            marker='s', linestyle='', color='k', zorder=10)
+pl.errorbar(cont_tbl['peak_90GHz'][~significant_mask], spindx[~significant_mask],
+            xerr=cont_tbl['bgmad_90GHz'][~significant_mask], yerr=spindx_err[~significant_mask],
+            marker='.', linestyle='', color='b')
+pl.ylim(-4,4)
