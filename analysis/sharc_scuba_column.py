@@ -7,6 +7,7 @@ import higal_sedfitter
 import paths
 import reproject
 import dust_emissivity
+import pylab as pl
 
 sharc_fn = paths.Fpath('other/SHARC_Herschel_Feathered.fits')
 scuba_fn = paths.Fpath('other/scuba_Herschel_Feathered.fits')
@@ -31,7 +32,7 @@ if False:
         out_prefix='column_maps/sharcscuba_',
     )
 
-temperatures = np.linspace(20,200)*u.K
+temperatures = np.linspace(10,200)*u.K
 frequencies = ([350,500]*u.um).to(u.GHz, u.spectral())
 fluxes = [dust_emissivity.blackbody.modified_blackbody(frequencies, temperature=T,
                                                        beta=1.75,
@@ -41,6 +42,10 @@ fluxes = u.Quantity(fluxes)
 ratios = fluxes[:,0] / fluxes[:,1]
 
 temperature_map = np.interp(ratio_map_sharc_to_scuba, ratios, temperatures)
+pl.figure(2).clf()
+pl.imshow(temperature_map)
+pl.colorbar()
+pl.contour(imagecube[0,:,:], levels=[5e4,1e5,2e5], colors=['k']*3)
 
 sharc_beam = radio_beam.Beam(11.5*u.arcsec)
 
@@ -71,8 +76,7 @@ colmap_scuba_50 = dust_emissivity.dust.colofsnu(frequencies[1],
 fits.writeto(filename='column_maps/scuba_col_50K.fits', data=colmap_scuba_50.value, header=scuba_hdr, overwrite=True)
 fits.writeto(filename='column_maps/scuba_col_20K.fits', data=colmap_scuba_20.value, header=scuba_hdr, overwrite=True)
 
-import pylab as pl
-pl.clf()
+pl.figure(1).clf()
 pl.hist(colmap_sharc_50[np.isfinite(colmap_sharc_50)], bins=np.logspace(19,24),alpha=0.5, log=True)
 pl.hist(colmap_scuba_50[np.isfinite(colmap_scuba_50)], bins=np.logspace(19,24),alpha=0.5, log=True)
 pl.semilogx()

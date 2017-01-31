@@ -230,6 +230,11 @@ def plotit():
     pl.savefig(paths.fpath("flux_histograms_with_core_location_CDF.png"), bbox_inches='tight')
 
 
+    #pl.figure(3)
+    #pl.tight_layout()
+    #pl.savefig(paths.fpath("cumulative_mass_histograms.png"), bbox_inches='tight')
+
+
 
 
     # TODO: plot the same (?) histograms for The Brick
