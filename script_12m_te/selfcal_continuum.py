@@ -97,6 +97,13 @@ exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropde
 exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
 
+# HACK: reclean
+tclean(vis=selfcal1vis, imagename=myimagebase, field='SgrB2', gridder='mosaic',
+       spw="", phasecenter=phasecenter, specmode="mfs", niter=0,
+       threshold="5.0mJy", deconvolver="clark", interactive=False,
+       imsize=imsize, cell="0.125arcsec", outframe='LSRK', weighting="briggs",
+       robust = 0.5, savemodel='modelcolumn')
+
 
 rmtables(['phase_1.cal'])
 gaincal(vis=selfcal1vis, caltable='phase_1.cal', solint='int', gaintype='G', calmode='p',
@@ -144,19 +151,29 @@ exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', 
 exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
 
 
+# HACK: reclean
+tclean(vis=selfcal2vis, imagename=myimagebase, field='SgrB2', gridder='mosaic',
+       spw="", phasecenter=phasecenter, specmode="mfs", niter=0,
+       threshold="1.0mJy", deconvolver="clark", interactive=False,
+       imsize=imsize, cell="0.125arcsec", outframe='LSRK', weighting="briggs",
+       robust = 0.5, savemodel='modelcolumn')
+
+
 
 rmtables(['phase_2.cal'])
 gaincal(vis=selfcal2vis, caltable='phase_2.cal', solint='int', gaintype='G', calmode='p')
 
-#okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
-#okfields_str = ",".join(["{0}".format(x) for x in okfields])
+okfields3, not_ok_fields3 = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
+if not okfields3:
+    raise ValueError("No fields have valid solutions.")
+okfields_str3 = ",".join(["{0}".format(x) for x in okfields3])
 
-print("Iteration 2: Self-calibrating on field IDs {0}".format(okfields_str))
-flagdata(vis='phase_2.cal', field=",".join(map(str, not_ok_fields)), mode='manual')
+print("Iteration 2: Self-calibrating on field IDs {0}".format(okfields_str3))
+flagdata(vis='phase_2.cal', field=",".join(map(str, not_ok_fields3)), mode='manual')
 
 selfcal3vis = 'selfcal_SgrB2_TE_full_selfcal_iter3.ms'
 rmtables([selfcal3vis])
-applycal(vis=selfcal2vis, field=okfields_str, gaintable=["phase_2.cal"],
+applycal(vis=selfcal2vis, field=okfields_str3, gaintable=["phase_2.cal"],
          interp="linear", applymode='calonly', calwt=False)
 split(vis=selfcal2vis, outputvis=selfcal3vis, datacolumn='corrected')
 
@@ -187,6 +204,12 @@ exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropde
 exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
 
+# HACK: reclean
+tclean(vis=selfcal3vis, imagename=myimagebase, field='SgrB2', gridder='mosaic',
+       spw="", phasecenter=phasecenter, specmode="mfs", niter=0,
+       threshold="0.5mJy", deconvolver="clark", interactive=False,
+       imsize=imsize, cell="0.125arcsec", outframe='LSRK', weighting="briggs",
+       robust = 0.5, savemodel='modelcolumn')
 
 
 rmtables(['ampphase_3.cal'])
@@ -195,12 +218,17 @@ gaincal(vis=selfcal3vis, caltable='ampphase_3.cal', solint='int', gaintype='G',
 selfcal_heuristics.flag_extreme_amplitudes('ampphase_3.cal')
 
 # use the fields that were OK before
-#okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
-#okfields_str = ",".join(["{0}".format(x) for x in okfields])
+okfields4, not_ok_fields4 = selfcal_heuristics.goodenough_field_solutions('ampphase_3.cal')
+if not okfields4:
+    raise ValueError("No fields have valid solutions.")
+okfields_str4 = ",".join(["{0}".format(x) for x in okfields4])
+
+print("Iteration 3: Self-calibrating on field IDs {0}".format(okfields_str4))
+flagdata(vis='ampphase_3.cal', field=",".join(map(str, not_ok_fields4)), mode='manual')
 
 selfcal4vis = 'selfcal_SgrB2_TE_full_selfcal_iter4_ampphase.ms'
 rmtables([selfcal4vis])
-applycal(vis=selfcal3vis, field=okfields_str, gaintable=["ampphase_3.cal"],
+applycal(vis=selfcal3vis, field=okfields_str4, gaintable=["ampphase_3.cal"],
          interp="linear", applymode='calonly', calwt=False)
 split(vis=selfcal3vis, outputvis=selfcal4vis, datacolumn='corrected')
 
@@ -231,18 +259,30 @@ exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropde
 exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
 
+# HACK: reclean
+tclean(vis=selfcal4vis, imagename=myimagebase, field='SgrB2', gridder='mosaic',
+       spw="", phasecenter=phasecenter, specmode="mfs", niter=0,
+       threshold="0.5mJy", deconvolver="clark", interactive=False,
+       imsize=imsize, cell="0.125arcsec", outframe='LSRK', weighting="briggs",
+       robust = 0.5, savemodel='modelcolumn')
 
 rmtables(['ampphase_4.cal'])
 gaincal(vis=selfcal3vis, caltable='ampphase_4.cal', solint='int', gaintype='G',
         calmode='ap')
 
 selfcal_heuristics.flag_extreme_amplitudes('ampphase_4.cal')
-#okfields, not_ok_fields = selfcal_heuristics.goodenough_field_solutions('phase_3.cal')
-#okfields_str = ",".join(["{0}".format(x) for x in okfields])
+okfields5, not_ok_fields5 = selfcal_heuristics.goodenough_field_solutions('ampphase_4.cal')
+if not okfields5:
+    raise ValueError("No fields have valid solutions.")
+okfields_str5 = ",".join(["{0}".format(x) for x in okfields5])
+
+print("Iteration 4: Self-calibrating on field IDs {0}".format(okfields_str5))
+flagdata(vis='ampphase_4.cal', field=",".join(map(str, not_ok_fields5)), mode='manual')
+
 
 selfcal5vis = 'selfcal_SgrB2_TE_full_selfcal_iter5_ampphase.ms'
 rmtables([selfcal5vis])
-applycal(vis=selfcal4vis, field=okfields_str, gaintable=["ampphase_4.cal"],
+applycal(vis=selfcal4vis, field=okfields_str5, gaintable=["ampphase_4.cal"],
          interp="linear", applymode='calonly', calwt=False)
 split(vis=selfcal4vis, outputvis=selfcal5vis, datacolumn='corrected')
 # could try selfcal5vis....

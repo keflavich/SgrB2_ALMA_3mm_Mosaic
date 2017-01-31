@@ -1,7 +1,7 @@
 import os
 import copy
 
-import numpy as np 
+import numpy as np
 from astropy.io import fits
 from astropy import units as u
 from astropy import table
@@ -9,10 +9,14 @@ from astropy import coordinates
 from astropy import wcs
 from astropy.convolution import convolve_fft,Gaussian2DKernel
 import reproject
+import pyregion
 
 import paths
 
-datapath = '/Users/adam/work/sgrb2/continuumdata'
+datapath = '/Users/adam/work/sgrb2/alma/continuumdata'
+
+distance = 8.4*u.kpc
+cara_higal_fit_scaling = 1e22
 
 
 files = {"SHARC": {'wavelength': 350*u.um, 'bmarea':9.55e-10*u.sr, 'bunit':u.Jy, 'filename':'SgrB2_350um_gal.fits',},
@@ -25,7 +29,12 @@ files = {"SHARC": {'wavelength': 350*u.um, 'bmarea':9.55e-10*u.sr, 'bunit':u.Jy,
          "Herschel350": {'wavelength': 350*u.um, 'bmarea':8.43e-9*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_pmw_deglitch_hh_gal_zoom.fits',},
          "Herschel250": {'wavelength': 250*u.um, 'bmarea':4.30*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_psw_deglitch_hh_gal_zoom.fits',},
          "BGPS": {'wavelength': 1100*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.Jy, 'filename':'v2.1_ds2_l001_13pca_map20.fits',},
-         "Column": {'wavelength': 0*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':1e21*u.cm**-2, 'filename':'gcmosaic_column_conv36.fits',},
+         "HerschelColumn25": {'wavelength': 0*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':cara_higal_fit_scaling*u.cm**-2, 'filename':'gcmosaic_column_conv25.fits',},
+         "HerschelColumn36": {'wavelength': 0*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':cara_higal_fit_scaling*u.cm**-2, 'filename':'gcmosaic_column_conv36.fits',},
+         "Sharc20Column": {'wavelength': 350*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/sharc_col_20K.fits',},
+         "Sharc50Column": {'wavelength': 350*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/sharc_col_50K.fits',},
+         "Scuba20Column": {'wavelength': 450*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/scuba_col_20K.fits',},
+         "Scuba50Column": {'wavelength': 450*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/scuba_col_50K.fits',},
         }
 
 """
@@ -53,7 +62,10 @@ alma_hdr = fits.Header(dict(NAXIS=2,
 
 tbl = table.Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac',)
 
+regfile = pyregion.open(paths.rpath('coverage.reg'))
+
 for imname in files:
+    print("Loading {0}".format(imname))
     tbl.add_column(table.Column(name=imname, data=np.zeros(len(tbl),
                                                            dtype='float'),
                                 unit=files[imname]['bunit']))
@@ -67,15 +79,26 @@ for imname in files:
     ww = wcs.WCS(files[imname]['file'].header)
     files[imname]['wcs'] = ww
 
+    files[imname]['pixarea'] = (ww.wcs.cdelt[1]*u.deg)**2
+
+    files[imname]['mask'] = regfile.get_mask(hdu=new_hdu)
+
     assert ww.naxis == 2
 
 # Fix column around Sgr B2
-col = files['Column']['file'].data
+col = files['HerschelColumn36']['file'].data
 col_conv = convolve_fft(col, Gaussian2DKernel(5), interpolate_nan=True,
                         normalize_kernel=True)
-files['Column']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
-files['Column']['file'].data *= 1e21
-files['Column']['bunit'] = u.cm**-2
+files['HerschelColumn36']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
+files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
+files['HerschelColumn36']['bunit'] = u.cm**-2
+
+col = files['HerschelColumn25']['file'].data
+col_conv = convolve_fft(col, Gaussian2DKernel(5), interpolate_nan=True,
+                        normalize_kernel=True)
+files['HerschelColumn25']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
+files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
+files['HerschelColumn25']['bunit'] = u.cm**-2
 
 
 for row in tbl:
@@ -132,8 +155,10 @@ for imname in brick_files:
     ww = wcs.WCS(brick_files[imname]['file'].header)
     brick_files[imname]['wcs'] = ww
 
-brick_files['Column']['file'].data *= 1e21
-brick_files['Column']['bunit'] = u.cm**-2
+brick_files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
+brick_files['HerschelColumn25']['bunit'] = u.cm**-2
+brick_files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
+brick_files['HerschelColumn36']['bunit'] = u.cm**-2
 
 
 
@@ -144,10 +169,13 @@ def plotit():
 
     pl.figure(1).clf()
     pl.figure(2).clf()
-    for ii,imname in enumerate(files):
+    pl.figure(3).clf()
+    for ii,imname in enumerate(f for f in files if 'column' in f.lower()):
+
 
         print(imname)
         data = files[imname]['file'].data
+        mask = files[imname]['mask']
         brickdata = brick_files[imname]['file'].data
         # https://github.com/astropy/astropy/pull/5232 for ignore_nan
         lo = astropy.stats.mad_std(data, ignore_nan=True)
@@ -155,37 +183,52 @@ def plotit():
         bins = np.logspace(np.log10(lo), np.log10(hi), 100)
 
         pl.figure(1)
-        pl.subplot(3,3,ii+1)
-        brickweights = np.ones(np.isfinite(brickdata).sum(), dtype='float')/np.isfinite(brickdata).sum()*np.isfinite(data).sum()
+        pl.subplot(2,3,ii+1)
+        brickweights = np.ones(np.isfinite(brickdata).sum(),
+                               dtype='float')/np.isfinite(brickdata).sum()*np.isfinite(data).sum()
         bH,bL,bP = pl.hist(brickdata[np.isfinite(brickdata)], bins=bins,
                            log=True, alpha=0.5, histtype='step',
-                           #weights=brickweights, 
-                           bottom=1e-100,
+                           #weights=brickweights,
+                           bottom=1.1,
                            color='b', zorder=-1)
         #weights = np.ones(np.isfinite(data).sum(), dtype='float')/np.isfinite(data).sum()
-        H,L,P = pl.hist(data[np.isfinite(data)], bins=bins, log=True,
+        H,L,P = pl.hist(data[np.isfinite(data) & mask], bins=bins, log=True,
                         alpha=0.5, color='k',
-                        #normed=True, 
+                        #normed=True,
                         histtype='step')
+        # Lada threshold, approximately (116 Msun/pc^2)
+        pl.vlines(5e21, 1.1, H.max())
         #pl.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
         pl.xlim(np.min([bL.min(), L.min()]), L.max())
         pl.semilogx()
         pl.yscale('log', nonposy='clip')
         ax2 = pl.gca().twinx()
-        ax2.plot(sorted(tbl[imname]), np.arange(len(tbl),
-                                                dtype='float')/len(tbl),
+        ax2.plot(np.sort(tbl[imname]), np.arange(len(tbl),
+                                                 dtype='float')/len(tbl),
                  'k-', linewidth=3, alpha=0.5, zorder=10)
         ax2.set_xlim(L.min(), L.max())
         ax2.set_ylim(0,1)
         pl.title(imname)
 
-        pl.savefig(paths.fpath("flux_histograms_with_core_location_CDF.png"))
-
         pl.figure(2)
-        pl.subplot(3,3,ii+1)
+        pl.subplot(2,3,ii+1)
         pl.imshow(data, cmap='gray_r')
         pl.contour(data, levels=np.percentile(tbl[imname],[5,10,25,50,75,90,95]))
+        pl.contour(mask, levels=[0.5])
         pl.title(imname)
+
+        sorted_col = u.Quantity(np.sort(data[mask & (data>0)]), u.cm**-2)
+        cumul = np.cumsum(sorted_col)[::-1]
+        cum_mass = (cumul * (files[imname]['pixarea']*distance**2) * 2.8*u.Da).to(u.M_sun, u.dimensionless_angles())
+        pl.figure(3)
+        pl.plot(sorted_col, cum_mass, label=imname)
+        pl.legend(loc='best')
+        pl.loglog()
+
+    pl.figure(1)
+    pl.tight_layout()
+    pl.savefig(paths.fpath("flux_histograms_with_core_location_CDF.png"), bbox_inches='tight')
+
 
 
 
