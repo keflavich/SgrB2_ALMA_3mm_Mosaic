@@ -26,7 +26,7 @@ def photometry(data, mywcs, regs, beam):
 
         bgreg = regions.CircleSkyRegion(center=reg.center, radius=1.5*u.arcsec).to_pixel(mywcs)
 
-        log.info(name)
+        log.info("Name={0} color={1}".format(name, reg.visual['color']))
 
         mask = pixreg.to_mask()
         cutout = mask.cutout(data) * mask.data
@@ -50,6 +50,7 @@ def photometry(data, mywcs, regs, beam):
                          'beam_area': beam.sr,
                          'RA': reg.center.ra[0],
                          'Dec': reg.center.dec[0],
+                         'color': reg.visual['color'],
                         }
 
     return results
@@ -82,8 +83,8 @@ if __name__ == "__main__":
                                radio_beam.Beam.from_fits_header(fits.getheader(fn_90GHz)))
     fn_100GHz = paths.tmpath('SgrB2_nocal_TE_continuum_100GHz.image.pbcor.fits')
     results_100GHz = photometry(fits.getdata(fn_100GHz),
-                               wcs.WCS(fits.getheader(fn_100GHz)), regs,
-                               radio_beam.Beam.from_fits_header(fits.getheader(fn_100GHz)))
+                                wcs.WCS(fits.getheader(fn_100GHz)), regs,
+                                radio_beam.Beam.from_fits_header(fits.getheader(fn_100GHz)))
 
     for name in results:
         results[name]['peak_mass_20K'] = masscalc.mass_conversion_factor()*results[name]['peak']
@@ -117,10 +118,11 @@ if __name__ == "__main__":
     tbl = Table([Column(data=columns[k],
                         name=k)
                  for k in ['name', 'RA', 'Dec', 'peak', 'sum', 'npix', 'beam_area',
-                           'bgmad', 
+                           'bgmad', 'color',
+                           'peak_mass_20K', 'peak_col_20K',
                            'peak_90GHz', 'sum_90GHz', 'bgmad_90GHz',
                            'peak_100GHz', 'sum_100GHz', 'bgmad_100GHz',
-                           'peak_mass_20K', 'peak_col_20K']])
+                          ]])
 
     peak_brightness = (tbl['peak']*u.beam).to(u.K,
                                               u.brightness_temperature(tbl['beam_area'],

@@ -170,6 +170,7 @@ def plotit():
     pl.figure(1).clf()
     pl.figure(2).clf()
     pl.figure(3).clf()
+    pl.figure(4).clf()
     for ii,imname in enumerate(f for f in files if 'column' in f.lower()):
 
 
@@ -219,16 +220,33 @@ def plotit():
 
         sorted_col = u.Quantity(np.sort(data[mask & (data>0)]), u.cm**-2)
         cumul = np.cumsum(sorted_col)[::-1]
-        cum_mass = (cumul * (files[imname]['pixarea']*distance**2) * 2.8*u.Da).to(u.M_sun, u.dimensionless_angles())
+        pixarea_cm2 = (files[imname]['pixarea']*distance**2)
+        cum_mass = (cumul * pixarea_cm2 * 2.8*u.Da).to(u.M_sun, u.dimensionless_angles())
         pl.figure(3)
+        pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1)
         pl.plot(sorted_col, cum_mass, label=imname)
         pl.legend(loc='best')
+        pl.xlim(1e21,2e25)
+        pl.loglog()
+
+        pl.figure(4)
+        pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1)
+        pl.plot(sorted_col-5e22*u.cm**-2, cum_mass-(5e22*u.cm**-2*pixarea_cm2*2.8*u.Da).to(u.M_sun, u.dimensionless_angles()), label=imname)
+        pl.legend(loc='best')
+        pl.xlim(1e21,2e25)
         pl.loglog()
 
     pl.figure(1)
     pl.tight_layout()
     pl.savefig(paths.fpath("flux_histograms_with_core_location_CDF.png"), bbox_inches='tight')
 
+
+    pl.figure(3)
+    pl.tight_layout()
+    pl.savefig(paths.fpath("mass_cdf_histograms.png"), bbox_inches='tight')
+    pl.figure(4)
+    pl.tight_layout()
+    pl.savefig(paths.fpath("mass_cdf_histograms_bgsubd.png"), bbox_inches='tight')
 
     #pl.figure(3)
     #pl.tight_layout()

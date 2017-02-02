@@ -42,8 +42,27 @@ fig1 = pl.figure(1)
 fig1.clf()
 ax1 = fig1.gca()
 
+h,l,p = ax1.hist((core_phot_tbl['peak']/core_phot_tbl['bgmad'])[core_phot_tbl['color']=='green'],
+                 log=False, bins=np.logspace(0,2.5))
+ho,lo,po = ax1.hist((core_phot_tbl['peak']/core_phot_tbl['bgmad'])[core_phot_tbl['color']=='orange'],
+                    log=False, bins=np.logspace(0,2.5))
+ax1.set_xscale('log')
+#ax1.set_xlim(l[:-1][h>0].min()/1.1, l[1:][h>0].max()*1.1)
+#ax1.set_ylim(0.6, 15)
+ax1.set_xlabel("S/N")
+ax1.set_ylabel("$N(cores)$")
+
+fig1.savefig(paths.fpath('core_SN_histogram.png'))
+
+
+
+
+fig1 = pl.figure(1)
+fig1.clf()
+ax1 = fig1.gca()
+
 shift = np.log10(masscalc.mass_conversion_factor().value)
-h,l,p = ax1.hist(core_phot_tbl['peak']*masscalc.mass_conversion_factor(40, beta=1.75),
+h,l,p = ax1.hist(core_phot_tbl['peak']*masscalc.mass_conversion_factor(TK=40, beta=1.75),
                  log=False, bins=np.logspace(-4+shift,-1+shift,50))
 ax1.set_xscale('log')
 ax1.set_xlim(l[:-1][h>0].min()/1.1, l[1:][h>0].max()*1.1)
