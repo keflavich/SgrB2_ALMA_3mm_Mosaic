@@ -9,15 +9,20 @@ pl.matplotlib.rc_file('/Users/adam/.matplotlib/pubfiguresrc')
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 
+highconf = core_phot_tbl['color']=='green'
+lowconf = core_phot_tbl['color']=='orange'
+
 peak_brightness = core_phot_tbl['peak_K']
 
 fig1 = pl.figure(1)
 fig1.clf()
 ax1 = fig1.gca()
 
-h,l,p = ax1.hist(core_phot_tbl['peak'], log=False, bins=np.logspace(-4,0.2,50))
+(hh,hl),l,p = ax1.hist([core_phot_tbl['peak'][highconf],
+                        core_phot_tbl['peak'][lowconf]], log=False,
+                       bins=np.logspace(-4,0.2,50), histtype='barstacked')
 ax1.set_xscale('log')
-ax1.set_xlim(l[:-1][h>0].min()/1.1, l[1:][h>0].max()*1.1)
+ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 #ax1.set_ylim(0.6, 15)
 ax1.set_xlabel("$S_{3 mm}$ (Jy)")
 ax1.set_ylabel("$N(cores)$")
@@ -28,9 +33,11 @@ fig1 = pl.figure(1)
 fig1.clf()
 ax1 = fig1.gca()
 
-h,l,p = ax1.hist(peak_brightness, log=False, bins=np.logspace(-0.6, 3.0,30))
+(hh,hl),l,p = ax1.hist([peak_brightness[highconf], peak_brightness[lowconf]],
+                       log=False, bins=np.logspace(-0.6, 3.0,30),
+                       histtype='barstacked')
 ax1.set_xscale('log')
-ax1.set_xlim(l[:-1][h>0].min()/1.1, l[1:][h>0].max()*1.1)
+ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 #ax1.set_ylim(0.6, 15)
 ax1.set_xlabel("$T_{B,3 mm}$ [K]")
 ax1.set_ylabel("$N(cores)$")
@@ -42,10 +49,11 @@ fig1 = pl.figure(1)
 fig1.clf()
 ax1 = fig1.gca()
 
-h,l,p = ax1.hist((core_phot_tbl['peak']/core_phot_tbl['bgmad'])[core_phot_tbl['color']=='green'],
-                 log=False, bins=np.logspace(0,2.5))
-ho,lo,po = ax1.hist((core_phot_tbl['peak']/core_phot_tbl['bgmad'])[core_phot_tbl['color']=='orange'],
-                    log=False, bins=np.logspace(0,2.5))
+h,l,p = ax1.hist([(core_phot_tbl['peak']/core_phot_tbl['bgmad'])[highconf],
+                  (core_phot_tbl['peak']/core_phot_tbl['bgmad'])[lowconf]],
+                 log=False, bins=np.logspace(0,2.5), histtype='barstacked')
+#ho,lo,po = ax1.hist((core_phot_tbl['peak']/core_phot_tbl['bgmad'])[core_phot_tbl['color']=='orange'],
+#                    log=False, bins=np.logspace(0,2.5))
 ax1.set_xscale('log')
 #ax1.set_xlim(l[:-1][h>0].min()/1.1, l[1:][h>0].max()*1.1)
 #ax1.set_ylim(0.6, 15)

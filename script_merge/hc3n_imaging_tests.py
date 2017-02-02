@@ -8,6 +8,11 @@ velocity_res = 2.0
 nchans = int((velocity_range[1]-velocity_range[0])/velocity_res)
 restfreq = '90979.02MHz'
 
+threshold = {'12m': {-2: '40mJy', 0: '15mJy', 2: '15mJy',},
+             '7m': {-2: '200mJy', 0: '200mJy', 2: '200mJy'},
+             '7m12m': {-2: '40mJy', 0: '15mJy', 2: '15mJy',},
+            }
+
 for robust in (-2,0,2):
     for arrays, suffix in ((['TC2','TE'], '12m'),
                            (['7M'], '7m'),
@@ -42,7 +47,7 @@ for robust in (-2,0,2):
                weighting='briggs',
                robust=robust,
                phasecenter='J2000 17:47:19.242 -28.23.33.22',
-               threshold='15mJy', # 1-sigma ~ 1.5 mJy
+               threshold=threshold[suffix],
                savemodel='none',
               )
         myimagebase = output
