@@ -5,7 +5,7 @@ from astropy import units as u
 from astropy import coordinates
 import masscalc
 import pylab as pl
-pl.matplotlib.rc_file('/Users/adam/.matplotlib/pubfiguresrc')
+pl.matplotlib.rc_file('pubfiguresrc')
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 
@@ -27,7 +27,7 @@ ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 ax1.set_xlabel("$S_{3 mm}$ (Jy)")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_peak_intensity_histogram.png'))
+fig1.savefig(paths.fpath('core_peak_intensity_histogram.png'), bbox_inches='tight')
 
 fig1 = pl.figure(1)
 fig1.clf()
@@ -42,7 +42,7 @@ ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 ax1.set_xlabel("$T_{B,3 mm}$ [K]")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_peak_brightness_histogram.png'))
+fig1.savefig(paths.fpath('core_peak_brightness_histogram.png'), bbox_inches='tight')
 
 
 fig1 = pl.figure(1)
@@ -60,7 +60,7 @@ ax1.set_xscale('log')
 ax1.set_xlabel("S/N")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_SN_histogram.png'))
+fig1.savefig(paths.fpath('core_SN_histogram.png'), bbox_inches='tight')
 
 
 
@@ -78,7 +78,7 @@ ax1.set_xlim(l[:-1][h>0].min()/1.1, l[1:][h>0].max()*1.1)
 ax1.set_xlabel("$M(T=40$ K, $\\beta=1.75$) [$M_\odot$]")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_mass_histogram_40K.png'))
+fig1.savefig(paths.fpath('core_mass_histogram_40K.png'), bbox_inches='tight')
 
 
 fig2 = pl.figure(2)
@@ -92,7 +92,7 @@ ax2.set_xlim(*ax2.get_xlim()[::-1])
 ax2.set_ylabel('Galactic Latitude')
 ax2.set_xlabel('Galactic Longitude')
 ax2.set_aspect(1)
-fig2.savefig(paths.fpath('core_spatial_distribution.png'))
+fig2.savefig(paths.fpath('core_spatial_distribution.png'), bbox_inches='tight')
 
 
 # spectral index derivation and plotting

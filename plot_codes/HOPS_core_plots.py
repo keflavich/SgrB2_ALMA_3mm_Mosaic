@@ -7,7 +7,8 @@ from astroquery.vizier import Vizier
 import masscalc
 import pylab as pl
 from constants import frequency, distance
-pl.matplotlib.rc_file('/Users/adam/.matplotlib/pubfiguresrc')
+pl.matplotlib.rc_file('pubfiguresrc')
+pl.rcParams['font.size'] = 14
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 
@@ -44,14 +45,23 @@ ax1.hist([flux_3mm_cmz[class0],
 
 (hh,hl),l,p = ax1.hist([core_phot_tbl['peak'][highconf],
                         core_phot_tbl['peak'][lowconf]], log=False,
-                       label=['Sgr B2 bright','Sgr B2 faint'],
+                       label=['Sgr B2 conservative','Sgr B2 aggressive'],
                        bins=np.logspace(-4,0.2,50), histtype='barstacked')
+
+ylim = ax1.get_ylim()
+mx = np.logspace(-4, 0.2, 50)
+ax1.plot(mx, (mx/2e-3)**-2.35 * 30, 'k--')
+
 ax1.set_xscale('log')
 #ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 ax1.set_xlim(8e-6, 10)
 #ax1.set_ylim(0.6, 15)
-ax1.set_xlabel("$S_{3 mm}$ (Jy)")
-ax1.set_ylabel("$N(cores)$")
-pl.legend(loc='best', fontsize=14)
+ax1.set_ylim(*ylim)
+pl.setp(ax1.get_xticklabels(), rotation='horizontal', fontsize=10)
+pl.setp(ax1.get_yticklabels(), rotation='vertical', fontsize=10)
+ax1.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=12)
+ax1.set_ylabel("$N(cores)$", fontsize=12)
+pl.legend(loc='best', fontsize=10)
 
-fig1.savefig(paths.fpath('core_peak_intensity_histogram_withHOPS.png'))
+fig1.savefig(paths.fpath('core_peak_intensity_histogram_withHOPS.png'),
+             bbox_inches='tight')
