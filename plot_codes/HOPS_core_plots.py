@@ -49,8 +49,8 @@ ax1.hist([flux_3mm_cmz[class0],
                        bins=np.logspace(-4,0.2,50), histtype='barstacked')
 
 ylim = ax1.get_ylim()
-mx = np.logspace(-4, 0.2, 50)
-ax1.plot(mx, (mx/2e-3)**-2.35 * 30, 'k--')
+#mx = np.logspace(-4, 0.2, 50)
+#ax1.plot(mx, (mx/2e-3)**-2.35 * 30, 'k--')
 
 ax1.set_xscale('log')
 #ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)

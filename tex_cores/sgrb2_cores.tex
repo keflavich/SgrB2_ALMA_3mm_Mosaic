@@ -112,6 +112,28 @@ based on the HOPS \citep{Furlan2016a} survey.  The HOPS histogram shows the 870
 source is well below the detection threshold for our observations.}
 {fig:hopshist}{1}{15cm}
 
+We could assume that the stellar mass is linearly proportional to the 3 mm
+continuum flux density to infer the instantaneous stellar fraction in the cloud.
+However, this assumption is immediately at odds with our expectations: the
+flux density distribution follows a powerlaw with slope $\alpha=1.72\pm0.06$
+\citep{Clauset2007a}, far shallower than the $\alpha\sim2.35$ expected for a
+normal IMF.
+
+\Figure{figures/core_peak_fluxdensity_powerlawfit.png}
+{A histogram of the peak flux density of the observed sources with a powerlaw
+fit shown.  The fitted powerlaw is an excellent fit to the data, but is far
+shallower than the IMF slope, with $\alpha=1.72\pm0.06$.}
+{fig:fluxhist}{1}{15cm}
+
+If we make the very simplistic assumptions that the sources we detect are all
+$L\gtrsim2000$ \Lsun ($M\gtrsim8 \msun$),  we can infer the total stellar mass.
+Using a \citet{Kroupa2001a} mass function with $M_{max}=200$ \msun, 0.45\% of
+the mass is contained in $M>8\msun$ stars.  Using $M=8\msun$ as the lower-limit
+case for each source, the identified sources have total mass $M(>8)=1800\msun$.
+The total stellar mass implied is $M_{tot} = 3.9\ee{5}$ \msun.  If we use the
+mean stellar mass for $M>8$ \msun, $\bar{M}=21.1$ \msun, then $M_{tot}=1\ee{6}$
+\msun.
+
 
 % While we identified \ncores sources from the continuum data, since we have only
 % a single continuum band available, it is difficult to classify most of these
