@@ -23,8 +23,8 @@ for robust in (-2,0,2):
         vis = [outms_template.format(array=arr, line='HC3N')
                for arr in arrays]
 
-        output = 'SgrB2_b3_{0}_robust{2}.{1}.fits'.format(suffix, 'HC3N',
-                                                          robust)
+        output = 'SgrB2_b3_{0}_robust{2}.{1}'.format(suffix, 'HC3N', robust)
+
         os.system('rm -rf ' + output + '*/')
         print("Imaging {0}".format(output))
         tclean(vis=vis,
