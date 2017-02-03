@@ -55,9 +55,9 @@ for arrays, suffix in ((['TC2','TE'], '12m'),
         impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True)
         exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True, dropdeg=True)
 
-        for suffix in ('pb', 'weight', 'sumwt', 'psf', 'model', 'mask',
+        for fnsuffix in ('pb', 'weight', 'sumwt', 'psf', 'model', 'mask',
                        'image', 'residual'):
-            os.system('rm -rf {0}.{1}'.format(output, suffix))
+            os.system('rm -rf {0}.{1}'.format(output, fnsuffix))
         
 
         print("Done with {0}".format(output))
