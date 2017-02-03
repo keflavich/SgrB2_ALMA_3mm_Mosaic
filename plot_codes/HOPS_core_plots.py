@@ -10,10 +10,12 @@ from constants import frequency, distance
 pl.matplotlib.rc_file('pubfiguresrc')
 pl.rcParams['font.size'] = 14
 
-core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
+core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"),
+                           format='ascii.ipac')
 
 highconf = core_phot_tbl['color']=='green'
 lowconf = core_phot_tbl['color']=='orange'
+hii = core_phot_tbl['SIMBAD_OTYPE'] == 'HII'
 
 Vizier.ROW_LIMIT = 1000000
 HOPS_classes = Vizier.get_catalogs('2016ApJS..224....5F')[0]
@@ -38,15 +40,24 @@ ax1 = fig1.gca()
 
 ax1.hist([flux_3mm_cmz[class0],
           flux_3mm_cmz[classI],
-          flux_3mm_cmz[classII],
+          #flux_3mm_cmz[classII],
           flux_3mm_cmz[classflat],
-         ], label=['HOPS Class 0', 'HOPS Class I', 'HOPS Class II', 'HOPS Flat'],
+         ], label=['HOPS Class 0', 'HOPS Class I',
+                   #'HOPS Class II',
+                   'HOPS Flat'],
          bins=np.logspace(-7,-3.5,50), histtype='barstacked')
 
-(hh,hl),l,p = ax1.hist([core_phot_tbl['peak'][highconf],
-                        core_phot_tbl['peak'][lowconf]], log=False,
-                       label=['Sgr B2 conservative','Sgr B2 aggressive'],
-                       bins=np.logspace(-4,0.2,50), histtype='barstacked')
+hs,l,p = ax1.hist([core_phot_tbl['peak'][highconf & ~hii],
+                   core_phot_tbl['peak'][lowconf & ~hii],
+                   core_phot_tbl['peak'][hii],
+                  ],
+                  log=False,
+                  label=['Sgr B2 aggressive',
+                         'Sgr B2 conservative',
+                         'Sgr B2 HII'],
+                  color=['#d62728','#2ca02c','#17bcef'],
+                  bins=np.logspace(-4,0.2,50), histtype='barstacked')
+(hh,hl,hhii) = hs
 
 ylim = ax1.get_ylim()
 #mx = np.logspace(-4, 0.2, 50)

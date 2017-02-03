@@ -74,6 +74,7 @@ source identification particularly challenging in the regions they are most
 common.
 
 \section{Results}
+
 We detected \ncores compact continuum sources.  The majority of these are
 likely to be dust-dominated protostellar envelopes, though some are free-free
 dominated hypercompact \hii regions.  They are unlikely to be dusty prestellar
@@ -81,15 +82,29 @@ cores, since they are predominantly unresolved or barely resolved, with
 $R<1\arcsec$ ($R<8500$ AU).  Instead, most of these sources are likely to be
 protostellar cores with a central heating source and a dusty envelope.
 
+\subsection{Source Classification}
 
-Some validation of this hypothesis comes from catalog matching.  The
-\citet{Caswell2010a} Methanol Multibeam Survey identified 11 sources in our
+We first note some key properties of dust at 3 mm.   At 8.4 kpc, a 1 mJy source
+corresponds to an optically thin dust mass of $M(40\mathrm{K})=18$ \msun or
+$M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$ to
+extrapolate the \citet{Ossenkopf1994a} opacity to $\kappa_{3mm}=0.0018$ cm$^2$
+g$^{-1}$.  Our dust-only 5-$\sigma$ sensitivity limit at 40 K therefore ranges
+from $M>7$ \msun to $M>45$ \msun across the map.  If we were to assume that
+these are all cold, dusty sources, as is typically (and reasonably) assumed for
+local clouds, they would be extremely massive and dense, with the lowest
+measurable density being $n(40\mathrm{K}) > 3\ee{6}$ \percc (corresponding to 7
+\msun in a 0.5\arcsec radius sphere).  Such extremes objects are possible, but
+since we have detected $>100$ of these sources, it makes sense to evaluate
+other possibilities.
+
+
+
+Some validation of the protostellar hypothesis comes from catalog matching.
+The \citet{Caswell2010a} Methanol Multibeam Survey identified 11 sources in our
 observed field of view, of which 10 have a clear match in our catalog.
-
-Some of the sources have been identified with known \hii regions from
+Others of the sources have been identified with known \hii regions from
 \citet{Gaume1995a}.
 
-\subsection{Source Classification}
 
 We compare our detected sample to that of the Herschel Orion Protostar Survey
 \citep[HOPS;][]{Furlan2016a} in order to get a general sense of what types of
@@ -115,14 +130,17 @@ source is well below the detection threshold for our observations.}
 We could assume that the stellar mass is linearly proportional to the 3 mm
 continuum flux density to infer the instantaneous stellar fraction in the cloud.
 However, this assumption is immediately at odds with our expectations: the
-flux density distribution follows a powerlaw with slope $\alpha=1.72\pm0.06$
-\citep{Clauset2007a}, far shallower than the $\alpha\sim2.35$ expected for a
-normal IMF.
+flux density distribution follows a powerlaw with slope $\alpha=1.94\pm0.07$
+\citep[fitted with the MLE method of][]{Clauset2007a}, far shallower than the
+$\alpha\sim2.35$ expected for a normal IMF.
 
 \Figure{figures/core_peak_fluxdensity_powerlawfit.png}
-{A histogram of the peak flux density of the observed sources with a powerlaw
-fit shown.  The fitted powerlaw is an excellent fit to the data, but is far
-shallower than the IMF slope, with $\alpha=1.72\pm0.06$.}
+{A histogram of the peak flux density of the observed sources excluding known
+\hii regions with a powerlaw fit shown.  The fitted powerlaw is an excellent
+fit to the data, but is far shallower than the IMF slope, with
+$\alpha=1.94\pm0.07$.  The two brightest regions are Sgr B2M f1 and Sgr B2N K2,
+which may be dominated by free-free emission but likely also contain a large
+dust mass.}
 {fig:fluxhist}{1}{15cm}
 
 If we make the very simplistic assumptions that the sources we detect are all
@@ -133,6 +151,8 @@ case for each source, the identified sources have total mass $M(>8)=1800\msun$.
 The total stellar mass implied is $M_{tot} = 3.9\ee{5}$ \msun.  If we use the
 mean stellar mass for $M>8$ \msun, $\bar{M}=21.1$ \msun, then $M_{tot}=1\ee{6}$
 \msun.
+
+
 
 
 % While we identified \ncores sources from the continuum data, since we have only

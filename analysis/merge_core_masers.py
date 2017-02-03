@@ -14,18 +14,26 @@ sgrb2_coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'],
                                     unit=(u.deg, u.deg), frame='fk5',)
 
 
-simbad_results = Simbad.query_region(sgrb2_coords.fk5, radius=0.5*u.arcsec)
-simbad_coords = coordinates.SkyCoord(simbad_results['RA'], simbad_results['DEC'], frame='fk5', unit=(u.hour, u.deg))
+simbad = Simbad()
+simbad.add_votable_fields('otype')
+simbad_results = simbad.query_region(sgrb2_coords.fk5, radius=0.5*u.arcsec)
+simbad_coords = coordinates.SkyCoord(simbad_results['RA'],
+                                     simbad_results['DEC'], frame='fk5',
+                                     unit=(u.hour, u.deg))
 matches = coordinates.match_coordinates_sky(sgrb2_coords, simbad_coords)
 
 simbad_col_data = []
+simbad_otype = []
 for match,distance,_ in zip(*matches):
     if distance < 0.5*u.arcsec:
         simbad_col_data.append(simbad_results[match]['MAIN_ID'])
+        simbad_otype.append(simbad_results[match]['OTYPE'])
     else:
         simbad_col_data.append("-")
+        simbad_otype.append('-')
 
 cont_tbl.add_column(Column(data=simbad_col_data, name='SIMBAD_ID'))
+cont_tbl.add_column(Column(data=simbad_otype, name='SIMBAD_OTYPE'))
 
 # query Methanol Multibeam Catalog (Caswell 2010: 2010MNRAS.404.1029C) for each source
 caswell_maser_results = Vizier.query_region(sgrb2_coords.fk5, radius=2*u.arcsec, catalog='VIII/96/catalog')['VIII/96/catalog']
@@ -77,7 +85,7 @@ cont_tbl.add_column(Column(data=u.Quantity(muno_xray_matchdist, u.arcsec), name=
 
 cont_tbl.write(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac',
                overwrite=True)
-
+core_phot_tbl = cont_tbl
 
 
 
