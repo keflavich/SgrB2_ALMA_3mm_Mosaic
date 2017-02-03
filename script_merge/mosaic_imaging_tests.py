@@ -55,6 +55,7 @@ for arrays, suffix in ((['TC2','TE'], '12m'),
         myimagebase = output
         impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True)
         exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True, dropdeg=True)
+        exportfits(imagename=myimagebase+'.image', fitsimage=myimagebase+'.image.fits', overwrite=True, dropdeg=True)
 
         for fnsuffix in ('pb', 'weight', 'sumwt', 'psf', 'model', 'mask',
                        'image', 'residual'):
