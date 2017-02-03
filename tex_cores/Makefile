@@ -1,0 +1,36 @@
+# latex Makefile
+ifndef texpath
+texpath=/usr/texbin/
+endif
+PDFLATEX=${texpath}pdflatex -halt-on-error -synctex=1 --interaction=nonstopmode
+SKIPERR=${texpath}pdflatex --interaction=nonstopmode
+LATEX=${PDFLATEX}
+BIBTEX=bibtex
+DVIPS=dvips
+PS2PDF=ps2pdf
+
+all: sgrb2_cores
+
+.PHONY: sgrb2_cores
+sgrb2_cores: 
+	echo "texpath: ${texpath}"
+	python make.py --texpath=${texpath}
+	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=sgrb2_cores_compressed.pdf sgrb2_cores.pdf
+
+.PHONY: diff
+diff:
+	#python2 parse_macros.py sgrb2_cores.tex sgrb2_cores_fordiff.tex
+	#python parse_macros.py sgrb2_cores_aug13.tex sgrb2_cores_aug13_fordiff.tex
+	#python2 parse_macros.py sgrb2_cores_feb16_2016_submitted.tex sgrb2_cores_feb16_2016_submitted_fordiff.tex
+	latexdiff original_for_diff.tex sgrb2_cores_fordiff.tex > diff.tex
+	${SKIPERR} diff.tex
+	${BIBTEX} diff
+	${SKIPERR} diff.tex
+	${BIBTEX} diff
+	${SKIPERR} diff.tex
+	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=diff_compressed.pdf diff.pdf
+
+.PHONY: referee
+referee:
+	echo "texpath: ${texpath}"
+	python make.py --referee --texpath=${texpath}
