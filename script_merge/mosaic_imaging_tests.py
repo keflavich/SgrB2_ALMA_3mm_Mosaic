@@ -50,6 +50,7 @@ for arrays, suffix in ((['TC2','TE'], '12m'),
                phasecenter='J2000 17:47:19.242 -28.23.33.22',
                threshold=threshold[suffix],
                savemodel='none',
+               pblimit=1e-10,
               )
         myimagebase = output
         impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True)
