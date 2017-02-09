@@ -36,29 +36,36 @@ ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 #ax1.set_ylim(0.6, 15)
 ax1.set_xlabel("$S_{3 mm}$ (Jy)")
 ax1.set_ylabel("$N(cores)$")
+pl.legend(loc='best')
+pl.savefig(paths.fpath("core_peak_fluxdensity_coloredbyclass.png"), bbox_inches='tight')
 
 
-fig1.clf()
+#fig1.clf()
 ax1 = fig1.gca()
 plf = plfit.plfit(peak_fluxdens[~hii])
 plf.plfit(discrete=False, verbose=True)
-plf.plotpdf(fill=True, histcolor='none', plcolor='navy')
-p,ksv = plf.test_pl()
-print("All Data Consistent with power-law? p={0}".format(p))
+plf.plotpdf(dohist=False, fill=True, histcolor='none', plcolor='navy')
 
 pl.setp(ax1.get_xticklabels(), rotation='horizontal', fontsize=10)
 pl.setp(ax1.get_yticklabels(), rotation='vertical', fontsize=10)
 ax1.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=12)
 ax1.set_ylabel("$N(cores)$", fontsize=12)
 ax1.set_ylim(0.5,30)
+ax1.set_yscale('linear')
+ax1.set_xlim(0.0003, 2)
 
 fig1.savefig(paths.fpath('core_peak_fluxdensity_powerlawfit.png'), bbox_inches='tight')
+p,ksv = plf.test_pl()
+print("All Data Consistent with power-law? p={0}".format(p))
+
+
 
 plfhi = plfit.plfit(peak_fluxdens[highconf & ~hii])
 plfhi.plfit(discrete=False, verbose=True)
-plfhi.plotpdf(fill=True, histcolor='none', plcolor='k')
+plfhi.plotpdf(dohist=False, fill=True, histcolor='none', plcolor='k')
 p,ksv = plfhi.test_pl()
 print("High-confidence Consistent with power-law? p={0}".format(p))
+ax1.set_xlim(0.0003, 2)
 
 fig1.savefig(paths.fpath('core_peak_fluxdensity_powerlawfit_justhi.png'), bbox_inches='tight')
 
