@@ -76,3 +76,23 @@ pl.legend(loc='best', fontsize=10)
 
 fig1.savefig(paths.fpath('core_peak_intensity_histogram_withHOPS.png'),
              bbox_inches='tight')
+
+# Signal-to-noise plot
+fig2 = pl.figure(2)
+fig2.clf()
+ax2 = fig2.gca()
+sn=core_phot_tbl['peak']/core_phot_tbl['bgmad']
+hs,l,p = ax2.hist([sn[highconf & ~hii],
+                   sn[lowconf & ~hii],
+                   sn[hii],
+                  ],
+                  log=False,
+                  label=['Sgr B2 aggressive',
+                         'Sgr B2 conservative',
+                         'Sgr B2 HII'],
+                  color=['#d62728','#2ca02c','#17bcef'],
+                  bins=np.logspace(0,2,50), histtype='barstacked')
+ax2.set_xscale('log')
+ax2.set_xlabel("S/N", fontsize=12)
+ax2.set_ylabel("$N(cores)$", fontsize=12)
+pl.legend(loc='best', fontsize=10)

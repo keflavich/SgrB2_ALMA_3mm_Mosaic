@@ -70,8 +70,21 @@ resolution at other frequencies become availabe; the \hii-region sources could
 then be excluded.  Additionally, however, there are substantial imaging
 artifacts produced by the extremely bright emission sources in Sgr B2 M ($S_{3
 mm,max} > 0.8$ Jy) and Sgr B2 N ($S_{3 mm,max} > 0.3$ Jy) that make automated
-source identification particularly challenging in the regions they are most
-common.
+source identification particularly challenging in the most source-dense regions.
+
+Because the noise varies significantly across the map, a uniform selection
+criterion is not possible.  We therefore include two levels of source
+identification, `high confidence' sources, which are selected conservatively in
+regions of low-background, and `low-confidence' sources that are somewhat lower
+signal-to-noise and are often in regions with higher background. 
+
+We measure the local noise for each source by taking the median absolute
+deviation in an annulus 0.5 to 1.5 \arcsec around the source center.
+All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
+sources are all in regions of particularly high background or source
+density and therefore have overestimated local noise.
+
+Our selection criteria result in a reliable but potentially incomplete catalog.
 
 \section{Results}
 
@@ -106,7 +119,7 @@ from $M>7$ \msun (0.5 mJy) to $M>45$ \msun (2.5 mJy) across the map.  If we
 were to assume that these are all cold, dusty sources, as is typically (and
 reasonably) assumed for local clouds, they would be extremely massive and
 dense, with the lowest measurable density being $n(40\mathrm{K}) > 3\ee{6}$
-\percc (corresponding to 7 \msun in a 0.5\arcsec radius sphere).  Such extremes
+\percc (corresponding to 7 \msun in a 0.5\arcsec radius sphere).  Such extreme
 objects are possible, but since we have detected $>100$ of these sources, it
 makes sense to evaluate other possibilities.
 
@@ -114,32 +127,54 @@ makes sense to evaluate other possibilities.
 \subsubsection{Alternative 1: The sources are externally ionized gas blobs}
 One possibility is that these sources are not dusty at all, nor pre- or
 protostellar, but are instead the brightest compact clumps surrounding \hii
-regions.  They would the be analogous to the heads of cometary clouds,
+regions.  They would then be analogous to the heads of cometary clouds,
 externally ionized globules (``EGGs"), or proplyds, and their observed emission
 would give no clue to their nature because the light source is extrinsic.
 
-The observed source sizes are $<4000$ AU, i.e., they are unresolved.  This
-scale is consistent with that of frEGGs seen in Carina \citep[e.g.]{Sahai2010a}.
-The flux density of our sources is 1-2 orders of magnitude below what we would
-predict from the dust observed in the \citet{Sahai2010a} object, though the
-free-free... \todo{Look up observed free-free emission from proplyds and frEGGs.
-Could we have frEGGs?}
+The majority of the detected sources have size $<4000$ AU, i.e., they are
+unresolved.  By contrast, the free-floating EGGs so far observed have sizes
+10,000-20,000 AU \citep{Sahai2012a,Sahai2012b}, so they would be resolved in
+our observations.  Toward the brightest frEGG in Cygnus X, \citet{Sahai2012b}
+measured a peak intensity $S_{8.5 GHz} \approx 1.5$ mJy/beam in a
+$\approx3\arcsec$ beam.  Cygnus X is $6\times$ closer that the Galactic center,
+so their beam size is the same physical scale as ours.  If the free-free
+emission is thin, the brightness in our data would be $S_{95 GHz} =
+(95/8.5)^{-0.1} S_{8.5 GHz} = 0.79 S_{8.5 GHz} \approx 1.2$ mJy/beam.  These
+frEGGs would be detectable in our data.  Comparison to radio observations
+at a comparable resolution will be needed to rule out the externally ionized
+globule hypothesis for resolved regions.
 
-The key requirement, if these are all indeed externally ionized molecular
-blobs, is that of a strong ionizing radiation field.  Indeed, L-band
-observations \citep{Yusef-Zadeh2004a} show that many of these sources are
-located along the outer edges of a large-scale \hii region (Figure
-\ref{fig:coreson20cm}).  However, their location poses a problem for the
-frEGG/proplyd hypothesis:  these sources are observed \emph{within} \hii
-regions, not along their outskirts.  When analogous structures are present
-along the outskirts of clouds, they are usually accompanied by a larger
-contiguous cloud edge, which results in a continuous sharp-edged bright feature
-corresponding to a PDR.  Such edges are seen in the Orion Bar and M16's
-``Pillars of Creation''. 
 
-We know from our molecular line observations in HC$_3$N that most of the
-continuum sources lay along a molecular ridge (TODO: FIGURE), so it appears
-most of these sources are embedded in molecular material.
+%This
+%scale is consistent with that of frEGGs seen in Carina \citep[e.g.][]{Sahai2012a}.
+%The flux density of our sources is 1-2 orders of magnitude below what we would
+%predict from the dust observed in the \citet{Sahai2012a} object, though the
+%free-free... \todo{Look up observed free-free emission from proplyds and frEGGs.
+%Could we have frEGGs?}
+
+% The `tadpole' \citep{Sahai2012b} has $S_{22 \mathrm{GHz}} = 30$ mJy at d=1.4 kpc, resolved
+% to $\sim10\times10$ arcsec.  In the CMZ... this would be visible.  Maybe compare to Zadeh's
+% recent obs of "proplyds"?
+
+% The key requirement, if these are all indeed externally ionized molecular
+% blobs, is that of a strong ionizing radiation field.  Indeed, L-band
+% observations \citep{Yusef-Zadeh2004a} show that many of these sources are
+% located along the outer edges of a large-scale \hii region (Figure
+% \ref{fig:coreson20cm}).
+% 
+% % However, their location poses a problem for the
+% % frEGG/proplyd hypothesis: % this next sentence doesn't really make sense...
+% %these sources are observed \emph{within} \hii
+% %regions, not along their outskirts. 
+% However, when analogous structures are present
+% along the outskirts of clouds, they are usually accompanied by a larger
+% contiguous cloud edge, which results in a continuous sharp-edged bright feature
+% corresponding to a PDR.  Such edges are seen in the Orion Bar and M16's
+% ``Pillars of Creation''.   We do not observe any such features here.
+% 
+% We know from our molecular line observations in HC$_3$N that most of the
+% continuum sources lay along a molecular ridge (TODO: FIGURE), so it appears
+% most of these sources are embedded in molecular material.
 
 TODO: H41a TE peak map.  Show locations relative to confirmed HII regions
 
@@ -154,7 +189,7 @@ If there is a large population of older, but still ionizing, stars, they could
 ignite \hii regions when they fly through molecular material.  See
 \ref{sec:theyarehiiregions} for calculations of stationary \hii region
 properties.  The main problem with this scenario is the spatial distribution of
-the cores.  While most of them are associated with dense gas and dust ridges,
+the observed sources.  While most of them are associated with dense gas and dust ridges,
 not all of the high-column molecular gas regions have such sources in them.  If
 there is a free-floating population of OB stars responsible for the 3 mm point
 source population, their distribution should match that of the gas.  Also,
@@ -165,7 +200,7 @@ population.
 \subsubsection{Alternative 3: The sources are \hii regions produced by recently-formed OB stars}
 \label{sec:theyarehiiregions}
 
-For an unresolved spherically symmetric \hii region, the expected flux density
+For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected flux density
 is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers source
 (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$ as long
 as the source is optically thin.  An extremely compact \hii region, e.g., one
@@ -185,26 +220,28 @@ regions of almost any size and produce the observed range of flux densities.
 Anything fainter, later than $\sim$B0 ($Q_{lyc}<10^{46}$ \pers), would be
 incapable of producing the observed flux densities.
 
-This restrictive allowed parameter space, combined with a steep luminosity
-function that suggests the number of sources should increase at lower
-luminosities, is evidence against the population being dominated by \hii
-regions.
+This restrictive parameter space, combined with a steep luminosity
+function that implies there are many more sources at slightly lower luminosity,
+is evidence against the population being dominated by \hii regions.
 
 \Figure{figures/HII_region_brightness.png}
 {Simple models of spherical \hii regions to illustrate the observable
-properties of such regions.  (left) The expected brightness temperature (left
-axis) and corresponding flux density given a 0.5\arcsec beam (right axis) as a
+properties of such regions.  The \hii region size is shown by line color; the legend
+in the left plot applies to both figures.  (left) The expected brightness temperature (left
+axis) and corresponding flux density within a FWHM=0.5\arcsec beam (right axis) as a
 function of the Lyman continuum luminosity for a variety of source radii.
 (right) The density required to produce an \hii region of that radius.  The
 horizontal dashed line shows the density corresponding to an unresolved dust
-source at the 5-$\sigma$ detection limit ($\approx0.5$ mJy, or about 10 \msun,
+source at the 5-$\sigma$ detection limit ($\approx0.5$ mJy, or about 10 \msun
+of dust,
 assuming $T=40$ K).  Above this line, dust emission would dominate over
-free-free emission.  The dotted line shows where dust emission would produce a
-10 mJy source.  For any moderate-sized \hii region, $R>100$ AU, high
-luminosities $Q_{lyc} > 10^{47}$ \pers are brighter than the majority of our
-sample, which includes only a few sources brighter than 10 mJy.  The densities
-required to produce such \hii regions are fairly extreme, $n\gtrsim10^6$ \percc
-even for fainter B-stars.}
+free-free emission.  The dotted line shows the density required for dust
+emission to produce a 10 mJy source at $T=40$ K.  
+As seen in the left plot, for any moderate-sized \hii region, $R>100$ AU, a high-luminosity
+star ($Q_{lyc} > 10^{47}$ \pers) would produce an \hii region brighter than the
+majority of our sample, which includes only a few sources brighter than 10 mJy.
+The densities required to produce \hii regions within our observed range
+($1<S_\nu<10$ mJy) are fairly extreme, $n\gtrsim10^6$ \percc, for O-stars.}
 {fig:hiibrightness}{1}{18cm}
 
 
