@@ -8,6 +8,13 @@ from astropy.io import fits
 from astropy import wcs
 from wcsaxes import WCS as WCSaxes
 from astropy.convolution import convolve, Gaussian2DKernel
+from mpl_plot_templates import asinh_norm
+
+pl.rcParams['figure.dpi'] = 300.
+pl.rcParams['savefig.dpi'] = 300.
+#pl.rcParams['axes.labelsize'] = 20
+#pl.rcParams['xtick.labelsize'] = 16
+#pl.rcParams['ytick.labelsize'] = 16
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
@@ -53,7 +60,17 @@ coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=2,
 
 ax.axis([x1,x2,y1,y2])
 
-fig.savefig(paths.fpath("cores_on_1.3cm_continuum.png"))
+lon = ax.coords['glon']
+lat = ax.coords['glat']
+lon.set_major_formatter('d.ddd')
+lat.set_major_formatter('d.ddd')
+lon.ticklabels.set_fontsize(12)
+lon.set_ticks(exclude_overlapping=True)
+lat.ticklabels.set_fontsize(12)
+lat.set_ticks(exclude_overlapping=True)
+
+
+fig.savefig(paths.fpath("cores_on_1.3cm_continuum.png"), bbox_inches='tight')
 
 H,bx,by = np.histogram2d(cores.ra, cores.dec, bins=bins)
 H2 = convolve(H, Gaussian2DKernel(2))
@@ -70,9 +87,10 @@ con = ax.contour(cx,
                 )
 #ax.axis(lims)
 ax.axis([x1,x2,y1,y2])
-fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum_withdots.png"))
+
+fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum_withdots.png"), bbox_inches='tight')
 coredots.set_visible(False)
-fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum.png"))
+fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum.png"), bbox_inches='tight')
 
 hdu2 = fits.open('/Users/adam/work/sgrb2/continuumdata/sgrb2_20cm_12as.fits')[0]
 mywcs = wcs.WCS(hdu2.header).celestial
@@ -87,6 +105,10 @@ ra.set_major_formatter('hh:mm:ss.s')
 dec = ax.coords['dec']
 ra.set_axislabel("RA (J2000)")
 dec.set_axislabel("Dec (J2000)")
+ra.ticklabels.set_fontsize(12)
+ra.set_ticks(exclude_overlapping=True)
+dec.ticklabels.set_fontsize(12)
+dec.set_ticks(exclude_overlapping=True)
 
 ax.imshow(hdu2.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu2.header).celestial),
           vmax=0.45, cmap=pl.cm.gray_r, origin='lower', )
@@ -96,6 +118,75 @@ ax.axis([x1,x2,y1,y2])
 
 coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=2,
                     zorder=50, )
-fig.savefig(paths.fpath("cores_on_20cm_continuum.png"))
+fig.savefig(paths.fpath("cores_on_20cm_continuum.png"), bbox_inches='tight')
 pl.draw()
 pl.show()
+
+
+hdu_h41a = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.H41a.image.pbcor_max_medsub.fits'))[0]
+mywcs = wcs.WCS(hdu_h41a.header).celestial
+wcsaxes = WCSaxes(mywcs.to_header())
+
+fig3 = pl.figure(3)
+fig3.clf()
+ax = fig3.add_axes([0.15, 0.1, 0.8, 0.8], projection=wcsaxes)
+
+ra = ax.coords['ra']
+ra.set_major_formatter('hh:mm:ss.s')
+dec = ax.coords['dec']
+ra.set_axislabel("RA (J2000)")
+dec.set_axislabel("Dec (J2000)")
+ra.ticklabels.set_fontsize(12)
+ra.set_ticks(exclude_overlapping=True)
+dec.ticklabels.set_fontsize(12)
+dec.set_ticks(exclude_overlapping=True)
+
+ax.imshow(hdu_h41a.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_h41a.header).celestial),
+          vmin=-0.0001, vmax=0.25, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+tr_fk5 = ax.get_transform("fk5")
+(x1,y1),(x2,y2) = (680,350),(2720,3150)
+ax.axis([x1,x2,y1,y2])
+
+coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=1, alpha=0.5,
+                    zorder=50, )
+fig3.savefig(paths.fpath("cores_on_h41a_peak.png"), bbox_inches='tight')
+
+ax.imshow(hdu_h41a.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_h41a.header).celestial),
+          vmin=-0.0001, vmax=0.05, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+fig3.savefig(paths.fpath("cores_on_h41a_peak_saturated.png"), bbox_inches='tight')
+
+
+
+
+for line in ("HC3N","HCN","HNC","HCOp"):
+    hdu_line = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_max_medsub.fits'.format(line)))[0]
+    mywcs = wcs.WCS(hdu_line.header).celestial
+    wcsaxes = WCSaxes(mywcs.to_header())
+
+    fig3 = pl.figure(3)
+    fig3.clf()
+    ax = fig3.add_axes([0.15, 0.1, 0.8, 0.8], projection=wcsaxes)
+
+    ra = ax.coords['ra']
+    ra.set_major_formatter('hh:mm:ss.s')
+    dec = ax.coords['dec']
+    ra.set_axislabel("RA (J2000)")
+    dec.set_axislabel("Dec (J2000)")
+    ra.ticklabels.set_fontsize(12)
+    ra.set_ticks(exclude_overlapping=True)
+    dec.ticklabels.set_fontsize(12)
+    dec.set_ticks(exclude_overlapping=True)
+
+    ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+              vmin=-0.0001, vmax=0.25, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    tr_fk5 = ax.get_transform("fk5")
+    (x1,y1),(x2,y2) = (680,350),(2720,3150)
+    ax.axis([x1,x2,y1,y2])
+
+    coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=1, alpha=0.5,
+                        zorder=50, )
+    fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
+
+    ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+              vmin=-0.0001, vmax=0.1, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    fig3.savefig(paths.fpath("cores_on_{0}_peak_saturated.png".format(line)), bbox_inches='tight')
