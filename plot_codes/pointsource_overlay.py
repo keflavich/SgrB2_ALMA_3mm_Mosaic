@@ -117,6 +117,7 @@ tr_fk5 = ax.get_transform("fk5")
 ax.axis([x1,x2,y1,y2])
 
 coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=2,
+                    alpha=0.5,
                     zorder=50, )
 fig.savefig(paths.fpath("cores_on_20cm_continuum.png"), bbox_inches='tight')
 pl.draw()
@@ -188,5 +189,5 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
 
     ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
-              vmin=-0.0001, vmax=0.1, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+              vmin=-0.001, vmax=0.1, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
     fig3.savefig(paths.fpath("cores_on_{0}_peak_saturated.png".format(line)), bbox_inches='tight')
