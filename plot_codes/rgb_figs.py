@@ -1,3 +1,6 @@
+"""
+This looks pretty awful...
+"""
 import numpy as np
 from astropy import wcs
 import aplpy
@@ -36,44 +39,50 @@ red,green,blue,alpha = 0,1,2,3
 rgb_im = np.zeros(hc3n.shape + (4,))
 rgb_im[:,:,alpha]=1.0
 monochrome_hc3n = Normalize(vmin=np.nanpercentile(hc3n,10),
-                            vmax=np.nanpercentile(hc3n,99.0), clip=True)(hc3n)
+                            #vmax=np.nanpercentile(hc3n,97.0),
+                            vmax=0.06,
+                            clip=True)(hc3n)
 rgb_hc3n = np.zeros(hc3n.shape + (3,))
 rgb_hc3n[:,:,blue] = np.nan_to_num(monochrome_hc3n)
 hsv_hc3n = rgb_to_hsv(rgb_hc3n)
 hue, saturation, value = 0,1,2
-hsv_hc3n[:,:,hue] = 330/360.
+hsv_hc3n[:,:,hue] = 100/360.
 rgb_hc3n = hsv_to_rgb(hsv_hc3n)
 rgb_im[:,:,:alpha] += np.nan_to_num(rgb_hc3n)
 
 # SECOND LAYER: hcn = orangish?  ...
 monochrome_hcn = Normalize(vmin=np.nanpercentile(hcn,10),
-                           vmax=np.nanpercentile(hcn,99.995), clip=True)(hcn)
+                           #vmax=np.nanpercentile(hcn,99.0),
+                           vmax=0.06,
+                           clip=True)(hcn)
 rgb_hcn = np.zeros(hc3n.shape + (3,))
 rgb_hcn[:,:,blue] = np.nan_to_num(monochrome_hcn)
 hsv_hcn = rgb_to_hsv(rgb_hcn)
 hue, saturation, value = 0,1,2
-hsv_hcn[:,:,hue] = 65/360.
+hsv_hcn[:,:,hue] = 220/360.
 rgb_hcn = hsv_to_rgb(hsv_hcn)
 #rgb_im[:,:,:alpha] += rgb_hcn
 
 
 monochrome_hnc = Normalize(vmin=np.nanpercentile(hnc,10),
-                           vmax=np.nanpercentile(hnc,99.9995), clip=True)(hnc)
+                           vmax=np.nanpercentile(hnc,99.0),
+                           clip=True)(hnc)
 rgb_hnc = np.zeros(hc3n.shape + (3,))
 #rgb_im[:,:,red] += np.nan_to_num(monochrome_hnc)
 rgb_hnc[:,:,blue] = np.nan_to_num(monochrome_hnc)
 hsv_hnc = rgb_to_hsv(rgb_hnc)
-hsv_hnc[:,:,hue] = 25/360.
+hsv_hnc[:,:,hue] = 240/360.
 rgb_hnc = hsv_to_rgb(hsv_hnc)
 rgb_im[:,:,:alpha] += rgb_hnc
 
 monochrome_hcop = Normalize(vmin=np.nanpercentile(hcop,10),
-                            vmax=np.nanpercentile(hcop,99.9995),
+                            #vmax=np.nanpercentile(hcop,99.0),
+                            vmax=0.06,
                             clip=True)(hcop)
 rgb_hcop = np.zeros(hc3n.shape + (3,))
 rgb_hcop[:,:,blue] = np.nan_to_num(monochrome_hcop)
 hsv_hcop = rgb_to_hsv(rgb_hcop)
-hsv_hcop[:,:,hue] = 45/360.
+hsv_hcop[:,:,hue] = 0/360.
 rgb_hcop = hsv_to_rgb(hsv_hcop)
 rgb_im[:,:,:alpha] += rgb_hcop
 
@@ -87,14 +96,15 @@ monochrome_cont = monochrome_cont.filled(np.nan)
 #                             clip=True)(cont*(cont > vmin))
 #monochrome_cont[monochrome_cont.mask] = 0.0
 #monochrome_cont.mask[:] = False
-rgb_cont = monochrome_cont[:,:,None]
-rgb_cont = np.zeros(hc3n.shape + (3,))
-rgb_cont[:,:,blue] = np.nan_to_num(monochrome_cont)
-hsv_cont = rgb_to_hsv(rgb_cont)
-hue, saturation, value = 0,1,2
-hsv_cont[:,:,hue] = 150/360.
-rgb_cont = hsv_to_rgb(hsv_cont)
-rgb_im[:,:,:alpha] += rgb_cont
+# rgb_cont = monochrome_cont[:,:,None]
+# rgb_cont = np.zeros(hc3n.shape + (3,))
+# rgb_cont[:,:,blue] = np.nan_to_num(monochrome_cont)
+# hsv_cont = rgb_to_hsv(rgb_cont)
+# hue, saturation, value = 0,1,2
+# hsv_cont[:,:,hue] = 150/360.
+# rgb_cont = hsv_to_rgb(hsv_cont)
+# rgb_im[:,:,:alpha] += rgb_cont
+#rgb_im[:,:,:alpha] += np.nan_to_num(monochrome_cont[:,:,None])
 
 #rgb_im[rgb_im>1] = 1
 #rgb_im /= rgb_im.max()
@@ -105,6 +115,18 @@ im = PIL.Image.fromarray((rgb_im[:,:,:alpha]/rgb_im[:,:,:alpha].max()*255).astyp
 outname = paths.fpath("rgb_overview_default.png")
 im.save(outname)
 avm.embed(outname, outname)
+
+
+
+FF = aplpy.FITSFigure(outname)
+FF.show_rgb(outname)
+#FF.show_regions(paths.rpath('overview_labels.reg'), layer='labels')
+FF.save(paths.fpath("rgb_overview_aplpy_withlabels.png"), dpi=150)
+FF.recenter(266.8318615, -28.3940598, width=0.062, height=0.105)
+FF.save(paths.fpath("rgb_overview_aplpy_withlabels_zoom.png"), dpi=150)
+
+
+
 im = ImageEnhance.Contrast(im).enhance(1.5)
 outname = paths.fpath("rgb_overview_contrast.png")
 im.save(outname)
@@ -119,8 +141,11 @@ avm.embed(outname, outname)
 #avm.embed(outname, outname)
 
 
-FF = aplpy.FITSFigure(outname)
-FF.show_rgb(outname)
-#FF.show_regions(paths.rpath('overview_labels.reg'), layer='labels')
-FF.save(paths.fpath("rgb_overview_aplpy_withlabels.png"), dpi=150)
-
+FF2 = aplpy.FITSFigure(fnhc3n)
+FF2.show_grayscale(vmax=0.06, invert=True)
+FF2.show_contour(fnhcn, levels=[0.02,0.03,0.04,0.05,0.06,0.1,0.2,0.3,0.4],
+                 colors=[(1,0,0,x) for x in np.linspace(0,1,10)],
+                 filled=True, )
+FF2.save(paths.fpath("HC3N_grayscale_with_HCN_red_filled_contours.png"), dpi=150)
+FF2.recenter(266.8318615, -28.3940598, width=0.062, height=0.105)
+FF2.save(paths.fpath("HC3N_grayscale_with_HCN_red_filled_contours_zoom.png"), dpi=150)

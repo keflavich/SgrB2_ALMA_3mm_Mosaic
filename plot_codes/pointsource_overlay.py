@@ -10,11 +10,16 @@ from wcsaxes import WCS as WCSaxes
 from astropy.convolution import convolve, Gaussian2DKernel
 from mpl_plot_templates import asinh_norm
 
+pl.matplotlib.rc_file('pubfiguresrc')
+
+pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 300.
 pl.rcParams['savefig.dpi'] = 300.
-#pl.rcParams['axes.labelsize'] = 20
-#pl.rcParams['xtick.labelsize'] = 16
-#pl.rcParams['ytick.labelsize'] = 16
+pl.rcParams['axes.labelsize'] = 10
+pl.rcParams['xtick.labelsize'] = 8
+pl.rcParams['ytick.labelsize'] = 8
+tick_fontsize = 6
+markersize = 1.
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
@@ -33,8 +38,8 @@ im = ax.imshow(hdu.data.squeeze()*1e3, cmap=pl.cm.gray_r, origin='lower', vmin=-
 lon = ax.coords['glon']
 #lon.set_major_formatter('hh:mm:ss.s')
 lat = ax.coords['glat']
-lon.set_axislabel("Galactic Longitude")
-lat.set_axislabel("Galactic Latitude")
+lon.set_axislabel("Galactic Longitude", fontsize=pl.rcParams['axes.labelsize'])
+lat.set_axislabel("Galactic Latitude", fontsize=pl.rcParams['axes.labelsize'])
 #ra = ax.coords['ra']
 #ra.set_major_formatter('hh:mm:ss.s')
 #dec = ax.coords['dec']
@@ -55,7 +60,7 @@ bins = [np.linspace(clims[1,0], clims[0,0], 200),
 
 tr_fk5 = ax.get_transform("fk5")
 
-coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=2,
+coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
                     zorder=50)
 
 ax.axis([x1,x2,y1,y2])
@@ -64,9 +69,9 @@ lon = ax.coords['glon']
 lat = ax.coords['glat']
 lon.set_major_formatter('d.ddd')
 lat.set_major_formatter('d.ddd')
-lon.ticklabels.set_fontsize(12)
+lon.ticklabels.set_fontsize(tick_fontsize)
 lon.set_ticks(exclude_overlapping=True)
-lat.ticklabels.set_fontsize(12)
+lat.ticklabels.set_fontsize(tick_fontsize)
 lat.set_ticks(exclude_overlapping=True)
 
 
@@ -103,11 +108,11 @@ ax = fig.add_axes([0.15, 0.1, 0.8, 0.8], projection=wcsaxes)
 ra = ax.coords['ra']
 ra.set_major_formatter('hh:mm:ss.s')
 dec = ax.coords['dec']
-ra.set_axislabel("RA (J2000)")
-dec.set_axislabel("Dec (J2000)")
-ra.ticklabels.set_fontsize(12)
+ra.set_axislabel("RA (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+ra.ticklabels.set_fontsize(tick_fontsize)
 ra.set_ticks(exclude_overlapping=True)
-dec.ticklabels.set_fontsize(12)
+dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
 
 ax.imshow(hdu2.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu2.header).celestial),
@@ -116,7 +121,7 @@ tr_fk5 = ax.get_transform("fk5")
 (x1,y1),(x2,y2) = (1807,2100),(2221,2697)
 ax.axis([x1,x2,y1,y2])
 
-coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=2,
+coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
                     alpha=0.5,
                     zorder=50, )
 fig.savefig(paths.fpath("cores_on_20cm_continuum.png"), bbox_inches='tight')
@@ -135,11 +140,11 @@ ax = fig3.add_axes([0.15, 0.1, 0.8, 0.8], projection=wcsaxes)
 ra = ax.coords['ra']
 ra.set_major_formatter('hh:mm:ss.s')
 dec = ax.coords['dec']
-ra.set_axislabel("RA (J2000)")
-dec.set_axislabel("Dec (J2000)")
-ra.ticklabels.set_fontsize(12)
+ra.set_axislabel("RA (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+ra.ticklabels.set_fontsize(tick_fontsize)
 ra.set_ticks(exclude_overlapping=True)
-dec.ticklabels.set_fontsize(12)
+dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
 
 ax.imshow(hdu_h41a.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_h41a.header).celestial),
@@ -148,7 +153,7 @@ tr_fk5 = ax.get_transform("fk5")
 (x1,y1),(x2,y2) = (680,350),(2720,3150)
 ax.axis([x1,x2,y1,y2])
 
-coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=1, alpha=0.5,
+coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
                     zorder=50, )
 fig3.savefig(paths.fpath("cores_on_h41a_peak.png"), bbox_inches='tight')
 
@@ -171,11 +176,11 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     ra = ax.coords['ra']
     ra.set_major_formatter('hh:mm:ss.s')
     dec = ax.coords['dec']
-    ra.set_axislabel("RA (J2000)")
-    dec.set_axislabel("Dec (J2000)")
-    ra.ticklabels.set_fontsize(12)
+    ra.set_axislabel("RA (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+    dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+    ra.ticklabels.set_fontsize(tick_fontsize)
     ra.set_ticks(exclude_overlapping=True)
-    dec.ticklabels.set_fontsize(12)
+    dec.ticklabels.set_fontsize(tick_fontsize)
     dec.set_ticks(exclude_overlapping=True)
 
     ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
@@ -184,7 +189,7 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     (x1,y1),(x2,y2) = (680,350),(2720,3150)
     ax.axis([x1,x2,y1,y2])
 
-    coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=1, alpha=0.5,
+    coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
                         zorder=50, )
     fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
 

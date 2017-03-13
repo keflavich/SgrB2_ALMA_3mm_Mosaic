@@ -225,7 +225,7 @@ axes.prop_cycle : cycler('color', ('338ADD', '9A44B6', 'A60628', '467821', 'CF44
 ### FIGURE
 # See http://matplotlib.sourceforge.net/matplotlib.figure.html#Figure
 figure.figsize   : 12, 8    # figure size in inches
-figure.dpi       : 75       # figure dots per inch
+figure.dpi       : 150      # figure dots per inch
 #figure.facecolor : 0.75    # figure facecolor; 0.75 is scalar gray
 #figure.edgecolor : white   # figure edgecolor
 
