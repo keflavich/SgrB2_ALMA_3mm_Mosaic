@@ -15,11 +15,11 @@ pl.matplotlib.rc_file('pubfiguresrc')
 pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 300.
 pl.rcParams['savefig.dpi'] = 300.
-pl.rcParams['axes.labelsize'] = 10
+pl.rcParams['axes.labelsize'] = 9
 pl.rcParams['xtick.labelsize'] = 8
 pl.rcParams['ytick.labelsize'] = 8
 tick_fontsize = 6
-markersize = 1.
+markersize = 0.5
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
@@ -108,8 +108,8 @@ ax = fig.add_axes([0.15, 0.1, 0.8, 0.8], projection=wcsaxes)
 ra = ax.coords['ra']
 ra.set_major_formatter('hh:mm:ss.s')
 dec = ax.coords['dec']
-ra.set_axislabel("RA (J2000)", fontsize=pl.rcParams['axes.labelsize'])
-dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+ra.set_axislabel("RA (J2000)", fontsize=pl.rcParams['axes.labelsize'],)
+dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'], minpad=0)
 ra.ticklabels.set_fontsize(tick_fontsize)
 ra.set_ticks(exclude_overlapping=True)
 dec.ticklabels.set_fontsize(tick_fontsize)
@@ -141,7 +141,7 @@ ra = ax.coords['ra']
 ra.set_major_formatter('hh:mm:ss.s')
 dec = ax.coords['dec']
 ra.set_axislabel("RA (J2000)", fontsize=pl.rcParams['axes.labelsize'])
-dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'], minpad=0)
 ra.ticklabels.set_fontsize(tick_fontsize)
 ra.set_ticks(exclude_overlapping=True)
 dec.ticklabels.set_fontsize(tick_fontsize)
@@ -177,7 +177,7 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     ra.set_major_formatter('hh:mm:ss.s')
     dec = ax.coords['dec']
     ra.set_axislabel("RA (J2000)", fontsize=pl.rcParams['axes.labelsize'])
-    dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'])
+    dec.set_axislabel("Dec (J2000)", fontsize=pl.rcParams['axes.labelsize'], minpad=0.0)
     ra.ticklabels.set_fontsize(tick_fontsize)
     ra.set_ticks(exclude_overlapping=True)
     dec.ticklabels.set_fontsize(tick_fontsize)
