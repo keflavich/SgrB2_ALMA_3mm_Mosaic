@@ -1,0 +1,227 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(17:47:23.387,-28:25:55.21) # point=x text={core_1}
+point(17:47:23.450,-28:25:52.04) # point=x text={core_2}
+point(17:47:22.810,-28:25:42.33) # point=x text={core_3}
+point(17:47:21.698,-28:25:43.03) # point=x text={core_4}
+point(17:47:23.190,-28:25:14.45) # point=x text={core_5}
+point(17:47:23.198,-28:25:17.80) # point=x text={core_6}
+point(17:47:23.195,-28:25:18.97) # point=x text={core_7}
+point(17:47:23.357,-28:25:23.58) # point=x text={core_8}
+point(17:47:23.442,-28:25:26.85) # point=x text={core_9}
+point(17:47:23.360,-28:25:34.25) # point=x text={core_10}
+point(17:47:21.829,-28:25:21.41) # point=x text={core_11}
+point(17:47:21.489,-28:25:44.17) # point=x text={core_12}
+point(17:47:18.668,-28:25:54.62) # point=x text={core_13}
+point(17:47:19.178,-28:25:49.17) # point=x text={core_14}
+point(17:47:17.619,-28:25:38.66) # point=x text={core_15}
+point(17:47:20.718,-28:25:42.66) # point=x text={core_16}
+point(17:47:20.646,-28:25:41.79) # point=x text={core_17}
+point(17:47:21.266,-28:25:53.11) # point=x text={core_18}
+point(17:47:22.036,-28:24:42.66) # point=x text={core_19}
+point(17:47:22.072,-28:24:46.31) # point=x text={core_20}
+point(17:47:22.036,-28:24:53.23) # point=x text={core_21}
+point(17:47:21.927,-28:24:40.04) # point=x text={core_22}
+point(17:47:22.217,-28:24:33.86) # point=x text={core_23}
+point(17:47:21.610,-28:24:30.43) # point=x text={core_24}
+point(17:47:21.775,-28:24:34.65) # point=x text={core_25}
+point(17:47:18.783,-28:24:33.04) # point=x text={core_26}
+point(17:47:16.757,-28:24:31.03) # point=x text={core_27}
+point(17:47:26.342,-28:20:39.33) # point=x text={core_28}
+point(17:47:23.612,-28:21:26.54) # point=x text={core_29}
+point(17:47:22.699,-28:21:35.27) # point=x text={core_30}
+point(17:47:23.815,-28:21:41.75) # point=x text={core_31}
+point(17:47:24.019,-28:21:44.97) # point=x text={core_32}
+point(17:47:19.491,-28:20:58.22) # point=x text={core_33}
+point(17:47:21.653,-28:24:27.91) # point=x text={core_34}
+point(17:47:21.018,-28:24:26.00) # point=x text={core_35}
+point(17:47:21.329,-28:24:19.21) # point=x text={core_36}
+point(17:47:20.585,-28:24:15.21) # point=x text={core_37}
+point(17:47:21.118,-28:24:18.34) # point=x text={core_38}
+point(17:47:18.780,-28:24:17.84) # point=x text={core_39}
+point(17:47:18.798,-28:24:18.41) # point=x text={core_40}
+point(17:47:19.243,-28:24:21.03) # point=x text={core_41}
+point(17:47:19.200,-28:24:21.46) # point=x text={core_42}
+point(17:47:18.653,-28:24:24.82) # point=x text={core_43}
+point(17:47:18.765,-28:24:24.76) # point=x text={core_44}
+point(17:47:22.487,-28:25:01.37) # point=x text={core_45}
+point(17:47:23.001,-28:25:05.03) # point=x text={core_46}
+point(17:47:17.703,-28:25:16.05) # point=x text={core_47}
+point(17:47:19.736,-28:25:32.03) # point=x text={core_48}
+point(17:47:21.487,-28:25:53.72) # point=x text={core_49}
+point(17:47:21.526,-28:25:54.33) # point=x text={core_50}
+point(17:47:22.414,-28:25:48.82) # point=x text={core_51}
+point(17:47:22.998,-28:24:02.74) # point=x text={core_52}
+point(17:47:29.221,-28:25:50.09) # point=x text={core_53}
+point(17:47:20.871,-28:25:48.75) # point=x text={core_54}
+point(17:47:07.514,-28:26:24.25) # point=x text={core_55}
+point(17:47:18.812,-28:24:41.38) # point=x text={core_56}
+point(17:47:20.786,-28:21:07.14) # point=x text={core_57}
+point(17:47:20.707,-28:21:09.42) # point=x text={core_58}
+point(17:47:22.201,-28:21:18.26) # point=x text={core_59}
+point(17:47:17.268,-28:21:10.96) # point=x text={core_60}
+point(17:47:16.648,-28:21:32.74) # point=x text={core_61}
+point(17:47:14.069,-28:22:30.51) # point=x text={core_62}
+point(17:47:14.451,-28:22:56.36) # point=x text={core_63}
+point(17:47:14.795,-28:22:47.82) # point=x text={core_64}
+point(17:47:14.594,-28:23:06.00) # point=x text={core_65}
+point(17:47:15.011,-28:23:11.52) # point=x text={core_66}
+point(17:47:14.813,-28:23:12.10) # point=x text={core_67}
+point(17:47:14.871,-28:23:11.89) # point=x text={core_68}
+point(17:47:15.793,-28:23:55.19) # point=x text={core_69}
+point(17:47:20.337,-28:24:02.33) # point=x text={core_70}
+point(17:47:19.942,-28:23:56.99) # point=x text={core_71}
+point(17:47:18.906,-28:23:52.52) # point=x text={core_72}
+point(17:47:18.562,-28:23:49.16) # point=x text={core_73}
+point(17:47:19.576,-28:23:49.90) # point=x text={core_74}
+point(17:47:19.568,-28:23:47.11) # point=x text={core_75}
+point(17:47:19.986,-28:23:48.86) # point=x text={core_76}
+point(17:47:19.805,-28:23:55.91) # point=x text={core_77}
+point(17:47:19.863,-28:23:54.30) # point=x text={core_78}
+point(17:47:21.459,-28:23:53.22) # point=x text={core_79}
+point(17:47:20.235,-28:23:45.14) # point=x text={core_80}
+point(17:47:20.159,-28:23:43.46) # point=x text={core_81}
+point(17:47:19.767,-28:23:43.56) # point=x text={core_82}
+point(17:47:18.672,-28:23:32.15) # point=x text={core_83}
+point(17:47:18.131,-28:23:00.21) # point=x text={core_84}
+point(17:47:18.029,-28:23:03.61) # point=x text={core_85}
+point(17:47:19.762,-28:23:10.20) # point=x text={core_86_B9.96}
+point(17:47:19.798,-28:23:06.90) # point=x text={core_87_B9.99}
+point(17:47:19.618,-28:23:08.21) # point=x text={core_88}
+point(17:47:19.694,-28:23:09.39) # point=x text={core_89}
+point(17:47:19.693,-28:23:05.93) # point=x text={core_90_B9.89}
+point(17:47:19.348,-28:23:08.86) # point=x text={core_91}
+point(17:47:20.324,-28:23:08.20) # point=x text={core_92_I10.52}
+point(17:47:19.375,-28:23:03.12) # point=x text={core_93}
+point(17:47:18.095,-28:22:52.41) # point=x text={core_94}
+point(17:47:18.441,-28:22:56.67) # point=x text={core_95}
+point(17:47:20.039,-28:22:41.25) # point=x text={core_96_Z10.24}
+point(17:47:19.838,-28:22:40.07) # point=x text={core_97}
+point(17:47:19.530,-28:22:32.55) # point=x text={core_98}
+point(17:47:16.878,-28:22:05.80) # point=x text={core_99}
+point(17:47:16.946,-28:22:07.18) # point=x text={core_100}
+point(17:47:17.352,-28:22:03.76) # point=x text={core_101_X}
+point(17:47:18.106,-28:22:06.97) # point=x text={core_102}
+point(17:47:18.508,-28:22:11.40) # point=x text={core_103}
+point(17:47:18.397,-28:22:10.94) # point=x text={core_104}
+point(17:47:18.232,-28:22:10.44) # point=x text={core_105}
+point(17:47:18.972,-28:22:13.46) # point=x text={core_106}
+point(17:47:19.216,-28:22:11.94) # point=x text={core_107}
+point(17:47:19.260,-28:22:15.00) # point=x text={core_108}
+point(17:47:19.901,-28:22:15.54) # point=x text={core_109}
+point(17:47:19.677,-28:22:15.00) # point=x text={core_110}
+point(17:47:19.509,-28:22:14.56) # point=x text={core_111}
+point(17:47:19.591,-28:22:11.67) # point=x text={core_112}
+point(17:47:19.644,-28:22:24.44) # point=x text={core_113}
+point(17:47:19.876,-28:22:22.46) # point=x text={core_114}
+point(17:47:24.729,-28:21:43.51) # point=x text={core_115}
+point(17:47:20.802,-28:24:01.22) # point=x text={core_116}
+point(17:47:20.700,-28:24:02.06) # point=x text={core_117}
+point(17:47:20.932,-28:24:03.04) # point=x text={core_118}
+point(17:47:15.720,-28:25:26.84) # point=x text={core_119}
+point(17:47:22.654,-28:24:44.89) # point=x text={core_120}
+point(17:47:22.463,-28:24:46.23) # point=x text={core_121}
+point(17:47:19.208,-28:23:56.626) # point=x text={core_122}
+point(17:47:18.161,-28:23:39.85) # point=x text={core_123}
+point(17:47:18.247,-28:23:39.03) # point=x text={core_124}
+point(17:47:19.801,-28:23:47.94) # point=x text={core_125}
+point(17:47:19.692,-28:23:51.68) # point=x text={core_126}
+point(17:47:19.544,-28:23:53.29) # point=x text={core_127}
+point(17:47:19.927,-28:23:59.19) # point=x text={core_128}
+point(17:47:20.044,-28:24:02.46) # point=x text={core_129}
+point(17:47:19.251,-28:23:23.57) # point=x text={core_130}
+point(17:47:19.464,-28:23:13.19) # point=x text={core_131}
+point(17:47:18.745,-28:23:03.91) # point=x text={core_132}
+point(17:47:17.967,-28:21:53.19) # point=x text={core_133}
+point(17:47:17.224,-28:22:18.44) # point=x text={core_134}
+point(17:47:17.857,-28:22:37.22) # point=x text={core_135}
+point(17:47:18.193,-28:22:12.36) # point=x text={core_136}
+point(17:47:17.946,-28:22:19.42) # point=x text={core_137}
+point(17:47:18.019,-28:22:20.07) # point=x text={core_138}
+point(17:47:20.014,-28:23:30.86) # point=x text={core_139}
+point(17:47:20.614,-28:24:10.15) # point=x text={core_140}
+point(17:47:23.487,-28:25:49.68) # point=x text={core_141}
+point(17:47:19.617,-28:24:44.88) # point=x text={core_142}
+point(17:47:20.260,-28:24:01.05) # point=x text={core_143}
+point(17:47:20.780,-28:23:53.69) # point=x text={core_144}
+point(17:47:18.878,-28:24:24.89) # point=x text={core_145}
+point(17:47:19.177,-28:24:25.49) # point=x text={core_146}
+point(17:47:18.489,-28:23:34.04) # point=x text={core_147}
+point(17:47:19.515,-28:23:16.69) # point=x text={core_148}
+point(17:47:18.585,-28:23:13.56) # point=x text={core_149}
+point(17:47:19.694,-28:23:07.24) # point=x text={core_150}
+point(17:47:19.860,-28:23:01.50) # point=x text={core_151_B10.06}
+point(17:47:20.128,-28:23:00.22) # point=x text={core_152_f10.32}
+point(17:47:18.365,-28:23:06.23) # point=x text={core_153}
+point(17:47:17.763,-28:23:06.74) # point=x text={core_154}
+point(17:47:19.001,-28:22:10.51) # point=x text={core_155}
+point(17:47:19.421,-28:22:19.97) # point=x text={core_156}
+point(17:47:24.488,-28:21:43.67) # point=x text={core_157}
+point(17:47:21.507,-28:25:55.22) # point=x text={core_158}
+point(17:47:22.970,-28:25:06.45) # point=x text={core_159}
+point(17:47:22.646,-28:25:42.794) # point=x # text={core_160}
+point(17:47:21.580,-28:25:44.805) # point=x # text={core_161}
+point(17:47:23.466,-28:25:51.349) # point=x # text={core_162}
+point(17:47:22.885,-28:25:41.504) # point=x # text={core_163}
+point(17:47:18.074,-28:23:21.845) # point=x # text={core_164}
+point(17:47:19.427,-28:23:07.757) # point=x # text={core_165}
+point(17:47:19.466,-28:23:06.954) # point=x # text={core_166}
+point(17:47:19.178,-28:23:06.536) # point=x # text={core_167}
+point(17:47:19.924,-28:23:09.850) # point=x # text={core_168}
+point(17:47:20.079,-28:22:57.202) # point=x # text={core_169}
+point(17:47:19.895,-28:22:13.621) # point=x # text={core_170}
+point(17:47:19.895,-28:22:17.221) # point=x text={core_171_K3}
+point(17:47:19.869,-28:22:18.466) # point=x text={core_172_K2}
+point(17:47:19.780,-28:22:20.743) # point=x text={core_173_K1}
+point(17:47:20.167,-28:23:04.809) # point=x text={core_174_f3}
+point(17:47:20.285,-28:23:03.162) # point=x text={core_175_G}
+point(17:47:20.127,-28:23:04.082) # point=x text={core_176_f1}
+point(17:47:19.918,-28:23:03.039) # point=x text={core_177_B}
+point(17:47:20.178,-28:23:06.000) # point=x text={core_178_f10.37}
+point(17:47:20.193,-28:23:06.673) # point=x text={core_179_f10.38}
+point(17:47:20.108,-28:23:08.894) # point=x text={core_180_E}
+point(17:47:20.051,-28:23:12.910) # point=x text={core_181_D}
+point(17:47:18.627,-28:22:54.578) # point=x text={core_182_Y}
+point(17:47:19.603,-28:23:58.435) # point=x color=orange text={core_183} 
+point(17:47:19.674,-28:23:58.293) # point=x color=orange text={core_184}
+point(17:47:20.170,-28:23:59.003) # point=x color=orange text={core_185}
+point(17:47:19.022,-28:23:53.462) # point=x color=orange text={core_186}
+point(17:47:19.002,-28:23:53.228) # point=x color=orange text={core_187}
+point(17:47:21.381,-28:23:54.782) # point=x color=orange text={core_188}
+point(17:47:20.980,-28:23:58.784) # point=x color=orange text={core_189}
+point(17:47:20.740,-28:24:02.962) # point=x color=orange text={core_190}
+point(17:47:21.041,-28:24:04.179) # point=x color=orange text={core_191}
+point(17:47:21.173,-28:24:05.165) # point=x color=orange text={core_192}
+point(17:47:21.284,-28:24:05.591) # point=x color=orange text={core_193}
+point(17:47:20.816,-28:24:06.260) # point=x color=orange text={core_194}
+point(17:47:20.744,-28:24:12.525) # point=x color=orange text={core_195}
+point(17:47:21.718,-28:24:18.354) # point=x color=orange text={core_196}
+point(17:47:21.438,-28:24:19.182) # point=x color=orange text={core_197}
+point(17:47:21.377,-28:24:21.080) # point=x color=orange text={core_198}
+point(17:47:22.982,-28:24:18.367) # point=x color=orange text={core_199}
+point(17:47:23.024,-28:24:17.719) # point=x color=orange text={core_200}
+point(17:47:16.934,-28:24:34.016) # point=x color=orange text={core_201}
+point(17:47:16.962,-28:24:35.890) # point=x color=orange text={core_202}
+point(17:47:17.012,-28:24:34.624) # point=x color=orange text={core_203}
+point(17:47:16.783,-28:24:31.448) # point=x color=orange text={core_204}
+point(17:47:19.448,-28:24:48.815) # point=x color=orange text={core_205}
+point(17:47:18.675,-28:24:48.596) # point=x color=orange text={core_206}
+point(17:47:22.670,-28:25:04.600) # point=x color=orange text={core_207}
+point(17:47:21.911,-28:25:12.679) # point=x color=orange text={core_208}
+point(17:47:21.921,-28:25:14.119) # point=x color=orange text={core_209}
+point(17:47:22.751,-28:25:44.861) # point=x color=orange text={core_210}
+point(17:47:21.470,-28:25:45.039) # point=x color=orange text={core_211}
+point(17:47:21.165,-28:25:51.985) # point=x color=orange text={core_212}
+point(17:47:18.991,-28:26:02.695) # point=x color=orange text={core_213}
+point(17:47:18.011,-28:22:55.236) # point=x color=orange text={core_214}
+point(17:47:17.938,-28:23:04.813) # point=x color=orange text={core_215}
+point(17:47:18.126,-28:23:10.168) # point=x color=orange text={core_216}
+point(17:47:17.373,-28:23:11.991) # point=x color=orange text={core_217}
+point(17:47:19.270,-28:23:14.742) # point=x color=orange text={core_218}
+point(17:47:18.594,-28:23:07.113) # point=x color=orange text={core_219}
+point(17:47:18.200,-28:23:07.488) # point=x color=orange text={core_220}
+point(17:47:18.259,-28:23:07.347) # point=x color=orange text={core_221}
+point(17:47:18.472,-28:23:05.375) # point=x color=orange text={core_222}
+point(17:47:23.990,-28:21:40.491) # point=x color=orange text={core_223}
+point(17:47:22.238,-28:21:49.558) # point=x color=orange text={core_224}
