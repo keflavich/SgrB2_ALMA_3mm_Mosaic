@@ -61,11 +61,12 @@ else:
     raise ValueError("No match to socket hostname {0}.".format(socket.gethostname()))
 
 
-regions = (pyregion.open(rpath('tc_continuum_core_extraction_regions.reg')) +
+regions = (
+           pyregion.open(rpath('cores_with_names.reg'))
+           pyregion.open(rpath('tc_continuum_core_extraction_regions.reg')) +
            pyregion.open(rpath('ionizationfront_circle.reg')) +
            pyregion.open(rpath('extraction_regions_n_and_m.reg')) +
            pyregion.open(rpath('ch3cn_large_cores.reg')) +
-           pyregion.open(rpath('cores_with_names.reg'))
           )
 
 for cubename in mergecubes:
