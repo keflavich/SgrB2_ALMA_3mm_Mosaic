@@ -62,7 +62,7 @@ else:
 
 
 regions = (
-           pyregion.open(rpath('cores_with_names.reg')) +
+           pyregion.open(rpath('cores_with_names.reg'))
            #pyregion.open(rpath('tc_continuum_core_extraction_regions.reg')) +
            #pyregion.open(rpath('ionizationfront_circle.reg')) +
            #pyregion.open(rpath('extraction_regions_n_and_m.reg')) +
