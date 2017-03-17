@@ -57,6 +57,8 @@ elif 'nmpost' in socket.gethostname():
         'SgrB2_b3_7M_12M.HCOp.image.pbcor.fits',
         'SgrB2_b3_7M_12M.HNC.image.pbcor.fits',
     ]
+else:
+    raise ValueError("No match to socket hostname {0}.".format(socket.gethostname()))
 
 
 regions = (pyregion.open(rpath('tc_continuum_core_extraction_regions.reg')) +
