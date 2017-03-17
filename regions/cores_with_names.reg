@@ -160,17 +160,17 @@ point(17:47:19.421,-28:22:19.97) # point=x text={core_156}
 point(17:47:24.488,-28:21:43.67) # point=x text={core_157}
 point(17:47:21.507,-28:25:55.22) # point=x text={core_158}
 point(17:47:22.970,-28:25:06.45) # point=x text={core_159}
-point(17:47:22.646,-28:25:42.794) # point=x # text={core_160}
-point(17:47:21.580,-28:25:44.805) # point=x # text={core_161}
-point(17:47:23.466,-28:25:51.349) # point=x # text={core_162}
-point(17:47:22.885,-28:25:41.504) # point=x # text={core_163}
-point(17:47:18.074,-28:23:21.845) # point=x # text={core_164}
-point(17:47:19.427,-28:23:07.757) # point=x # text={core_165}
-point(17:47:19.466,-28:23:06.954) # point=x # text={core_166}
-point(17:47:19.178,-28:23:06.536) # point=x # text={core_167}
-point(17:47:19.924,-28:23:09.850) # point=x # text={core_168}
-point(17:47:20.079,-28:22:57.202) # point=x # text={core_169}
-point(17:47:19.895,-28:22:13.621) # point=x # text={core_170}
+point(17:47:22.646,-28:25:42.794) # point=x text={core_160}
+point(17:47:21.580,-28:25:44.805) # point=x text={core_161}
+point(17:47:23.466,-28:25:51.349) # point=x text={core_162}
+point(17:47:22.885,-28:25:41.504) # point=x text={core_163}
+point(17:47:18.074,-28:23:21.845) # point=x text={core_164}
+point(17:47:19.427,-28:23:07.757) # point=x text={core_165}
+point(17:47:19.466,-28:23:06.954) # point=x text={core_166}
+point(17:47:19.178,-28:23:06.536) # point=x text={core_167}
+point(17:47:19.924,-28:23:09.850) # point=x text={core_168}
+point(17:47:20.079,-28:22:57.202) # point=x text={core_169}
+point(17:47:19.895,-28:22:13.621) # point=x text={core_170}
 point(17:47:19.895,-28:22:17.221) # point=x text={core_171_K3}
 point(17:47:19.869,-28:22:18.466) # point=x text={core_172_K2}
 point(17:47:19.780,-28:22:20.743) # point=x text={core_173_K1}
