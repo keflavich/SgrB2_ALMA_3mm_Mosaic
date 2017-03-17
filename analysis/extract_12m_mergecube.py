@@ -37,6 +37,26 @@ elif socket.gethostname() == 'nergal':
         'full_SgrB2_TETC7m_r2_spw2_lines.fits',
         'full_SgrB2_TETC7m_r2_spw3_lines.fits',
     ]
+elif 'nmpost' in socket.gethostname():
+    dpath = lambda x: os.path.join("/lustre/aoc/users/aginsbur/sgrb2/2013.1.00269.S/merge/fits",x)
+    rpath = lambda x: os.path.join("/lustre/aoc/users/aginsbur/sgrb2/2013.1.00269.S/SgrB2_ALMA_3mm_Mosaic/regions",x)
+    spath = lambda x: os.path.join("/lustre/aoc/users/aginsbur/sgrb2/2013.1.00269.S/spectra",x)
+    mergecubes = [
+        'SgrB2_b3_7M_12M.CFp.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.CH3CN.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.CH3OH7m26-716.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.H15NC.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.H2CO615-616.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.H2CS303-202.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.H2CS313-212.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.H2CS321-220.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.H2CS322-221.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.H41a.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.HC3N.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.HCN.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.HCOp.image.pbcor.fits',
+        'SgrB2_b3_7M_12M.HNC.image.pbcor.fits',
+    ]
 
 
 regions = (pyregion.open(rpath('tc_continuum_core_extraction_regions.reg')) +
