@@ -84,6 +84,7 @@ for cubename in mergecubes:
 
         suffix = os.path.splitext(cubename)[0]
         if os.path.exists(spath("{1}_{0}.fits".format(suffix,fname))):
+            print("Skipping {0} {1} because it exists".format(suffix, fname))
             continue
 
         cube = SpectralCube.read(dpath(cubename))
