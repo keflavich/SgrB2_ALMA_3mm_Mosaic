@@ -111,7 +111,7 @@ for cubename in mergecubes:
         bgSL = pyregion.parse("fk5; circle({0},{1},{2}\")"
                               .format(CL[0],
                                       CL[1],
-                                      2*radius*3600))
+                                      2*radius))
         bgsc = cube.subcube_from_ds9region(bgSL)
         npix = np.count_nonzero(np.isfinite(bgsc[0,:,:]))
         bgspec = (bgsc.sum(axis=(1,2)) - scube.sum(axis=(1,2))) / npix
