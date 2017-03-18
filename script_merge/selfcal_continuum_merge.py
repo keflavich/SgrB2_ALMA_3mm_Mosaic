@@ -289,3 +289,36 @@ exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.p
 exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
+
+
+
+
+# Do some tapering
+selfcal4vis = 'selfcal_SgrB2_TCTE_full_selfcal_iter4_ampphase.ms'
+
+outname = 'SgrB2_selfcal_full_TCTE_selfcal4_ampphase_taper1.5as_r0.5'
+os.system('rm -rf ' + outname + "*")
+myimagebase = outname
+tclean(vis=selfcal4vis,
+       imagename=myimagebase,
+       field='SgrB2',
+       gridder='mosaic',
+       spw="",
+       phasecenter=phasecenter,
+       specmode="mfs",
+       niter=100000,
+       threshold="0.5mJy",
+       deconvolver="clark",
+       interactive=False,
+       imsize=[1800,1800],
+       cell="0.3arcsec",
+       outframe='LSRK',
+       weighting="briggs",
+       robust=0.5,
+       uvtaper='1.5arcsec',
+       savemodel='modelcolumn')
+impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
+exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
