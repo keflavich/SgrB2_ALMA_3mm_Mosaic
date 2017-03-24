@@ -72,10 +72,16 @@ for reg in clusters:
     ncores = ((~hii) & mask).sum()
 
     mass = ncores * over8lt20mean + nhii * over20mean
-    inferred_mass = (ncores * over8lt20mean / over8lt20fraction +
-                     nhii * over20mean / over20fraction)
+    # the fractions are fractions-of-total, so we're estimating the total mass
+    # from each independent population assuming they're the same age
+    hii_only_inferred_mass = nhii * over20mean / over20fraction
+    core_inferred_mass = ncores * over8lt20mean / over8lt20fraction
+    inferred_mass = (core_inferred_mass +
+                     hii_only_inferred_mass) / 2.
 
 
     print("Cluster {0:4s}: N(cores)={1:3d} N(HII)={2:3d} counted mass={3:10.2f}"
-          " inferred mass={4:10.2f}"
-          .format(reg.meta['text'].strip("{}"), ncores, nhii, mass, inferred_mass))
+          " inferred mass={4:10.2f} HII-only inferred mass: {5:10.2f}"
+          " core-inferred mass={6:10.2f}"
+          .format(reg.meta['text'].strip("{}"), ncores, nhii, mass,
+                  inferred_mass, hii_only_inferred_mass, core_inferred_mass))
