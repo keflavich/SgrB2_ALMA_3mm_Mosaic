@@ -4,7 +4,6 @@ import paths
 from astropy.table import Table
 from astropy import coordinates
 from astropy import units as u
-import pyregion
 import regions
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"),
@@ -38,7 +37,7 @@ print("Total Mass estimate if Mbar={1} = {0}".format(nsources*over8mean/over8fra
 # Comparison to Schmiedeke et al, 2016 tbl 2
 clusters = regions.read_ds9(paths.rpath('schmiedeke_clusters.reg'))
 
-# TODO: add in DePree HII regions based on whether or not their names
+# add in DePree HII regions based on whether or not their names
 # are already in the table, since we didn't count the larger HII regions
 hii_regions = regions.read_ds9(paths.rpath('SgrB2_1.3cm_hiiRegions_masked_Done.reg'))
 for reg in hii_regions:
