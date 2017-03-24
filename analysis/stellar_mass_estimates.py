@@ -85,3 +85,11 @@ for reg in clusters:
           " core-inferred mass={6:10.2f}"
           .format(reg.meta['text'].strip("{}"), ncores, nhii, mass,
                   inferred_mass, hii_only_inferred_mass, core_inferred_mass))
+
+"""
+Result as of 3/24/2017:
+Cluster M   : N(cores)= 10 N(HII)= 37 counted mass=   1803.50 inferred mass=   6719.27 HII-only inferred mass:   12084.30 core-inferred mass=   1354.25
+Cluster N   : N(cores)= 10 N(HII)=  4 counted mass=    301.72 inferred mass=   1330.33 HII-only inferred mass:    1306.41 core-inferred mass=   1354.25
+Cluster NE  : N(cores)=  4 N(HII)=  0 counted mass=     47.87 inferred mass=    270.85 HII-only inferred mass:       0.00 core-inferred mass=    541.70
+Cluster S   : N(cores)=  3 N(HII)=  1 counted mass=     81.41 inferred mass=    366.44 HII-only inferred mass:     326.60 core-inferred mass=    406.27
+"""
