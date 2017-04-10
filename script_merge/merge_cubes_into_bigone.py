@@ -86,7 +86,11 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
         header['NAXIS3'] = nchans_total[spwnum]
         if cdelt_sign == -1:
             ind0, ind1 = getinds(header_fn)
-            header['CRPIX3'] = nchans_total[spwnum] - ind1 + 1
+            # a +1 was on the next line before an edit on 4/10/2017
+            # it may have been rendered irrelevant when I included +1
+            # channel in each cube?  Not clear - the arithmetic no longer
+            # makes sense but is empirically necessary.
+            header['CRPIX3'] = nchans_total[spwnum] - ind1
 
         shape = (header['NAXIS3'], header['NAXIS2'], header['NAXIS1'])
 
