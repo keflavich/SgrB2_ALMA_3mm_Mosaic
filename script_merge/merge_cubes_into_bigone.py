@@ -198,7 +198,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 if __name__ == "__main__":
     for robust in (0,2):
         for spw in (0,1,2,3):
-            if os.path.exists('piece_of_full_SgrB2_TETC7m_r2_cube.spw{0}.channels0to373.image.pbcor.fits'.format(spw)):
+            if os.path.exists('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels0to373.image.pbcor.fits'.format(spw, robust)):
 
                 make_spw_cube(spw='spw{0}', spwnum=spw,
                               fntemplate='SgrB2_TETC7m_r{0}'.format(robust),
