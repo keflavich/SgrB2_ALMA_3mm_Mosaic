@@ -165,6 +165,9 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                 dataind1 = - cropends - extra
             else:
                 dataind1 = None
+        else:
+            dataind0 = 0
+            dataind1 = None
 
         if 'cdelt_sign' not in locals():
             cdelt_sign = np.sign(fits.getheader(fn)['CDELT3'])
@@ -208,4 +211,4 @@ if __name__ == "__main__":
                               fntemplate='full_SgrB2_TETC7m_r{0}'.format(robust),
                               overwrite_existing=False, bmaj_limits=None,
                               fnsuffix="", filesuffix='image.pbcor.fits',
-                              cropends=False, minimize=True, add_beam_info=True)
+                              cropends=1, minimize=True, add_beam_info=True)
