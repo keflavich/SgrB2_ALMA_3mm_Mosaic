@@ -38,7 +38,7 @@ wcsaxes = WCSaxes(mywcs.to_header())
 fig = pl.figure(1)
 fig.clf()
 ax = fig.add_axes([0.15, 0.1, 0.8, 0.8], projection=wcsaxes)
-im = ax.imshow(hdu.data.squeeze()*1e3 + 31, cmap=pl.cm.gray_r, origin='lower', vmin=2, vmax=50,
+im = ax.imshow(hdu.data.squeeze()*1e3 + 31, cmap=pl.cm.gray_r, origin='lower', vmin=5, vmax=90,
                norm=matplotlib.colors.LogNorm())
 
 axlims = ax.axis()
