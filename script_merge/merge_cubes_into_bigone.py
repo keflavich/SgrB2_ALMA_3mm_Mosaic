@@ -200,8 +200,8 @@ if __name__ == "__main__":
         for spw in (0,1,2,3):
             if os.path.exists('piece_of_full_SgrB2_TETC7m_r2_cube.spw{0}.channels0to373.image.pbcor.fits'.format(spw)):
 
-            make_spw_cube(spw='spw{0}', spwnum=spw,
-                          fntemplate='SgrB2_TETC7m_r{0}'.format(robust),
-                          overwrite_existing=False, bmaj_limits=None,
-                          fnsuffix="", filesuffix='image.pbcor.fits',
-                          cropends=False, minimize=True, add_beam_info=True
+                make_spw_cube(spw='spw{0}', spwnum=spw,
+                              fntemplate='SgrB2_TETC7m_r{0}'.format(robust),
+                              overwrite_existing=False, bmaj_limits=None,
+                              fnsuffix="", filesuffix='image.pbcor.fits',
+                              cropends=False, minimize=True, add_beam_info=True)
