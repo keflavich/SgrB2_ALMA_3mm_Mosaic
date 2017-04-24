@@ -135,7 +135,7 @@ for spwnum in spwlist:
                      [os.path.join(rootpath,
                                    'SgrB2_a_03_TE.spw{0}.cvel'.format(ss))
                      for ss in spws['TE'][spwnum].split(",")]
-                    ])
+                    )
 
     print "# running clean on all lines in spw{0}".format(spwnum)
     nchans_total_thiscube = nchans_total[spwnum]
