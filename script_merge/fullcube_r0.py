@@ -62,8 +62,9 @@ nchans_total = {ii: int(np.abs(np.diff(frange[ii])/fstep[ii]*1000.)[0])
 
 ncubes_per_window = 20
 
+assert 'spwlist' in locals(), "Specify 'spwlist' as an iterable."
 
-for spwnum in '0132':
+for spwnum in spwlist:
     spwnum = int(spwnum)
 
     concatvis = os.path.join(rootpath,
@@ -150,7 +151,14 @@ for spwnum in '0132':
                  os.path.exists(output+".image.pbcor.fits"))):
             print "Imaging {0}".format(output)
             os.system('rm -rf ' + output + '*')
-            tclean(vis = concatvis,
+            # by Kumar Golap & Steve Myers' suggestion, use the three
+            # independent MSes rather than the contat'd MS: concat sometimes
+            # puts the data in a stupid order 
+            # Also per Kumar's suggestion, each tclean can be run in parallel
+            # as long as savemodel='none' because this will open them in
+            # read-only mode, and since Lustre is a parallel filesystem, it
+            # should be happy with multiple reads of different sections
+            tclean(vis = cvelvises,
                    imagename = output,
                    field = '',
                    spw = '', # there should be only one
