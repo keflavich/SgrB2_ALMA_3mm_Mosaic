@@ -21,12 +21,44 @@ and S.
 \fi
 
 \section{Introduction}
-The Central Molecular Zone of our Galaxy appears to be overall deficient
+The Central Molecular Zone (CMZ) of our Galaxy appears to be overall deficient
 in star formation relative to the gas mass it contains \citep{Longmore2013a,
-Kauffmann2016a,Kauffmann2016b,Barnes2016c}.
+Kauffmann2016a,Kauffmann2016b,Barnes2016c,Barnes2017b}.  This deficiency
+suggests that star formation laws, i.e., the empirical relations between
+the star formation rate and gas density, are not universal.  The gas
+conditions in the Galactic center provide a powerful lever-arm in a few
+parameters \citep[e.g., pressure, temperature, velocity
+dispersion][]{Ginsburg2016a,Immer2016a,Shetty2012a,Henshaw2016a} to assess the
+influence of environmental effects on star formation.
+
+The observations that have demonstrated the star formation deficiency compare
+bulk tracers of star formation to $\gtrsim0.1$ pc resolution gas observations
+\citep[e.g.]{Barnes2017b}.  More recently, high-resolution observations
+of selected clouds in the CMZ have revealed very few star-forming cores
+even when examined at high resolution and sensitivity
+\citep{Rathborne2015a,Kauffmann2016a,Kauffmann2016b}.  The only sites with
+obvious signs of ongoing star formation along the CMZ dust ridge are
+the Sgr B2 N, M, and S protoclusters \citep{Schmiedeke2016a} and, at a much
+lower level, Clouds C, D, and E \citep[][Walker et al, in prep; Barnes et al,
+in prep]{Ginsburg2015b}.  These regions contain a handful of high-mass cores
+detected with ALMA, but only a small number of protostars.
+
+We report the first observations of extended, ongoing star formation in a
+Galactic center cloud \emph{not} isolated to a centralized protocluster dust
+clump.  We observed the entire Sgr B2 cloud and identified star formation along
+the entire molecular dust ridge known as Sgr B2 Deep South (DS).
+These observations allow us to perform the first star-counting based
+determination of the star formation rate within the molecular gas of
+the CMZ.
+
+We describe the observations in Section \ref{sec:observations}. In this paper,
+we focus on the continuum sources, which we identify in Section
+\ref{sec:contsources}.  We classify the sources in Section
+\ref{sec:classification}.  
 
 
 \section{Observation and Data Reduction}
+\label{sec:observations}
 Data were acquired as part of ALMA project 2013.1.00269.S.  Observations were
 taken with the 12m Total Power array, the ALMA 7m array, and in two
 configurations with the ALMA 12m array.  The setup included the maximum allowed
@@ -66,11 +98,12 @@ North core \citep{Sanchez-Monge2017a}.
 \section{Analysis}
 
 \subsection{Continuum Source Identification}
+\label{sec:contsources}
 We selected continuum point sources as candidate cores or protostars by eye.
 An automated selection is not viable across the majority of the field because
 there are many extended \hii regions that dominate the overall map emission.  A
 future automated selection algorithm may work if images at comparable
-resolution at other frequencies become availabe; the \hii-region sources could
+resolution at other frequencies become available; the \hii-region sources could
 then be excluded.  Additionally, however, there are substantial imaging
 artifacts produced by the extremely bright emission sources in Sgr B2 M ($S_{3
 mm,max} > 0.8$ Jy) and Sgr B2 N ($S_{3 mm,max} > 0.3$ Jy) that make automated
@@ -80,7 +113,9 @@ Because the noise varies significantly across the map, a uniform selection
 criterion is not possible.  We therefore include two levels of source
 identification, `high confidence' sources, which are selected conservatively in
 regions of low-background, and `low-confidence' sources that are somewhat lower
-signal-to-noise and are often in regions with higher background. 
+signal-to-noise and are often in regions with higher background.  Both of
+these selection criteria are significantly more conservative than a local
+$5-\sigma$ threshold.
 
 We measure the local noise for each source by taking the median absolute
 deviation in an annulus 0.5 to 1.5 \arcsec around the source center.
@@ -97,12 +132,14 @@ shown in Figure \ref{fig:fluxhist}.
 
 
 \subsection{Source Classification}
+\label{sec:classification}
 For the majority of the detected sources, we have only a continuum detection at
-3 mm.  No lines are detected toward most of the sources, especially the faint
-ones.  A subset have detections at other bands and can be classified,
-especially those associated with \hii regions detected at 0.7 and 1.3 cm
-\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,Pree2015a}.  In this section,
-we use other means to classify our sample.
+3 mm.  No lines are detected peaking toward most of the sources, especially the
+faint ones.  A subset have detections at other bands and can be classified
+based on previous literature work, especially those associated with \hii
+regions detected at 0.7 and 1.3 cm
+\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,Pree2015a}.  In this section, we
+employ various means to classify the sample of new sources.
 
 % core_flux_distributions
 \Figure{figures/core_peak_fluxdensity_powerlawfit.png}
@@ -148,17 +185,16 @@ frEGGs would be detectable in our data.  Comparison to radio observations
 at a comparable resolution will be needed to rule out the externally ionized
 globule hypothesis for resolved regions.
 
-If the detected sources were either EGGs or cometary clouds, they should be
-located within or near \hii regions.  Many of the sources are near \hii
-regions, as seen in Figure \ref{fig:coreson20cm}.  However, they are also
-nearly all associated with a ridge of HC$_3$N emission (Figure
-\ref{fig:coresonhc3n}).  If they are deeply embedded within the molecular
-material, they cannot be externally ionized.  The current data do not provide
-enough information on the geometry of the clouds to rule out the possibility
-that the point sources are just illuminated cloud edges, but the fact that the
-ionized gas is brightest adjacent to, rather than on top of, the HC$_3$N
-suggests that the HC$_3$N traces a full molecular cloud rather than a thin
-PDR-like layer.
+If the detected sources were either EGGs or cometary clouds, we would expect
+them to be located within \hii regions.  Many of the sources are near \hii
+regions, as seen in Figure \ref{fig:coreson20cm}.  However, they are nearly all
+associated with a ridge of HC$_3$N emission (Figure \ref{fig:coresonhc3n}).  If
+they are deeply embedded within the molecular material, they cannot be
+externally ionized.  The current data do not provide enough information on the
+geometry of the clouds to rule out the possibility that the point sources are
+just illuminated cloud edges, but the fact that the ionized gas is brightest
+adjacent to, rather than on top of, the HC$_3$N suggests that the HC$_3$N
+traces a full molecular cloud rather than a thin PDR-like layer.
 
 %This
 %scale is consistent with that of frEGGs seen in Carina \citep[e.g.][]{Sahai2012a}.
@@ -191,7 +227,8 @@ PDR-like layer.
 % continuum sources lay along a molecular ridge (TODO: FIGURE), so it appears
 % most of these sources are embedded in molecular material.
 
-TODO: H41a TE peak map.  Show locations relative to confirmed HII regions
+% Nice idea, but h41a is just too weak
+% TODO: H41a TE peak map.  Show locations relative to confirmed HII regions
 
 % pointsource_overlay
 \FigureOneCol{figures/cores_on_20cm_continuum.png}
@@ -211,23 +248,35 @@ If there is a large population of older, but still ionizing, stars, they could
 ignite \hii regions when they fly through molecular material.  See
 \ref{sec:theyarehiiregions} for calculations of stationary \hii region
 properties.  The main problem with this scenario is the spatial distribution of
-the observed sources.  While most of them are associated with dense gas and dust ridges,
-not all of the high-column molecular gas regions have such sources in them.  If
-there is a free-floating population of OB stars responsible for the 3 mm point
-source population, their distribution should match that of the gas.  Also,
-there is no such population of sources seen outside of the dense gas in the
-infrared, which again we should expect if there is a uniformly distributed
-population.  
+the observed sources.  While most of the continuum sources are associated with
+dense gas and dust ridges, not all of the high-column molecular gas regions
+have such sources in them (i.e., the left and right sides of the image in
+Figure \ref{fig:coresonhc3n}, where molecular material is seen with no
+associated millimeter sources).  If there is a free-floating population of OB
+stars responsible for the 3 mm point source population, their distribution
+should match that of the gas.  Also, there is no such population of sources
+seen outside of the dense gas in the infrared \citep[TODO: Who has done
+infrared studies of Sgr B2?  You can infer what I have stated `by inspection'
+of 2MASS, but it would be more straightforward to quote someone else][]{},
+which again we should
+expect if there is a uniformly distributed population.  
 
 \subsubsection{Alternative 3: The sources are \hii regions produced by recently-formed OB stars}
 \label{sec:theyarehiiregions}
 
-For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected flux density
-is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers source
-(assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$ as long
-as the source is optically thin.  An extremely compact \hii region, e.g., one
-with $R<100$ AU and corresponding density $n>10^6$ \percc, would be optically
-thick and therefore fainter, $S_{95 \mathrm{GHz}}(R=100 \mathrm{AU},
+For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
+flux density is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers
+source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
+as long as the source is optically thin.  Rearranging \citet{Condon2007a} equations
+4.60 and 4.61:
+
+\begin{equation}
+S_{\nu}(Q_{lyc})  = 4.67 \left[1-\exp\left(-3.28\times10^{-7} \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_b} \right) \right]
+\end{equation}
+
+An extremely compact \hii region,
+e.g., one with $R<100$ AU and corresponding density $n>10^6$ \percc, would be
+optically thick and therefore fainter, $S_{95 \mathrm{GHz}}(R=100 \mathrm{AU},
 Q_{lyc}=10^{47} \pers)=3.4$ mJy.  Even the brightest O-stars could produce \hii
 regions as faint as 0.5 mJy if embedded in extremely high density gas; above
 $Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would be $\sim0.5$ mJy.

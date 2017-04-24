@@ -13,7 +13,7 @@ from mpl_plot_templates import asinh_norm
 pl.matplotlib.rc_file('pubfiguresrc')
 
 pl.rcParams['figure.figsize'] = (12,8)
-pl.rcParams['figure.dpi'] = 300.
+pl.rcParams['figure.dpi'] = 75.
 pl.rcParams['savefig.dpi'] = 300.
 pl.rcParams['axes.labelsize'] = 9
 pl.rcParams['xtick.labelsize'] = 8
@@ -189,6 +189,7 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     (x1,y1),(x2,y2) = (680,350),(2720,3150)
     ax.axis([x1,x2,y1,y2])
 
+    markersize=0.5
     coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
                         zorder=50, )
     fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
@@ -196,3 +197,29 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
               vmin=-0.001, vmax=0.1, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
     fig3.savefig(paths.fpath("cores_on_{0}_peak_saturated.png".format(line)), bbox_inches='tight')
+
+
+    # Deep South
+    markersize=2
+    bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:26:02.565", unit=(u.h, u.deg), frame='fk5')
+    topright = coordinates.SkyCoord("17:47:17.666", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
+    ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+              vmin=-0.0001, vmax=0.25, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    tr_fk5 = ax.get_transform("fk5")
+    (x1,y1),(x2,y2) = (1200,434),(2142,1743)
+    # wrong (x1,y1),(x2,y2) = tr_fk5.transform_point([bottomleft.ra.deg, bottomleft.dec.deg]),tr_fk5.transform_point([topright.ra.deg, topright.dec.deg])
+    (x1,y1),(x2,y2) = mywcs.wcs_world2pix([[bottomleft.ra.deg, bottomleft.dec.deg]],0)[0],mywcs.wcs_world2pix([[topright.ra.deg, topright.dec.deg]],0)[0]
+    ax.set_aspect(1)
+    ax.axis([x1,x2,y1,y2])
+
+    coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
+                        zorder=50, )
+    ax.axis([x1,x2,y1,y2])
+    fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth.pdf".format(line)), bbox_inches='tight')
+
+    ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+              vmin=-0.001, vmax=0.1, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    ax.axis([x1,x2,y1,y2])
+    fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth_saturated.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth_saturated.pdf".format(line)), bbox_inches='tight')

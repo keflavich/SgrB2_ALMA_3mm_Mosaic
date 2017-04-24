@@ -9,6 +9,7 @@ import regions
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"),
                            format='ascii.ipac')
 
+# measured from core_flux_distributions
 core_powerlaw_index = 1.94
 
 kroupa = imf.Kroupa()
@@ -23,6 +24,8 @@ over8fraction = (kroupa.m_integrate(o_mmin, mmax)[0] /
 # below
 over8median = 2**(1/(1.94-1)) * o_mmin
 
+# we want the mean, not the median, which is not analytic (or at least it's
+# easiest to compute numerically)
 x = np.linspace(o_mmin,mmax,50000)
 y = kroupa(x)
 over8mean = (x*y).sum()/y.sum()
