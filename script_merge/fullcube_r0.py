@@ -126,13 +126,16 @@ for spwnum in spwlist:
         assert concat(vis=cvelvises, concatvis=concatvis,)
     else:
         print "Already cvel'd spw {0} to {1}".format(spwnum, concatvis)
-        cvelvises = [os.path.join(rootpath,
-                                  'SgrB2_a_03_7m.spw{0}.cvel'.format(ss)),
-                     os.path.join(rootpath,
-                                  'SgrB2_a_03_TC.spw{0}.cvel'.format(ss)),
-                     os.path.join(rootpath,
-                                  'SgrB2_a_03_TE.spw{0}.cvel'.format(ss)),
-                    ]
+        cvelvises = ([os.path.join(rootpath,
+                                   'SgrB2_a_03_7m.spw{0}.cvel'.format(ss))
+                     for ss in spws['7m'][spwnum].split(",")] +
+                     [os.path.join(rootpath,
+                                   'SgrB2_a_03_TC.spw{0}.cvel'.format(ss))
+                     for ss in spws['TC'][spwnum].split(",")] +
+                     [os.path.join(rootpath,
+                                   'SgrB2_a_03_TE.spw{0}.cvel'.format(ss))
+                     for ss in spws['TE'][spwnum].split(",")]
+                    ])
 
     print "# running clean on all lines in spw{0}".format(spwnum)
     nchans_total_thiscube = nchans_total[spwnum]
