@@ -269,10 +269,15 @@ flux density is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers
 source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
 as long as the source is optically thin.  Rearranging \citet{Condon2007a} equations
 4.60 and 4.61:
-
-\begin{equation}
-S_{\nu}(Q_{lyc})  = 4.67 \left[1-\exp\left(-3.28\times10^{-7} \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_b} \right) \right]
-\end{equation}
+\begin{eqnarray}
+S_{\nu}(Q_{lyc})  = 4.67 \left[1-\exp\left(c_* T_* \nu_* EM_* \right) \right] \nonumber \\
+\nu_* = \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \nonumber \\
+T_* = \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \nonumber \\
+c_* = -3.28\times10^{-7} \nonumber \\
+EM_* = \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_b} \nonumber \\
+\end{eqnarray}
+where $\alpha_b=2\ee{-13}$ cm$^3$ s$^{-1}$, $Q_{lyc}$ is the count rate
+of ionizing photons in $s^{-1}$, and $R$ is the \hii region radius.
 
 An extremely compact \hii region,
 e.g., one with $R<100$ AU and corresponding density $n>10^6$ \percc, would be
@@ -282,7 +287,8 @@ regions as faint as 0.5 mJy if embedded in extremely high density gas; above
 $Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would be $\sim0.5$ mJy.
 
 Figure \ref{fig:hiibrightness} shows the predicted brightness for various \hii
-regions produced by OB stars and the density of to those \hii regions.  In
+regions produced by OB stars and the density required for those \hii regions
+to be the specified size.  In
 order for the detected sources to be O-star-driven \hii regions, with $10^{47}
 < Q_{lyc} < 10^{50}$ \pers, they must be optically thick and therefore
 extremely compact and dense.  There is a narrow range of late O/early B stars,
@@ -290,6 +296,10 @@ $10^{46} < Q_{lyc} < 10^{47}$ \pers, that could be embedded in compact \hii
 regions of almost any size and produce the observed range of flux densities.
 Anything fainter, later than $\sim$B0 ($Q_{lyc}<10^{46}$ \pers), would be
 incapable of producing the observed flux densities.
+Any brighter stars would have to be embedded in dust that, at 40 K, would
+outshine the \hii region; more likely, such sources would have much hotter dust
+and therefore would be much brighter (and more extended) than our observations
+allow.
 
 This restrictive parameter space, combined with a steep luminosity
 function that implies there are many more sources at slightly lower luminosity,
