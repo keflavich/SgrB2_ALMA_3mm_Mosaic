@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 def parse_logfile(logfilename):
     results = {}
