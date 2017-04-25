@@ -151,6 +151,7 @@ for spwnum in spwlist:
 
             # Channel-based gridding has major bugs when dealing with CVEL'd data
             # It is therefore necessary to compute the frequency gridding by hand
+            start = 0
             startfreq = "{0}GHz".format(frange[spwnum][0]/1e3 + start * fstep[spwnum]/1e6)
             width = "{0}kHz".format(fstep[spwnum])
 
