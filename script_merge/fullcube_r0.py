@@ -60,7 +60,7 @@ fstep = {0:250., # kHz
 nchans_total = {ii: int(np.abs(np.diff(frange[ii])/fstep[ii]*1000.)[0])
                 for ii in frange}
 
-ncubes_per_window = 20
+ncubes_per_window = 100
 
 assert 'spwlist' in locals(), "Specify 'spwlist' as an iterable."
 
