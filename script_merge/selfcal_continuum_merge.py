@@ -393,6 +393,8 @@ applycal(vis=selfcal4vis, field=okfields_str, gaintable=["ampphase_4.cal"],
 split(vis=selfcal4vis, outputvis=selfcal5vis, datacolumn='corrected')
 # could try selfcal5vis....
 
+
+# WOW this is a gigantic improvement!  At least a factor of 2!
 outname = 'SgrB2_selfcal_full_TCTE_selfcal5_ampphase_taylorterms_multiscale'
 os.system('rm -rf ' + outname + "*")
 myimagebase = outname
@@ -415,6 +417,39 @@ tclean(vis=selfcal5vis,
        weighting="briggs",
        robust = 0.5,
        savemodel='modelcolumn')
+impbcor(imagename=myimagebase+'.image.tt0', pbimage=myimagebase+'.pb.tt0', outfile=myimagebase+'.image.tt0.pbcor', overwrite=True) # perform PBcorr
+exportfits(imagename=myimagebase+'.image.tt0.pbcor', fitsimage=myimagebase+'.image.tt0.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+exportfits(imagename=myimagebase+'.image.tt1', fitsimage=myimagebase+'.image.tt1.fits', dropdeg=True, overwrite=True) # export the corrected image
+exportfits(imagename=myimagebase+'.pb.tt0', fitsimage=myimagebase+'.pb.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.model.tt0', fitsimage=myimagebase+'.model.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.model.tt1', fitsimage=myimagebase+'.model.tt1.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.residual.tt0', fitsimage=myimagebase+'.residual.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+
+
+
+# Clean it again, but deeper, and don't save the model b/c usually this results in a bad model
+outname = 'SgrB2_selfcal_full_TCTE_selfcal5_ampphase_taylorterms_multiscale_deep'
+os.system('rm -rf ' + outname + "*")
+myimagebase = outname
+tclean(vis=selfcal5vis,
+       imagename=myimagebase,
+       field='SgrB2',
+       gridder='mosaic',
+       spw="",
+       phasecenter=phasecenter,
+       specmode="mfs",
+       deconvolver='mtmfs',
+       niter=100000,
+       threshold="0.5mJy",
+       scales=[0,4,12],
+       nterms=2,
+       interactive=False,
+       imsize=imsize,
+       cell="0.125arcsec",
+       outframe='LSRK',
+       weighting="briggs",
+       robust = 0.5,
+       savemodel='none')
 impbcor(imagename=myimagebase+'.image.tt0', pbimage=myimagebase+'.pb.tt0', outfile=myimagebase+'.image.tt0.pbcor', overwrite=True) # perform PBcorr
 exportfits(imagename=myimagebase+'.image.tt0.pbcor', fitsimage=myimagebase+'.image.tt0.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
 exportfits(imagename=myimagebase+'.image.tt1', fitsimage=myimagebase+'.image.tt1.fits', dropdeg=True, overwrite=True) # export the corrected image
