@@ -416,7 +416,7 @@ tclean(vis=selfcal5vis,
        deconvolver='mtmfs',
        niter=100000,
        threshold="5.0mJy",
-       scales=[0,4,12],
+       scales=[0,4,12,36],
        nterms=2,
        interactive=False,
        imsize=imsize,
@@ -436,7 +436,7 @@ exportfits(imagename=myimagebase+'.residual.tt0', fitsimage=myimagebase+'.residu
 
 
 
-cleanimage = 'SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase.image'
+cleanimage = 'SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale.image.tt0'
 ia.open(cleanimage)
 ia.calcmask(mask=cleanimage+" > 0.0025", name='clean_mask_2.5mJy')
 ia.close()
@@ -445,36 +445,6 @@ makemask(mode='copy', inpimage=cleanimage,
          overwrite=True)
 exportfits('clean_2.5mJy.mask', 'clean_2.5mJy.mask.fits', dropdeg=True, overwrite=True)
 
-
-outname = 'SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale'
-os.system('rm -rf ' + outname + "*")
-myimagebase = outname
-tclean(vis=selfcal5vis,
-       imagename=myimagebase,
-       field='SgrB2',
-       gridder='mosaic',
-       spw="",
-       phasecenter=phasecenter,
-       specmode="mfs",
-       deconvolver='mtmfs',
-       niter=100000,
-       scales=[0,4,12,36],
-       threshold="5.0mJy",
-       nterms=2,
-       interactive=False,
-       imsize=imsize,
-       cell="0.125arcsec",
-       outframe='LSRK',
-       weighting="briggs",
-       robust = 0.5,
-       savemodel='modelcolumn')
-impbcor(imagename=myimagebase+'.image.tt0', pbimage=myimagebase+'.pb.tt0', outfile=myimagebase+'.image.tt0.pbcor', overwrite=True) # perform PBcorr
-exportfits(imagename=myimagebase+'.image.tt0.pbcor', fitsimage=myimagebase+'.image.tt0.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
-exportfits(imagename=myimagebase+'.image.tt1', fitsimage=myimagebase+'.image.tt1.fits', dropdeg=True, overwrite=True) # export the corrected image
-exportfits(imagename=myimagebase+'.pb.tt0', fitsimage=myimagebase+'.pb.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
-exportfits(imagename=myimagebase+'.model.tt0', fitsimage=myimagebase+'.model.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
-exportfits(imagename=myimagebase+'.model.tt1', fitsimage=myimagebase+'.model.tt1.fits', dropdeg=True, overwrite=True) # export the PB image
-exportfits(imagename=myimagebase+'.residual.tt0', fitsimage=myimagebase+'.residual.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
 
 outname = 'SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy'
 os.system('rm -rf ' + outname + "*")

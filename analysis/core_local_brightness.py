@@ -171,6 +171,7 @@ def plotit():
     pl.figure(2).clf()
     pl.figure(3).clf()
     pl.figure(4).clf()
+    pl.figure(5).clf()
     for ii,imname in enumerate(f for f in files if 'column' in f.lower()):
 
 
@@ -236,6 +237,17 @@ def plotit():
         pl.xlim(1e21,2e25)
         pl.loglog()
 
+        pl.figure(5)
+        pl.vlines(5e21, 0, 1, color='k', linestyle='--', linewidth=1)
+        pl.plot(np.sort(tbl[imname]), np.arange(len(tbl),
+                                                dtype='float')/len(tbl),
+                linestyle='-', linewidth=3, alpha=0.5, zorder=10,
+                label=imname,
+               )
+        pl.xscale('log')
+        pl.xlim(1e21,2e25)
+        pl.ylim(0,1)
+
     pl.figure(1)
     pl.tight_layout()
     pl.savefig(paths.fpath("flux_histograms_with_core_location_CDF.png"), bbox_inches='tight')
@@ -248,6 +260,13 @@ def plotit():
     pl.tight_layout()
     pl.savefig(paths.fpath("mass_cdf_histograms_bgsubd.png"), bbox_inches='tight')
 
+    pl.figure(5)
+    pl.legend(loc='best')
+    pl.tight_layout()
+    pl.xlabel("Column Density $N$ (cm$^{-2}$)", fontsize=16)
+    pl.ylabel("Cumulative fraction of cores at column $>N$", fontsize=16)
+    pl.savefig(paths.fpath("core_background_column_cdf.png"), bbox_inches='tight')
+
     #pl.figure(3)
     #pl.tight_layout()
     #pl.savefig(paths.fpath("cumulative_mass_histograms.png"), bbox_inches='tight')
@@ -259,4 +278,15 @@ def plotit():
     # DONE!
 
 if __name__ == "__main__":
+    import matplotlib
+    matplotlib.rcParams['figure.figsize'] = (12,8)
+    matplotlib.rcParams['figure.dpi'] = 75.
+    matplotlib.rcParams['savefig.dpi'] = 300.
+    matplotlib.rcParams['axes.labelsize'] = 9
+    matplotlib.rcParams['xtick.labelsize'] = 8
+    matplotlib.rcParams['ytick.labelsize'] = 8
+    matplotlib.use('Qt5Agg')
+    import pylab as pl
+    pl.ion()
+
     plotit()
