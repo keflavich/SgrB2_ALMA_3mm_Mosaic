@@ -11,6 +11,10 @@ from astropy.io import fits
 from astropy.nddata.utils import Cutout2D
 from astropy.convolution import convolve_fft, Gaussian2DKernel
 import pylab as pl
+from astropy import log
+
+pl.rcParams['figure.dpi'] = 75
+pl.rcParams['figure.figsize'] = (12,8)
 
 scuba_fn = 'gc450.fits.gz'
 herschel_fn = 'igls_l000_plw_deglitch_hh.fits'
@@ -33,6 +37,7 @@ new_header['NAXIS1'] = int(new_header['NAXIS1'])
 new_header['NAXIS2'] = int(new_header['NAXIS2'])
 new_header['CRPIX1'] = (new_header['CRPIX1']-1)*upsample_factor+1
 new_header['CRPIX2'] = (new_header['CRPIX2']-1)*upsample_factor+1
+new_header['BUNIT'] = 'MJy/sr'
 #upsampled_data = upsample_image(herschel_sgrb2_cutout_hdu.data,
 #                                upsample_factor=upsample_factor).real
 upsampled_data = reproject.reproject_interp(herschel_sgrb2_cutout_hdu,
@@ -96,18 +101,22 @@ compare_results = uvcombine.uvcombine.feather_compare('scuba_shifted_MJySr.fits'
                                                       'herschel_500um_upsampled.fits',
                                                       SAS=1.5*45*u.arcsec,
                                                       LAS=120*u.arcsec,
-                                                      min_beam_fraction=0.7,
+                                                      min_beam_fraction=0.1,
                                                       lowresfwhm=45*u.arcsec)
 pl.savefig("scuba_herschel_scaling_comparison.png")
 highresscalefactor = 1./compare_results['median_sc']
-print("Theoretical high-res scalefactor: {0}".format(highresscalefactor))
+log.info("Measured high-res scalefactor (deconvolved): {0}".format(highresscalefactor))
+
+pl.figure(7)
 compare_results = uvcombine.uvcombine.feather_compare('scuba_shifted_MJySr.fits',
                                                       'herschel_500um_upsampled.fits',
                                                       SAS=1.5*45*u.arcsec,
                                                       LAS=120*u.arcsec,
                                                       lowresfwhm=45*u.arcsec,
-                                                      min_beam_fraction=0.7,
+                                                      min_beam_fraction=0.1,
                                                       beam_divide_lores=False)
+highresscalefactor = 1./compare_results['median_sc']
+log.info("Measured high-res scalefactor (not deconvolved): {0}".format(highresscalefactor))
 pl.savefig("scuba_herschel_scaling_comparison_nodeconv.png")
 
 
@@ -116,7 +125,7 @@ result = uvcombine.uvcombine.feather_simple('scuba_shifted_MJySr.fits',
                                             lowresfwhm=45*u.arcsec,
                                             # scale factor b/c we think JCMT
                                             # is miscalibrated?
-                                            highresscalefactor=3,
+                                            highresscalefactor=highresscalefactor,
                                            )
 
 scuba_hdu.data = result.real
@@ -133,22 +142,29 @@ pl.colorbar()
 pl.title("Herschel 500um")
 
 pl.subplot(2,3,4)
+_,_,(L,) = pl.hist(herschel_upsampled_hdu.data.ravel(), bins=50, log=True,
+             histtype='step', linewidth=3, alpha=0.75)
 pl.hist(herschel_upsampled_hdu.data.ravel(), bins=50, log=True, histtype='step',
-        linewidth=3)
-pl.hist(fits.getdata('scuba_shifted_MJySr.fits').ravel(), bins=50, log=True, histtype='step')
+        linewidth=1, zorder=-5, color=L.get_edgecolor())
+pl.hist(fits.getdata('scuba_shifted_MJySr.fits').ravel()*highresscalefactor,
+        bins=50, log=True, histtype='step')
 pl.hist(scuba_hdu.data.ravel(), bins=50, log=True, histtype='step')
 pl.semilogx()
 pl.yscale('log', nonposy='clip')
 
 pl.subplot(2,3,2)
-pl.imshow(fits.getdata('scuba_shifted_MJySr.fits'), cmap='gray', norm=pl.matplotlib.colors.LogNorm(vmin=vmin,vmax=vmax))
+pl.imshow(fits.getdata('scuba_shifted_MJySr.fits')*highresscalefactor,
+          cmap='gray', norm=pl.matplotlib.colors.LogNorm(vmin=vmin,vmax=vmax))
 pl.colorbar()
-pl.title("scuba2 500um")
+pl.title("SCUBA2 500um (scaled)")
 
 pl.subplot(2,3,5)
 pl.hist(herschel_upsampled_hdu.data.ravel(), bins=50, log=True, histtype='step')
-pl.hist(fits.getdata('scuba_shifted_MJySr.fits').ravel(), bins=50, log=True, histtype='step',
-        linewidth=3)
+_,_,(L,) = pl.hist(fits.getdata('scuba_shifted_MJySr.fits').ravel()*highresscalefactor,
+        bins=50, log=True, histtype='step', linewidth=3, alpha=0.75, zorder=10)
+pl.hist(fits.getdata('scuba_shifted_MJySr.fits').ravel()*highresscalefactor,
+        bins=50, log=True, histtype='step', linewidth=1, zorder=-5,
+        color=L.get_edgecolor())
 pl.hist(scuba_hdu.data.ravel(), bins=50, log=True, histtype='step')
 pl.semilogx()
 pl.yscale('log', nonposy='clip')
@@ -160,9 +176,12 @@ pl.title("Feathered 500um")
 
 pl.subplot(2,3,6)
 pl.hist(herschel_upsampled_hdu.data.ravel(), bins=50, log=True, histtype='step')
-pl.hist(fits.getdata('scuba_shifted_MJySr.fits').ravel(), bins=50, log=True, histtype='step')
+pl.hist(fits.getdata('scuba_shifted_MJySr.fits').ravel()*highresscalefactor,
+        bins=50, log=True, histtype='step')
+_,_,(L,) = pl.hist(scuba_hdu.data.ravel(), bins=50, log=True, histtype='step',
+             linewidth=3, alpha=0.75, zorder=10)
 pl.hist(scuba_hdu.data.ravel(), bins=50, log=True, histtype='step',
-        linewidth=3)
+        linewidth=1, zorder=-5, color=L.get_edgecolor())
 pl.semilogx()
 pl.yscale('log', nonposy='clip')
 

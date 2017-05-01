@@ -10,6 +10,9 @@ from astropy.convolution import convolve_fft, Gaussian2DKernel
 from astropy.nddata.utils import Cutout2D
 import pylab as pl
 
+pl.rcParams['figure.dpi'] = 75
+pl.rcParams['figure.figsize'] = (12,8)
+
 sharc_fn = 'SgrB2_350um_gal.fits'
 herschel_fn = 'igls_l000_pmw_deglitch_hh.fits'
 
@@ -37,6 +40,7 @@ new_header['NAXIS1'] *= 4.
 new_header['NAXIS2'] *= 4.
 new_header['CRPIX1'] = (new_header['CRPIX1']-1)*4.+1
 new_header['CRPIX2'] = (new_header['CRPIX2']-1)*4.+1
+new_header['BUNIT'] = 'MJy/sr'
 herschel_upsampled_hdu = fits.PrimaryHDU(data=image_registration.fft_tools.upsample_image(herschel_sgrb2_cutout_hdu.data,
                                                                                           upsample_factor=4).real,
                                          header=new_header)
@@ -98,11 +102,17 @@ compare_results = uvcombine.uvcombine.feather_compare('sharc_shifted_MJySr.fits'
 pl.savefig("sharc_herschel_scaling_comparison_nodeconv.png")
 
 # straight feathering, without using replace_hires, resulted in negative bowls.
+# also, use deconvSD because it's in a high S/N range and otherwise we have
+# some weird smoothing effects in place
+# (of course, with deconvSD, it is important that we get the lowresFWHM right)
 result = uvcombine.uvcombine.feather_simple('sharc_shifted_MJySr.fits',
                                             'herschel_350um_upsampled.fits',
-                                            lowresfwhm=45*u.arcsec,
+                                            lowresfwhm=25*u.arcsec,
                                             highresscalefactor=1.0,
-                                            replace_hires=0.1)
+                                            replace_hires=0.1,
+                                            deconvSD=True,
+                                           )
+
 
 sharc_hdu.data = result.real
 sharc_hdu.writeto("SHARC_Herschel_Feathered.fits", overwrite=True)

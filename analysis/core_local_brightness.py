@@ -263,8 +263,8 @@ def plotit():
     pl.figure(5)
     pl.legend(loc='best')
     pl.tight_layout()
-    pl.xlabel("Column Density $N$ (cm$^{-2}$)", fontsize=16)
-    pl.ylabel("Cumulative fraction of cores at column $>N$", fontsize=16)
+    pl.xlabel("Column Density $N(\mathrm{H}_2)$ (cm$^{-2}$)", fontsize=16)
+    pl.ylabel("Cumulative fraction\nof cores at column $>N$", fontsize=16)
     pl.savefig(paths.fpath("core_background_column_cdf.png"), bbox_inches='tight')
 
     #pl.figure(3)
