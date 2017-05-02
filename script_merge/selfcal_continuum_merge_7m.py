@@ -478,7 +478,70 @@ exportfits(imagename=myimagebase+'.model.tt1', fitsimage=myimagebase+'.model.tt1
 exportfits(imagename=myimagebase+'.residual.tt0', fitsimage=myimagebase+'.residual.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
 
 
-for robust in (2,1,0,-1,-2):
+
+rmtables(['ampphase_5.cal'])
+gaincal(vis=selfcal5vis, caltable='ampphase_5.cal', solint='int', gaintype='G',
+        calmode='ap')
+
+selfcal_heuristics.flag_extreme_amplitudes('ampphase_5.cal')
+okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('ampphase_5.cal')
+okfields_str = ",".join(["{0}".format(x) for x in okfields])
+print("OK fields for round 5->6: {0}".format(okfields_str))
+
+selfcal6vis = 'selfcal_SgrB2_TCTE7m_full_selfcal_iter6_ampphase.ms'
+rmtables([selfcal6vis])
+applycal(vis=selfcal5vis, field=okfields_str, gaintable=["ampphase_5.cal"],
+         interp="linear", applymode='calonly', calwt=False)
+split(vis=selfcal5vis, outputvis=selfcal6vis, datacolumn='corrected')
+
+
+cleanimage = 'SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0'
+ia.open(cleanimage)
+ia.calcmask(mask=cleanimage+" > 0.0015", name='clean_mask_1.5mJy')
+ia.close()
+makemask(mode='copy', inpimage=cleanimage,
+         inpmask=cleanimage+":clean_mask_1.5mJy", output='clean_1.5mJy.mask',
+         overwrite=True)
+exportfits('clean_1.5mJy.mask', 'clean_1.5mJy.mask.fits', dropdeg=True, overwrite=True)
+
+
+
+# Is it worth trying a new, deeper mask here?  YES
+outname = 'SgrB2_selfcal_full_TCTE7m_selfcal6_ampphase_taylorterms_multiscale_deeper_mask1.5mJy'
+os.system('rm -rf ' + outname + "*")
+myimagebase = outname
+tclean(vis=selfcal6vis,
+       imagename=myimagebase,
+       field='SgrB2',
+       gridder='mosaic',
+       spw="",
+       phasecenter=phasecenter,
+       specmode="mfs",
+       deconvolver='mtmfs',
+       niter=100000,
+       scales=[0,4,12,36],
+       threshold="0.1mJy",
+       nterms=2,
+       interactive=False,
+       imsize=imsize,
+       mask='clean_1.5mJy.mask',
+       cell="0.125arcsec",
+       outframe='LSRK',
+       weighting="briggs",
+       robust = 0.5,
+       savemodel='modelcolumn')
+impbcor(imagename=myimagebase+'.image.tt0', pbimage=myimagebase+'.pb.tt0', outfile=myimagebase+'.image.tt0.pbcor', overwrite=True) # perform PBcorr
+exportfits(imagename=myimagebase+'.image.tt0.pbcor', fitsimage=myimagebase+'.image.tt0.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+exportfits(imagename=myimagebase+'.image.tt1', fitsimage=myimagebase+'.image.tt1.fits', dropdeg=True, overwrite=True) # export the corrected image
+exportfits(imagename=myimagebase+'.pb.tt0', fitsimage=myimagebase+'.pb.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.model.tt0', fitsimage=myimagebase+'.model.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.model.tt1', fitsimage=myimagebase+'.model.tt1.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.residual.tt0', fitsimage=myimagebase+'.residual.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+
+
+
+
+for robust in (2,1,0,):
     outname = 'SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_robust{0}'.format(robust)
     os.system('rm -rf ' + outname + "*")
     myimagebase = outname
@@ -500,7 +563,39 @@ for robust in (2,1,0,-1,-2):
            outframe='LSRK',
            weighting="briggs",
            robust = robust,
-           savemodel='modelcolumn')
+           savemodel='none')
+    impbcor(imagename=myimagebase+'.image.tt0', pbimage=myimagebase+'.pb.tt0', outfile=myimagebase+'.image.tt0.pbcor', overwrite=True) # perform PBcorr
+    exportfits(imagename=myimagebase+'.image.tt0.pbcor', fitsimage=myimagebase+'.image.tt0.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+    exportfits(imagename=myimagebase+'.image.tt1', fitsimage=myimagebase+'.image.tt1.fits', dropdeg=True, overwrite=True) # export the corrected image
+    exportfits(imagename=myimagebase+'.pb.tt0', fitsimage=myimagebase+'.pb.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+    exportfits(imagename=myimagebase+'.model.tt0', fitsimage=myimagebase+'.model.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+    exportfits(imagename=myimagebase+'.model.tt1', fitsimage=myimagebase+'.model.tt1.fits', dropdeg=True, overwrite=True) # export the PB image
+    exportfits(imagename=myimagebase+'.residual.tt0', fitsimage=myimagebase+'.residual.tt0.fits', dropdeg=True, overwrite=True) # export the PB image
+
+
+for robust in (-2,-1):
+    outname = 'SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_robust{0}'.format(robust)
+    os.system('rm -rf ' + outname + "*")
+    myimagebase = outname
+    tclean(vis=selfcal5vis,
+           imagename=myimagebase,
+           field='SgrB2',
+           gridder='mosaic',
+           spw="",
+           phasecenter=phasecenter,
+           specmode="mfs",
+           deconvolver='mtmfs',
+           nterms=2,
+           niter=100000,
+           threshold="2.5mJy",
+           scales=[0,4,12],
+           interactive=False,
+           imsize=[5120,5120],
+           cell="0.1arcsec",
+           outframe='LSRK',
+           weighting="briggs",
+           robust = robust,
+           savemodel='none')
     impbcor(imagename=myimagebase+'.image.tt0', pbimage=myimagebase+'.pb.tt0', outfile=myimagebase+'.image.tt0.pbcor', overwrite=True) # perform PBcorr
     exportfits(imagename=myimagebase+'.image.tt0.pbcor', fitsimage=myimagebase+'.image.tt0.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
     exportfits(imagename=myimagebase+'.image.tt1', fitsimage=myimagebase+'.image.tt1.fits', dropdeg=True, overwrite=True) # export the corrected image
