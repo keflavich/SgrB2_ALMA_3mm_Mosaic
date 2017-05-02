@@ -3,7 +3,6 @@ from astropy import coordinates
 from astropy import units as u
 from astropy import wcs
 from astropy.io import fits
-from wcsaxes import WCS as WCSaxes
 from astropy.table import Table
 import matplotlib
 import pylab as pl
@@ -29,11 +28,13 @@ muno_xray_coords = coordinates.SkyCoord(muno_xray_results['RAJ2000'],
                                         frame='fk5', unit=(u.deg, u.deg))
 
 
-fncont = paths.Fpath('merge/SgrB2_selfcal_full_TCTE7m_selfcal4_ampphase.image.pbcor.fits')
+# old fncont = paths.Fpath('merge/SgrB2_selfcal_full_TCTE7m_selfcal4_ampphase.image.pbcor.fits')
+fncont = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits')
 hdu = fits.open(fncont)[0]
 
 mywcs = wcs.WCS(hdu.header).sub([wcs.WCSSUB_CELESTIAL])
-wcsaxes = WCSaxes(mywcs.to_header())
+#wcsaxes = WCSaxes(mywcs.to_header())
+wcsaxes = mywcs
 
 fig = pl.figure(1)
 fig.clf()
@@ -61,4 +62,3 @@ ra.ticklabels.set_fontsize(tick_fontsize)
 ra.set_ticks(exclude_overlapping=True)
 dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
-

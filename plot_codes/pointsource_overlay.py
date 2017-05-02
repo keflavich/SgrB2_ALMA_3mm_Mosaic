@@ -6,9 +6,10 @@ from astropy import coordinates
 import pylab as pl
 from astropy.io import fits
 from astropy import wcs
-from wcsaxes import WCS as WCSaxes
+#from wcsaxes import WCS as WCSaxes
 from astropy.convolution import convolve, Gaussian2DKernel
 from mpl_plot_templates import asinh_norm
+import matplotlib
 
 pl.matplotlib.rc_file('pubfiguresrc')
 
@@ -19,7 +20,10 @@ pl.rcParams['axes.labelsize'] = 9
 pl.rcParams['xtick.labelsize'] = 8
 pl.rcParams['ytick.labelsize'] = 8
 tick_fontsize = 6
-markersize = 0.5
+if matplotlib.__version__[0] == '1':
+    markersize = 6
+elif matplotlib.__version__[0] == '2':
+    markersize = 0.5
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
@@ -29,7 +33,8 @@ hdu = fits.open('/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_fix.fits')[0]
 hdu = fits.open('/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_fix_gal.fits')[0]
 
 mywcs = wcs.WCS(hdu.header).sub([wcs.WCSSUB_CELESTIAL])
-wcsaxes = WCSaxes(mywcs.to_header())
+#wcsaxes = WCSaxes(mywcs.to_header())
+wcsaxes = mywcs
 
 fig = pl.figure(1)
 fig.clf()
@@ -99,7 +104,7 @@ fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum.png"), bbox_inches='tigh
 
 hdu2 = fits.open('/Users/adam/work/sgrb2/continuumdata/sgrb2_20cm_12as.fits')[0]
 mywcs = wcs.WCS(hdu2.header).celestial
-wcsaxes = WCSaxes(mywcs.to_header())
+wcsaxes = mywcs # WCSaxes(mywcs.to_header())
 
 fig = pl.figure(2)
 fig.clf()
@@ -131,7 +136,7 @@ pl.show()
 
 hdu_h41a = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.H41a.image.pbcor_max_medsub.fits'))[0]
 mywcs = wcs.WCS(hdu_h41a.header).celestial
-wcsaxes = WCSaxes(mywcs.to_header())
+wcsaxes = mywcs # WCSaxes(mywcs.to_header())
 
 fig3 = pl.figure(3)
 fig3.clf()
@@ -167,7 +172,7 @@ fig3.savefig(paths.fpath("cores_on_h41a_peak_saturated.png"), bbox_inches='tight
 for line in ("HC3N","HCN","HNC","HCOp"):
     hdu_line = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_max_medsub.fits'.format(line)))[0]
     mywcs = wcs.WCS(hdu_line.header).celestial
-    wcsaxes = WCSaxes(mywcs.to_header())
+    wcsaxes = mywcs # WCSaxes(mywcs.to_header())
 
     fig3 = pl.figure(3)
     fig3.clf()
@@ -189,7 +194,10 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     (x1,y1),(x2,y2) = (680,350),(2720,3150)
     ax.axis([x1,x2,y1,y2])
 
-    markersize=0.5
+    if matplotlib.__version__[0] == '1':
+        markersize = 6
+    elif matplotlib.__version__[0] == '2':
+        markersize = 0.5
     coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
                         zorder=50, )
     fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
@@ -200,7 +208,10 @@ for line in ("HC3N","HCN","HNC","HCOp"):
 
 
     # Deep South
-    markersize=2
+    if matplotlib.__version__[0] == '1':
+        markersize = 12
+    elif matplotlib.__version__[0] == '2':
+        markersize = 2
     bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:26:02.565", unit=(u.h, u.deg), frame='fk5')
     topright = coordinates.SkyCoord("17:47:17.666", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
     ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
