@@ -544,10 +544,23 @@ nearly the whole Sgr B2 cloud exists above this threshold.
 
 To directly compare our observations to the star formation thresholds reported
 in \citet{Lada2010a}, we examined the column density associated with each
-millimeter continuum source.
-   The \citet{Lada2010a} data used a variable
+millimeter continuum source.  The \citet{Lada2010a} data used a variable
 resolution for the column measurements toward their sample, ranging from
-0.06-0.35 pc (equivalent to 1.5 to 9.2 \arcsec at a distance of 7.8 kpc)
+0.06-0.35 pc (equivalent to 1.5 to 9.2 \arcsec at a distance of \dsgrb).  The
+Herschel data we have available with per-pixel SED fits lack the resolution
+needed to make a direct comparison to the Lada et al data set, but the SHARC
+and SCUBA data have resolution approximately equivalent to that used in the
+Orion molecular cloud in their survey.  We therefore use a range of temperatures
+bracketing the observed range in the Herschel maps ($\sim20-50$ K) to produce
+column density maps from the SCUBA and SHARC data.  Figure
+\ref{fig:corebackgroundcdf} shows the cumulative distribution function of the
+column density associated with each identified continuum source; the column
+density used is the nearest-neighbor pixel to the source in the column density
+maps.  Even using the conservative maximum temperature $T_{dust}=50$ K
+(resulting in the minimum column density), all of the sources exist at a column
+density an order of magnitude higher than the Lada threshold, and they exist
+above that threshold even if the foreground is assumed to be an extreme $5\ee{22}$
+\persc.
 
 
 The \citet{Lada2010a} sample used Spitzer observations of nearby clouds that
@@ -567,7 +580,13 @@ The Herschel maps use SED-fitted temperatures \citep{Battersby2017a} at
 25 \arcsec resolution (excluding the 500 \um data point) and 36 \arcsec resolution.
 The SHARC 350 \um and SCUBA 450 \um maps both have higher resolution ($\sim10\arcsec$)
 but no temperature information; we used an assumed $T_{dust}=20$ and $T_{dust}=50$ K
-to illustrate the range of possible background column densities.}
+to illustrate the range of possible background column densities (hatched
+red and blue).  The thick solid red and blue lines show the SHARC and SCUBA column
+density images using Herschel temperatures interpolated onto their grids: these
+curves are closer to the 20 K than the 50 K curve and serve as the best estimate
+column density maps.  The vertical
+dashed line shows the $N(\hh)=5.2\ee{21}$ column density threshold from
+\citet{Lada2010a}.}
 {fig:corebackgroundcdf}{1}{\textwidth}
 
 % \Figure{figures/flux_histograms_with_core_location_CDF.png}

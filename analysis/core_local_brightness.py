@@ -11,13 +11,24 @@ from astropy.convolution import convolve_fft,Gaussian2DKernel
 import reproject
 import pyregion
 
+from constants import distance
+
 import paths
 
 datapath = '/Users/adam/work/sgrb2/alma/continuumdata'
 
-distance = 8.4*u.kpc
 cara_higal_fit_scaling = 1e22
 
+
+names = {'HerschelColumn25': 'Herschel (25\")',
+         'HerschelColumn36': 'Herschel (36\")',
+         'Sharc20Column': 'SHARC (20 K)',
+         'Sharc50Column': 'SHARC (50 K)',
+         'Scuba20Column': 'SCUBA (20 K)',
+         'Scuba50Column': 'SCUBA (50 K)',
+         'ScubaHTemColumn': 'SCUBA ($T=T_{Herschel}$)',
+         'SharcHTemColumn': 'SHARC ($T=T_{Herschel}$)',
+        }
 
 files = {"SHARC": {'wavelength': 350*u.um, 'bmarea':9.55e-10*u.sr, 'bunit':u.Jy, 'filename':'SgrB2_350um_gal.fits',},
          "ATLASGAL": {'wavelength': 870*u.um, 'bmarea':4.91e-9*u.sr, 'bunit':u.Jy, 'filename':'AG-Laboca-Planck.1.5.fits',},
@@ -35,6 +46,8 @@ files = {"SHARC": {'wavelength': 350*u.um, 'bmarea':9.55e-10*u.sr, 'bunit':u.Jy,
          "Sharc50Column": {'wavelength': 350*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/sharc_col_50K.fits',},
          "Scuba20Column": {'wavelength': 450*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/scuba_col_20K.fits',},
          "Scuba50Column": {'wavelength': 450*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/scuba_col_50K.fits',},
+         "SharcHTemColumn": {'wavelength': 350*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/sharc_col_herscheltem.fits',},
+         "ScubaHTemColumn": {'wavelength': 450*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/scuba_col_herscheltem.fits',},
         }
 
 """
@@ -102,7 +115,7 @@ files['HerschelColumn25']['bunit'] = u.cm**-2
 
 
 for row in tbl:
-    
+
     coord = coordinates.SkyCoord(row['RA'], row['Dec'], frame='fk5', unit=(u.deg, u.deg))
 
     for imname,fmeta in files.items():
@@ -161,11 +174,27 @@ brick_files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
 brick_files['HerschelColumn36']['bunit'] = u.cm**-2
 
 
+def nan_to_val(x, val):
+    y = x.copy()
+    y[np.isnan(x)] = val
+    return y
 
 
 def plotit():
     import astropy.stats
     import pylab as pl
+    pl.rcParams['axes.prop_cycle'] = pl.cycler('color', ['#1f77b4', '#ff7f0e',
+                                                         '#2ca02c', '#d62728',
+                                                         '#9467bd', '#8c564b',
+                                                         '#e377c2', '#7f7f7f',
+                                                         '#bcbd22', '#17becf'])
+    pl.rcParams['figure.figsize'] = (8,6)
+    pl.rcParams['figure.dpi'] = 75
+    pl.rcParams['savefig.dpi'] = 150
+    pl.rcParams['axes.titlesize']= 40
+    pl.rcParams['axes.labelsize']= 24
+    pl.rcParams['xtick.labelsize']= 20
+    pl.rcParams['ytick.labelsize']= 20
 
     pl.figure(1).clf()
     pl.figure(2).clf()
@@ -185,7 +214,7 @@ def plotit():
         bins = np.logspace(np.log10(lo), np.log10(hi), 100)
 
         pl.figure(1)
-        pl.subplot(2,3,ii+1)
+        pl.subplot(2,4,ii+1)
         brickweights = np.ones(np.isfinite(brickdata).sum(),
                                dtype='float')/np.isfinite(brickdata).sum()*np.isfinite(data).sum()
         bH,bL,bP = pl.hist(brickdata[np.isfinite(brickdata)], bins=bins,
@@ -213,7 +242,7 @@ def plotit():
         pl.title(imname)
 
         pl.figure(2)
-        pl.subplot(2,3,ii+1)
+        pl.subplot(2,4,ii+1)
         pl.imshow(data, cmap='gray_r')
         pl.contour(data, levels=np.percentile(tbl[imname],[5,10,25,50,75,90,95]))
         pl.contour(mask, levels=[0.5])
@@ -225,28 +254,18 @@ def plotit():
         cum_mass = (cumul * pixarea_cm2 * 2.8*u.Da).to(u.M_sun, u.dimensionless_angles())
         pl.figure(3)
         pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1)
-        pl.plot(sorted_col, cum_mass, label=imname)
+        pl.plot(sorted_col, cum_mass, label=names[imname])
         pl.legend(loc='best')
         pl.xlim(1e21,2e25)
         pl.loglog()
 
         pl.figure(4)
         pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1)
-        pl.plot(sorted_col-5e22*u.cm**-2, cum_mass-(5e22*u.cm**-2*pixarea_cm2*2.8*u.Da).to(u.M_sun, u.dimensionless_angles()), label=imname)
+        pl.plot(sorted_col-5e22*u.cm**-2, cum_mass-(5e22*u.cm**-2*pixarea_cm2*2.8*u.Da).to(u.M_sun, u.dimensionless_angles()), label=names[imname])
         pl.legend(loc='best')
         pl.xlim(1e21,2e25)
         pl.loglog()
 
-        pl.figure(5)
-        pl.vlines(5e21, 0, 1, color='k', linestyle='--', linewidth=1)
-        pl.plot(np.sort(tbl[imname]), np.arange(len(tbl),
-                                                dtype='float')/len(tbl),
-                linestyle='-', linewidth=3, alpha=0.5, zorder=10,
-                label=imname,
-               )
-        pl.xscale('log')
-        pl.xlim(1e21,2e25)
-        pl.ylim(0,1)
 
     pl.figure(1)
     pl.tight_layout()
@@ -260,11 +279,48 @@ def plotit():
     pl.tight_layout()
     pl.savefig(paths.fpath("mass_cdf_histograms_bgsubd.png"), bbox_inches='tight')
 
+    pl.figure(5).clf()
+    for imname,color in [('HerschelColumn25', 'k'), ('HerschelColumn36','g'),
+                         ('SharcHTemColumn','b'), ('ScubaHTemColumn','r')]:
+        pl.vlines(5e21, 0, 1, color='k', linestyle='--', linewidth=1)
+        pl.plot(np.sort(tbl[imname]), np.arange(len(tbl),
+                                                dtype='float')/len(tbl),
+                linestyle='-', linewidth=4, alpha=1, zorder=10,
+                color=color,
+                label=names[imname],
+               )
+        pl.xscale('log')
+        pl.xlim(1e21,2e25)
+        pl.ylim(0,1)
+    fb1 = pl.fill_betweenx(y=np.arange(len(tbl), dtype='float')/len(tbl),
+                           x1=np.sort(nan_to_val(tbl['Sharc20Column'], 1e26)),
+                           x2=np.sort(nan_to_val(tbl['Sharc50Column'], 1e26)),
+                           alpha=0.5,
+                           label='SHARC 20-50 K',
+                           edgecolor='b',
+                           facecolor='none',
+                           zorder=-10,
+                           hatch='//',
+                           linewidth=2,
+                          )
+    fb2 = pl.fill_betweenx(y=np.arange(len(tbl), dtype='float')/len(tbl),
+                           x1=np.sort(nan_to_val(tbl['Scuba20Column'], 1e26)),
+                           x2=np.sort(nan_to_val(tbl['Scuba50Column'], 1e26)),
+                           alpha=0.5,
+                           label='SCUBA 20-50 K',
+                           edgecolor='r',
+                           facecolor='none',
+                           zorder=-10,
+                           hatch='\\\\',
+                           linewidth=2,
+                          )
+
+
     pl.figure(5)
-    pl.legend(loc='best')
+    pl.legend(loc='best', fontsize=20)
     pl.tight_layout()
-    pl.xlabel("Column Density $N(\mathrm{H}_2)$ (cm$^{-2}$)", fontsize=16)
-    pl.ylabel("Cumulative fraction\nof cores at column $>N$", fontsize=16)
+    pl.xlabel("Column Density $N(\mathrm{H}_2)$ (cm$^{-2}$)", fontsize=24)
+    pl.ylabel("Cumulative fraction\nof cores at column $>N$", fontsize=24)
     pl.savefig(paths.fpath("core_background_column_cdf.png"), bbox_inches='tight')
 
     #pl.figure(3)

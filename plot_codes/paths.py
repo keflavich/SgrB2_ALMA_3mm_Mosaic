@@ -6,6 +6,7 @@ regions = 'regions/'
 spectra_plots = os.path.join(spectra,'pngs/')
 tablepath = os.path.join(root, 'tables/')
 figurepath = os.path.join(root, 'figures/')
+contpath = os.path.join(root, 'continuumdata',)
 
 molpath = os.path.join(root, '../molecules/')
 
@@ -42,3 +43,6 @@ def tpath(x):
 
 def fpath(x):
     return os.path.join(figurepath,x)
+
+def cpath(x):
+    return os.path.join(contpath, x)
