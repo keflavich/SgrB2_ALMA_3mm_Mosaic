@@ -15,7 +15,7 @@ from constants import distance
 
 import paths
 
-datapath = '/Users/adam/work/sgrb2/alma/continuumdata'
+datapath = '/Users/adam/work/sgrb2/alma/FITS/continuumdata'
 
 cara_higal_fit_scaling = 1e22
 
@@ -156,6 +156,7 @@ brick_files["Herschel500"]['filename'] = 'igls_l000_plw_deglitch_hh.fits'
 brick_files["Herschel350"]['filename'] = 'igls_l000_pmw_deglitch_hh.fits'
 brick_files["Herschel250"]['filename'] = 'igls_l000_psw_deglitch_hh.fits'
 brick_files["BGPS"]['filename'] = 'v2.1_ds2_l000_13pca_map20_crop.fits'
+brick_files['ScubaHTemColumn']['filename'] = 'column_maps/brick_scuba_col_herscheltem.fits'
 
 for imname in brick_files:
 
@@ -188,7 +189,7 @@ def plotit():
                                                          '#9467bd', '#8c564b',
                                                          '#e377c2', '#7f7f7f',
                                                          '#bcbd22', '#17becf'])
-    pl.rcParams['figure.figsize'] = (8,6)
+    pl.rcParams['figure.figsize'] = (12,8)
     pl.rcParams['figure.dpi'] = 75
     pl.rcParams['savefig.dpi'] = 150
     pl.rcParams['axes.titlesize']= 40
@@ -200,7 +201,7 @@ def plotit():
     pl.figure(2).clf()
     pl.figure(3).clf()
     pl.figure(4).clf()
-    pl.figure(5).clf()
+    pl.figure(5, figsize=(12,8), dpi=75).clf()
     for ii,imname in enumerate(f for f in files if 'column' in f.lower()):
 
 
@@ -239,7 +240,7 @@ def plotit():
                  'k-', linewidth=3, alpha=0.5, zorder=10)
         ax2.set_xlim(L.min(), L.max())
         ax2.set_ylim(0,1)
-        pl.title(imname)
+        pl.title(imname, fontsize=12)
 
         pl.figure(2)
         pl.subplot(2,4,ii+1)
@@ -326,6 +327,43 @@ def plotit():
     #pl.figure(3)
     #pl.tight_layout()
     #pl.savefig(paths.fpath("cumulative_mass_histograms.png"), bbox_inches='tight')
+
+    pl.figure(6).clf()
+    imname = 'ScubaHTemColumn'
+    print(imname)
+    data = files[imname]['file'].data
+    mask = files[imname]['mask']
+    brickdata = brick_files[imname]['file'].data
+    lo = astropy.stats.mad_std(brickdata, ignore_nan=True)
+    hi = np.nanmax(data)
+    bins = np.logspace(np.log10(lo)-0.5, np.log10(hi), 100)
+    bH,bL,bP = pl.hist(brickdata[np.isfinite(brickdata)], bins=bins,
+                       log=True, alpha=0.5, histtype='step',
+                       bottom=0.1,
+                       color='b', zorder=-1)
+    #weights = np.ones(np.isfinite(data).sum(), dtype='float')/np.isfinite(data).sum()
+    H,L,P = pl.hist(data[np.isfinite(data) & mask], bins=bins, log=True,
+                    alpha=0.5, color='k',
+                    #normed=True,
+                    histtype='step')
+    # Lada threshold, approximately (116 Msun/pc^2)
+    pl.vlines(5e21, 1.1, H.max())
+    #pl.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
+    pl.xlim(np.min([bL.min(), L.min()]), L.max())
+    pl.ylim(0.5,np.max([bH.max(), H.max()])*1.1)
+    pl.semilogx()
+    pl.yscale('log', nonposy='clip')
+    pl.xlabel("Column Density N(H$_2$) [cm$^{-2}$]")
+    pl.ylabel("Number of pixels")
+    ax2 = pl.gca().twinx()
+    ax2.plot(np.sort(tbl[imname]), np.arange(len(tbl),
+                                             dtype='float')/len(tbl),
+             'k-', linewidth=3, alpha=0.5, zorder=10)
+    ax2.set_xlim(L.min(), L.max())
+    ax2.set_ylim(0,1)
+    ax2.set_ylabel("Fraction of point sources above N(H$_2$)")
+
+    pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.png"), bbox_inches='tight')
 
 
 

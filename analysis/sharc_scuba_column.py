@@ -44,7 +44,7 @@ ratios = fluxes[:,0] / fluxes[:,1]
 
 temperature_map = np.interp(ratio_map_sharc_to_scuba, ratios, temperatures)
 pl.figure(2).clf()
-pl.imshow(temperature_map)
+pl.imshow(temperature_map, cmap='viridis')
 pl.colorbar()
 pl.contour(imagecube[0,:,:], levels=[5e4,1e5,2e5], colors=['k']*3)
 pl.savefig(paths.fpath("SHARC_SCUBA_temperature_map_experiment.png"))
@@ -103,3 +103,15 @@ colmap_scuba_herscheltem = dust_emissivity.dust.colofsnu(frequencies[1],
 
 fits.writeto(filename=paths.cpath('column_maps/sharc_col_herscheltem.fits'), data=colmap_sharc_herscheltem.value, header=scuba_hdr, overwrite=True)
 fits.writeto(filename=paths.cpath('column_maps/scuba_col_herscheltem.fits'), data=colmap_scuba_herscheltem.value, header=scuba_hdr, overwrite=True)
+
+brick_scuba = fits.open(paths.Fpath('continuumdata/scuba_herschel_merge/scuba_Herschel_Feathered_brick.fits'))[0]
+herschel_tem_brickgrid,_ = reproject.reproject_interp(herschel_tem, brick_scuba.header)
+
+colmap_scuba_herscheltem_brick = dust_emissivity.dust.colofsnu(frequencies[1],
+                                                               u.Quantity(brick_scuba.data, u.Unit(brick_scuba.header['BUNIT'])),
+                                                               temperature=herschel_tem_brickgrid*u.K,
+                                                               beta=1.750,)
+
+fits.writeto(filename=paths.cpath('column_maps/brick_scuba_col_herscheltem.fits'),
+             data=colmap_scuba_herscheltem_brick.value,
+             header=brick_scuba.header, overwrite=True)
