@@ -52,11 +52,15 @@ lat.set_axislabel("Galactic Latitude", fontsize=pl.rcParams['axes.labelsize'])
 #dec.set_axislabel("Dec (J2000)")
 
 lims = ax.axis()
-mylims = ((0.6504856, -0.021613), (0.68863811, -0.065048))
-mylims = ((266.81808,-28.362349), (266.86288, -28.40042))
-(x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims, 0)
+mylims_gal = ((0.6504856, -0.021613), (0.68863811, -0.065048))
+mylims_gal = ((0.6297901196, -0.09914333816), (0.6856479113, 0.02787655912))
+mylims_fk5 = ((266.81808,-28.362349), (266.86288, -28.40042))
+mylims_fk5 = ((266.8744477, -28.44946601), (266.7838311, -28.33589021))
+(x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_gal, 0)
+x2,x1 = min([x1,x2]), max([x1,x2])
+y1,y2 = min([y1,y2]), max([y1,y2])
 # fk5 (x1,y1),(x2,y2) = (500,-1500),(2500,2500)
-(x1,y1),(x2,y2) = (000,-100),(900,800)
+#(x1,y1),(x2,y2) = (000,-100),(900,800)
 
 
 clims = mywcs.wcs_pix2world([[lims[0],lims[2]], [lims[1],lims[3]]], 0)
@@ -123,7 +127,8 @@ dec.set_ticks(exclude_overlapping=True)
 ax.imshow(hdu2.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu2.header).celestial),
           vmax=0.45, cmap=pl.cm.gray_r, origin='lower', )
 tr_fk5 = ax.get_transform("fk5")
-(x1,y1),(x2,y2) = (1807,2100),(2221,2697)
+#(x1,y1),(x2,y2) = (1807,2100),(2221,2697)
+(x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
 ax.axis([x1,x2,y1,y2])
 
 coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
@@ -155,7 +160,8 @@ dec.set_ticks(exclude_overlapping=True)
 ax.imshow(hdu_h41a.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_h41a.header).celestial),
           vmin=-0.0001, vmax=0.25, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
 tr_fk5 = ax.get_transform("fk5")
-(x1,y1),(x2,y2) = (680,350),(2720,3150)
+#(x1,y1),(x2,y2) = (680,350),(2720,3150)
+(x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
 ax.axis([x1,x2,y1,y2])
 
 coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
@@ -191,7 +197,8 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
               vmin=-0.0001, vmax=0.25, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
     tr_fk5 = ax.get_transform("fk5")
-    (x1,y1),(x2,y2) = (680,350),(2720,3150)
+    #(x1,y1),(x2,y2) = (680,350),(2720,3150)
+    (x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
     ax.axis([x1,x2,y1,y2])
 
     if matplotlib.__version__[0] == '1':

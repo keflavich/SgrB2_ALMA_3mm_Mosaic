@@ -185,14 +185,14 @@ regions detected at 0.7 and 1.3 cm
 employ various means to classify the sample of new sources.
 
 % core_flux_distributions
-\Figure{figures/core_peak_fluxdensity_powerlawfit.png}
+\FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
 {A histogram of the peak flux density of the observed sources excluding known
 \hii regions with a powerlaw fit shown.  The fitted powerlaw is an excellent
 fit to the data, but is far shallower than the IMF slope, with
 $\alpha=1.94\pm0.07$.  The two brightest regions are Sgr B2M f1 and Sgr B2N K2,
 which may be dominated by free-free emission but likely also contain a large
 dust mass.}
-{fig:fluxhist}{1}{\textwidth}
+{fig:fluxhist}{1}{0.5\textwidth}
 
 We first note some key properties of dust at 3 mm.   At 8.4 kpc, a 1 mJy source
 corresponds to an optically thin dust mass of $M(40\mathrm{K})=18$ \msun or
@@ -405,12 +405,13 @@ source - below our detection threshold even in the noise-free regions of the
 map.  We  conclude that the Sgr B2 sources are much more luminous
 and are therefore massive protostars.
 
-\Figure{figures/core_peak_intensity_histogram_withHOPS.png}
+% HOPS_core_plots
+\FigureOneCol{figures/core_peak_intensity_histogram_withHOPS.png}
 {A histogram combining the detected Sgr B2 cores with predicted flux densities
 based on the HOPS \citep{Furlan2016a} survey.  The HOPS histogram shows the 870
 \um data from that survey scaled to 3 mm assuming $\beta=1.5$.  Every HOPS
 source is well below the detection threshold for our observations.}
-{fig:hopshist}{1}{15cm}
+{fig:hopshist}{1}{0.5\textwidth}
 
 This conclusion is supported by a more direct comparison with the Orion nebula
 as observed at 3 mm with MUSTANG \citep[][Figure
@@ -560,7 +561,7 @@ be universal.
 
 
 % core_local_brightness
-\Figure{figures/core_background_column_cdf.png}
+\FigureOneCol{figures/core_background_column_cdf.png}
 {Cumulative distribution functions of the background column density associated
 with each identified 3 mm continuum source.  The column densities are computed
 from a variety of maps with different resolution and assumed temperature.
@@ -578,10 +579,10 @@ assumptions result in optical depths $>1$, which cannot be converted to column
 densities using the optically thin assumption).  The vertical
 dashed line shows the $N(\hh)=5.2\ee{21}$ column density threshold from
 \citet{Lada2010a}.}
-{fig:corebackgroundcdf}{1}{\textwidth}
+{fig:corebackgroundcdf}{1}{0.5\textwidth}
 
 % plot_codes/pointsource_overlay_scuba_column.py
-\Figure{figures/cores_on_SCUBA_column_saturated.png}
+\FigureOneCol{figures/cores_on_SCUBA_column_saturated.png}
 {Overlay of the core locations on the SCUBA column density map
 created by interpolating the Herschel-measured temperatures onto the SCUBA grid
 and assuming the dust is optically thin at 450 \um.  The square grid at the center
@@ -594,7 +595,7 @@ well-correlated with the column density: there is a relative dearth of cores
 in the high-column north region and an overabundance in the moderate-column deep
 south region.
 }
-{fig:coresonscubacol}{1}{\textwidth}
+{fig:coresonscubacol}{1}{0.5\textwidth}
 
 % \Figure{figures/flux_histograms_with_core_location_CDF.png}
 % {Histograms of the brightness measured with a variety of instruments at
@@ -621,13 +622,13 @@ at a higher column than exists within G0.253 (Figure
 therefore consistent with the active SF seen in Sgr B2.
 
 % core_local_brightness
-\Figure{figures/compare_brick_sgrb2_colPDF.png}
+\FigureOneCol{figures/compare_brick_sgrb2_colPDF.png}
 {Histograms of the column density of G0.253+0.016 (blue) and Sgr B2 (gray)
 using the combined SCUBA 450 \um and Herschel 500 \um intensity with the
 interpolated Herschel dust temperatures.  The cumulative distribution of
 core `background' column densities in Sgr B2 is shown as a thick gray
 line.}
-{fig:bricksgrb2colcompare}{1}{\textwidth}
+{fig:bricksgrb2colcompare}{1}{0.5\textwidth}
 
 \section{Discussion}
 We have reported the detection of a large number of point sources and inferred
@@ -642,14 +643,18 @@ reside above this threshold and we determined our sources are all likely to be
 massive protostars in Section \ref{sec:theyareprotostars}, we have apparently
 confirmed this threshold.
 
-While there is an apparent column density threshold required for high-mass stars
-to form, that threshold clearly forms only a necessary, not a sufficient, condition
-for star formation.  Figure \ref{fig:coldistributionwithoutstarformation} shows
-that there is abundant material within our observed region at $N>1$ g \persc
-that is not associated with ongoing high-mass star formation.
+While there is an apparent column density threshold required for high-mass
+stars to form, that threshold clearly forms only a necessary, not a sufficient,
+condition for star formation.  Figure
+\ref{fig:coldistributionwithoutstarformation} shows that there is abundant
+material within our observed region at $N>1$ g \persc that is not associated
+with ongoing high-mass star formation.  These high-column-density, low
+star-formation regions are also evident in Figure \ref{fig:coresonscubacol},
+which shows that the northern and western regions of the cloud are the
+deficient zones.
 
 % nonstarforming_regions.py
-\Figure{figures/column_density_distribution_with_and_without_SF.png}
+\FigureOneCol{figures/column_density_distribution_with_and_without_SF.png}
 {Histograms of the column density measured with the combined SCUBA and Herschel
 data using the interpolated Herschel temperatures covering only the region
 observed with ALMA.  The black histogram shows the whole observed region,
@@ -658,7 +663,7 @@ and the red dashed region shows those pixels that are within one beam
 FWHM of an ALMA source.  While the ALMA sources (high mass protostars)
 clearly reside in high-column gas, there is abundant high-column material
 that shows no signs of ongoing star formation.}
-{fig:coldistributionwithoutstarformation}{1}{\textwidth}
+{fig:coldistributionwithoutstarformation}{1}{0.5\textwidth}
 
 
 \input{solobib}

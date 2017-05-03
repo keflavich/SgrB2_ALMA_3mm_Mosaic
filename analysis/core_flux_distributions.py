@@ -9,6 +9,11 @@ import plfit
 import pylab as pl
 pl.matplotlib.rc_file('pubfiguresrc')
 
+pl.rcParams['figure.figsize']=(12,8)
+pl.rcParams['figure.dpi']=75
+pl.rcParams['savefig.dpi']=150
+pl.rcParams['font.size'] = 14
+
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac')
 
 highconf = core_phot_tbl['color']=='green'
@@ -28,15 +33,22 @@ hs,l,p = ax1.hist([core_phot_tbl['peak'][highconf & ~hii],
                   ], log=False,
                   label=['Sgr B2 conservative','Sgr B2 aggressive',
                          'Sgr B2 HII'],
-                  bins=np.logspace(-4,0.2,50), histtype='barstacked')
+                  color=['#d62728','#2ca02c','#17bcef'],
+                  bins=np.logspace(-4,0.2,50),
+                  edgecolor='none',
+                  rwidth=1,
+                  stacked=True,
+                  histtype='barstacked')
 (hh,hl,hhii) = hs
 
 ax1.set_xscale('log')
 ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 #ax1.set_ylim(0.6, 15)
-ax1.set_xlabel("$S_{3 mm}$ (Jy)")
-ax1.set_ylabel("$N(cores)$")
-pl.legend(loc='best')
+pl.setp(ax1.get_xticklabels(), rotation='horizontal', fontsize=20)
+pl.setp(ax1.get_yticklabels(), rotation='vertical', fontsize=20)
+ax1.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=22)
+ax1.set_ylabel("$N(cores)$", fontsize=22)
+pl.legend(loc='best', fontsize=20)
 pl.savefig(paths.fpath("core_peak_fluxdensity_coloredbyclass.png"), bbox_inches='tight')
 
 
