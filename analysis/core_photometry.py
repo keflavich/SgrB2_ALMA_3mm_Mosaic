@@ -60,6 +60,7 @@ if __name__ == "__main__":
     regs = regions.read_ds9(paths.rpath('sgrb2_cores_TE.reg'))
 
     contfnpath = paths.tmpath('te/SgrB2_selfcal_full_TE_selfcal4_ampphase.image.pbcor.fits')
+    contfnpath = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits')
     contfile = fits.open(contfnpath)
     data = contfile[0].data
     beam = radio_beam.Beam.from_fits_header(contfnpath)
