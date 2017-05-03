@@ -320,8 +320,18 @@ def plotit():
     pl.figure(5)
     pl.legend(loc='best', fontsize=20)
     pl.tight_layout()
-    pl.xlabel("Column Density $N(\mathrm{H}_2)$ (cm$^{-2}$)", fontsize=24)
+    pl.xlabel("Column Density $N(\mathrm{H}_2)$ [cm$^{-2}$]", fontsize=24)
     pl.ylabel("Cumulative fraction\nof cores at column $>N$", fontsize=24)
+    ax1 = pl.gca()
+    pl.draw()
+    ax2 = ax1.twiny()
+    print("ax1 xlims: {0}".format(ax1.get_xlim()))
+    pl.draw()
+    ax2.set_xlim(np.array(ax1.get_xlim())*(2.8*u.Da).to(u.g).value)
+    print("ax2 xlims: {0}".format(ax2.get_xlim()))
+    ax2.set_xscale('log')
+    ax2.set_xlabel("Column Density [g cm$^{-2}$]")
+    pl.draw()
     pl.savefig(paths.fpath("core_background_column_cdf.png"), bbox_inches='tight')
 
     #pl.figure(3)
@@ -355,12 +365,24 @@ def plotit():
     pl.yscale('log', nonposy='clip')
     pl.xlabel("Column Density N(H$_2$) [cm$^{-2}$]")
     pl.ylabel("Number of pixels")
+    ax1 = pl.gca()
     ax2 = pl.gca().twinx()
     ax2.plot(np.sort(tbl[imname]), np.arange(len(tbl),
                                              dtype='float')/len(tbl),
              'k-', linewidth=3, alpha=0.5, zorder=10)
     ax2.set_xlim(L.min(), L.max())
     ax2.set_ylim(0,1)
+
+    ax3 = ax1.twiny()
+    print("ax1 xlims: {0}".format(ax1.get_xlim()))
+    pl.draw()
+    ax3.set_xlim(np.array(ax1.get_xlim())*(2.8*u.Da).to(u.g).value)
+    print("ax2 xlims: {0}".format(ax2.get_xlim()))
+    ax3.set_xscale('log')
+    ax3.set_xlabel("Column Density [g cm$^{-2}$]")
+    pl.draw()
+
+
     ax2.set_ylabel("Fraction of point sources above N(H$_2$)")
 
     pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.png"), bbox_inches='tight')

@@ -484,7 +484,8 @@ gaincal(vis=selfcal5vis, caltable='ampphase_5.cal', solint='int', gaintype='G',
         calmode='ap')
 
 selfcal_heuristics.flag_extreme_amplitudes('ampphase_5.cal')
-okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('ampphase_5.cal')
+okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('ampphase_5.cal',
+                                                                     minsnr=3)
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 print("OK fields for round 5->6: {0}".format(okfields_str))
 

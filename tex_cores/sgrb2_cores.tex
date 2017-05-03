@@ -559,6 +559,7 @@ that there is a higher threshold for high-mass star formation that may still
 be universal.
 
 
+% core_local_brightness
 \Figure{figures/core_background_column_cdf.png}
 {Cumulative distribution functions of the background column density associated
 with each identified 3 mm continuum source.  The column densities are computed
@@ -579,6 +580,7 @@ dashed line shows the $N(\hh)=5.2\ee{21}$ column density threshold from
 \citet{Lada2010a}.}
 {fig:corebackgroundcdf}{1}{\textwidth}
 
+% plot_codes/pointsource_overlay_scuba_column.py
 \Figure{figures/cores_on_SCUBA_column_saturated.png}
 {Overlay of the core locations on the SCUBA column density map
 created by interpolating the Herschel-measured temperatures onto the SCUBA grid
@@ -606,28 +608,57 @@ south region.
 % {fig:fluxhist}{1}{\textwidth}
 
 \subsubsection{Comparison to other CMZ clouds}
-In G0.253+0.016, very little star formation
+In G0.253+0.016 (The Brick, G0.253), very little star formation
 has been observed \citep{Longmore2013a,Johnston2014a,Rathborne2015a} despite
-most of the cloud existing above the locally measured column density threshold.
+most of the cloud existing above the locally measured \citet{Lada2010a} column
+density threshold.  The column density distribution function for G0.253
+is shown in Figure \ref{fig:bricksgrb2colcompare}.
 
-Since we have detected substantial ongoing star formation in the form of
-high-mass protostars and/or protostellar cores, we can assess where these stars
-form and whether the same (lack of) a threshold exists in Sgr B2.  We therefore
-plot the column density distribution (flux distribution?) and overlay the
-cumulative distribution function of the background brightness around the cores.
+Comparing Sgr B2 to G0.253, the majority of the Sgr B2 cloud is at higher
+column than G0.253.  The presence of star formation in Sgr B2 nearly all occurs
+at a higher column than exists within G0.253 (Figure
+\ref{fig:bricksgrb2colcompare}).  The lack of observed cores in The Brick is
+therefore consistent with the active SF seen in Sgr B2.
 
-Comparing Sgr B2 to G0.253, the majority of the Sgr B2 cloud is brighter and at
-higher column than G0.253.  The presence of star formation in Sgr B2 nearly all
-occurs at a higher column than exists within G0.253 (Figure
-\ref{fig:fluxhist}).  The lack of SF in the brick is therefore consistent with
-the active SF in Sgr B2 and the CMZ's higher SF threshold is confirmed.
-
+% core_local_brightness
 \Figure{figures/compare_brick_sgrb2_colPDF.png}
-{Histograms of the column density of G0.253+0.016 (blue) and Sgr B2 (black)
+{Histograms of the column density of G0.253+0.016 (blue) and Sgr B2 (gray)
 using the combined SCUBA 450 \um and Herschel 500 \um intensity with the
 interpolated Herschel dust temperatures.  The cumulative distribution of
-core `background' column densities in Sgr B2 is also shown.}
+core `background' column densities in Sgr B2 is shown as a thick gray
+line.}
 {fig:bricksgrb2colcompare}{1}{\textwidth}
+
+\section{Discussion}
+We have reported the detection of a large number of point sources and inferred
+that they are most likely all high-mass protostars.  These sources universally
+reside in gas above $N\gtrsim2\ee{23}$ \persc gas.  In this section, we discuss
+the implications of this apparent threshold for high-mass star formation in the
+CMZ.
+
+A theoretical threshold for high-mass star formation, $N > 1$ g \persc was
+developed by \citet{Krumholz2008a}.  Since all of the sources we have detected
+reside above this threshold and we determined our sources are all likely to be
+massive protostars in Section \ref{sec:theyareprotostars}, we have apparently
+confirmed this threshold.
+
+While there is an apparent column density threshold required for high-mass stars
+to form, that threshold clearly forms only a necessary, not a sufficient, condition
+for star formation.  Figure \ref{fig:coldistributionwithoutstarformation} shows
+that there is abundant material within our observed region at $N>1$ g \persc
+that is not associated with ongoing high-mass star formation.
+
+% nonstarforming_regions.py
+\Figure{figures/column_density_distribution_with_and_without_SF.png}
+{Histograms of the column density measured with the combined SCUBA and Herschel
+data using the interpolated Herschel temperatures covering only the region
+observed with ALMA.  The black histogram shows the whole observed region,
+the blue solid shows the SCUBA pixels that do not contain an ALMA source,
+and the red dashed region shows those pixels that are within one beam
+FWHM of an ALMA source.  While the ALMA sources (high mass protostars)
+clearly reside in high-column gas, there is abundant high-column material
+that shows no signs of ongoing star formation.}
+{fig:coldistributionwithoutstarformation}{1}{\textwidth}
 
 
 \input{solobib}
