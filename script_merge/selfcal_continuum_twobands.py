@@ -6,7 +6,8 @@ Assumes selfcal_continuum has been run
 phasecenter='J2000 17:47:19.242 -28.23.33.22'
 imsize=[4096,4096]
 
-
+spw90 = "0,1,4,5,8,9,12,13,16,17,20,21,24,25,28,29,32,33,36,37,40,41"
+spw100 = '2,3,6,7,10,11,14,15,18,19,22,23,26,27,30,31,34,35,38,39,42,43'
 
 contvis = cont_merge_ms = combvis = 'SgrB2_ACA_TE_TC_contmerge.ms'
 
@@ -17,7 +18,7 @@ tclean(vis=contvis,
        imagename=myimagebase,
        field='SgrB2',
        gridder='mosaic',
-       spw="0,1,4,5,8,9,12,13",
+       spw=spw90,
        phasecenter=phasecenter,
        specmode="mfs",
        niter=100000,
@@ -43,7 +44,7 @@ tclean(vis=contvis,
        imagename=myimagebase,
        field='SgrB2',
        gridder='mosaic',
-       spw="2,3,6,7,10,11,14,15",
+       spw=spw100,
        phasecenter=phasecenter,
        specmode="mfs",
        niter=100000,
@@ -74,7 +75,7 @@ tclean(vis=selfcal5vis,
        imagename=myimagebase,
        field='SgrB2',
        gridder='mosaic',
-       spw="0,1,4,5,8,9,12,13",
+       spw=spw90,
        phasecenter=phasecenter,
        specmode="mfs",
        niter=100000,
@@ -101,7 +102,7 @@ tclean(vis=selfcal5vis,
        imagename=myimagebase,
        field='SgrB2',
        gridder='mosaic',
-       spw="2,3,6,7,10,11,14,15",
+       spw=spw100,
        phasecenter=phasecenter,
        specmode="mfs",
        niter=100000,

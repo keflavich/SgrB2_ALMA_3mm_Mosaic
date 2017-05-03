@@ -59,11 +59,11 @@ point(266.82408,-28.41783) # point=cross color=red text={-}
 point(266.82612,-28.39674) # point=cross color=red text={-}
 point(266.82707,-28.44112) # point=cross color=red text={-}
 point(266.83348,-28.44881) # point=cross color=red text={-}
-point(266.83397,-28.38495) # point=cross color=red text={f10.37}
+point(266.83397,-28.38495) # point=cross color=red text={core_178_f10.37}
 point(266.83415,-28.40475) # point=cross color=red text={-}
 point(266.83464,-28.34959) # point=cross color=red text={-}
 point(266.835,-28.40298) # point=cross color=red text={-}
-point(266.83619,-28.42895) # point=cross color=red text={15}
+point(266.83619,-28.42895) # point=cross color=red text={core_16}
 point(266.83684,-28.3845) # point=cross color=red text={-}
 point(266.83702,-28.45234) # point=cross color=red text={-}
 point(266.84276,-28.34993) # point=cross color=red text={-}
@@ -71,7 +71,7 @@ point(266.84276,-28.42505) # point=cross color=red text={-}
 point(266.84321,-28.39071) # point=cross color=red text={-}
 point(266.84321,-28.42751) # point=cross color=red text={-}
 point(266.84688,-28.37558) # point=cross color=red text={-}
-point(266.84758,-28.42613) # point=cross color=red text={9}
+point(266.84758,-28.42613) # point=cross color=red text={core_10}
 point(266.85127,-28.45063) # point=cross color=red text={-}
 point(266.85274,-28.4447) # point=cross color=red text={-}
 point(266.85441,-28.4357) # point=cross color=red text={-}

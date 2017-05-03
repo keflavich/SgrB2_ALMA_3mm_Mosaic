@@ -12,7 +12,7 @@ from astropy.table import Table,Column
 import paths
 import masscalc
 
-def photometry(data, mywcs, regs, beam):
+def photometry(data, mywcs, regs, beam, alphamap=None, alphaerrmap=None):
     results = {}
     for ii,reg in enumerate(regs):
         if 'text' not in reg.meta:
@@ -42,6 +42,7 @@ def photometry(data, mywcs, regs, beam):
 
         bgcutout = bgmask.cutout(data) * bgm
 
+
         results[name] = {'peak': cutout.max(),
                          'sum': cutout.sum(),
                          'bgrms': bgcutout.std(),
@@ -53,11 +54,19 @@ def photometry(data, mywcs, regs, beam):
                          'color': reg.visual['color'],
                         }
 
+        if alphamap is not None and alphaerrmap is not None:
+            alphacutout = mask.cutout(alphamap) * mask.data
+            alphaerrcutout = mask.cutout(alphaerrmap) * mask.data
+            argmax = np.unravel_index(cutout.argmax(), cutout.shape)
+            results[name]['alpha'] = alphacutout[argmax]
+            results[name]['alphaerror'] = alphaerrcutout[argmax]
+
     return results
 
 
 if __name__ == "__main__":
     regs = regions.read_ds9(paths.rpath('sgrb2_cores_TE.reg'))
+    regs = regions.read_ds9(paths.rpath('cores_with_names.reg'))
 
     contfnpath = paths.tmpath('te/SgrB2_selfcal_full_TE_selfcal4_ampphase.image.pbcor.fits')
     contfnpath = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits')
@@ -65,6 +74,9 @@ if __name__ == "__main__":
     data = contfile[0].data
     beam = radio_beam.Beam.from_fits_header(contfnpath)
     mywcs = wcs.WCS(contfile[0].header)
+
+    alphamap = fits.getdata(paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.alpha.fits'))
+    alphaerrmap = fits.getdata(paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.alpha.error.fits'))
 
     units = {'peak':u.Jy/u.beam,
              'sum':u.Jy/u.beam,
@@ -76,7 +88,8 @@ if __name__ == "__main__":
              'Dec': u.deg,
             }
 
-    results = photometry(data, mywcs, regs, beam)
+    results = photometry(data, mywcs, regs, beam, alphamap=alphamap,
+                         alphaerrmap=alphaerrmap)
 
     fn_90GHz = paths.tmpath('SgrB2_nocal_TE_continuum_90GHz.image.pbcor.fits')
     results_90GHz = photometry(fits.getdata(fn_90GHz),
@@ -118,7 +131,9 @@ if __name__ == "__main__":
 
     tbl = Table([Column(data=columns[k],
                         name=k)
-                 for k in ['name', 'RA', 'Dec', 'peak', 'sum', 'npix', 'beam_area',
+                 for k in ['name', 'RA', 'Dec', 'peak', 'sum',
+                           'alpha', 'alphaerror',
+                           'npix', 'beam_area',
                            'bgmad', 'color',
                            'peak_mass_20K', 'peak_col_20K',
                            'peak_90GHz', 'sum_90GHz', 'bgmad_90GHz',

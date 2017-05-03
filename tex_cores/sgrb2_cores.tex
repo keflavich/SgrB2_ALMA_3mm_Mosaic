@@ -2,6 +2,7 @@
 \input{preface}
 \newcommand{\ncores}{138\xspace}
 \newcommand{\dsgrb}{7.8 kpc\xspace}
+\newcommand{\percent}{\%}
 
 \begin{document}
 \title{A catalog of 3mm point sources in the Sgr B2 cloud: signs of extended star formation in a CMZ cloud}
@@ -71,21 +72,22 @@ The ALMA QA2 calibrated measurement sets were combined to make a single
 high-resolution, high-dynamic range data set.  We imaged the continuum jointly
 across all four bands, and found that the central regions surrounding Sgr B2M
 were severely affected by artifacts that could not be cleaned out.  We
-therefore ran 3 iterations of phase-only self-calibration and one iteration of
-amplitude + phase self-calibration to yield a substantially improved image.
-The total dynamic range, measured as the peak brightness in Sgr B2 to the RMS
-noise in a signal-free region of the image, is 22000 (noise $\sim0.08$
-mJy/beam), while the dynamic range within one primary beam ($\sim0.5$\arcmin)
-of Sgr B2M is only 3700 (noise $\sim0.5$ mJy/beam).  Because of the dynamic
-range limitations, and an empirical determination that clean did not converge
-if allowed to go too deep, we cleaned to a threshold of 0.5 mJy/beam across the
-image.  We performed this same process for both the longest-baseline data only
-(resolution $\sim0.5\arcsec$, largest angular scale theoretically 15\arcsec\
-[the shortest baseline] but more practically $\sim7$\arcsec\ [the 5th percentile
-baseline length]) and the merged 7m + two 12m configuration data.  The merged
-data are more useful for studying extended structures but have lower dynamic
-range, while the long-baseline-only data are excellent for extracting and
-analyzing pointlike or compact sources.
+therefore ran 3 iterations of phase-only self-calibration and two iterations of
+amplitude + phase self-calibration, the latter using multi-scale
+multi-frequency synthesis with two Taylor terms, to yield a substantially
+improved image.  The total dynamic range, measured as the peak brightness in
+Sgr B2 to the RMS noise in a signal-free region of the image, is 22000 (noise
+$\sim0.08$ mJy/beam), while the dynamic range within one primary beam
+($\sim0.5$\arcmin) of Sgr B2M is only 3700 (noise $\sim0.5$ mJy/beam).  Because
+of the dynamic range limitations, and an empirical determination that clean did
+not converge if allowed to go too deep, we cleaned to a threshold of 0.5
+mJy/beam across the image.  We performed this same process for both the
+longest-baseline data only (resolution $\sim0.5\arcsec$, largest angular scale
+theoretically 15\arcsec\ [the shortest baseline] but more practically
+$\sim7$\arcsec\ [the 5th percentile baseline length]) and the merged 7m + two
+12m configuration data.  The merged data are more useful for studying extended
+structures but have lower dynamic range, while the long-baseline-only data are
+excellent for extracting and analyzing pointlike or compact sources.
 
 We also produced cubes of all of the spectral lines.  These were lightly
 cleaned with only 200 iterations of cleaning.  No self-calibration was applied.
@@ -123,8 +125,9 @@ FWHM is approximately 14\arcsec, which means the beam area is $\approx3\times$
 larger than the theoretical size.  We attempted to fit several other isolated
 sources in the large SCUBA map, and the smallest FWHM we measured was $\approx10.5$
 arcsec.  Between the larger beam area, flux calibration errors \citep[quoted at
-20\% in][]{Pierce-Price2000a}, and the dust emissivity correction (35-50\% for
-$\beta=3-4$), this large flux scaling factor is actually plausible.  
+20\percent in][]{Pierce-Price2000a}, and the dust emissivity correction
+(35-50\percent for $\beta=3-4$), this large flux scaling factor is actually
+plausible.  
 
 
 To determine the column density, we adopted a few independent approaches.
@@ -168,10 +171,19 @@ density and therefore have overestimated local noise.
 
 Our selection criteria result in a reliable but potentially incomplete catalog.
 
+For a subset of the sources, primarily the brightest, we measured the spectral
+index $\alpha$.  We relied on CASA's $\alpha$ and $\sigma(\alpha)$ maps to
+obtain these measurements, including only those with $|\alpha| > 5
+\sigma(\alpha)$ or $\sigma(\alpha) < 0.1$.  Several of the brightest sources
+did not have significant measurements of $\alpha$ because they are in the
+immediate neighborhood of Sgr B2 M or N and therefore have significantly higher
+background and noise, preventing a clean measurement.
+
 \section{Results}
 
 We detected \ncores compact continuum sources.  Their flux distribution is
-shown in Figure \ref{fig:fluxhist}.
+shown in Figure \ref{fig:fluxhist}.  The distribution of their measured
+spectral indices $\alpha$ is shown in Figure \ref{fig:alphahist}.
 
 
 \subsection{Source Classification}
@@ -196,7 +208,8 @@ dust mass.}
 
 We first note some key properties of dust at 3 mm.   At 8.4 kpc, a 1 mJy source
 corresponds to an optically thin dust mass of $M(40\mathrm{K})=18$ \msun or
-$M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$ to
+$M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$
+($\alpha=3.75$ on the Rayleigh-Jeans tail) to
 extrapolate the \citet{Ossenkopf1994a} opacity to $\kappa_{3mm}=0.0018$ cm$^2$
 g$^{-1}$.  Our dust-only 5-$\sigma$ sensitivity limit at 40 K therefore ranges
 from $M>7$ \msun (0.5 mJy) to $M>45$ \msun (2.5 mJy) across the map.  If we
@@ -228,6 +241,21 @@ frEGGs would be detectable in our data.  Comparison to radio observations
 at a comparable resolution will be needed to rule out the externally ionized
 globule hypothesis for resolved regions.
 
+
+\FigureOneCol{figures/core_alpha_coloredbyclass.png}
+{A histogram of the spectral index $\alpha$ for those sources with a statistically
+significant measurement.  The \hii regions cluster around $\alpha=0$, as expected
+for optically thin free-free emission, while the unclassified sources cluster
+around $\alpha=3$, which is weakly consistent with dust emission.
+There are two particularly notable outliers: the source with a highly negative
+spectral index, Source 167, has a statistically significant measurement but is
+in a region of particularly high extended and diffuse background, so the
+measurement may not be reliable.  The other unidentified source with $\alpha\sim-1$
+is Source 80, which is very close to the \hii region Sgr B2 S, but is not detected
+in the \citet{de-Pree1996a} 1.3 cm data; it may be an \hii region or it may
+be contaminated by the nearby \hii region.}
+{fig:alphahist}{1}{0.5\textwidth}
+
 If the detected sources were either EGGs or cometary clouds, we would expect
 them to be located within \hii regions.  Many of the sources are near \hii
 regions, as seen in Figure \ref{fig:coreson20cm}.  However, they are nearly all
@@ -238,6 +266,14 @@ geometry of the clouds to rule out the possibility that the point sources are
 just illuminated cloud edges, but the fact that the ionized gas is brightest
 adjacent to, rather than on top of, the HC$_3$N suggests that the HC$_3$N
 traces a full molecular cloud rather than a thin PDR-like layer.
+
+A final point against the externally ionized hypothesis is the observed
+spectral indices shown in Figure \ref{fig:alphahist}.  We measured spectral
+indices for 43 sources, of which 23 have $\alpha>2$.  These sources are
+inconsistent with free-free emission and are at least reasonably consistent
+with dust emission.  Of the 20 that are consistent with free-free emission, 11
+are known \hii regions, hinting that our sample is dominated by dusty objects,
+not externally ionized objects.
 
 %This
 %scale is consistent with that of frEGGs seen in Carina \citep[e.g.][]{Sahai2012a}.
@@ -286,7 +322,8 @@ synchrotron) emission in the region \citep{Yusef-Zadeh2004a}.}
 of the HC$_3$N peak intensity.  HC$_3$N traces moderate-density molecular gas.}
 {fig:coresonhc3n}{1}{0.5\textwidth}
 
-\subsubsection{Alternative 2: The sources are \hii regions produced by interloper ionizing stars}
+\subsubsection{Alternative 2: The sources are \hii regions produced by
+interloper ionizing stars}
 If there is a large population of older, but still ionizing, stars, they could
 ignite \hii regions when they fly through molecular material.  See
 \ref{sec:theyarehiiregions} for calculations of stationary \hii region
@@ -301,10 +338,15 @@ should match that of the gas.  Also, there is no such population of sources
 seen outside of the dense gas in the infrared \citep[TODO: Who has done
 infrared studies of Sgr B2?  You can infer what I have stated `by inspection'
 of 2MASS, but it would be more straightforward to quote someone else][]{},
-which again we should
-expect if there is a uniformly distributed population.  
+which again we should expect if there is a uniformly distributed population.  
+Finally, the spectral indices discussed above (Figure \ref{fig:alphahist})
+suggest the previously-unidentified sources are dust emission sources,
+not free-free sources.
 
-\subsubsection{Alternative 3: The sources are \hii regions produced by recently-formed OB stars}
+
+
+\subsubsection{Alternative 3: The sources are \hii regions produced by
+recently-formed OB stars}
 \label{sec:theyarehiiregions}
 
 For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
@@ -344,9 +386,12 @@ outshine the \hii region; more likely, such sources would have much hotter dust
 and therefore would be much brighter (and more extended) than our observations
 allow.
 
-This restrictive parameter space, combined with a steep luminosity
-function that implies there are many more sources at slightly lower luminosity,
-is evidence against the population being dominated by \hii regions.
+This restrictive parameter space, combined with a steep luminosity function
+that implies there are many more sources at slightly lower luminosity, is
+evidence against the population being dominated by \hii regions.  The spectral
+indices also support this conclusion.
+
+
 
 \Figure{figures/HII_region_brightness.png}
 {Simple models of spherical \hii regions to illustrate the observable
@@ -442,6 +487,19 @@ M42 nebula would be easily detected in our data.
 }
 {fig:orioncompare}{1}{0.5\textwidth}
 
+While we have concluded that the sources are dusty, massive protostars, the
+spectral indices we measured are somewhat surprising.  Typical dust clouds in
+the Galactic disk have dust opacity indices $\beta\sim1.5-2$
+\citep{Schnee2010a,Shirley2011a,Sadavoy2016a}.  Our spectral indices are lower
+than these, with only 3 sources having measured $\beta=\alpha-2 > 1.5$ (at the
+$2\sigma$ level, up to 11 sources are consistent with $\beta=1.5$, but this is
+primarily because of their high measurement error).  A shallower $\beta$
+implies free-free contamination, large dust grains, or optically thick surfaces
+are present within our sources.  Since the above arguments suggest that the
+sources are high-mass protostars, the free-free contamination and optically
+thick inner region models are both plausible.
+
+\subsection{Source distribution functions and the star formation rate}
 
 The flux density distribution of the non-\hii region sources follows a powerlaw
 with slope $\alpha=1.94\pm0.07$ \citep[fitted with the MLE method
@@ -492,11 +550,12 @@ stellar masses primarily from \hii region counts.
 % or N}
 
 \subsection{An examination of star formation thresholds}
-Lada et al, and others, have proposed that star formation can only occur above
-a certain density or column density threshold\footnote{Column density is more
-commonly used because of its observational convenience, but it is physically
-meaningless unless high column density leads to high optical depths and thereby
-changes the gas's ability to cool.}. 
+Many authors \citep[e.g.,][]{Lada2010a} have proposed that star formation can
+only occur above a certain density or column density threshold\footnote{Column
+density is more commonly used because of its observational convenience, but it
+is physically meaningless unless high column density leads to high optical
+depths and thereby changes the gas's ability to cool.}. 
+We discuss our measurements of column thresholds in this Section.
 
 
 
@@ -643,6 +702,7 @@ reside above this threshold and we determined our sources are all likely to be
 massive protostars in Section \ref{sec:theyareprotostars}, we have apparently
 confirmed this threshold.
 
+
 While there is an apparent column density threshold required for high-mass
 stars to form, that threshold clearly forms only a necessary, not a sufficient,
 condition for star formation.  Figure
@@ -664,6 +724,8 @@ FWHM of an ALMA source.  While the ALMA sources (high mass protostars)
 clearly reside in high-column gas, there is abundant high-column material
 that shows no signs of ongoing star formation.}
 {fig:coldistributionwithoutstarformation}{1}{0.5\textwidth}
+
+\subsection{Why is Sgr B2 Deep South forming stars, but Sgr B2 Far North isn't?}
 
 
 \input{solobib}

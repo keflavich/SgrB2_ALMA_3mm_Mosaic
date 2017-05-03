@@ -7,10 +7,15 @@ import masscalc
 import pylab as pl
 pl.matplotlib.rc_file('pubfiguresrc')
 
-core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
+cont_tbl = core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac')
 
 highconf = core_phot_tbl['color']=='green'
 lowconf = core_phot_tbl['color']=='orange'
+hii = core_phot_tbl['SIMBAD_OTYPE'] == 'HII'
+
+
+
+
 
 peak_brightness = core_phot_tbl['peak_K']
 
@@ -110,11 +115,100 @@ significant_mask = np.abs(spindx) - 3*spindx_err > 0
 #pl.errorbar(cont_tbl['peak_90GHz'], cont_tbl['peak_100GHz'],
 #            xerr=cont_tbl['bgmad_90GHz'], yerr=cont_tbl['bgmad_100GHz'],
 #            marker='.', linestyle='')
-pl.semilogx()
-pl.errorbar(cont_tbl['peak_90GHz'][significant_mask], spindx[significant_mask],
-            xerr=cont_tbl['bgmad_90GHz'][significant_mask], yerr=spindx_err[significant_mask],
-            marker='s', linestyle='', color='k', zorder=10)
-pl.errorbar(cont_tbl['peak_90GHz'][~significant_mask], spindx[~significant_mask],
-            xerr=cont_tbl['bgmad_90GHz'][~significant_mask], yerr=spindx_err[~significant_mask],
-            marker='.', linestyle='', color='b')
-pl.ylim(-4,4)
+fig3 = pl.figure(3)
+fig3.clf()
+ax3 = fig3.gca()
+ax3.semilogx()
+ax3.errorbar(cont_tbl['peak_90GHz'][significant_mask],
+             spindx[significant_mask],
+             xerr=cont_tbl['bgmad_90GHz'][significant_mask],
+             yerr=spindx_err[significant_mask], marker='s', linestyle='',
+             color='k', zorder=10)
+ax3.errorbar(cont_tbl['peak_90GHz'][~significant_mask],
+             spindx[~significant_mask],
+             xerr=cont_tbl['bgmad_90GHz'][~significant_mask],
+             yerr=spindx_err[~significant_mask], marker='.', linestyle='',
+             alpha=0.25,
+             color='b')
+ax3.set_ylim(-4,4)
+
+
+
+alphaok_mask = (np.abs(cont_tbl['alpha']) > cont_tbl['alphaerror']*5) | (cont_tbl['alphaerror'] < 0.1)
+
+fig4 = pl.figure(4)
+fig4.clf()
+ax4 = fig4.gca()
+ax4.set_xscale('log')
+ax4.errorbar(cont_tbl['peak'][alphaok_mask], cont_tbl['alpha'][alphaok_mask],
+             xerr=cont_tbl['bgmad'][alphaok_mask], yerr=cont_tbl['alphaerror'][alphaok_mask],
+             linewidth=0.5, alpha=0.5,
+             marker='s', linestyle='', color='k', zorder=10)
+
+fig5 = pl.figure(5)
+fig5.clf()
+ax5 = fig5.gca()
+hs,l,p = ax5.hist([core_phot_tbl['alpha'][highconf & ~hii & alphaok_mask],
+                   core_phot_tbl['alpha'][lowconf & ~hii & alphaok_mask],
+                   core_phot_tbl['alpha'][hii & alphaok_mask],
+                  ], log=False,
+                  label=['Sgr B2 conservative','Sgr B2 aggressive',
+                         'Sgr B2 HII'],
+                  color=['#d62728','#2ca02c','#17bcef'],
+                  bins=np.linspace(-3.0, 5, 20),
+                  edgecolor='w',
+                  rwidth=1,
+                  stacked=True,
+                  histtype='barstacked')
+(hh,hl,hhii) = hs
+
+#ax5.set_xscale('log')
+ax5.set_xlim(l[:-1][hh>0].min()*1.1, l[1:][hh>0].max()*1.1)
+ax5.set_xlim(-3.0, 5)
+ax5.set_ylim(0, 11)
+pl.setp(ax5.get_xticklabels(), rotation='horizontal', fontsize=20)
+pl.setp(ax5.get_yticklabels(), rotation='vertical', fontsize=20)
+ax5.set_xlabel("Spectral Index $\\alpha$", fontsize=22)
+ax5.set_ylabel("$N(cores)$", fontsize=22)
+pl.legend(loc='best', fontsize=20)
+pl.savefig(paths.fpath("core_alpha_coloredbyclass.png"), bbox_inches='tight')
+
+
+fig6 = pl.figure(6)
+fig6.clf()
+ax6 = fig6.gca()
+hs,l,p = ax6.hist([core_phot_tbl['peak'][highconf & ~hii & alphaok_mask],
+                   core_phot_tbl['peak'][lowconf & ~hii & alphaok_mask],
+                   core_phot_tbl['peak'][hii & alphaok_mask],
+                  ], log=False,
+                  label=['Sgr B2 conservative','Sgr B2 aggressive',
+                         'Sgr B2 HII'],
+                  color=['#d62728','#2ca02c','#17bcef'],
+                  bins=np.logspace(-3.0, 0.5, 20),
+                  edgecolor='w',
+                  rwidth=1,
+                  stacked=True,
+                  histtype='barstacked')
+(hh,hl,hhii) = hs
+
+ax6.set_xscale('log')
+ax6.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
+ax6.set_xlim(1e-3, 2)
+ax6.set_ylim(0, 15)
+pl.setp(ax6.get_xticklabels(), rotation='horizontal', fontsize=20)
+pl.setp(ax6.get_yticklabels(), rotation='vertical', fontsize=20)
+ax6.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=22)
+ax6.set_ylabel("$N(cores)$", fontsize=22)
+pl.legend(loc='best', fontsize=20)
+pl.savefig(paths.fpath("core_peak_withalphameasurements_coloredbyclass.png"), bbox_inches='tight')
+
+
+
+# Separate figure just shows that the calculated-by-hand version doesn't match
+# the measured version (or at least, didn't)
+#pl.plot(cont_tbl['alpha'][alphaok_mask & significant_mask],
+#        spindx[alphaok_mask & significant_mask],
+#        '.')
+
+pl.draw()
+pl.show()
