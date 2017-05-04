@@ -2,7 +2,7 @@
 \input{preface}
 \newcommand{\ncores}{138\xspace}
 \newcommand{\dsgrb}{7.8 kpc\xspace}
-\newcommand{\percent}{\%}
+\newcommand{\percent}{\%\xspace}
 
 \begin{document}
 \title{A catalog of 3mm point sources in the Sgr B2 cloud: signs of extended star formation in a CMZ cloud}
@@ -133,10 +133,13 @@ plausible.
 To determine the column density, we adopted a few independent approaches.
 First, we use the Herschel data to perform SED fits to each pixel (Battersby et
 al, in prep).  We performed these fits at 25\arcsec resolution, excluding the
-500 \um channel, and at 36\arcsec resolution including that channel.  To
-obtain higher resolution column density maps, we used the combined
-Herschel-SHARC and Herschel-SCUBA maps assuming optically thin dust with a
-constant temperature.
+500 \um channel.  To obtain higher resolution column density maps, we used the
+combined Herschel-SHARC and Herschel-SCUBA maps assuming optically thin dust
+using both a constant temperature and the temperature measured with Herschel at
+25\arcsec resolution interpolated onto the higher-resolution SCUBA and SHARC
+grids.  Because of the interpolation or fixed temperature assumptions, the
+column maps are not very accurate and should not be used for systematic
+statistical analysis of the column distribution.
 
 
 
@@ -217,8 +220,8 @@ were to assume that these are all cold, dusty sources, as is typically (and
 reasonably) assumed for local clouds, they would be extremely massive and
 dense, with the lowest measurable density being $n(40\mathrm{K}) > 3\ee{6}$
 \percc (corresponding to 7 \msun in a 0.5\arcsec radius sphere).  Such extreme
-objects are possible, but since we have detected $>100$ of these sources, it
-makes sense to evaluate other possibilities.
+objects are possible, but since we have detected $>100$ of these sources, we
+evaluate other possibilities.
 
 
 \subsubsection{Alternative 1: The sources are externally ionized gas blobs}
