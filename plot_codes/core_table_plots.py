@@ -110,7 +110,7 @@ sigma_R = ((cont_tbl['bgmad_100GHz'] / cont_tbl['peak_100GHz'])**2 +
           )**0.5 * fluxratio
 spindx_err = sigma_R / fluxratio / np.log(100./90.)
 
-significant_mask = np.abs(spindx) - 3*spindx_err > 0
+significant_mask = (np.abs(spindx) - 3*spindx_err > 0) | (spindx_err < 0.1)
 
 #pl.errorbar(cont_tbl['peak_90GHz'], cont_tbl['peak_100GHz'],
 #            xerr=cont_tbl['bgmad_90GHz'], yerr=cont_tbl['bgmad_100GHz'],
@@ -131,6 +131,8 @@ ax3.errorbar(cont_tbl['peak_90GHz'][~significant_mask],
              alpha=0.25,
              color='b')
 ax3.set_ylim(-4,4)
+ax3.set_xlabel("90 GHz peak $S_\\nu$")
+ax3.set_ylabel("90-100 GHz Spectral Index")
 
 
 
@@ -206,9 +208,17 @@ pl.savefig(paths.fpath("core_peak_withalphameasurements_coloredbyclass.png"), bb
 
 # Separate figure just shows that the calculated-by-hand version doesn't match
 # the measured version (or at least, didn't)
-#pl.plot(cont_tbl['alpha'][alphaok_mask & significant_mask],
-#        spindx[alphaok_mask & significant_mask],
-#        '.')
+pl.figure(7).clf()
+pl.plot(cont_tbl['alpha'],
+        spindx,
+        'r.', markersize=2)
+pl.plot(cont_tbl['alpha'][alphaok_mask & significant_mask],
+        spindx[alphaok_mask & significant_mask],
+        'ko', alpha=0.5)
+pl.plot([-2,4],[-2,4], 'k--')
+pl.xlabel("CASA Alpha")
+pl.ylabel("90-100 GHz spectral index")
+pl.axis([-2,4,-2,4])
 
 pl.draw()
 pl.show()

@@ -120,3 +120,66 @@ exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.p
 exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
 exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
+
+
+
+
+
+
+
+selfcal5vis = 'selfcal_SgrB2_TCTE7m_full_selfcal_iter5_ampphase.ms'
+
+outname = 'SgrB2_selfcal_full_TETC7m_selfcal5_ampphase_continuum_90GHz_multiscale'
+os.system('rm -rf ' + outname + "*")
+myimagebase = outname
+tclean(vis=selfcal5vis,
+       imagename=myimagebase,
+       field='SgrB2',
+       gridder='mosaic',
+       spw=spw90,
+       phasecenter=phasecenter,
+       specmode="mfs",
+       niter=100000,
+       threshold="5.0mJy",
+       deconvolver="multiscale",
+       scales=[0,4,12,36],
+       interactive=False,
+       imsize=imsize,
+       cell="0.125arcsec",
+       outframe='LSRK',
+       weighting="briggs",
+       robust=0.5,
+       savemodel='none')
+impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
+exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image
+
+
+outname = 'SgrB2_selfcal_full_TETC7m_selfcal5_ampphase_continuum_100GHz_multiscale'
+os.system('rm -rf ' + outname + "*")
+myimagebase = outname
+tclean(vis=selfcal5vis,
+       imagename=myimagebase,
+       field='SgrB2',
+       gridder='mosaic',
+       spw=spw100,
+       phasecenter=phasecenter,
+       specmode="mfs",
+       niter=100000,
+       threshold="5.0mJy",
+       deconvolver="multiscale",
+       scales=[0,4,12,36],
+       interactive=False,
+       imsize=imsize,
+       cell="0.125arcsec",
+       outframe='LSRK',
+       weighting="briggs",
+       robust=0.5,
+       savemodel='none')
+impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True) # perform PBcorr
+exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', dropdeg=True, overwrite=True) # export the corrected image
+exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.model', fitsimage=myimagebase+'.model.fits', dropdeg=True, overwrite=True) # export the PB image
+exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', dropdeg=True, overwrite=True) # export the PB image

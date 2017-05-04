@@ -6,6 +6,7 @@ from astropy import coordinates
 from astropy import units as u
 from astropy import wcs
 import pylab as pl
+from visualization import make_scalebar, hide_labels
 
 pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 75.
@@ -34,35 +35,6 @@ orion_center = coordinates.SkyCoord(83.82187403*u.deg, -5.387010177*u.deg, frame
 orion_cutout = Cutout2D(fh_o[0].data.squeeze(), orion_center,
                         12*u.arcsec*d_sgr/d_ori,
                         wcs=wcs.WCS(fh_o[0].header).celestial)
-
-def hide_labels(ax):
-    lon = ax.coords['RA']
-    lat = ax.coords['Dec']
-
-    lon.set_ticks_visible(False)
-    lon.set_ticklabel_visible(False)
-    lat.set_ticks_visible(False)
-    lat.set_ticklabel_visible(False)
-    lon.set_axislabel('')
-    lat.set_axislabel('')
-
-def make_scalebar(ax, left_side, length, color='w', linestyle='-', label='',
-                  fontsize=12, text_offset=0.1*u.arcsec):
-    ax.plot(u.Quantity([left_side.ra, left_side.ra-length]),
-            u.Quantity([left_side.dec]*2),
-            color=color, linestyle=linestyle, marker=None,
-            transform=ax.get_transform('fk5'),
-           )
-    ax.text((left_side.ra-length/2).to(u.deg).value,
-            (left_side.dec+text_offset).to(u.deg).value,
-            label,
-            verticalalignment='bottom',
-            horizontalalignment='center',
-            transform=ax.get_transform('fk5'),
-            color=color,
-            fontsize=fontsize,
-           )
-
 
 fig = pl.figure(1)
 fig.clf()

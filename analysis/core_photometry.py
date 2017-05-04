@@ -91,11 +91,13 @@ if __name__ == "__main__":
     results = photometry(data, mywcs, regs, beam, alphamap=alphamap,
                          alphaerrmap=alphaerrmap)
 
-    fn_90GHz = paths.tmpath('SgrB2_nocal_TE_continuum_90GHz.image.pbcor.fits')
+    #fn_90GHz = paths.tmpath('SgrB2_nocal_TE_continuum_90GHz.image.pbcor.fits')
+    fn_90GHz = paths.mergepath('continuum/SgrB2_selfcal_full_TETC7m_selfcal5_ampphase_continuum_90GHz.image.pbcor.fits')
     results_90GHz = photometry(fits.getdata(fn_90GHz),
                                wcs.WCS(fits.getheader(fn_90GHz)), regs,
                                radio_beam.Beam.from_fits_header(fits.getheader(fn_90GHz)))
-    fn_100GHz = paths.tmpath('SgrB2_nocal_TE_continuum_100GHz.image.pbcor.fits')
+    #fn_100GHz = paths.tmpath('SgrB2_nocal_TE_continuum_100GHz.image.pbcor.fits')
+    fn_100GHz = paths.mergepath('continuum/SgrB2_selfcal_full_TETC7m_selfcal5_ampphase_continuum_100GHz.image.pbcor.fits')
     results_100GHz = photometry(fits.getdata(fn_100GHz),
                                 wcs.WCS(fits.getheader(fn_100GHz)), regs,
                                 radio_beam.Beam.from_fits_header(fits.getheader(fn_100GHz)))
