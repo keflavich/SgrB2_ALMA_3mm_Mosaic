@@ -59,6 +59,7 @@ gaincal(vis=selfcal0vis, caltable='phase_0.cal', solint='int', gaintype='G',
 okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 print("Self-calibration fields: {0}".format(okfields_str))
+assert "[" not in okfields_str
 
 selfcal1vis = 'selfcal_SgrB2_TCTE7m_full_selfcal_iter1.ms'
 rmtables([selfcal1vis])
@@ -140,6 +141,7 @@ gaincal(vis=selfcal2vis, caltable='phase_2.cal', solint='int', gaintype='G', cal
 
 okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
+assert "[" not in okfields_str
 
 selfcal3vis = 'selfcal_SgrB2_TCTE7m_full_selfcal_iter3.ms'
 rmtables([selfcal3vis])
@@ -184,6 +186,7 @@ selfcal_heuristics.flag_extreme_amplitudes('ampphase_3.cal')
 # use the fields that were OK before
 #okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
 #okfields_str = ",".join(["{0}".format(x) for x in okfields])
+#assert "[" not in okfields_str
 
 selfcal4vis = 'selfcal_SgrB2_TCTE7m_full_selfcal_iter4_ampphase.ms'
 rmtables([selfcal4vis])
@@ -399,6 +402,7 @@ gaincal(vis=selfcal4vis, caltable='ampphase_4.cal', solint='int', gaintype='G',
 selfcal_heuristics.flag_extreme_amplitudes('ampphase_4.cal')
 okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('ampphase_4.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
+assert "[" not in okfields_str
 
 selfcal5vis = 'selfcal_SgrB2_TCTE7m_full_selfcal_iter5_ampphase.ms'
 rmtables([selfcal5vis])
@@ -496,6 +500,7 @@ okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('ampphase_5
                                                                      minsnr=3)
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 print("OK fields for round 5->6: {0}".format(okfields_str))
+assert "[" not in okfields_str
 
 selfcal6vis = 'selfcal_SgrB2_TCTE7m_full_selfcal_iter6_ampphase.ms'
 rmtables([selfcal6vis])
