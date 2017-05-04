@@ -15,10 +15,10 @@ velocity_res = 2.0
 nchans = int((velocity_range[1]-velocity_range[0])/velocity_res)
 
 for line, restfreq in (
+                       ('HC3N','90979.02MHz'),
+                       ('CH3CN','91971.465MHz'),
                        ('HNC','90.663574GHz'),
                        ('H41a','92034.43MHz'),
-                       ('CH3CN','91971.465MHz'),
-                       ('HC3N','90979.02MHz'),
                        ('HCOp','89.18853GHz'),
                        ('HCN','88.631847GHz'),
                        ('H2CS303-202','103040.548MHz'),
@@ -61,7 +61,7 @@ for line, restfreq in (
                concatvis=concatvis)
 
 
-    output = 'SgrB2_b3_7M_12M.{0}'.format(line)
+    output = 'SgrB2_b3_7M_12M.{0}.r0.5'.format(line)
     if not os.path.exists(output+".image.pbcor.fits"):
         #---------------------------------------------------
         # LINE IMAGING (MOSAIC MODE)
@@ -80,13 +80,13 @@ for line, restfreq in (
                veltype='radio',
                outframe='LSRK',
                interactive=F,
-               niter=200,
+               niter=2000,
+               threshold='50mJy',
                imsize=[4096,4096],
                cell='0.125arcsec',
                weighting='briggs',
                robust=0.5,
                phasecenter='J2000 17:47:19.242 -28.23.33.22',
-               threshold='15mJy',
                savemodel='none',
               )
         myimagebase = output
@@ -94,5 +94,40 @@ for line, restfreq in (
         exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True, dropdeg=True)
         exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', overwrite=True, dropdeg=True)
         exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', overwrite=True, dropdeg=True)
+
+    output = 'SgrB2_b3_7M_12M.{0}.r2'.format(line)
+    if not os.path.exists(output+".image.pbcor.fits"):
+        #---------------------------------------------------
+        # LINE IMAGING (MOSAIC MODE)
+        os.system('rm -rf ' + output + '*/')
+        print("Imaging {0}".format(output))
+        tclean(vis=concatvis,
+               imagename=output,
+               field='SgrB2', # SgrB2
+               spw='',
+               gridder='mosaic',
+               specmode='cube',
+               start='{0}km/s'.format(velocity_range[0]),
+               width='{0}km/s'.format(velocity_res), interpolation='linear',
+               nchan=nchans,
+               restfreq=restfreq,
+               veltype='radio',
+               outframe='LSRK',
+               interactive=F,
+               niter=2000,
+               threshold='0.1Jy',
+               imsize=[2048,2048],
+               cell='0.25arcsec',
+               weighting='briggs',
+               robust=2,
+               phasecenter='J2000 17:47:19.242 -28.23.33.22',
+               savemodel='none',
+              )
+        myimagebase = output
+        impbcor(imagename=myimagebase+'.image', pbimage=myimagebase+'.pb', outfile=myimagebase+'.image.pbcor', overwrite=True)
+        exportfits(imagename=myimagebase+'.image.pbcor', fitsimage=myimagebase+'.image.pbcor.fits', overwrite=True, dropdeg=True)
+        exportfits(imagename=myimagebase+'.pb', fitsimage=myimagebase+'.pb.fits', overwrite=True, dropdeg=True)
+        exportfits(imagename=myimagebase+'.residual', fitsimage=myimagebase+'.residual.fits', overwrite=True, dropdeg=True)
+
 
     print("Done with {0}".format(output))
