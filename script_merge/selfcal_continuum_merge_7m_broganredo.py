@@ -67,6 +67,7 @@ gaincal(vis=selfcal_vis, caltable='phase_0.cal', solint='int', gaintype='G',
 okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 print("Self-calibration fields: {0}".format(okfields_str))
+assert "[" not in okfields_str
 
 applycal(vis=selfcal_vis, field=okfields_str, gaintable=["phase_0.cal"],
          interp="linear", applymode='calonly', calwt=False)
@@ -103,6 +104,7 @@ gaincal(vis=selfcal_vis, caltable='phase_1.cal', solint='int', gaintype='G',
 
 okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('phase_1.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
+assert "[" not in okfields_str
 
 applycal(vis=selfcal_vis, field=okfields_str, gaintable=["phase_1.cal"],
          interp="linear", applymode='calonly', calwt=False)
@@ -139,6 +141,7 @@ gaincal(vis=selfcal_vis, caltable='phase_2.cal', solint='int', gaintype='G', cal
 
 okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('phase_2.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
+assert "[" not in okfields_str
 
 applycal(vis=selfcal_vis, field=okfields_str, gaintable=["phase_2.cal"],
          interp="linear", applymode='calonly', calwt=False)
@@ -216,6 +219,7 @@ gaincal(vis=selfcal_vis, caltable='ampphase_4.cal', solint='int', gaintype='G',
 selfcal_heuristics.flag_extreme_amplitudes('ampphase_4.cal')
 okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('ampphase_4.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
+assert "[" not in okfields_str
 
 # for this iteration, try flagging too
 applycal(vis=selfcal_vis, field=okfields_str, gaintable=["ampphase_4.cal"],
@@ -293,6 +297,7 @@ okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('ampphase_5
                                                                      minsnr=3)
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 print("OK fields for round 5->6: {0}".format(okfields_str))
+assert "[" not in okfields_str
 
 applycal(vis=selfcal_vis, field=okfields_str, gaintable=["ampphase_5.cal"],
          interp="linear", applymode='calflag', calwt=False)
