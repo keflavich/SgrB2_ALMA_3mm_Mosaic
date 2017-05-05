@@ -56,7 +56,7 @@ rmtables(['phase_0.cal'])
 gaincal(vis=selfcal0vis, caltable='phase_0.cal', solint='int', gaintype='G',
         calmode='p')
 
-okfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
+okfields,notokfields = selfcal_heuristics.goodenough_field_solutions('phase_0.cal')
 okfields_str = ",".join(["{0}".format(x) for x in okfields])
 print("Self-calibration fields: {0}".format(okfields_str))
 assert "[" not in okfields_str
