@@ -132,6 +132,8 @@ scuba_hdu.data = result.real
 scuba_hdu.writeto("scuba_Herschel_Feathered.fits", overwrite=True)
 
 
+
+
 pl.close(2)
 pl.figure(2, figsize=(18,9)).clf()
 pl.subplot(2,3,1)

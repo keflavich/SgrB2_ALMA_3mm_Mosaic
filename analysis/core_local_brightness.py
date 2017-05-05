@@ -127,6 +127,7 @@ for row in tbl:
             xcrd, ycrd = fmeta['wcs'].wcs_world2pix(coord.ra, coord.dec, 0)
 
         # TODO: convert to K
+        # (todo is no longer necessary: just use column now)
         row[imname] = (fmeta['file'].data[int(ycrd), int(xcrd)] * fmeta['bunit']).value
 
 tbl.write(paths.tpath("continuum_photometry_plusbackground.ipac"), format='ascii.ipac',

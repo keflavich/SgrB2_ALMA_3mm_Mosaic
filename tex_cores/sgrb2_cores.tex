@@ -792,15 +792,32 @@ to determine and requires concerted effort
 
 To assess the uncertainties in image combination, particularly on the
 brightness distribution \citep[e.g.][]{Ossenkopf-Okada2016a}, we have performed
-a series of experiments...
+a series of experiments combining the Herschel with the SCUBA data using
+different weights applied to the SCUBA data.  As discussed in Section
+\ref{sec:observations}, we empirically determined the scale factor required for
+the best match between SCUBA and Herschel data was $3\times$, which is
+shockingly large but justifiable.  In the experiment shown in Figure
+\ref{fig:feathercompare}, we show the images and resulting histograms when we
+combine the Herschel data with the SCUBA data scaled by a range of factors from
+$0.5\times$ to $10\times$.  The changes to the high end of the histogram are
+dramatic, but the middle region containing most of the pixels (and most
+relevant to the discussion of thresholds in the paper) is hardly affected.
+Additionally, we show the cumulative distribution function of core background
+surface brightnesses (as in Figure \ref{fig:corebackgroundcdf}), showing again
+that only the high end is affected. 
 
-\begin{itemize}
-    \item EXPERIMENT 1: "SHARC" data with beam overestimated (real = 9, used = 12)
-    \item EXPERIMENT 2: "SHARC" data with 50\% flux calibration error
-    \item EXPERIMENT 3: "SCUBA" data with 50\% flux calibration error (extrapolation)
-\end{itemize}
-
-...With those experimental results in hand, we combined the SHARC and SCUBA
-images with their Herschel counterparts.
+\Figure{figures/scuba_feather_scalefactor_comparison.pdf}
+{A demonstration of the effects of using different calibration factors when
+combining the SCUBA data with the Herschel data using the `feather' process.
+The numbers above each panel show the scale factor applied to the SCUBA data
+before fourier-combining it with the Herschel data.  The factor of 3 was used
+in this paper and shows the most reasonable balance between the high-resolution
+of the SCUBA data and the all-positive Herschel data.  In the lower panels, the
+fiducial scale factor of 3 is shown in black in all panels.  The solid lines
+show histograms of the images displayed in the top panels.  The dashed lines
+show the cumulative distribution of the background surface brightnesses of the
+point sources in this sample; they are similar to the distributions shown in
+Figure \ref{fig:corebackgroundcdf}.}
+{fig:feathercompare}{1}{\textwidth}
 
 \end{document}
