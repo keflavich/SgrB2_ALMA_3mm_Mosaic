@@ -75,6 +75,11 @@ over20mean = (x*y).sum()/y.sum()
 over20fraction = (kroupa.m_integrate(hii_cutoff, mmax)[0] /
                   kroupa.m_integrate(kroupa.mmin, mmax)[0])
 
+tbl = Table(names=['Name', '$N(cores)$', '$N(H\mathsc{ii})$', '$M_{obs}$',
+                   '$M_{inferred}$', '$M_{inferred, H\mathsc{ii}}$',
+                   '$M_{inferred, cores}$'],
+            dtype=['S10', int, int, float, float, float, float])
+
 for reg in clusters:
     mask = reg.contains(core_coords)
     nhii = (hii & mask).sum()
@@ -94,6 +99,9 @@ for reg in clusters:
           " core-inferred mass={6:10.2f}"
           .format(reg.meta['text'].strip("{}"), ncores, nhii, mass,
                   inferred_mass, hii_only_inferred_mass, core_inferred_mass))
+    tbl.add_row([reg.meta['text'].strip("{}"), ncores, nhii, mass,
+                 inferred_mass, hii_only_inferred_mass, core_inferred_mass])
+
 
 """
 Result as of 3/24/2017:

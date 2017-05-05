@@ -203,3 +203,6 @@ for spwnum in spwlist:
                            'mask', 'image'):
                 os.system('rm -rf {0}.{1}'.format(myimagebase, suffix))
         print("Completed {0}".format(output))
+
+print("Apparently completed imaging spws {0}".format(spwlist))
+print("Local variables: {0}".format(locals()))
