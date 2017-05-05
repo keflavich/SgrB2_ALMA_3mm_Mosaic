@@ -3,5 +3,5 @@ global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=
 fk5
 circle(266.8340386,-28.38463507,12.133") # text={M}
 circle(266.8327701,-28.3718423,9.707") # text={N}
-circle(17:47:22.361,-28:21:31.94, 23.529") # text={NE}
+circle(17:47:22.361,-28:21:31.94, 26.529") # text={NE}
 circle(266.8351152,-28.39590618,8.493") # text={S}
