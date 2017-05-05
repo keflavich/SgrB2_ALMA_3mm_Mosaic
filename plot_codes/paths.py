@@ -46,3 +46,6 @@ def fpath(x):
 
 def cpath(x):
     return os.path.join(contpath, x)
+
+def texpath(x):
+    return os.path.join(root, 'tex_cores', x)

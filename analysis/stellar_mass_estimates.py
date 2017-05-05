@@ -5,6 +5,7 @@ from astropy.table import Table
 from astropy import coordinates
 from astropy import units as u
 import regions
+import latex_info
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"),
                            format='ascii.ipac')
@@ -78,7 +79,7 @@ over20fraction = (kroupa.m_integrate(hii_cutoff, mmax)[0] /
 tbl = Table(names=['Name', '$N(cores)$', '$N(H\mathsc{ii})$', '$M_{obs}$',
                    '$M_{inferred}$', '$M_{inferred, H\mathsc{ii}}$',
                    '$M_{inferred, cores}$'],
-            dtype=['S10', int, int, float, float, float, float])
+            dtype=['S10', int, int, int, int, int, int])
 
 for reg in clusters:
     mask = reg.contains(core_coords)
@@ -99,9 +100,19 @@ for reg in clusters:
           " core-inferred mass={6:10.2f}"
           .format(reg.meta['text'].strip("{}"), ncores, nhii, mass,
                   inferred_mass, hii_only_inferred_mass, core_inferred_mass))
-    tbl.add_row([reg.meta['text'].strip("{}"), ncores, nhii, mass,
-                 inferred_mass, hii_only_inferred_mass, core_inferred_mass])
+    tbl.add_row([reg.meta['text'].strip("{}"),
+                 ncores,
+                 nhii,
+                 latex_info.round_to_n(mass,2),
+                 latex_info.round_to_n(inferred_mass, 2),
+                 latex_info.round_to_n(hii_only_inferred_mass, 2),
+                 latex_info.round_to_n(core_inferred_mass, 2)
+                ])
 
+latexdict = latex_info.latexdict.copy()
+latexdict['header_start'] = '\label{tab:clustermassestimates}'
+tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
+          latexdict=latexdict, overwrite=True)
 
 """
 Result as of 3/24/2017:
