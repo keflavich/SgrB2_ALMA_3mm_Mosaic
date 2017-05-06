@@ -1,7 +1,7 @@
 # Region file format: DS9 version 4.1
 global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 fk5
-circle(266.8340386,-28.38463507,12.133") # text={M}
-circle(266.8327701,-28.3718423,9.707") # text={N}
-circle(17:47:22.361,-28:21:31.94, 26.529") # text={NE}
-circle(266.8351152,-28.39590618,8.493") # text={S}
+circle(266.8339833333334, -28.38512777777778, 0.003410463066263493) # text={M}
+circle(266.83296666666666, -28.37173611111111, 0.0027283704530041805) # text={N}
+circle(266.8461625, -28.365322222222222, 0.005456740892899896) # text={NE}
+circle(266.83527083333337, -28.395902777777778, 0.0023873241463778314) # text={S}

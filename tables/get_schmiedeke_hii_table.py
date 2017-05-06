@@ -38,7 +38,7 @@ tbl.write(paths.tpath("Schmiedeke2016_HIIregions_tableB1.txt"),
 
 reglist = [regions.CircleSkyRegion(coordinates.SkyCoord(row['RA'], row['Dec'], frame='fk5', unit=(u.hour, u.deg)),
                                    radius=(u.Quantity(float(row['robs'])*1000, u.au) / (8.5*u.kpc)).to(u.arcsec, u.dimensionless_angles()),
-                                   meta={'name': row['ID']},
+                                   meta={'text': row['ID']},
                                    visual={'name': row['ID']},
                                   )
            for row in tbl

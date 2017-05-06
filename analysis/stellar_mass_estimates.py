@@ -51,19 +51,28 @@ hii_regions = regions.read_ds9(paths.rpath('SgrB2_1.3cm_hiiRegions_masked_Done.r
 hii_regions = Table.read(paths.tpath("Schmiedeke2016_HIIregions_tableB1.txt"), format='ascii.fixed_width')
 schmiedeke_summary_table = Table.read(paths.tpath("Schmiedeke2016_HIIregions_table2.txt"), format='ascii.fixed_width')
 
+def obj_in_tbl(objname):
+    for name in core_phot_tbl['name']:
+        if str(objname).lower() in str(name).lower():
+            return True
+    return False
+
+
 for row in hii_regions:
     #if 'text' not in reg.meta:
     #    continue
     #nm = reg.meta['text'].strip("{}")
     nm = row['ID']
     coord = coordinates.SkyCoord(row['RA'], row['Dec'], frame='fk5', unit=(u.hour, u.deg))
-    if nm not in core_phot_tbl['name']:
+    if not obj_in_tbl(nm):
         core_phot_tbl.add_row({'name': nm, 'SIMBAD_OTYPE':'HII',
                                'RA': coord.ra,
                                'Dec': coord.dec,
                                #'RA': reg.center.ra[0],
                                #'Dec': reg.center.dec[0]
                               })
+    else:
+        print('{0} found in table'.format(nm))
 hii = core_phot_tbl['SIMBAD_OTYPE'] == 'HII'
 core_coords = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
                                    frame='fk5')
