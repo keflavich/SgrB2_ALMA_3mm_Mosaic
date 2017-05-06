@@ -45,6 +45,7 @@ clusters = regions.read_ds9(paths.rpath('schmiedeke_clusters.reg'))
 # are already in the table, since we didn't count the larger HII regions
 hii_regions = regions.read_ds9(paths.rpath('SgrB2_1.3cm_hiiRegions_masked_Done.reg'))
 hii_regions = Table.read(paths.tpath("Schmiedeke2016_HIIregions_tableB1.txt"), format='ascii.fixed_width')
+schmiedeke_summary_table = Table.read(paths.tpath("Schmiedeke2016_HIIregions_table2.txt"), format='ascii.fixed_width')
 
 for row in hii_regions:
     #if 'text' not in reg.meta:
@@ -76,10 +77,10 @@ over20mean = (x*y).sum()/y.sum()
 over20fraction = (kroupa.m_integrate(hii_cutoff, mmax)[0] /
                   kroupa.m_integrate(kroupa.mmin, mmax)[0])
 
-tbl = Table(names=['Name', '$N(cores)$', '$N(H\mathsc{ii})$', '$M_{obs}$',
-                   '$M_{inferred}$', '$M_{inferred, H\mathsc{ii}}$',
-                   '$M_{inferred, cores}$'],
-            dtype=['S10', int, int, int, int, int, int])
+tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{obs}$',
+                   '$M_{inferred}$', '$M_{inferred, H\\textsc{ii}}$',
+                   '$M_{inferred, cores}$', '$M_{obs}^s$', '$M_{inf}^s$'],
+            dtype=['S10', int, int, int, int, int, int, int, int])
 
 for reg in clusters:
     mask = reg.contains(core_coords)
@@ -95,18 +96,22 @@ for reg in clusters:
                      hii_only_inferred_mass) / 2.
 
 
+    name = reg.meta['text'].strip("{}")
     print("Cluster {0:4s}: N(cores)={1:3d} N(HII)={2:3d} counted mass={3:10.2f}"
           " inferred mass={4:10.2f} HII-only inferred mass: {5:10.2f}"
           " core-inferred mass={6:10.2f}"
-          .format(reg.meta['text'].strip("{}"), ncores, nhii, mass,
+          .format(name, ncores, nhii, mass,
                   inferred_mass, hii_only_inferred_mass, core_inferred_mass))
-    tbl.add_row([reg.meta['text'].strip("{}"),
+    sst_mask = schmiedeke_summary_table['Name'] == 'Sgr B2({0})'.format(name)
+    tbl.add_row([name,
                  ncores,
                  nhii,
                  latex_info.round_to_n(mass,2),
                  latex_info.round_to_n(inferred_mass, 2),
                  latex_info.round_to_n(hii_only_inferred_mass, 2),
-                 latex_info.round_to_n(core_inferred_mass, 2)
+                 latex_info.round_to_n(core_inferred_mass, 2),
+                 schmiedeke_summary_table[sst_mask]['M∗ initial'],
+                 schmiedeke_summary_table[sst_mask]['M∗ all']*1e3,
                 ])
 
 latexdict = latex_info.latexdict.copy()
