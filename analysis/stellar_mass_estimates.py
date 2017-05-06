@@ -40,6 +40,10 @@ print("Total Mass estimate if Mbar={1} = {0}".format(nsources*over8mean/over8fra
 
 # Comparison to Schmiedeke et al, 2016 tbl 2
 clusters = regions.read_ds9(paths.rpath('schmiedeke_clusters.reg'))
+clusters.append(regions.CircleSkyRegion(clusters[0].center,
+                                        radius=1*u.deg,
+                                        meta={'text':'Total'})
+               )
 
 # add in DePree HII regions based on whether or not their names
 # are already in the table, since we didn't count the larger HII regions
@@ -102,7 +106,10 @@ for reg in clusters:
           " core-inferred mass={6:10.2f}"
           .format(name, ncores, nhii, mass,
                   inferred_mass, hii_only_inferred_mass, core_inferred_mass))
-    sst_mask = schmiedeke_summary_table['Name'] == 'Sgr B2({0})'.format(name)
+    if name == 'Total':
+        sst_mask = [-1]
+    else:
+        sst_mask = schmiedeke_summary_table['Name'] == 'Sgr B2({0})'.format(name)
     tbl.add_row([name,
                  ncores,
                  nhii,
@@ -113,6 +120,9 @@ for reg in clusters:
                  schmiedeke_summary_table[sst_mask]['M∗ initial'],
                  schmiedeke_summary_table[sst_mask]['M∗ all']*1e3,
                 ])
+
+
+
 
 latexdict = latex_info.latexdict.copy()
 latexdict['header_start'] = '\label{tab:clustermassestimates}'
