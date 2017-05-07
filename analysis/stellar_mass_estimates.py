@@ -95,6 +95,8 @@ tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{obs}$',
                    '$M_{inferred, cores}$', '$M_{obs}^s$', '$M_{inf}^s$'],
             dtype=['S10', int, int, int, int, int, int, int, int])
 
+print("Mass fraction M>20 = {0}".format(over20fraction))
+print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
 for reg in clusters:
     mask = reg.contains(core_coords)
     nhii = (hii & mask).sum()
