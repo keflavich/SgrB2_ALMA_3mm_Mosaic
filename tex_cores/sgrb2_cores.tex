@@ -1,4 +1,4 @@
-\documentclass{emulateapj}
+\documentclass[twocolumn]{aastex61}
 \input{preface}
 \newcommand{\ncores}{138\xspace}
 \newcommand{\dsgrb}{7.8 kpc\xspace}
@@ -18,9 +18,9 @@ event, not just an isolated `starburst' within the protocluster regions M, N,
 and S.
 \end{abstract}
 
-\ifpdf
-\maketitle
-\fi
+%\ifpdf
+%\maketitle
+%\fi
 
 \section{Introduction}
 The Central Molecular Zone (CMZ) of our Galaxy appears to be overall deficient
@@ -776,6 +776,11 @@ contains fewer total sources, but these sources trace the edge of an expanding
 bubble previously noted by \citet{de-Vicente1997a}.  The coincidence of star
 forming cores along the edge of a bubble again suggests some sort of
 compressional triggering.
+
+\software{
+The software used to make this version of the paper is available from github at
+\url{https://github.com/keflavich/W51_ALMA_2013.1.00308.S} with hash \githash
+(\gitdate).}
 
 \input{solobib}
 
