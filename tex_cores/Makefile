@@ -9,7 +9,7 @@ BIBTEX=bibtex
 DVIPS=dvips
 PS2PDF=ps2pdf
 
-all: sgrb2_cores
+all: gitstuff.tex sgrb2_cores
 
 .PHONY: sgrb2_cores
 sgrb2_cores: 
