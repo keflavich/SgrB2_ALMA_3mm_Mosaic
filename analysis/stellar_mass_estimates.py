@@ -137,6 +137,7 @@ for reg in clusters:
 
 latexdict = latex_info.latexdict.copy()
 latexdict['header_start'] = '\label{tab:clustermassestimates}'
+latexdict['caption'] = 'Cluster Masses'
 tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
           latexdict=latexdict, overwrite=True)
 
