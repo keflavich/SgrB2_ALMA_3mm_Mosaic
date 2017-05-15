@@ -59,6 +59,7 @@ fstep = {0:250., # kHz
         }
 nchans_total = {ii: int(np.abs(np.diff(frange[ii])/fstep[ii]*1000.)[0])
                 for ii in frange}
+print("nchans_total: {0}".format(nchans_total))
 
 ncubes_per_window = 100
 
@@ -139,7 +140,7 @@ for spwnum in spwlist:
 
     print "# running clean on all lines in spw{0}".format(spwnum)
     nchans_total_thiscube = nchans_total[spwnum]
-    nchans_per_cube = int(nchans_total_thiscube/ncubes_per_window)
+    nchans_per_cube = int(np.ceil(nchans_total_thiscube/ncubes_per_window))
     for ii in range(ncubes_per_window):
         # include a 1-pixel buffer
         start = nchans_per_cube*ii -1
@@ -205,4 +206,4 @@ for spwnum in spwlist:
         print("Completed {0}".format(output))
 
 print("Apparently completed imaging spws {0}".format(spwlist))
-print("Local variables: {0}".format(locals()))
+#print("Local variables: {0}".format(locals()))

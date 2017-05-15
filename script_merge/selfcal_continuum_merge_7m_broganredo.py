@@ -367,6 +367,7 @@ for robust in (2,1,0,):
            savemodel='none')
     makefits(myimagebase)
 
+for robust in (2,1,0,):
     # Do some tapering to see if we can recover any larger angular scales
     outname = 'SgrB2_selfcal_full_TCTE7m_try2_selfcal6_ampphase_taper1.5as_r{0}'.format(robust)
     os.system('rm -rf ' + outname + "*")
@@ -379,7 +380,7 @@ for robust in (2,1,0,):
            phasecenter=phasecenter,
            specmode="mfs",
            niter=100000,
-           threshold="4.0mJy",
+           threshold="10.0mJy",
            interactive=False,
            imsize=[1800,1800],
            deconvolver="mtmfs",
