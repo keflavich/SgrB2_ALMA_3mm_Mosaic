@@ -9,15 +9,16 @@ assert matplotlib.get_backend() == 'Qt5Agg'
 
 pl.matplotlib.rc_file('pubfiguresrc')
 
+textsize = 14
 pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 75.
 pl.rcParams['savefig.dpi'] = 300.
-pl.rcParams['axes.labelsize'] = 12
-pl.rcParams['xtick.labelsize'] = 12
-pl.rcParams['ytick.labelsize'] = 12
+pl.rcParams['axes.labelsize'] = textsize
+pl.rcParams['xtick.labelsize'] = textsize
+pl.rcParams['ytick.labelsize'] = textsize
 if matplotlib.__version__[0] == '1':
     markersize = 10
-    tick_fontsize = 12
+    tick_fontsize = textsize
 elif matplotlib.__version__[0] == '2':
     markersize = 0.5
     tick_fontsize = 6
@@ -45,12 +46,12 @@ im = ax.imshow(scubafh.data, vmin=5e22, vmax=5e24,
                origin='lower',
                )
 cb = fig.colorbar(im)
-cb.ax.tick_params(labelsize=12)
+cb.ax.tick_params(labelsize=textsize)
 
-ax.contour(hc3ndata, colors=['orange']*5,
-           levels=[3,6,9,12,15,18],
+ax.contour(hc3ndata, colors=['red']*7,
+           levels=[3,7,11,15,19,23],
            linewidths=1,
-           alpha=0.5, transform=ax.get_transform(hc3nwcs))
+           alpha=0.8, transform=ax.get_transform(hc3nwcs))
 ax.axis([195,340,180,320])
 
 ra = ax.coords['ra']

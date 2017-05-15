@@ -759,6 +759,7 @@ that shows no signs of ongoing star formation.}
 {fig:coldistributionwithoutstarformation}{1}{0.5\textwidth}
 
 \subsection{What drives star formation in the greater Sgr B2 complex?}
+\label{sec:whatdrives}
 We have shown that, in addition to the known forming massive clusters,
 star formation is ongoing in an extended and elongated region to the north
 and south.  Excluding the clusters, most of the newly discovered sources
@@ -783,6 +784,28 @@ compressional triggering.
 However, while both of these regions show circumstantial, morphological evidence
 for a compressional event, there are other regions within our map that show
 the same general morphology in the gas, yet exhibit no star formation.
+
+The morphological features can be seen in Figure \ref{fig:hc3nonscuba}.  The
+molecular gas, as traced by HC$_3$N in this case, outlines bubble edges in all
+directions from Sgr B2 M.  The eastern edge shows the clearest bubble in this
+image, with the HC$_3$N outlining a cavity in the column density map.  The edge
+of this eastern bubble has a lower average column density than either the
+northern Sgr B2 NE or the Sgr B2 DS regions, and it shows no signs of ongoing
+star formation.  By contrast, the bubble edges in the Sgr B2 NE and the ridge
+Sgr B2 W both contain some protostars, and the Sgr B2 DS ridge has the most.
+
+% contour_overlays.py
+\FigureOneCol{figures/HC3N_contours_on_SCUBA_column.png}
+{ALMA HC$_3$N peak intensity contours (orange) overlaid on the derived SCUBA column density
+image using Herschel Hi-Gal interpolated temperatures. The HC$_3$N was
+shown in grayscale in Figure \ref{fig:coresonhc3n}.
+Contours are at levels [3,7,11,15,19,23] K.  The  HC$_3$N bubble edges can be
+seen surrounding cavities in the SCUBA column density map on the east side of
+the main ridge.  To the north, the HC$_3$N also traces bubbles, but these are
+less evident in this velocity-integrated view.  The important feature discussed
+in Section \ref{sec:whatdrives} is the differing column density around each of
+the bubbles.}
+{fig:hc3nonscuba}{1}{0.5\textwidth}
 
 \software{
 The software used to make this version of the paper is available from github at
@@ -855,5 +878,27 @@ show the cumulative distribution of the background surface brightnesses of the
 point sources in this sample; they are similar to the distributions shown in
 Figure \ref{fig:corebackgroundcdf}.}
 {fig:feathercompare}{1}{\textwidth}
+
+\section{Self-calibration}
+We demonstrate the impact of self-calibration in this section.  The adopted approach
+used three iterations of phase-only self-calibration followed by two iterations of
+phase and amplitude self-calibration.  Each iteration involved slightly
+different imaging parameters.  The final, deepest clean used a threshold mask
+on the previous shallower clean. The script used to produce the final images is
+available at
+\url{https://github.com/keflavich/SgrB2_ALMA_3mm_Mosaic/blob/\githash/script_merge/selfcal_continuum_merge_7m.py}.
+The effects are shown with a cutout centered on the most affected region around
+Sgr B2 M in Figure \ref{fig:selfcalprogression}.
+
+% selfcal_progression
+\Figure{figures/selfcal_progression_TCTE7m_SgrB2M.pdf}
+{Progression of the self-calibration iterations.  The images show, from left to
+right, the initial image, one, two, and three iterations of phase-only self
+calibration, one iteration of phase and amplitude self-calibration, one
+iteration of phase and amplitude self-calibration using two Taylor terms and
+multiscale clean for the imaging, and finally, a reimaging of the last
+iteration with a deeper 0.1 mJy threshold using a mask at the 2.5 mJy level.
+The second row shows the corresponding residual images.}
+{fig:selfcalprogression}{1}{\textwidth}
 
 \end{document}
