@@ -140,8 +140,8 @@ for spwnum in spwlist:
 
     print "# running clean on all lines in spw{0}".format(spwnum)
     nchans_total_thiscube = nchans_total[spwnum]
-    nchans_per_cube = int(np.ceil(nchans_total_thiscube/ncubes_per_window))
-    extra = 1 if nchans_per_cube > int(np.floor(nchans_total_thiscube/ncubes_per_window)) else 0
+    nchans_per_cube = int(np.ceil(nchans_total_thiscube/float(ncubes_per_window)))
+    extra = 1 if nchans_per_cube > int(np.floor(nchans_total_thiscube/float(ncubes_per_window))) else 0
     for ii in range(ncubes_per_window + extra):
         # include a 1-pixel buffer
         start = nchans_per_cube*ii -1
