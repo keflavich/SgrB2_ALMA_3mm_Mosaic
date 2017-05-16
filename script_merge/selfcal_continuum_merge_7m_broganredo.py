@@ -380,7 +380,7 @@ for robust in (2,1,0,):
            phasecenter=phasecenter,
            specmode="mfs",
            niter=100000,
-           threshold="10.0mJy",
+           threshold="15.0mJy",
            interactive=False,
            imsize=[1800,1800],
            deconvolver="mtmfs",
@@ -391,6 +391,41 @@ for robust in (2,1,0,):
            weighting="briggs",
            robust=robust,
            uvtaper='1.5arcsec',
+           savemodel='none')
+    makefits(myimagebase)
+
+    cleanimage = myimagebase+".image.tt0"
+    ia.open(cleanimage)
+    ia.calcmask(mask=cleanimage+" > 0.005", name='clean_mask_taper_5mJy')
+    ia.close()
+    makemask(mode='copy', inpimage=cleanimage,
+             inpmask=cleanimage+":clean_mask_taper_5mJy", output='clean_taper_5mJy.mask',
+             overwrite=True)
+    exportfits('clean_taper_5mJy.mask', 'clean_taper_5mJy.mask.fits', dropdeg=True, overwrite=True)
+
+    outname = 'SgrB2_selfcal_full_TCTE7m_try2_selfcal6_ampphase_taper1.5as_r{0}_mask5mJy'.format(robust)
+    os.system('rm -rf ' + outname + "*")
+    myimagebase = outname
+    tclean(vis=selfcal_vis,
+           imagename=myimagebase,
+           field='SgrB2',
+           gridder='mosaic',
+           spw="",
+           phasecenter=phasecenter,
+           specmode="mfs",
+           niter=100000,
+           threshold="2.5mJy",
+           interactive=False,
+           imsize=[1800,1800],
+           deconvolver="mtmfs",
+           scales=[0,4,12,36],
+           nterms=2,
+           cell="0.3arcsec",
+           outframe='LSRK',
+           weighting="briggs",
+           robust=robust,
+           uvtaper='1.5arcsec',
+           mask='clean_taper_5mJy.mask',
            savemodel='none')
     makefits(myimagebase)
 
