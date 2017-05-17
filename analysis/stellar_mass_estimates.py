@@ -49,6 +49,7 @@ clusters.append(regions.CircleSkyRegion(clusters[0].center,
 # are already in the table, since we didn't count the larger HII regions
 hii_regions = regions.read_ds9(paths.rpath('SgrB2_1.3cm_hiiRegions_masked_Done.reg'))
 hii_regions = Table.read(paths.tpath("Schmiedeke2016_HIIregions_tableB1.txt"), format='ascii.fixed_width')
+schmiedeke_dust_regions = Table.read(paths.tpath("Schmiedeke2016_dustsources_tableB2.txt"), format='ascii.fixed_width')
 schmiedeke_summary_table = Table.read(paths.tpath("Schmiedeke2016_HIIregions_table2.txt"), format='ascii.fixed_width')
 
 def obj_in_tbl(objname):
@@ -95,6 +96,10 @@ tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{obs}$',
                    '$M_{inferred, cores}$', '$M_{obs}^s$', '$M_{inf}^s$'],
             dtype=['S10', int, int, int, int, int, int, int, int])
 
+for col in tbl.colnames:
+    if 'M' in col:
+        tbl[col].unit = u.Msun
+
 print("Mass fraction M>20 = {0}".format(over20fraction))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
 for reg in clusters:
@@ -124,12 +129,12 @@ for reg in clusters:
     tbl.add_row([name,
                  ncores,
                  nhii,
-                 latex_info.round_to_n(mass,2),
-                 latex_info.round_to_n(inferred_mass, 2),
-                 latex_info.round_to_n(hii_only_inferred_mass, 2),
-                 latex_info.round_to_n(core_inferred_mass, 2),
-                 schmiedeke_summary_table[sst_mask]['M∗ initial'],
-                 schmiedeke_summary_table[sst_mask]['M∗ all']*1e3,
+                 latex_info.round_to_n(mass,2)*u.M_sun,
+                 latex_info.round_to_n(inferred_mass, 2)*u.M_sun,
+                 latex_info.round_to_n(hii_only_inferred_mass, 2)*u.M_sun,
+                 latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
+                 schmiedeke_summary_table[sst_mask]['M∗ initial']*u.M_sun,
+                 schmiedeke_summary_table[sst_mask]['M∗ all']*1e3*u.M_sun,
                 ])
 
 
