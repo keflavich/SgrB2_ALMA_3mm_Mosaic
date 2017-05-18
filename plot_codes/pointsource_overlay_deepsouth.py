@@ -21,10 +21,11 @@ if int(matplotlib.__version__[0]) >= 2:
     pl.rcParams['ytick.labelsize'] = 6
     pl.rcParams['axes.linewidth'] = 0.15
     tick_fontsize = 6
-    markersize = 2
+    markersize = 3
 else:
+    pl.rcParams['savefig.dpi'] = 300.
     tick_fontsize = 10
-    markersize = 5
+    markersize = 8
 
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
@@ -40,7 +41,7 @@ vmax_lo['continuum'] = 0.0025*1e3
 vmin_lo = defaultdict(lambda: -0.001*1e3)
 vmin_lo['continuum'] = -0.0002*1e3
 
-for line in ("continuum",):#"HC3N","HCN","HNC","HCOp"):
+for line in ("continuum","HC3N","HCN","HNC","HCOp"):
     if line == 'continuum':
         hdu_line = fits.open(paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits'))[0]
     else:
