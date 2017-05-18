@@ -69,7 +69,8 @@ formats = {'Coordinates': lambda x: x.to_string('hmsdms', sep=":"),
 latexdict['caption'] = 'Continuum Source IDs and photometry'
 latexdict['header_start'] = '\label{tab:photometry}\n\\footnotesize'
 latexdict['col_align'] = 'l'*len(cont_tbl.columns)
-latexdict['tabletype'] = 'deluxetable'
+latexdict['tabletype'] = 'table'
 
-cont_tbl.write(paths.texpath("continuum_photometry.tex"), formats=formats, overwrite=True,
+cont_tbl.sort('$M(20 K)$')
+cont_tbl[:35].write(paths.texpath("continuum_photometry.tex"), formats=formats, overwrite=True,
                latexdict=latexdict)
