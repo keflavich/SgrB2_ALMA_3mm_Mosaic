@@ -7,6 +7,11 @@ from astropy import units as u
 import regions
 import latex_info
 
+from astropy import wcs
+from astropy.io import fits
+# workaround for new regions API
+arbitrary_wcs = wcs.WCS(fits.getheader(paths.Fpath('SgrB2_selfcal_TCTE7m_continuum_best.fits')))
+
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"),
                            format='ascii.ipac')
 
@@ -103,7 +108,7 @@ for col in tbl.colnames:
 print("Mass fraction M>20 = {0}".format(over20fraction))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
 for reg in clusters:
-    mask = reg.contains(core_coords)
+    mask = reg.contains(core_coords, arbitrary_wcs)
     nhii = (hii & mask).sum()
     ncores = ((~hii) & mask).sum()
 

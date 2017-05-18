@@ -82,6 +82,7 @@ if __name__ == "__main__":
              'sum':u.Jy/u.beam,
              'npix':u.dimensionless_unscaled,
              'beam_area':u.sr,
+             'bgmad':u.Jy/u.beam,
              'peak_mass_20K':u.M_sun,
              'peak_col_20K':u.cm**-2,
              'RA': u.deg,
