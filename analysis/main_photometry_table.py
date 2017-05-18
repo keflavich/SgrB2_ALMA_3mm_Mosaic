@@ -8,6 +8,8 @@ from latex_info import (latexdict, format_float, round_to_n,
 from astropy.io import fits
 from astropy import wcs
 
+latexdict = latexdict.copy()
+
 sgrb2contfile = fits.open(paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits'))
 
 cont_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac')
@@ -37,15 +39,21 @@ cont_tbl.add_column(Column(name='$\sigma_{bg}$',
 cont_tbl.remove_column('bgmad')
 cont_tbl.add_column(Column(name='$\\alpha$', data=cont_tbl['alpha']))
 cont_tbl.remove_column('alpha')
-cont_tbl.add_column(Column(name='$E[\\alpha]$', data=cont_tbl['alphaerror']))
+cont_tbl.add_column(Column(name='$E(\\alpha)$', data=cont_tbl['alphaerror']))
 cont_tbl.remove_column('alphaerror')
-cont_tbl.add_column(Column(name='$M(20 K)$', data=cont_tbl['peak_mass_20K']))
+cont_tbl.add_column(Column(name='$M_{20K}$', data=cont_tbl['peak_mass_20K']))
 cont_tbl.remove_column('peak_mass_20K')
-cont_tbl.add_column(Column(name='$N(\hh,20 K)$', data=cont_tbl['peak_col_20K']))
+cont_tbl.add_column(Column(name='$N(\hh)_{20 K}$', data=cont_tbl['peak_col_20K']))
 cont_tbl.remove_column('peak_col_20K')
 
 cont_tbl.add_column(Column(name='Classification',
-                           data=['S' if row['color'] == 'green' else 'W' for row in cont_tbl]))
+                           data=["{0}{1}{2} {3}"
+                                 .format(('S' if row['color'] == 'green' else
+                                          'W'),
+                                         ("\_" if row['Muno_xray_ID'] == '-' else "X"),
+                                         ("\_" if row['Caswell_Name'] == '-' else "M"),
+                                         str(row['SIMBAD_OTYPE']))
+                                 for row in cont_tbl]))
 cont_tbl.remove_column('color')
 
 for colname in ['SIMBAD_ID', 'SIMBAD_OTYPE', 'Caswell_Name', 'npix',
@@ -60,17 +68,37 @@ formats = {'Coordinates': lambda x: x.to_string('hmsdms', sep=":"),
            '$S_{nu,tot}$': lambda x: strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            '$\sigma_{bg}$': lambda x: strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            '$\\alpha$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
-           '$E[\\alpha]$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
-           '$N(\hh,20 K)$': format_float,
-           '$M(20 K)$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
+           '$E(\\alpha)$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
+           '$N(\hh)_{20 K}$': format_float,
+           '$M_{20K}$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            "$T_{B,max}$": lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
           }
+
+# shorter-form units
+cont_tbl['$S_{nu,max}$'].unit = 'mJy bm$^{-1}$'
+cont_tbl['$\sigma_{bg}$'].unit = 'mJy bm$^{-1}$'
 
 latexdict['caption'] = 'Continuum Source IDs and photometry'
 latexdict['header_start'] = '\label{tab:photometry}\n\\footnotesize'
 latexdict['col_align'] = 'l'*len(cont_tbl.columns)
 latexdict['tabletype'] = 'table'
+latexdict['tablefoot'] = ("\par\n"
+                          "The Classification column consists of three letter codes "
+                          "as described in Section \\ref{sec:classification}.  "
+                          "In column 1, "
+                          "\\texttt{S} indicates a strong source, "
+                          "\\texttt{W} indicates weak or low-confidence source. "
+                          "In column 2, an \\texttt{X} indicates a match with the "
+                          "\citet{Muno2009a} Chandra X-ray source catalog, while an"
+                          "underscore indicates there was no match."
+                          "In column 3, \\texttt{M} indicates a match with the, "
+                          "\citet{Caswell2010a} Methanol Multibeam Survey "
+                          "\\methanol maser catalog, while an underscore indicates "
+                          "there was no match.  Finally, we include the SIMBAD "
+                          "\\citep{Wenger2000a} "
+                          "source object type classification if one was found."
+                         )
 
-cont_tbl.sort('$M(20 K)$')
-cont_tbl[:35].write(paths.texpath("continuum_photometry.tex"), formats=formats, overwrite=True,
-               latexdict=latexdict)
+cont_tbl.sort('$M_{20K}$')
+cont_tbl[:-35:-1].write(paths.texpath("continuum_photometry.tex"),
+                       formats=formats, overwrite=True, latexdict=latexdict)

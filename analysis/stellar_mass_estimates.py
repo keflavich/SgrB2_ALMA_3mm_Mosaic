@@ -98,12 +98,14 @@ over20fraction = (kroupa.m_integrate(hii_cutoff, mmax)[0] /
 
 tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{obs}$',
                    '$M_{inferred}$', '$M_{inferred, H\\textsc{ii}}$',
-                   '$M_{inferred, cores}$', '$M_{obs}^s$', '$M_{inf}^s$'],
-            dtype=['S10', int, int, int, int, int, int, int, int])
+                   '$M_{inferred, cores}$', '$M_{obs}^s$', '$M_{inf}^s$',
+                   'SFR'],
+            dtype=['S10', int, int, int, int, int, int, int, int, float])
 
 for col in tbl.colnames:
     if 'M' in col:
         tbl[col].unit = u.Msun
+tbl['SFR'].unit = u.Msun/u.kyr
 
 print("Mass fraction M>20 = {0}".format(over20fraction))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
@@ -140,16 +142,19 @@ for reg in clusters:
                  latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
                  schmiedeke_summary_table[sst_mask]['M∗ initial']*u.M_sun,
                  schmiedeke_summary_table[sst_mask]['M∗ all']*1e3*u.M_sun,
+                 latex_info.round_to_n(inferred_mass/0.74e3,2)*u.M_sun/u.kyr,
                 ])
 
 
 
+formats = {'SFR': lambda x: latex_info.strip_trailing_zeros(str(x))}
 
 latexdict = latex_info.latexdict.copy()
 latexdict['header_start'] = '\label{tab:clustermassestimates}'
 latexdict['caption'] = 'Cluster Masses'
 latexdict['preamble'] = '\centering'
 tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
+          formats=formats,
           latexdict=latexdict, overwrite=True)
 
 """

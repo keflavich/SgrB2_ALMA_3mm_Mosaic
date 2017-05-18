@@ -11,13 +11,15 @@
 \input{authors}
 \begin{abstract}
 We report ALMA observations at 3 mm  of the extended Sgr B2 cloud. We detected
-\ncores sources in the Sgr B2 clouds, the majority of which have extents 
+\ncores compact sources, the majority of which have extents 
 smaller than 5000 AU.  These sources are predominantly protostars or
 centrally condensed prestellar cores.  The spatial distribution of these sources
 demonstrates that Sgr B2 is experiencing a highly extended star formation
 event, not just an isolated `starburst' within the protocluster regions M, N,
 and S.  While all protostars reside in regions of high column density, not all
 regions of high column density possess a high density of protostars.  
+These observations constitute the largest single, possibly coeval, sample of
+forming massive stars.
 % the high-density, low-SFR regions raise questions...
 \end{abstract}
 
@@ -61,6 +63,17 @@ we focus on the continuum sources, which we identify in Section
 \ref{sec:contsources}.  We classify the sources in Section
 \ref{sec:classification}.  
 
+\FigureTwo
+{figures/continuum_peak_MandN.pdf}
+{figures/cores_on_continuum_peak_MandN.pdf}
+{Images of the 3 mm continuum in the Sgr B2 M and N region.  The right figure
+includes a red dot at the position of each identified continnuum pointlike
+source.  The massive protocluster Sgr B2 M is the collection of \hii regions
+and compact source in the lower half of the image.  The other massive
+protocluster, Sgr B2 N, is in the center.  Imaging artifacts are evident at the
+1-2 mJy bm$^{-1}$ level.
+}
+{fig:continuumMandN}{1}{0.5\textwidth}
 
 \section{Observation and Data Reduction}
 \label{sec:observations}
@@ -174,8 +187,10 @@ future automated selection algorithm may work if images at comparable
 resolution at other frequencies become available; the \hii-region sources could
 then be excluded.  Additionally, however, there are substantial imaging
 artifacts produced by the extremely bright emission sources in Sgr B2 M ($S_{3
-mm,max} > 0.8$ Jy) and Sgr B2 N ($S_{3 mm,max} > 0.3$ Jy) that make automated
+mm,max} \approx 1.6$ Jy) and Sgr B2 N ($S_{3 mm,max} \approx 0.3$ Jy) that make automated
 source identification particularly challenging in the most source-dense regions.
+All of these features are evident in Figures \ref{fig:continuumMandN} and
+\ref{fig:continuumDS}.
 
 Because the noise varies significantly across the map, a uniform selection
 criterion is not possible.  We therefore include two levels of source
@@ -220,12 +235,12 @@ employ various means to classify the sample of new sources.
 
 % core_flux_distributions
 \FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
-{A histogram of the peak flux density of the observed sources excluding known
-\hii regions with a powerlaw fit shown.  The fitted powerlaw is an excellent
-fit to the data, but is far shallower than the IMF slope, with
-$\alpha=1.94\pm0.07$.  The two brightest regions are Sgr B2M f1 and Sgr B2N K2,
-which may be dominated by free-free emission but likely also contain a large
-dust mass.}
+{A histogram of the peak flux density of the observed sources with a powerlaw
+fit to the data excluding known \hii regions.  The powerlaw is an excellent
+fit, and it is shallower than the IMF slope, with $\alpha=1.94\pm0.07$.  The
+two brightest regions not identified as \hii regions are Sgr B2M f1 and Sgr B2N
+K2; in these regions, it is unclear whether the free-free or dust emission
+dominates.}
 {fig:fluxhist}{1}{0.5\textwidth}
 
 We first note some key properties of dust at 3 mm.   At 8.4 kpc, a 1 mJy source
@@ -280,8 +295,8 @@ be contaminated by the nearby \hii region.}
 
 If the detected sources were either EGGs or cometary clouds, we would expect
 them to be located within \hii regions.  Many of the sources are near \hii
-regions, as seen in Figure \ref{fig:coreson20cm}.  However, they are nearly all
-associated with a ridge of HC$_3$N emission (Figure \ref{fig:coresonhc3n}).  If
+regions, as seen in Figure \ref{fig:coreson20cmandhc3n}a.  However, they are nearly all
+associated with a ridge of HC$_3$N emission (Figure \ref{fig:coreson20cmandhc3n}b).  If
 they are deeply embedded within the molecular material, they cannot be
 externally ionized.  The current data do not provide enough information on the
 geometry of the clouds to rule out the possibility that the point sources are
@@ -331,18 +346,28 @@ not externally ionized objects.
 % Nice idea, but h41a is just too weak
 % TODO: H41a TE peak map.  Show locations relative to confirmed HII regions
 
-% pointsource_overlay
-\FigureOneCol{figures/cores_on_20cm_continuum.png}
-{The location of the detected continuum sources (red points) overlaid on a 20
-cm continuum VLA map highlighting the diffuse free-free (or possibly
-synchrotron) emission in the region \citep{Yusef-Zadeh2004a}.}
-{fig:coreson20cm}{1}{0.5\textwidth}
+%% pointsource_overlay
+%\FigureOneCol{figures/cores_on_20cm_continuum.png}
+%{The location of the detected continuum sources (red points) overlaid on a 20
+%cm continuum VLA map highlighting the diffuse free-free (or possibly
+%synchrotron) emission in the region \citep{Yusef-Zadeh2004a}.}
+%{fig:coreson20cm}{1}{0.5\textwidth}
+%
+%% pointsource_overlay
+%\FigureOneCol{figures/cores_on_HC3N_peak.png}
+%{The location of the detected continuum sources (red points) overlaid on a map
+%of the HC$_3$N peak intensity.  HC$_3$N traces moderate-density molecular gas.}
+%{fig:coresonhc3n}{1}{0.5\textwidth}
 
-% pointsource_overlay
-\FigureOneCol{figures/cores_on_HC3N_peak.png}
-{The location of the detected continuum sources (red points) overlaid on a map
+\FigureTwo
+{figures/cores_on_20cm_continuum.png}
+{figures/cores_on_HC3N_peak.png}
+{(left) The location of the detected continuum sources (red points) overlaid on a 20
+cm continuum VLA map highlighting the diffuse free-free (or possibly
+synchrotron) emission in the region \citep{Yusef-Zadeh2004a}.
+(right) Continuum sources overlaid on a map
 of the HC$_3$N peak intensity.  HC$_3$N traces moderate-density molecular gas.}
-{fig:coresonhc3n}{1}{0.5\textwidth}
+{fig:coreson20cmandhc3n}{1}{0.5\textwidth}
 
 \subsubsection{Alternative 2: The sources are \hii regions produced by
 interloper ionizing stars}
@@ -451,7 +476,9 @@ The \citet{Caswell2010a} Methanol Multibeam Survey identified 11 sources in our
 observed field of view, of which 10 have a clear match in our catalog.
 Several other sources in our catalog match known \hii regions from
 \citet{Gaume1995a}, mostly associated with the brightest sources in our sample;
-these all have $S_{3 \textrm{mm}} > 9$ mJy.
+these all have $S_{3 \textrm{mm}} > 9$ mJy.  Additionally, some of the
+sources have X-ray counterparts in the \citet{Muno2009a} Chandra point source
+catalog.
 
 
 We compare our detected sample to that of the Herschel Orion Protostar Survey
@@ -781,7 +808,7 @@ trace out long and linear features.  Why are the sources aligned?
 There is extended ionized emission in Sgr B2 Deep South that appears to be a
 bubble surrounded by the millimeter continuum sources.  While this region looks
 like a normal, if a bit lumpy, \hii region in the 12\arcsec resolution 20 cm
-VLA data in Figure \ref{fig:coreson20cm}, the 3 mm continuum reveals long
+VLA data in Figure \ref{fig:coreson20cmandhc3n}, the 3 mm continuum reveals long
 filamentary features reminiscent of the Galactic center arched filaments.  By
 analogy, they may be magnetically dominated regions, but there must be some
 central source of ionizing radiation or energetic particles.  Whatever the
@@ -811,7 +838,7 @@ Sgr B2 W both contain some protostars, and the Sgr B2 DS ridge has the most.
 \FigureOneCol{figures/HC3N_contours_on_SCUBA_column.png}
 {ALMA HC$_3$N peak intensity contours (orange) overlaid on the derived SCUBA column density
 image using Herschel Hi-Gal interpolated temperatures. The HC$_3$N was
-shown in grayscale in Figure \ref{fig:coresonhc3n}.
+shown in grayscale in Figure \ref{fig:coreson20cmandhc3n}.
 Contours are at levels [3,7,11,15,19,23] K.  The  HC$_3$N bubble edges can be
 seen surrounding cavities in the SCUBA column density map on the east side of
 the main ridge.  To the north, the HC$_3$N also traces bubbles, but these are
@@ -822,14 +849,15 @@ the bubbles.}
 
 \section{Conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
-Sgr B2 cloud, and determined that the majority are high-mass protostellar
+Sgr B2 cloud and determined that the majority are high-mass protostellar
 cores.  This survey represents the first large population of protostars
 detected in the Galactic center and represents the largest sample yet reported
 of high-mass protostars.
 
+
 \software{
 The software used to make this version of the paper is available from github at
-\url{https://github.com/keflavich/W51_ALMA_2013.1.00308.S} with hash \githash
+\url{https://github.com/keflavich/SgrB2_ALMA_3mm_Mosaic/} with hash \githash
 (\gitdate).}
 
 \input{solobib}
