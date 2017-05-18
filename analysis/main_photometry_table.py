@@ -7,10 +7,11 @@ from latex_info import (latexdict, format_float, round_to_n,
                         strip_trailing_zeros, exp_to_tex)
 from astropy.io import fits
 from astropy import wcs
+from files import contfilename
 
 latexdict = latexdict.copy()
 
-sgrb2contfile = fits.open(paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits'))
+sgrb2contfile = fits.open(contfilename)
 
 cont_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac')
 

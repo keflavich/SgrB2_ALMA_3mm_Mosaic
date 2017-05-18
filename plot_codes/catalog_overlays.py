@@ -7,6 +7,7 @@ from astropy.table import Table
 import matplotlib
 import pylab as pl
 import paths
+from files import contfilename as fncont
 
 tick_fontsize = 6
 
@@ -29,7 +30,6 @@ muno_xray_coords = coordinates.SkyCoord(muno_xray_results['RAJ2000'],
 
 
 # old fncont = paths.Fpath('merge/SgrB2_selfcal_full_TCTE7m_selfcal4_ampphase.image.pbcor.fits')
-fncont = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits')
 hdu = fits.open(fncont)[0]
 
 mywcs = wcs.WCS(hdu.header).sub([wcs.WCSSUB_CELESTIAL])

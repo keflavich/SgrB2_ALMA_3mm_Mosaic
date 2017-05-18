@@ -11,6 +11,7 @@ from astropy.convolution import convolve, Gaussian2DKernel
 from mpl_plot_templates import asinh_norm
 import matplotlib
 from collections import defaultdict
+from files import contfilename
 import warnings
 
 warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
@@ -59,7 +60,7 @@ for regionname in ('DeepSouth', 'MandN'):
 
     for line in ("continuum","HC3N","HCN","HNC","HCOp"):
         if line == 'continuum':
-            hdu_line = fits.open(paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits'))[0]
+            hdu_line = fits.open(contfilename)[0]
         else:
             hdu_line = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_max_medsub.fits'.format(line)))[0]
         mywcs = wcs.WCS(hdu_line.header).celestial
