@@ -13,6 +13,8 @@ before_install:
      texlive-xetex
      texlive-publishers
 install:
+    - PYTHON=3.6
+    - PYTHON_VERSION=3.6
     - git clone git://github.com/astropy/ci-helpers.git
     - source ci-helpers/travis/setup_conda_$TRAVIS_OS_NAME.sh
      #- wget https://journals.aps.org/files/revtex/revtex4-1.zip
