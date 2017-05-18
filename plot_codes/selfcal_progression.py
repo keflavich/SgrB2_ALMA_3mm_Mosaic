@@ -8,6 +8,9 @@ from visualization import make_scalebar, hide_labels
 from astropy.nddata import Cutout2D
 from astropy import coordinates
 from astropy import units as u
+import warnings
+
+warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
 
 ra1m,dec1m = (266.84197, -28.391225)
 ra2m,dec2m = (266.82652, -28.378154)
@@ -22,6 +25,7 @@ sc3 = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal3.im
 sc4 = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal4_ampphase.image.pbcor.fits'))
 sc5 = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale.image.tt0.pbcor.fits'))
 sc5tt = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits'))
+sc6tt = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal6_ampphase_taylorterms_multiscale_deeper_mask1.5mJy.image.tt0.pbcor.fits'))
 
 rinit = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_init.residual.fits'))
 rsc1 = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal1.residual.fits'))
@@ -30,8 +34,12 @@ rsc3 = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal3.r
 rsc4 = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal4_ampphase.residual.fits'))
 rsc5 = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale.residual.tt0.fits'))
 rsc5tt = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.residual.tt0.fits'))
+rsc6tt = fits.open(paths.mergepath('continuum/SgrB2_selfcal_full_TCTE7m_selfcal6_ampphase_taylorterms_multiscale_deeper_mask1.5mJy.residual.tt0.fits'))
 
-
+ims = [init,sc1,sc2,sc3,sc4,sc5,sc5tt,sc6tt]
+resids = [rinit,rsc1,rsc2,rsc3,rsc4,rsc5,rsc5tt,rsc6tt]
+assert len(ims) == len(resids)
+nims = len(ims)
 
 for name, ((ra1,dec1),(ra2,dec2)),(vmin,vmax) in [
          ('SgrB2M', ((ra1m,dec1m),(ra2m,dec2m)), [-0.001, 0.1]),
@@ -40,8 +48,7 @@ for name, ((ra1,dec1),(ra2,dec2)),(vmin,vmax) in [
     fig = pl.figure(1, figsize=(20,6), dpi=75)
     fig.clf()
 
-    for ii, (fh,rfh) in enumerate(zip([init,sc1,sc2,sc3,sc4,sc5,sc5tt],
-                                      [rinit,rsc1,rsc2,rsc3,rsc4,rsc5,rsc5tt])
+    for ii, (fh,rfh) in enumerate(zip(ims, resids)
                                  ):
 
         mywcs = wcs.WCS(fh[0].header)
@@ -52,7 +59,7 @@ for name, ((ra1,dec1),(ra2,dec2)),(vmin,vmax) in [
         cutout_res = Cutout2D(rfh[0].data, position=center, size=size,
                               wcs=mywcs)
 
-        ax = fig.add_subplot(2,7,ii+1, projection=cutout_im.wcs)
+        ax = fig.add_subplot(2,nims,ii+1, projection=cutout_im.wcs)
         im = ax.imshow(cutout_im.data*1e3, cmap='gray',
                        norm=astropy.visualization.simple_norm(fh[0].data,
                                                               stretch='asinh',
@@ -61,7 +68,7 @@ for name, ((ra1,dec1),(ra2,dec2)),(vmin,vmax) in [
                                                               asinh_a=0.001),
                        transform=ax.get_transform(cutout_im.wcs),
                        origin='lower',)
-        ax2 = fig.add_subplot(2,7,ii+8, projection=cutout_im.wcs)
+        ax2 = fig.add_subplot(2,nims,ii+nims+1, projection=cutout_im.wcs)
         im2 = ax2.imshow(cutout_res.data*1e3, cmap='gray',
                          norm=astropy.visualization.simple_norm(fh[0].data,
                                                                 stretch='asinh',
