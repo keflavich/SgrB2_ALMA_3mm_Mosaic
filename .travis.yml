@@ -17,6 +17,8 @@ install:
     - PYTHON_VERSION=3.6
     - git clone git://github.com/astropy/ci-helpers.git
     - source ci-helpers/travis/setup_conda_$TRAVIS_OS_NAME.sh
+    - which python
+    - python -c "import astropy"
      #- wget https://journals.aps.org/files/revtex/revtex4-1.zip
      #- unzip revtex4-1.zip
      #- cd revtex4-1
