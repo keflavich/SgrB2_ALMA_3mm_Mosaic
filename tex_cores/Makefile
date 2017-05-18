@@ -10,7 +10,7 @@ DVIPS=dvips
 PS2PDF=ps2pdf
 SHELL=/bin/bash
 
-all: gitstuff.tex ncores sgrb2_cores
+all: gitstuff.tex ncores.tex sgrb2_cores
 
 .PHONY: sgrb2_cores
 sgrb2_cores: 
