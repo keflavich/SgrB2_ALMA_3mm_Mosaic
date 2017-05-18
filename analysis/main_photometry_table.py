@@ -66,5 +66,10 @@ formats = {'Coordinates': lambda x: x.to_string('hmsdms', sep=":"),
            "$T_{B,max}$": lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
           }
 
+latexdict['caption'] = 'Continuum Source IDs and photometry'
+latexdict['header_start'] = '\label{tab:photometry}\n\\footnotesize'
+latexdict['col_align'] = 'l'*len(cont_tbl.columns)
+latexdict['tabletype'] = 'deluxetable'
+
 cont_tbl.write(paths.texpath("continuum_photometry.tex"), formats=formats, overwrite=True,
                latexdict=latexdict)
