@@ -12,8 +12,9 @@ before_install:
      texlive-latex-recommended
      texlive-xetex
      texlive-publishers
-     python
-- pip install astropy
+install:
+    - git clone git://github.com/astropy/ci-helpers.git
+    - source ci-helpers/travis/setup_conda_$TRAVIS_OS_NAME.sh
      #- wget https://journals.aps.org/files/revtex/revtex4-1.zip
      #- unzip revtex4-1.zip
      #- cd revtex4-1
