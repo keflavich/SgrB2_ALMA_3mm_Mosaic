@@ -34,6 +34,7 @@ def getinds(fn):
 def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                   overwrite_existing=False, bmaj_limits=None,
                   fnsuffix="", filesuffix='image.pbcor.fits',
+                  first_endchannel='*',
                   cropends=False,
                   minimize=True,
                   add_beam_info=True):
@@ -60,7 +61,9 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
     # First set up an empty file
     if not os.path.exists(big_filename):
-        header_fn = glob.glob('piece_of_{1}_cube{2}.{0}.channels0to*.{3}'.format(spw, fntemplate, fnsuffix, filesuffix))
+        header_fn = glob.glob('piece_of_{1}_cube{2}.{0}.channels0to{4}.{3}'
+                              .format(spw, fntemplate, fnsuffix, filesuffix,
+                                      first_endchannel))
         if len(header_fn) != 1:
             raise ValueError("Found too many or too few matches: {0}".format(header_fn))
         else:
@@ -205,7 +208,15 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 if __name__ == "__main__":
     for robust in (0,2):
         for spw in (0,1,2,3):
-            if os.path.exists('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels0to373.image.pbcor.fits'.format(spw, robust)):
+            if os.path.exists('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels0to75.image.pbcor.fits'.format(spw, robust)):
+
+                make_spw_cube(spw='spw{0}', spwnum=spw,
+                              fntemplate='full_SgrB2_TETC7m_r{0}'.format(robust),
+                              overwrite_existing=False, bmaj_limits=None,
+                              fnsuffix="", filesuffix='image.pbcor.fits',
+                              first_endchannel=75,
+                              cropends=1, minimize=True, add_beam_info=True)
+            elif os.path.exists('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels0to373.image.pbcor.fits'.format(spw, robust)):
 
                 make_spw_cube(spw='spw{0}', spwnum=spw,
                               fntemplate='full_SgrB2_TETC7m_r{0}'.format(robust),
