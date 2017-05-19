@@ -8,6 +8,9 @@ from visualization import make_scalebar, hide_labels
 from astropy.nddata import Cutout2D
 from astropy import coordinates
 from astropy import units as u
+import warnings
+
+warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
 
 ra1m,dec1m = (266.84197, -28.391225)
 ra2m,dec2m = (266.82652, -28.378154)
