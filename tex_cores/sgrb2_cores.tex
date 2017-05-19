@@ -117,8 +117,8 @@ Before continuum subtraction, dynamic range related artifacts similar to those
 in the continuum images were present, but these structures are identical across
 frequencies, and were therefore removable in the image domain.  We use
 median-subtracted cubes for the majority of our analysis, noting that the only
-location in which an error on the continuum $>5\%$ is expected is the Sgr B2
-North core \citep{Sanchez-Monge2017a}.
+location in which an error on the median-estimated continuum $>5\%$ is expected
+is the Sgr B2 North core \citep{Sanchez-Monge2017a}.
 
 \FigureTwo
 {figures/continuum_peak_DeepSouth_saturated.pdf}
@@ -144,11 +144,11 @@ in detail in Appendix \ref{sec:singledishcomb}.
 The SHARC data were reported in \citet{Bally2010a} and have a nominal
 resolution of 9\arcsec at 350 \um, however, at this resolution,
 the SHARC data display a much higher surface brightness than the Herschel
-data on a similar scale.  A resolution of 11.5\arcsec gives a better
+data on the same angular scale.  A resolution of 11.5\arcsec gives a better
 surface brightness match and is consistent with the measured scale of Sgr
 B2 N in the image.  This calibration difference is likely to have been a
 combination of blurring by pointing errors, surface imperfections, and
-the gridding process, and by flux calibration errors.  In any case, the
+the gridding process, and flux calibration errors.  In any case, the
 Herschel data provide the most trustworthy absolute calibration scale.
 
 The SCUBA 450 \um data were reported in \citet{Pierce-Price2000a} and
@@ -219,7 +219,6 @@ did not have significant measurements of $\alpha$ because they are in the
 immediate neighborhood of Sgr B2 M or N and therefore have significantly higher
 background and noise, preventing a clean measurement.
 
-\section{Results}
 
 We detected \ncores compact continuum sources.  Their flux distribution is
 shown in Figure \ref{fig:fluxhist}.  The distribution of their measured
@@ -298,22 +297,25 @@ be contaminated by the nearby \hii region.}
 
 If the detected sources were either EGGs or cometary clouds, we would expect
 them to be located within \hii regions.  Many of the sources are near \hii
-regions, as seen in Figure \ref{fig:coreson20cmandhc3n}a.  However, they are nearly all
-associated with a ridge of HC$_3$N emission (Figure \ref{fig:coreson20cmandhc3n}b).  If
-they are deeply embedded within the molecular material, they cannot be
-externally ionized.  The current data do not provide enough information on the
-geometry of the clouds to rule out the possibility that the point sources are
-just illuminated cloud edges, but the fact that the ionized gas is brightest
-adjacent to, rather than on top of, the HC$_3$N suggests that the HC$_3$N
-traces a full molecular cloud rather than a thin PDR-like layer.
+regions, as seen in Figure \ref{fig:coreson20cmandhc3n}a.  However, they are
+nearly all associated with a ridge of HC$_3$N emission (Figure
+\ref{fig:coreson20cmandhc3n}b).  If they are deeply embedded within the
+molecular material, they cannot be externally ionized.  
+%The current data do not provide enough information on the
+%geometry of the clouds to rule out the possibility that the point sources are
+%just illuminated cloud edges, but 
+The fact that the ionized gas is brightest nearby, rather than directly on top
+of, the HC$_3$N suggests that the HC$_3$N traces a full molecular cloud rather
+than a thin PDR-like layer.
 
 A final point against the externally ionized hypothesis is the observed
 spectral indices shown in Figure \ref{fig:alphahist}.  We measured spectral
 indices for 43 sources, of which 23 have $\alpha>2$.  These sources are
 inconsistent with free-free emission and are at least reasonably consistent
-with dust emission.  Of the 20 that are consistent with free-free emission, 11
-are known \hii regions, hinting that our sample is dominated by dusty objects,
-not externally ionized objects.
+with dust emission.
+%Of the 20 that are consistent with free-free emission, 11
+%are known \hii regions, hinting that our sample is dominated by dusty objects,
+%not externally ionized objects.
 
 %This
 %scale is consistent with that of frEGGs seen in Carina \citep[e.g.][]{Sahai2012a}.
@@ -374,14 +376,14 @@ of the HC$_3$N peak intensity.  HC$_3$N traces moderate-density molecular gas.}
 
 \subsubsection{Alternative 2: The sources are \hii regions produced by
 interloper ionizing stars}
-If there is a large population of older, but still ionizing, stars, they could
-ignite \hii regions when they fly through molecular material.  See
+If there is a large population of older (age 1-30 Myr) massive stars, they could
+ignite compact \hii regions when they fly through molecular material.  See
 \ref{sec:theyarehiiregions} for calculations of stationary \hii region
 properties.  The main problem with this scenario is the spatial distribution of
 the observed sources.  While most of the continuum sources are associated with
 dense gas and dust ridges, not all of the high-column molecular gas regions
 have such sources in them (i.e., the left and right sides of the image in
-Figure \ref{fig:coresonhc3n}, where molecular material is seen with no
+Figure \ref{fig:coreson20cmandhc3n}b, where molecular material is seen with no
 associated millimeter sources).  If there is a free-floating population of OB
 stars responsible for the 3 mm point source population, their distribution
 should match that of the gas.  Also, there is no such population of sources
@@ -439,7 +441,8 @@ allow.
 This restrictive parameter space, combined with a steep luminosity function
 that implies there are many more sources at slightly lower luminosity, is
 evidence against the population being dominated by \hii regions.  The spectral
-indices also support this conclusion.
+indices also support this conclusion, since many are steeper than $\alpha>2$
+and are therefore inconsistent with free-free emission.
 
 
 

@@ -31,6 +31,13 @@ def getinds(fn):
     inds = re.search('channels([0-9]*)to([0-9]*)', fn).groups()
     return [int(ii) for ii in inds]
 
+def get_max_ind(globstr):
+    # replace nchans_total with the correct version from the actual data on
+    # disk
+    files = glob.glob(globstr)
+    maxind = max([max(getinds(fn)) for fn in files])
+    return maxind
+
 def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                   overwrite_existing=False, bmaj_limits=None,
                   fnsuffix="", filesuffix='image.pbcor.fits',
@@ -208,6 +215,11 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 if __name__ == "__main__":
     for robust in (0,2):
         for spw in (0,1,2,3):
+
+            mxind = get_max_ind('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels*fits'.format(spw, robust))
+            nchans_total[spw] = mxind
+            log.info("nchans_total[{0},{1}] = {2}".format(spw, robust, mxind))
+
             if os.path.exists('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels0to75.image.pbcor.fits'.format(spw, robust)):
 
                 make_spw_cube(spw='spw{0}', spwnum=spw,
