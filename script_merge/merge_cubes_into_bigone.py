@@ -152,6 +152,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
         if 'slices' not in locals():
             if minimize:
+                log.info("Determining slices")
                 cube0 = SpectralCube.read(header_fn)
                 slices = cube0.subcube_slices_from_mask(cube0.mask,
                                                         spatial_only=True)
