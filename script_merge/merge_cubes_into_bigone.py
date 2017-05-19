@@ -69,13 +69,13 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
     header_fn = glob.glob('piece_of_{1}_cube{2}.{0}.channels0to{4}.{3}'
                           .format(spw, fntemplate, fnsuffix, filesuffix,
                                   first_endchannel))
+    if len(header_fn) != 1:
+        raise ValueError("Found too many or too few matches: {0}".format(header_fn))
+    else:
+        header_fn = header_fn[0]
 
     # First set up an empty file
     if not os.path.exists(big_filename):
-        if len(header_fn) != 1:
-            raise ValueError("Found too many or too few matches: {0}".format(header_fn))
-        else:
-            header_fn = header_fn[0]
 
         if minimize:
             cube0 = SpectralCube.read(header_fn)
