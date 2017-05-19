@@ -66,11 +66,12 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
     big_filename = '{1}_{0}{2}_lines.fits'.format(spw, fntemplate, fnsuffix)
 
+    header_fn = glob.glob('piece_of_{1}_cube{2}.{0}.channels0to{4}.{3}'
+                          .format(spw, fntemplate, fnsuffix, filesuffix,
+                                  first_endchannel))
+
     # First set up an empty file
     if not os.path.exists(big_filename):
-        header_fn = glob.glob('piece_of_{1}_cube{2}.{0}.channels0to{4}.{3}'
-                              .format(spw, fntemplate, fnsuffix, filesuffix,
-                                      first_endchannel))
         if len(header_fn) != 1:
             raise ValueError("Found too many or too few matches: {0}".format(header_fn))
         else:
@@ -151,7 +152,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
         if 'slices' not in locals():
             if minimize:
-                cube0 = SpectralCube.read(fn)
+                cube0 = SpectralCube.read(header_fn)
                 slices = cube0.subcube_slices_from_mask(cube0.mask,
                                                         spatial_only=True)
             else:
