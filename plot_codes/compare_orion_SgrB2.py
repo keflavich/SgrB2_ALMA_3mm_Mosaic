@@ -39,7 +39,8 @@ orion_cutout = Cutout2D(fh_o[0].data.squeeze(), orion_center,
 fig = pl.figure(1)
 fig.clf()
 ax = pl.subplot(1,3,1, projection=wcs.WCS(fh_s[0].header))
-pl.imshow(sgrb2_hii_T_cutout.data, vmin=-1e-1, vmax=4e-0)
+pl.imshow(sgrb2_hii_T_cutout.data, vmin=-1e-1, vmax=4e-0, cmap='viridis',
+          origin='lower', interpolation='nearest')
 pl.title("Sgr B2 HII T")
 hide_labels(ax)
 make_scalebar(ax, left_side=coordinates.SkyCoord('266d54m39s', '-28d27m48.5s',
@@ -50,13 +51,15 @@ make_scalebar(ax, left_side=coordinates.SkyCoord('266d54m39s', '-28d27m48.5s',
              )
 
 pl.subplot(1,3,2)
-pl.imshow(orion_cutout.data*(d_ori/d_sgr).decompose()**2, vmin=-1e-1, vmax=4e-0)
+pl.imshow(orion_cutout.data*(d_ori/d_sgr).decompose()**2, vmin=-1e-1,
+          vmax=4e-0, cmap='viridis', origin='lower', interpolation='nearest')
 pl.title("M42")
 pl.gca().get_xaxis().set_ticks([])
 pl.gca().get_yaxis().set_ticks([])
 
 ax = pl.subplot(1,3,3, projection=wcs.WCS(fh_s[0].header))
-im = ax.imshow(sgrb2_hii_L_cutout.data, vmin=-1e-1, vmax=4e-0)
+im = ax.imshow(sgrb2_hii_L_cutout.data, vmin=-1e-1, vmax=4e-0, cmap='viridis',
+               origin='lower', interpolation='nearest')
 ax.set_title("Sgr B2 HII L")
 hide_labels(ax)
 make_scalebar(ax, left_side=coordinates.SkyCoord('266d54m30s', '-28d27m48.5s',
