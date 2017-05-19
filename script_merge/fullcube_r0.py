@@ -153,6 +153,9 @@ for spwnum in spwlist:
         if end > nchans_total_thiscube:
             print("Completing last entry for spw{0}".format(spwnum))
             end = nchans_total_thiscube
+            nchans_thiscube = end-start
+        else:
+            nchans_thiscube = nchans_per_cube + 2
         output = 'piece_of_full_SgrB2_TETC7m_r0_cube.spw{0}.channels{1}to{2}'.format(spwnum, start, end)
 
         # Channel-based gridding has major bugs when dealing with CVEL'd data
@@ -181,7 +184,7 @@ for spwnum in spwlist:
                    specmode = 'cube',
                    width = width,
                    start = startfreq,
-                   nchan = nchans_per_cube + 2, # 1 channel at either end for buffer
+                   nchan = nchans_thiscube, # 1 channel at either end for buffer
                    veltype = 'radio',
                    outframe = 'LSRK',
                    deconvolver='clark',

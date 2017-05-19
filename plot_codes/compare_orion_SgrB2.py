@@ -7,6 +7,8 @@ from astropy import units as u
 from astropy import wcs
 import pylab as pl
 from visualization import make_scalebar, hide_labels
+from constants import distance as d_sgr
+from files import contfilename
 
 pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 75.
@@ -16,12 +18,10 @@ pl.rcParams['xtick.labelsize'] = 8
 pl.rcParams['ytick.labelsize'] = 8
 
 d_ori = 415*u.pc
-d_sgr = 8.4*u.kpc
-d_sgr = 7.8*u.kpc
 
 fh_o = fits.open(os.path.join(paths.root,'other_continuum/Orion_MUSTANG_at_SgrB2.fits'))
 fh_o = fits.open(os.path.join(paths.root,'other_continuum/OrionClean9.0-24nov08.fits.gz'))
-fh_s = fits.open(paths.Fpath('SgrB2_selfcal_full_TCTE7m_selfcal4_ampphase.image.pbcor.fits'))
+fh_s = fits.open(contfilename)
 
 fh_o[0].data *= 1000 # Jy->mJy
 fh_s[0].data *= 1000 # Jy->mJy

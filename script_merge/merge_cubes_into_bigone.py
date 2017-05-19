@@ -192,6 +192,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
         if cdelt_sign == -1:
             ind1, ind0 = (nchans_total[spwnum] - ind0 - 1,
                           nchans_total[spwnum] - ind1 - 1)
+            if ind0 < 0:
+                ind0 = 0
         plane = hdul[0].data[ind0]
         if np.all(plane == 0) or overwrite_existing:
             log.info("Replacing indices {0}->{2} {1}"
