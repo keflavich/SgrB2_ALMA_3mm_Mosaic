@@ -3,6 +3,7 @@ http://docs.astropy.org/en/stable/io/fits/appendix/faq.html#how-can-i-create-a-v
 """
 from astropy import log
 from astropy.io import fits
+from astropy import wcs
 import numpy as np
 import glob
 import re
@@ -45,6 +46,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                   first_endchannel='*',
                   cropends=False,
                   minimize=True,
+                  debug_mode=False,
                   add_beam_info=True):
     """
     Parameters
@@ -98,13 +100,23 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
         header['NAXIS3'] = nchans_total[spwnum]
         if cdelt_sign == -1:
             ind0, ind1 = getinds(header_fn)
+            #5/20/2017: redoing some of this, and the text below is frightening but no longer relevant
             # a +1 was on the next line before an edit on 4/10/2017
             # it may have been rendered irrelevant when I included +1
             # channel in each cube?  Not clear - the arithmetic no longer
             # makes sense but is empirically necessary.
-            header['CRPIX3'] = nchans_total[spwnum] - ind1
+            assert ind0 == 0
+            #header['CRPIX3'] = nchans_total[spwnum] - 1
+
+            main_wcs = wcs.WCS(header)
+            header_wcs = wcs.WCS(fits.getheader(header_fn))
+            assert main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(0,0) == header_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(0,0)
+        else:
+            assert main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(0,0) == header_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(0,0)
 
         shape = (header['NAXIS3'], header['NAXIS2'], header['NAXIS1'])
+
+
 
         # Write to disk
         header.tofile(big_filename)
@@ -137,6 +149,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
     # open the file in update mode (it should have the right dims now)
     hdul = fits.open(big_filename, mode='update')
+    main_wcs = wcs.WCS(hdul[0].header)
 
     if add_beam_info:
         shape = hdul[0].data.shape[0]
@@ -192,11 +205,11 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                      "while for the big header it is {1}"
                      .format(cdelt_sign,
                              np.sign(fits.getheader(big_filename)['CDELT3'])))
-        if cdelt_sign == -1:
-            ind1, ind0 = (nchans_total[spwnum] - ind0 - 1,
-                          nchans_total[spwnum] - ind1 - 1)
-            if ind0 < 0:
-                ind0 = 0
+        #if cdelt_sign == -1:
+        #    ind1, ind0 = (nchans_total[spwnum] - ind0 - 1,
+        #                  nchans_total[spwnum] - ind1 - 1)
+        #    if ind0 < 0:
+        #        ind0 = 0
 
         plane = hdul[0].data[ind0]
         if np.all(plane == 0) or overwrite_existing:
@@ -204,19 +217,32 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                      .format(getinds(fn), fn, (ind0,ind1)))
 
             data = fits.getdata(fn)
+            dwcs = wcs.WCS(fits.getheader(fn))
+
+            dwcs0 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(dataind0, 0)[0]
+            dwcs1 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(dataind1 or data.shape[0]-1, 0)[0]
+            hwcs0 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(ind0, 0)[0]
+            hwcs1 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(ind1, 0)[0]
+            
+            #if cdelt_sign == -1:
+            if dwcs0 != hwcs0 or hwcs1 != dwcs1:
+                raise ValueError("World coordinates of first pixels do not match")
+
 
             if bmaj_limits is not None:
                 beamtable = fits.open(fn)[1]
                 ok_beam = ((beamtable.data['BMAJ'] > bmaj_limits[0]) &
                            (beamtable.data['BMAJ'] < bmaj_limits[1]))
                 data[~ok_beam] = np.nan
-            if add_beam_info:
-                beamtable = fits.open(fn)[1]
-                hdul[1].data[ind0:ind1] = beamtable.data[dataind0:dataind1]
+
+            if not debug_mode:
+                if add_beam_info:
+                    beamtable = fits.open(fn)[1]
+                    hdul[1].data[ind0:ind1] = beamtable.data[dataind0:dataind1]
 
 
-            hdul[0].data[ind0:ind1,:,:] = data[dataind0:dataind1, slices[1], slices[2]]
-            hdul.flush()
+                hdul[0].data[ind0:ind1,:,:] = data[dataind0:dataind1, slices[1], slices[2]]
+                hdul.flush()
 
 if __name__ == "__main__":
     for robust in (0,2):
@@ -236,6 +262,7 @@ if __name__ == "__main__":
                               overwrite_existing=False, bmaj_limits=None,
                               fnsuffix="", filesuffix='image.pbcor.fits',
                               first_endchannel=75,
+                              debug_mode=True,
                               cropends=1, minimize=True, add_beam_info=True)
             elif os.path.exists('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels0to373.image.pbcor.fits'.format(spw, robust)):
 
