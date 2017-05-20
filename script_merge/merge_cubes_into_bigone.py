@@ -220,13 +220,17 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             dwcs = wcs.WCS(fits.getheader(fn))
 
             dwcs0 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([dataind0], 0)[0][0]
-            dwcs1 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([dataind1 or data.shape[0]-1], 0)[0][0]
+            dwcs1 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([data.shape[0]+(dataind1 or -1)], 0)[0][0]
             hwcs0 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind0], 0)[0][0]
             hwcs1 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind1], 0)[0][0]
             
             #if cdelt_sign == -1:
-            if dwcs0 != hwcs0 or hwcs1 != dwcs1:
-                raise ValueError("World coordinates of first pixels do not match")
+            if dwcs0 != hwcs0:
+                raise ValueError("World coordinates of first pixels do not match: {0} - {1} = {2}"
+                                 .format(dwcs0,hwcs0,dwcs0-hwcs0))
+            if hwcs1 != dwcs1:
+                raise ValueError("World coordinates of first pixels do not match: {0} - {1} = {2}"
+                                 .format(dwcs1,hwcs1,dwcs1-hwcs1))
 
 
             if bmaj_limits is not None:
