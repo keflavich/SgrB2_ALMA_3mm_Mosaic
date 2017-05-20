@@ -11,6 +11,7 @@ from astropy.utils.console import ProgressBar
 from spectral_cube import SpectralCube
 
 nchans_total = {0: 7680, 1: 7680, 2: 7680, 3: 7680}
+min_nchans = 7425
 frange = {0: [90357.27912, 92220.858],
           1: [88552.69612, 90417.088],
           2: [100440.526,102304.10488],
@@ -196,6 +197,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                           nchans_total[spwnum] - ind1 - 1)
             if ind0 < 0:
                 ind0 = 0
+
         plane = hdul[0].data[ind0]
         if np.all(plane == 0) or overwrite_existing:
             log.info("Replacing indices {0}->{2} {1}"
@@ -221,6 +223,9 @@ if __name__ == "__main__":
         for spw in (0,1,2,3):
 
             mxind = get_max_ind('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels*fits'.format(spw, robust))
+            if mxind < min_nchans:
+                log.critical("Skipping {0}:{1} b/c only {2} chans".format(robust, spw, mxind))
+                continue
             nchans_total[spw] = mxind
             log.info("nchans_total[{0},{1}] = {2}".format(spw, robust, mxind))
 
