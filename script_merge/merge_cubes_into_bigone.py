@@ -109,11 +109,9 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             assert ind0 == 0
             #header['CRPIX3'] = nchans_total[spwnum] - 1
 
-            main_wcs = wcs.WCS(header)
-            header_wcs = wcs.WCS(fits.getheader(header_fn))
-            assert main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(0,0) == header_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(0,0)
-        else:
-            assert main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(0,0) == header_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(0,0)
+        main_wcs = wcs.WCS(header)
+        header_wcs = wcs.WCS(fits.getheader(header_fn))
+        assert main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([0],0)[0][0] == header_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([0],0)[0][0]
 
         shape = (header['NAXIS3'], header['NAXIS2'], header['NAXIS1'])
 
