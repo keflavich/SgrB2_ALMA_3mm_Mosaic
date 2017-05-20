@@ -79,6 +79,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
     # First set up an empty file
     if not os.path.exists(big_filename):
+        log.info("Creating large cube based on header {0}".format(header_fn))
 
         if minimize:
             cube0 = SpectralCube.read(header_fn)
@@ -139,6 +140,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
         # in both cases, SpectralCube sorts the extrema
         assert big_cube.spectral_extrema[0] == header_cube.spectral_extrema[0]
         assert np.all(big_cube.wcs.wcs.cdelt == header_cube.wcs.wcs.cdelt)
+
+        log.info("Cube creation completed.  Now moving on to populating it.")
 
 
     # Find the appropriate files (this is NOT a good way to do this!  Better to
