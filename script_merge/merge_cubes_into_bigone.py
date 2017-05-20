@@ -219,10 +219,10 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             data = fits.getdata(fn)
             dwcs = wcs.WCS(fits.getheader(fn))
 
-            dwcs0 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(dataind0, 0)[0]
-            dwcs1 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(dataind1 or data.shape[0]-1, 0)[0]
-            hwcs0 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(ind0, 0)[0]
-            hwcs1 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world(ind1, 0)[0]
+            dwcs0 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([dataind0], 0)[0][0]
+            dwcs1 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([dataind1 or data.shape[0]-1], 0)[0][0]
+            hwcs0 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind0], 0)[0][0]
+            hwcs1 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind1], 0)[0][0]
             
             #if cdelt_sign == -1:
             if dwcs0 != hwcs0 or hwcs1 != dwcs1:
