@@ -99,6 +99,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
         cdelt_sign = np.sign(hdu.header['CDELT3'])
         # Set the appropriate output size (this can be extracted from the LISTOBS)
         header['NAXIS3'] = nchans_total[spwnum]
+        header_wcs = wcs.WCS(fits.getheader(header_fn))
+        header_specwcs = header_wcs.sub([wcs.WCSSUB_SPECTRAL])
         if cdelt_sign == -1:
             ind0, ind1 = getinds(header_fn)
             #5/20/2017: redoing some of this, and the text below is frightening but no longer relevant
@@ -107,11 +109,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             # channel in each cube?  Not clear - the arithmetic no longer
             # makes sense but is empirically necessary.
             assert ind0 == 0
-            #header['CRPIX3'] = nchans_total[spwnum] - 1
-
-        main_wcs = wcs.WCS(header)
-        header_wcs = wcs.WCS(fits.getheader(header_fn))
-        assert main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([0],0)[0][0] == header_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([0],0)[0][0]
+            header['CRPIX3'] = nchans_total[spwnum] - 1
+            header['CRVAL3'] = header_specwcs.wcs_pix2world(header['NAXIS3'],1)
 
         shape = (header['NAXIS3'], header['NAXIS2'], header['NAXIS1'])
 
@@ -206,11 +205,11 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                      "while for the big header it is {1}"
                      .format(cdelt_sign,
                              np.sign(fits.getheader(big_filename)['CDELT3'])))
-        #if cdelt_sign == -1:
-        #    ind1, ind0 = (nchans_total[spwnum] - ind0 - 1,
-        #                  nchans_total[spwnum] - ind1 - 1)
-        #    if ind0 < 0:
-        #        ind0 = 0
+        if cdelt_sign == -1:
+            ind1, ind0 = (nchans_total[spwnum] - ind0 - 1,
+                          nchans_total[spwnum] - ind1 - 1)
+            if ind0 < 0:
+                ind0 = 0
 
         plane = hdul[0].data[ind0]
         if np.all(plane == 0) or overwrite_existing:
@@ -225,7 +224,6 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             hwcs0 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind0], 0)[0][0]
             hwcs1 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind1], 0)[0][0]
             
-            #if cdelt_sign == -1:
             if dwcs0 != hwcs0:
                 raise ValueError("World coordinates of first pixels do not match: {0} - {1} = {2}"
                                  .format(dwcs0,hwcs0,dwcs0-hwcs0))
