@@ -223,7 +223,11 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                     dataind0 = cropends
                     log.debug("dataind0 going to {0}".format(cropends))
             else:
-                dataind1 = None
+                if cdelt_sign == 1:
+                    dataind1 = None
+                else:
+                    log.debug("dataind0 going to {0}".format(0))
+                    dataind0 = 0
         else:
             dataind0 = 0
             dataind1 = None
@@ -245,7 +249,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             dwcs = wcs.WCS(fits.getheader(fn)).sub([wcs.WCSSUB_SPECTRAL])
 
             dwcs0 = dwcs.wcs_pix2world([dataind0], 0)[0][0]
-            dwcs1 = dwcs.wcs_pix2world([data.shape[0]+(dataind1-1 or -1)], 0)[0][0]
+            dwcs1 = dwcs.wcs_pix2world([data.shape[0]+(dataind1 or 0)-1], 0)[0][0]
             hwcs0 = main_wcs.wcs_pix2world([ind0], 0)[0][0]
             hwcs1 = main_wcs.wcs_pix2world([ind1-1], 0)[0][0]
             
@@ -266,6 +270,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                 ok_beam = ((beamtable.data['BMAJ'] > bmaj_limits[0]) &
                            (beamtable.data['BMAJ'] < bmaj_limits[1]))
                 data[~ok_beam] = np.nan
+
+            assert hdul[0].data[ind0:ind1].shape == data[dataind0:dataind1, slices[1], slices[2]].shape
 
             if not debug_mode:
                 if add_beam_info:
@@ -297,7 +303,7 @@ if __name__ == "__main__":
                               overwrite_existing=False, bmaj_limits=None,
                               fnsuffix="", filesuffix='image.pbcor.fits',
                               first_endchannel=75,
-                              debug_mode=True,
+                              #debug_mode=True,
                               cropends=1, minimize=True, add_beam_info=True)
             elif os.path.exists('piece_of_full_SgrB2_TETC7m_r{1}_cube.spw{0}.channels0to373.image.pbcor.fits'.format(spw, robust)):
 
