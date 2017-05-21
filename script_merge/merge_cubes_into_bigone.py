@@ -155,7 +155,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
     # open the file in update mode (it should have the right dims now)
     hdul = fits.open(big_filename, mode='update')
-    main_wcs = wcs.WCS(hdul[0].header)
+    main_wcs = wcs.WCS(hdul[0].header).sub([wcs.WCSSUB_SPECTRAL])
 
     if add_beam_info:
         shape = hdul[0].data.shape[0]
@@ -242,12 +242,12 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                      .format(getinds(fn), fn, (ind0,ind1)))
 
             data = fits.getdata(fn)
-            dwcs = wcs.WCS(fits.getheader(fn))
+            dwcs = wcs.WCS(fits.getheader(fn)).sub([wcs.WCSSUB_SPECTRAL])
 
-            dwcs0 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([dataind0], 0)[0][0]
-            dwcs1 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([data.shape[0]+(dataind1 or -1)], 0)[0][0]
-            hwcs0 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind0], 0)[0][0]
-            hwcs1 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind1-1], 0)[0][0]
+            dwcs0 = dwcs.wcs_pix2world([dataind0], 0)[0][0]
+            dwcs1 = dwcs.wcs_pix2world([data.shape[0]+(dataind1-1 or -1)], 0)[0][0]
+            hwcs0 = main_wcs.wcs_pix2world([ind0], 0)[0][0]
+            hwcs1 = main_wcs.wcs_pix2world([ind1-1], 0)[0][0]
             
             if dwcs0 != hwcs0:
                 log.error("current data, big cube indices: {0},{1} and {2},{3}"
