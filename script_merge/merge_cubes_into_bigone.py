@@ -161,7 +161,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                                                      names=['BMAJ','BMIN','BPA','CHAN','POL'],
                                                      formats=['f4','f4','f4','i4','i4'])))
 
-    for fn in ProgressBar(files):
+    # sorted so that we deal with zero first, since it has potential to be a problem.
+    for fn in ProgressBar(sorted(files)):
         log.info("{0} {1}".format(getinds(fn), fn))
         ind0,ind1 = getinds(fn)
 
