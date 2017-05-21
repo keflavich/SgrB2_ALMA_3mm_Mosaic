@@ -180,6 +180,18 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             else:
                 slices = (slice(None),)*3
 
+        cdelt = fits.getheader(fn)['CDELT3']
+        if 'cdelt_sign' not in locals():
+            cdelt_sign = np.sign(cdelt)
+            log.warn("cdelt_sign was not defined: overwriting a"
+                     " previously-existing file.  "
+                     "This may not be what you want; the data could be going "
+                     "opposite the parent cube.  Check that the original "
+                     "header is OK. sign(CDELT) is now {0}, "
+                     "while for the big header it is {1}"
+                     .format(cdelt_sign,
+                             np.sign(fits.getheader(big_filename)['CDELT3'])))
+
         if cropends:
             # don't crop 1st or last pixel in full cube
             if ind0 > 0:
@@ -201,17 +213,6 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             dataind0 = 0
             dataind1 = None
 
-        cdelt = fits.getheader(fn)['CDELT3']
-        if 'cdelt_sign' not in locals():
-            cdelt_sign = np.sign(cdelt)
-            log.warn("cdelt_sign was not defined: overwriting a"
-                     " previously-existing file.  "
-                     "This may not be what you want; the data could be going "
-                     "opposite the parent cube.  Check that the original "
-                     "header is OK. sign(CDELT) is now {0}, "
-                     "while for the big header it is {1}"
-                     .format(cdelt_sign,
-                             np.sign(fits.getheader(big_filename)['CDELT3'])))
         if cdelt_sign == -1:
             log.debug("Reversing indices from {0} {1} to ".format(ind0,ind1))
             ind1, ind0 = (nchans_total[spwnum] - ind0,
