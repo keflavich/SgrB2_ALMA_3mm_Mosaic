@@ -87,7 +87,7 @@ for cubename in mergecubes:
             print("Skipping {0} {1} because it exists".format(suffix, fname))
             continue
 
-        cube = SpectralCube.read(dpath(cubename))
+        cube = SpectralCube.read(dpath(cubename)).with_spectral_unit(u.GHz)
         try:
             scube = cube.subcube_from_ds9region(reg)
         except ValueError as ex:
@@ -105,6 +105,8 @@ for cubename in mergecubes:
         hdu = spectrum.hdu
         pixel_scale = np.abs(cube.wcs.celestial.pixel_scale_matrix.diagonal().prod())**0.5 * u.deg
         hdu.header['PPBEAM'] = (spectrum.meta['beam'].sr / pixel_scale**2).decompose().value
+
+        hdu.header['OBJECT'] = name
 
         hdu.writeto(spath("{1}_{0}.fits".format(suffix,fname)), clobber=True)
         print(spath("{1}_{0}.fits".format(suffix,fname)))

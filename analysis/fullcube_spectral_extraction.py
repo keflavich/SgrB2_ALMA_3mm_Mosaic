@@ -67,6 +67,8 @@ for cubename in mergecubes:
         pixel_scale = np.abs(cube.wcs.celestial.pixel_scale_matrix.diagonal().prod())**0.5 * u.deg
         hdu.header['PPBEAM'] = (spectrum.meta['beam'].sr / pixel_scale**2).decompose().value
 
+        hdu.header['OBJECT'] = name
+
         hdu.writeto(spath("{1}_{0}.fits".format(suffix,fname)), clobber=True)
         print(spath("{1}_{0}.fits".format(suffix,fname)))
 
