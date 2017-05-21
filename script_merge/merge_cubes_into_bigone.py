@@ -196,7 +196,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             # don't crop 1st or last pixel in full cube
             if ind0 > 0 or cdelt_sign == -1:
                 log.debug("ind0 going from {0} to {1}".format(ind0,ind0+cropends))
-                log.debug("dataind0 going to {1}".format(cropends))
+                log.debug("dataind0 going to {0}".format(cropends))
                 ind0 = ind0 + cropends
                 dataind0 = cropends
                 extra = 0
@@ -206,7 +206,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
             if ((ind1 < nchans_total[spwnum] - 1) and cdelt_sign == 1) or (ind0 > 0 and cdelt_sign == -1):
                 log.debug("ind1 going from {0} to {1}".format(ind1,ind1-cropends))
-                log.debug("dataind1 going to {1}".format(-cropends-extra))
+                log.debug("dataind1 going to {0}".format(-cropends-extra))
                 ind1 = ind1 - cropends
                 dataind1 = - cropends - extra
             elif (ind0 == 0) and cdelt_sign == -1:
