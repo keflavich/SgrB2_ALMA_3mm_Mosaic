@@ -204,7 +204,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                 dataind0 = 0
                 extra = 0 # was an outdated correction; no longer used
 
-            if ((ind1 < nchans_total[spwnum] - 1) and cdelt_sign == 1) or (ind0 > 0 and cdelt_sign == -1):
+            if ((ind1 < nchans_total[spwnum] - 1) and cdelt_sign == 1):
                 log.debug("ind1 going from {0} to {1}".format(ind1,ind1-cropends))
                 log.debug("dataind1 going to {0}".format(-cropends-extra))
                 ind1 = ind1 - cropends
