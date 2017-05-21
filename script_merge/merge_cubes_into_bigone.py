@@ -232,7 +232,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             if hwcs1 != dwcs1:
                 log.error("current data, big cube indices: {0},{1} and {2},{3}"
                           .format(dataind0,dataind1,ind0,ind1))
-                raise ValueError("World coordinates of first pixels do not match: {0} - {1} = {2}"
+                raise ValueError("World coordinates of last pixels do not match: {0} - {1} = {2}"
                                  .format(dwcs1,hwcs1,dwcs1-hwcs1))
 
 
