@@ -65,6 +65,10 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
         Compute the spatial minimal subcube before building the cube?  Slices
         for all subsequent cubes will be computed from the first cube.
     """
+    if debug_mode:
+        lvl = log.getEffectiveLevel()
+        log.setLevel('DEBUG')
+
     spw = spw.format(spwnum)
 
     big_filename = '{1}_{0}{2}_lines.fits'.format(spw, fntemplate, fnsuffix)
@@ -112,6 +116,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             assert ind0 == 0
             header['CRPIX3'] = nchans_total[spwnum]
             header['CRVAL3'] = header_specwcs.wcs_pix2world([naxis3_in],1)[0][0]
+            assert wcs.WCS(header).sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([header['CRPIX3']], 1)[0][0] == header['CRVAL3']
 
         shape = (header['NAXIS3'], header['NAXIS2'], header['NAXIS1'])
 
@@ -182,11 +187,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                 dataind0 = cropends
                 extra = 0
             else:
-                # because I forgot to reduce nchan, there is an "extra" pixel
-                # when we start at zero (there should not be a corresponding one
-                # when we end too late)
                 dataind0 = 0
-                extra = 1
+                extra = 0 # was an outdated correction; no longer used
 
             if ind1 < nchans_total[spwnum] - 1:
                 ind1 = ind1 - cropends
@@ -209,8 +211,10 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                      .format(cdelt_sign,
                              np.sign(fits.getheader(big_filename)['CDELT3'])))
         if cdelt_sign == -1:
+            log.debug("Reversing indices from {0} {1} to ".format(ind0,ind1))
             ind1, ind0 = (nchans_total[spwnum] - ind0,
                           nchans_total[spwnum] - ind1)
+            log.debug("{0} {1]".format(ind0, ind1))
             if ind0 < 0:
                 ind0 = 0
 
@@ -253,6 +257,9 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
                 hdul[0].data[ind0:ind1,:,:] = data[dataind0:dataind1, slices[1], slices[2]]
                 hdul.flush()
+
+    if debug_mode:
+        log.setLevel(lvl)
 
 if __name__ == "__main__":
     for robust in (0,2):
