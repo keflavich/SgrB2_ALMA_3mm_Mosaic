@@ -246,7 +246,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             dwcs0 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([dataind0], 0)[0][0]
             dwcs1 = dwcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([data.shape[0]+(dataind1 or -1)], 0)[0][0]
             hwcs0 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind0], 0)[0][0]
-            hwcs1 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind1], 0)[0][0]
+            hwcs1 = main_wcs.sub([wcs.WCSSUB_SPECTRAL]).wcs_pix2world([ind1-1], 0)[0][0]
             
             if dwcs0 != hwcs0:
                 log.error("current data, big cube indices: {0},{1} and {2},{3}"
