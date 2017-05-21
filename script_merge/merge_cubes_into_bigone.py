@@ -98,6 +98,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
         hdu = fits.PrimaryHDU(data=data, header=header)
         cdelt_sign = np.sign(hdu.header['CDELT3'])
         # Set the appropriate output size (this can be extracted from the LISTOBS)
+        naxis3_in = header['NAXIS3']
         header['NAXIS3'] = nchans_total[spwnum]
         header_wcs = wcs.WCS(fits.getheader(header_fn))
         header_specwcs = header_wcs.sub([wcs.WCSSUB_SPECTRAL])
@@ -110,7 +111,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             # makes sense but is empirically necessary.
             assert ind0 == 0
             header['CRPIX3'] = nchans_total[spwnum] - 1
-            header['CRVAL3'] = header_specwcs.wcs_pix2world(header['NAXIS3'],1)
+            header['CRVAL3'] = header_specwcs.wcs_pix2world(naxis3_in,1)[0][0]
 
         shape = (header['NAXIS3'], header['NAXIS2'], header['NAXIS1'])
 
