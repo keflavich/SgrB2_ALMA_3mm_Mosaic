@@ -214,7 +214,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             log.debug("Reversing indices from {0} {1} to ".format(ind0,ind1))
             ind1, ind0 = (nchans_total[spwnum] - ind0,
                           nchans_total[spwnum] - ind1)
-            log.debug("{0} {1]".format(ind0, ind1))
+            log.debug("{0} {1}".format(ind0, ind1))
             if ind0 < 0:
                 ind0 = 0
 
