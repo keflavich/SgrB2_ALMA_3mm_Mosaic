@@ -194,7 +194,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
 
         if cropends:
             # don't crop 1st or last pixel in full cube
-            if ind0 > 0 or cdelt_sign == -1:
+            if ind0 > 0:
                 log.debug("ind0 going from {0} to {1}".format(ind0,ind0+cropends))
                 log.debug("dataind0 going to {0}".format(cropends))
                 ind0 = ind0 + cropends
