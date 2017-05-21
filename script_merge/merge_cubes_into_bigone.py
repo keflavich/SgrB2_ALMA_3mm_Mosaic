@@ -219,7 +219,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                     log.debug("dataind1 going to {0}".format(-cropends))
                 elif cdelt_sign == -1:
                     dataind0 = cropends
-                    log.debug("dataind0 going to {0}".format())
+                    log.debug("dataind0 going to {0}".format(cropends))
             else:
                 dataind1 = None
         else:
