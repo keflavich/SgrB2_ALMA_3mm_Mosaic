@@ -111,7 +111,7 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             # makes sense but is empirically necessary.
             assert ind0 == 0
             header['CRPIX3'] = nchans_total[spwnum] - 1
-            header['CRVAL3'] = header_specwcs.wcs_pix2world(naxis3_in,1)[0][0]
+            header['CRVAL3'] = header_specwcs.wcs_pix2world([naxis3_in],1)[0][0]
 
         shape = (header['NAXIS3'], header['NAXIS2'], header['NAXIS1'])
 
