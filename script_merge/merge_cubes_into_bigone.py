@@ -196,8 +196,9 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             dataind0 = 0
             dataind1 = None
 
+        cdelt = fits.getheader(fn)['CDELT3']
         if 'cdelt_sign' not in locals():
-            cdelt_sign = np.sign(fits.getheader(fn)['CDELT3'])
+            cdelt_sign = np.sign(cdelt)
             log.warn("cdelt_sign was not defined: overwriting a"
                      " previously-existing file.  "
                      "This may not be what you want; the data could be going "
@@ -207,8 +208,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
                      .format(cdelt_sign,
                              np.sign(fits.getheader(big_filename)['CDELT3'])))
         if cdelt_sign == -1:
-            ind1, ind0 = (nchans_total[spwnum] - ind0 - 1,
-                          nchans_total[spwnum] - ind1 - 1)
+            ind1, ind0 = (nchans_total[spwnum] - ind0,
+                          nchans_total[spwnum] - ind1)
             if ind0 < 0:
                 ind0 = 0
 
@@ -228,13 +229,13 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
             if dwcs0 != hwcs0:
                 log.error("current data, big cube indices: {0},{1} and {2},{3}"
                           .format(dataind0,dataind1,ind0,ind1))
-                raise ValueError("World coordinates of first pixels do not match: {0} - {1} = {2}"
-                                 .format(dwcs0,hwcs0,dwcs0-hwcs0))
+                raise ValueError("World coordinates of first pixels do not match: {0} - {1} = {2} ({3} cdelt)"
+                                 .format(dwcs0,hwcs0,dwcs0-hwcs0,(dwcs0-hwcs0)/cdelt))
             if hwcs1 != dwcs1:
                 log.error("current data, big cube indices: {0},{1} and {2},{3}"
                           .format(dataind0,dataind1,ind0,ind1))
-                raise ValueError("World coordinates of last pixels do not match: {0} - {1} = {2}"
-                                 .format(dwcs1,hwcs1,dwcs1-hwcs1))
+                raise ValueError("World coordinates of last pixels do not match: {0} - {1} = {2} ({3} cdelt)"
+                                 .format(dwcs1,hwcs1,dwcs1-hwcs1,(dwcs1-hwcs1)/cdelt))
 
 
             if bmaj_limits is not None:
