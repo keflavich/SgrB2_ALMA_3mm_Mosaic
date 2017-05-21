@@ -170,7 +170,8 @@ def make_spw_cube(spw='spw{0}', spwnum=0, fntemplate='SgrB2',
     for fn in ProgressBar(sorted(files)):
         log.info("{0} {1}".format(getinds(fn), fn))
         ind0,ind1 = getinds(fn)
-        ind1 = ind1 + 1
+        if ind0 == 0:
+            ind1 = ind1 + 1
 
         if 'slices' not in locals():
             if minimize:
