@@ -555,6 +555,7 @@ sources are high-mass protostars, the free-free contamination and optically
 thick inner region models are both plausible.
 
 \subsection{Source distribution functions and the star formation rate}
+\label{sec:distributionsandsfr}
 
 In this section we examine the flux density distribution of the observed
 sources and the implied total stellar masses.  
@@ -601,10 +602,10 @@ by a power-law IMF, we expect $M_{inferred,\hii} = M_{inferred,cores}$.
 Except for Sgr B2 M, the core-based and \hii-region based estimates agree
 to within $\sim25\%$, which is about as good as expected from Poisson
 noise in the counting statistics.  Sgr B2 M has the largest sample in both
-counts and has a factor of two discrepancy; this is likely because of the
+counts and has a factor of two discrepancy: this may be because of the
 combined effects of source confusion at our 0.5\arcsec resolution and the
 increased noise around the extremely bright central region that makes detection
-of $<2$ mJy sources impossible.
+of $<2$ mJy sources difficult; however, it may be real...
 
 We compare our mass estimates to those of \citet{Schmiedeke2016a}, who inferred
 stellar masses primarily from \hii region counts.  The last two columns of Table
@@ -779,26 +780,29 @@ line.}
 \section{Discussion}
 We have reported the detection of a large number of point sources and inferred
 that they are most likely all high-mass protostars.  These sources universally
-reside in gas above $N\gtrsim2\ee{23}$ \persc gas.  In this section, we discuss
+reside in gas above $N\gtrsim2\ee{23}$ \persc.  In this section, we discuss
 the implications of this apparent threshold for high-mass star formation in the
 CMZ.
 
 A theoretical threshold for high-mass star formation, $N > 1$ g \persc was
-developed by \citet{Krumholz2008a}.  Since all of the sources we have detected
-reside above this threshold and we determined our sources are all likely to be
-massive protostars in Section \ref{sec:theyareprotostars}, we have apparently
-confirmed this threshold.
+developed by \citet{Krumholz2008a}.   Nearly all of the sources we have
+detected reside above this threshold, and we determined our sources are all
+likely to be massive protostars in Section \ref{sec:theyareprotostars}.
+However, not all pixels with $N > 1$ g \persc are forming high-mass stars
+(Figure \ref{fig:coldistributionwithoutstarformation}).  We
+have therefore apparently confirmed that this threshold is a necessary, but not
+sufficient, condition for high-mass star formation.
 
 
-While there is an apparent column density threshold required for high-mass
-stars to form, that threshold clearly forms only a necessary, not a sufficient,
-condition for star formation.  Figure
-\ref{fig:coldistributionwithoutstarformation} shows that there is abundant
-material within our observed region at $N>1$ g \persc that is not associated
-with ongoing high-mass star formation.  These high-column-density, low
-star-formation regions are also evident in Figure \ref{fig:coresonscubacol},
-which shows that the northern and western regions of the cloud are the
-deficient zones.
+%While there is an apparent column density threshold required for high-mass
+%stars to form, that threshold clearly forms only a necessary, not a sufficient,
+%condition for star formation.  Figure
+%\ref{fig:coldistributionwithoutstarformation} shows that there is abundant
+%material within our observed region at $N>1$ g \persc that is not associated
+%with ongoing high-mass star formation.  These high-column-density, low
+%star-formation regions are also evident in Figure \ref{fig:coresonscubacol},
+%which shows that the northern and western regions of the cloud are the
+%deficient zones.
 
 % nonstarforming_regions.py
 \FigureOneCol{figures/column_density_distribution_with_and_without_SF.png}
@@ -860,6 +864,14 @@ less evident in this velocity-integrated view.  The important feature discussed
 in Section \ref{sec:whatdrives} is the differing column density around each of
 the bubbles.}
 {fig:hc3nonscuba}{1}{0.5\textwidth}
+
+\subsection{The clusters and the extended population}
+We noted in Section \ref{sec:distributionsandsfr} that the \hii-region-inferred
+protostellar mass matches the core-inferred protostellar mass to within a
+factor of 2 in the whole Sgr B2 cloud and the individual clusters excepting Sgr
+B2 M.  In Sgr B2 M, the \hii-region inferred mass is $\sim9\times$ greater than
+the core-inferred mass.  
+
 
 \section{Conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
