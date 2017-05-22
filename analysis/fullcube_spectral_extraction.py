@@ -31,8 +31,15 @@ regions = (
 
 for cubename in mergecubes:
     for reg in regions:
+
         name = reg.attr[1]['text']
         fname = name.replace(" ","_").lower()
+
+        suffix = os.path.splitext(cubename)[0]
+        if os.path.exists(spath("{1}_{0}.fits".format(suffix,fname))):
+            print("Skipping {0} {1} because it exists".format(suffix, fname))
+            continue
+
         CL = reg.coord_list
         if reg.name == 'circle':
             radius = CL[2]
@@ -42,12 +49,7 @@ for cubename in mergecubes:
             reg = pyregion.parse("fk5; circle({0},{1},0.5\")"
                                  .format(CL[0], CL[1]))
 
-        suffix = os.path.splitext(cubename)[0]
-        if os.path.exists(spath("{1}_{0}.fits".format(suffix,fname))):
-            print("Skipping {0} {1} because it exists".format(suffix, fname))
-            continue
-
-        cube = SpectralCube.read(dpath(cubename))
+        cube = SpectralCube.read(dpath(cubename)).mask_out_bad_beams(threshold=0.1)
         try:
             scube = cube.subcube_from_ds9region(reg)
         except ValueError as ex:
@@ -56,16 +58,19 @@ for cubename in mergecubes:
         print(cube)
         log.info("Source name: {0}  filename: {1}".format(name,fname))
         print(scube)
-        spectrum = scube.mean(axis=(1,2))
+        spsum = scube.sum(axis=(1,2))
+        assert not np.all(np.isnan(spsum))
+        spnpix = np.count_nonzero(np.isfinite(scube[0,:,:]))
+        spectrum = spsum / spnpix
         # I think this is a hack left over from old versions of SpectralCube
-        spectrum.meta['beam'] = radio_beam.Beam(major=np.nanmedian([bm.major.to(u.deg).value for bm in spectrum.beams]),
-                                                minor=np.nanmedian([bm.minor.to(u.deg).value for bm in spectrum.beams]),
-                                                pa=np.nanmedian([bm.pa.to(u.deg).value for bm in spectrum.beams]),
-                                               )
+        spsum.meta['beam'] = radio_beam.Beam(major=np.nanmedian([bm.major.to(u.deg).value for bm in scube.beams]),
+                                             minor=np.nanmedian([bm.minor.to(u.deg).value for bm in scube.beams]),
+                                             pa=np.nanmedian([bm.pa.to(u.deg).value for bm in scube.beams]),)
 
-        hdu = spectrum.hdu
+        hdu = spsum.hdu
+        hdu.data = spectrum.value
         pixel_scale = np.abs(cube.wcs.celestial.pixel_scale_matrix.diagonal().prod())**0.5 * u.deg
-        hdu.header['PPBEAM'] = (spectrum.meta['beam'].sr / pixel_scale**2).decompose().value
+        hdu.header['PPBEAM'] = (spsum.meta['beam'].sr / pixel_scale**2).decompose().value
 
         hdu.header['OBJECT'] = name
 
@@ -77,13 +82,18 @@ for cubename in mergecubes:
                                       CL[1],
                                       2*radius))
         bgsc = cube.subcube_from_ds9region(bgSL)
+        print(bgsc)
         npix = np.count_nonzero(np.isfinite(bgsc[0,:,:]))
-        bgspec = (bgsc.sum(axis=(1,2)) - scube.sum(axis=(1,2))) / npix
-        bgspec.meta['beam'] = radio_beam.Beam(major=np.nanmedian([bm.major.to(u.deg).value for bm in spectrum.beams]),
-                                              minor=np.nanmedian([bm.minor.to(u.deg).value for bm in spectrum.beams]),
-                                              pa=np.nanmedian([bm.pa.to(u.deg).value for bm in spectrum.beams]),
+        bgsum = bgsc.sum(axis=(1,2))
+        assert not np.all(np.isnan(bgsum))
+        bgspec = (bgsum - spsum) / npix
+        bgspec.meta['beam'] = radio_beam.Beam(major=np.nanmedian([bm.major.to(u.deg).value for bm in scube.beams]),
+                                              minor=np.nanmedian([bm.minor.to(u.deg).value for bm in scube.beams]),
+                                              pa=np.nanmedian([bm.pa.to(u.deg).value for bm in scube.beams]),
                                              )
-        bgspec.hdu.writeto(spath("{0}_{1}_background_mean{2}.fits".format(fname,
-                                                                          name,
-                                                                          suffix)
+        bghdu = bgspec.hdu
+        bghdu.header['OBJECT'] = name
+        bghdu.writeto(spath("{0}_{1}_background_mean{2}.fits".format(fname,
+                                                                     name,
+                                                                     suffix)
                                 ), clobber=True)
