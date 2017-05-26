@@ -59,7 +59,7 @@ for cubename in mergecubes:
         log.info("Source name: {0}  filename: {1}".format(name,fname))
         print(scube)
         spsum = scube.sum(axis=(1,2))
-        assert not np.all(np.isnan(spsum))
+        assert np.any(np.isfinite(spsum))
         spnpix = np.count_nonzero(np.isfinite(scube[0,:,:]))
         spectrum = spsum / spnpix
         # I think this is a hack left over from old versions of SpectralCube
@@ -85,7 +85,7 @@ for cubename in mergecubes:
         print(bgsc)
         npix = np.count_nonzero(np.isfinite(bgsc[0,:,:]))
         bgsum = bgsc.sum(axis=(1,2))
-        assert not np.all(np.isnan(bgsum))
+        assert np.any(np.isfinite(bgsum))
         bgspec = (bgsum - spsum) / npix
         bgspec.meta['beam'] = radio_beam.Beam(major=np.nanmedian([bm.major.to(u.deg).value for bm in scube.beams]),
                                               minor=np.nanmedian([bm.minor.to(u.deg).value for bm in scube.beams]),
