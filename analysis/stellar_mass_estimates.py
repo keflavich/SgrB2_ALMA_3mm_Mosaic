@@ -153,6 +153,21 @@ latexdict = latex_info.latexdict.copy()
 latexdict['header_start'] = '\label{tab:clustermassestimates}'
 latexdict['caption'] = 'Cluster Masses'
 latexdict['preamble'] = '\centering'
+latexdict['tablefoot'] = ("\par\n"
+                          "$M_{{obs}}$ is the mass of directly observed protostars, "
+                          "assuming each millimeter source is {0:0.1f} \msun, or "
+                          "{1:0.1f} \msun "
+                          "if it is also an \hii region.  "
+                          "$M_{{inferred,cores}}$ and $M_{{inferred,\hii}}$ are the inferred "
+                          "total stellar masses assuming the counted objects represent "
+                          "fractions of the total mass {2:0.2f} (cores) and "
+                          "{3:0.2f} (\hii regions).  $M_{{inferred}}$ is the average "
+                          "of these two."
+                          "$M_{{obs}}^s$ and $M_{{inf}}^s$ are the observed and inferred "
+                          "masses reported in \citet{{Schmiedeke2016a}}."
+                          .format(over8lt20mean, over20mean, over8lt20fraction,
+                                  over20fraction)
+                         )
 tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
           formats=formats,
           latexdict=latexdict, overwrite=True)
