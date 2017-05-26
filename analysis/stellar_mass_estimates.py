@@ -164,7 +164,10 @@ latexdict['tablefoot'] = ("\par\n"
                           "{3:0.2f} (\hii regions).  $M_{{inferred}}$ is the average "
                           "of these two.  "
                           "$M_{{obs}}^s$ and $M_{{inf}}^s$ are the observed and inferred "
-                          "masses reported in \citet{{Schmiedeke2016a}}."
+                          "masses reported in \citet{{Schmiedeke2016a}}.  "
+                          "The star formation rate is computed using an age $t=0.74$ Myr, "
+                          "which is the time of the last pericenter passage in the "
+                          "\citet{{Kruijssen2015a}} model.  " 
                           .format(over8lt20mean, over20mean, over8lt20fraction,
                                   over20fraction)
                          )
