@@ -60,7 +60,8 @@ for cubename in mergecubes:
         print(scube)
         spsum = scube.sum(axis=(1,2))
         assert np.any(np.isfinite(spsum))
-        spnpix = np.count_nonzero(np.isfinite(scube[0,:,:]))
+        spnpix = np.count_nonzero(np.isfinite(scube[1000,:,:]))
+        assert spnpix > 0
         spectrum = spsum / spnpix
         # I think this is a hack left over from old versions of SpectralCube
         spsum.meta['beam'] = radio_beam.Beam(major=np.nanmedian([bm.major.to(u.deg).value for bm in scube.beams]),
@@ -83,7 +84,8 @@ for cubename in mergecubes:
                                       2*radius))
         bgsc = cube.subcube_from_ds9region(bgSL)
         print(bgsc)
-        npix = np.count_nonzero(np.isfinite(bgsc[0,:,:]))
+        npix = np.count_nonzero(np.isfinite(bgsc[1000,:,:]))
+        assert npix > 0
         bgsum = bgsc.sum(axis=(1,2))
         assert np.any(np.isfinite(bgsum))
         bgspec = (bgsum - spsum) / npix

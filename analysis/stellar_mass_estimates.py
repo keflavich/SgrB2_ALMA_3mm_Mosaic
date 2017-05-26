@@ -167,7 +167,7 @@ latexdict['tablefoot'] = ("\par\n"
                           "masses reported in \citet{{Schmiedeke2016a}}.  "
                           "The star formation rate is computed using an age $t=0.74$ Myr, "
                           "which is the time of the last pericenter passage in the "
-                          "\citet{{Kruijssen2015a}} model.  " 
+                          "\citet{{Kruijssen2015a}} model.  "
                           .format(over8lt20mean, over20mean, over8lt20fraction,
                                   over20fraction)
                          )
