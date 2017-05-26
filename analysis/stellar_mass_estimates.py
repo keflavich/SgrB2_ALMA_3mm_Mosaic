@@ -1,7 +1,7 @@
 import numpy as np
 from imf import imf
 import paths
-from astropy.table import Table
+from astropy.table import Table,Column
 from astropy import coordinates
 from astropy import units as u
 import regions
@@ -107,6 +107,8 @@ for col in tbl.colnames:
         tbl[col].unit = u.Msun
 tbl['SFR'].unit = u.Msun/u.kyr
 
+cluster_column = np.array(['__']*len(core_phot_tbl))
+
 print("Mass fraction M>20 = {0}".format(over20fraction))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
 for reg in clusters:
@@ -129,10 +131,13 @@ for reg in clusters:
           " core-inferred mass={6:10.2f}"
           .format(name, ncores, nhii, mass,
                   inferred_mass, hii_only_inferred_mass, core_inferred_mass))
+
     if name == 'Total':
         sst_mask = [-1]
     else:
         sst_mask = schmiedeke_summary_table['Name'] == 'Sgr B2({0})'.format(name)
+        cluster_column[mask] = name
+
     tbl.add_row([name,
                  ncores,
                  nhii,
@@ -174,6 +179,11 @@ latexdict['tablefoot'] = ("\par\n"
 tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
           formats=formats,
           latexdict=latexdict, overwrite=True)
+
+core_phot_tbl.add_column(Column(name='Cluster', data=cluster_column))
+
+core_phot_tbl.write(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipac"),
+                    format='ascii.ipac', overwrite=True)
 
 """
 Result as of 3/24/2017:

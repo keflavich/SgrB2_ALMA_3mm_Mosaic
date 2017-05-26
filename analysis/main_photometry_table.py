@@ -13,7 +13,7 @@ latexdict = latexdict.copy()
 
 sgrb2contfile = fits.open(contfilename)
 
-cont_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac')
+cont_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipac"), format='ascii.ipac')
 
 coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'])
 cont_tbl.remove_column('RA')
@@ -79,11 +79,13 @@ formats = {'Coordinates': lambda x: x.to_string('hmsdms', sep=":"),
 cont_tbl['$S_{nu,max}$'].unit = 'mJy bm$^{-1}$'
 cont_tbl['$\sigma_{bg}$'].unit = 'mJy bm$^{-1}$'
 
-latexdict['caption'] = 'Continuum Source IDs and photometry'
-latexdict['header_start'] = '\label{tab:photometry}\n\\footnotesize'
+# caption needs to be *before* preamble.
+#latexdict['caption'] = 'Continuum Source IDs and photometry'
+latexdict['header_start'] = '\label{tab:photometry}'#\n\\footnotesize'
+latexdict['preamble'] = '\caption{Continuum Source IDs and photometry}\n\\resizebox{\\textwidth}{!}{'
 latexdict['col_align'] = 'l'*len(cont_tbl.columns)
 latexdict['tabletype'] = 'table'
-latexdict['tablefoot'] = ("\par\n"
+latexdict['tablefoot'] = ("}\par\n"
                           "The Classification column consists of three letter codes "
                           "as described in Section \\ref{sec:classification}.  "
                           "In column 1, "
