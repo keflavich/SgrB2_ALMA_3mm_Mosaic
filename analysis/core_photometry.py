@@ -108,10 +108,10 @@ if __name__ == "__main__":
                                 radio_beam.Beam.from_fits_header(fits.getheader(fn_100GHz)))
 
     for name in results:
-        results[name]['peak_mass_20K'] = masscalc.mass_conversion_factor()*results[name]['peak']
         results[name]['peak_col_20K'] = masscalc.col_conversion_factor(results[name]['peak']*u.Jy, beam.sr)
-        results[name]['peak_mass_40K'] = masscalc.mass_conversion_factor(TK=40*u.K)*results[name]['peak']
+        results[name]['peak_mass_20K'] = np.nan*u.g if np.isnan(results[name]['peak_col_20K']) else masscalc.mass_conversion_factor()*results[name]['peak']
         results[name]['peak_col_40K'] = masscalc.col_conversion_factor(results[name]['peak']*u.Jy, beam.sr, TK=40*u.K)
+        results[name]['peak_mass_40K'] = np.nan*u.g if np.isnan(results[name]['peak_col_40K']) else masscalc.mass_conversion_factor(TK=40*u.K)*results[name]['peak']
         results[name]['peak_90GHz'] = results_90GHz[name]['peak']
         results[name]['peak_100GHz'] = results_100GHz[name]['peak']
         results[name]['sum_90GHz'] = results_90GHz[name]['sum']

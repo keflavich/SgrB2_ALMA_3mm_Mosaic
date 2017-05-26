@@ -103,6 +103,6 @@ latexdict['tablefoot'] = ("}\par\n"
                           "source object type classification if one was found."
                          )
 
-cont_tbl.sort('$M_{20K}$')
+cont_tbl.sort('$S_{nu,max}$')
 cont_tbl[:-35:-1].write(paths.texpath("continuum_photometry.tex"),
                         formats=formats, overwrite=True, latexdict=latexdict)
