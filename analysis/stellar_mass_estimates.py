@@ -107,7 +107,7 @@ for col in tbl.colnames:
         tbl[col].unit = u.Msun
 tbl['SFR'].unit = u.Msun/u.kyr
 
-cluster_column = np.array(['__']*len(core_phot_tbl))
+cluster_column = np.array(['--']*len(core_phot_tbl))
 
 print("Mass fraction M>20 = {0}".format(over20fraction))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))

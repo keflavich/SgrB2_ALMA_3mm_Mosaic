@@ -87,6 +87,8 @@ if __name__ == "__main__":
              'bgmad':u.Jy/u.beam,
              'peak_mass_20K':u.M_sun,
              'peak_col_20K':u.cm**-2,
+             'peak_mass_40K':u.M_sun,
+             'peak_col_40K':u.cm**-2,
              'RA': u.deg,
              'Dec': u.deg,
             }
@@ -108,6 +110,8 @@ if __name__ == "__main__":
     for name in results:
         results[name]['peak_mass_20K'] = masscalc.mass_conversion_factor()*results[name]['peak']
         results[name]['peak_col_20K'] = masscalc.col_conversion_factor(results[name]['peak']*u.Jy, beam.sr)
+        results[name]['peak_mass_40K'] = masscalc.mass_conversion_factor(TK=40*u.K)*results[name]['peak']
+        results[name]['peak_col_40K'] = masscalc.col_conversion_factor(results[name]['peak']*u.Jy, beam.sr, TK=40*u.K)
         results[name]['peak_90GHz'] = results_90GHz[name]['peak']
         results[name]['peak_100GHz'] = results_100GHz[name]['peak']
         results[name]['sum_90GHz'] = results_90GHz[name]['sum']
@@ -141,6 +145,7 @@ if __name__ == "__main__":
                            'npix', 'beam_area',
                            'bgmad', 'color',
                            'peak_mass_20K', 'peak_col_20K',
+                           'peak_mass_40K', 'peak_col_40K',
                            'peak_90GHz', 'sum_90GHz', 'bgmad_90GHz',
                            'peak_100GHz', 'sum_100GHz', 'bgmad_100GHz',
                           ]])
@@ -150,6 +155,7 @@ if __name__ == "__main__":
                                                                        masscalc.centerfreq))
     tbl.add_column(Column(data=peak_brightness, name='peak_K', unit=u.K))
 
-    tbl.sort('peak_mass_20K')
+    tbl.sort('peak_mass_40K')
+    tbl = tbl[::-1]
     tbl.write(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac',
               overwrite=True)

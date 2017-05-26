@@ -32,7 +32,7 @@ cont_tbl.remove_column('peak_K')
 mywcs = wcs.WCS(sgrb2contfile[0].header)
 pix_area = wcs.utils.proj_plane_pixel_area(mywcs)*u.deg**2
 cont_tbl.add_column(Column(name='$S_{nu,tot}$',
-                           data=(cont_tbl['sum']*cont_tbl['beam_area'].to(u.sr)/pix_area*u.beam).to(u.mJy,)))
+                           data=(cont_tbl['sum'].to(u.Jy/u.beam)*cont_tbl['beam_area'].to(u.sr)/pix_area*u.beam).to(u.mJy,)))
 cont_tbl.remove_column('sum')
 cont_tbl.add_column(Column(name='$\sigma_{bg}$',
                            data=u.Quantity(cont_tbl['bgmad'],
@@ -42,10 +42,10 @@ cont_tbl.add_column(Column(name='$\\alpha$', data=cont_tbl['alpha']))
 cont_tbl.remove_column('alpha')
 cont_tbl.add_column(Column(name='$E(\\alpha)$', data=cont_tbl['alphaerror']))
 cont_tbl.remove_column('alphaerror')
-cont_tbl.add_column(Column(name='$M_{20K}$', data=cont_tbl['peak_mass_20K']))
-cont_tbl.remove_column('peak_mass_20K')
-cont_tbl.add_column(Column(name='$N(\hh)_{20 K}$', data=cont_tbl['peak_col_20K']))
-cont_tbl.remove_column('peak_col_20K')
+cont_tbl.add_column(Column(name='$M_{40K}$', data=cont_tbl['peak_mass_40K']))
+cont_tbl.remove_column('peak_mass_40K')
+cont_tbl.add_column(Column(name='$N(\hh)_{40 K}$', data=cont_tbl['peak_col_40K']))
+cont_tbl.remove_column('peak_col_40K')
 
 cont_tbl.add_column(Column(name='Classification',
                            data=["{0}{1}{2} {3}"
@@ -61,6 +61,7 @@ for colname in ['SIMBAD_ID', 'SIMBAD_OTYPE', 'Caswell_Name', 'npix',
                 'beam_area', 'peak_90GHz', 'sum_90GHz', 'bgmad_90GHz',
                 'peak_100GHz', 'sum_100GHz', 'bgmad_100GHz', 'Caswell_V_CH3OH',
                 'Caswell_matchdistance', 'Muno_xray_ID', 'Muno_xray_Counts',
+                'peak_mass_20K', 'peak_col_20K',
                 'Muno_xray_matchdistance',]:
     cont_tbl.remove_column(colname)
 
@@ -70,8 +71,8 @@ formats = {'Coordinates': lambda x: x.to_string('hmsdms', sep=":"),
            '$\sigma_{bg}$': lambda x: strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            '$\\alpha$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            '$E(\\alpha)$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
-           '$N(\hh)_{20 K}$': format_float,
-           '$M_{20K}$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
+           '$N(\hh)_{40 K}$': format_float,
+           '$M_{40K}$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            "$T_{B,max}$": lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
           }
 
@@ -104,4 +105,4 @@ latexdict['tablefoot'] = ("}\par\n"
 
 cont_tbl.sort('$M_{20K}$')
 cont_tbl[:-35:-1].write(paths.texpath("continuum_photometry.tex"),
-                       formats=formats, overwrite=True, latexdict=latexdict)
+                        formats=formats, overwrite=True, latexdict=latexdict)
