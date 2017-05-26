@@ -162,7 +162,7 @@ latexdict['tablefoot'] = ("\par\n"
                           "total stellar masses assuming the counted objects represent "
                           "fractions of the total mass {2:0.2f} (cores) and "
                           "{3:0.2f} (\hii regions).  $M_{{inferred}}$ is the average "
-                          "of these two."
+                          "of these two.  "
                           "$M_{{obs}}^s$ and $M_{{inf}}^s$ are the observed and inferred "
                           "masses reported in \citet{{Schmiedeke2016a}}."
                           .format(over8lt20mean, over20mean, over8lt20fraction,
