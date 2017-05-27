@@ -182,6 +182,15 @@ tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
 
 core_phot_tbl.add_column(Column(name='Cluster', data=cluster_column))
 
+classification = Column(name='Classification',
+                        data=["{0}{1}{2} {3}"
+                              .format(('S' if row['color'] == 'green' else 'W'),
+                                      ("\_" if row['Muno_xray_ID'] == '-' else "X"),
+                                      ("\_" if row['Caswell_Name'] == '-' else "M"),
+                                      str(row['SIMBAD_OTYPE']))
+                              for row in core_phot_tbl])
+core_phot_tbl.add_column(classification)
+
 core_phot_tbl.write(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipac"),
                     format='ascii.ipac', overwrite=True)
 

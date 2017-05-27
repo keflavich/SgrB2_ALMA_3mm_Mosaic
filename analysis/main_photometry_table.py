@@ -25,14 +25,16 @@ for row in cont_tbl:
 
 cont_tbl.rename_column('name','ID')
 
-cont_tbl.add_column(Column(name='$S_{nu,max}$', data=cont_tbl['peak'].to(u.mJy/u.beam)))
+cont_tbl.add_column(Column(name='$S_{\\nu,max}$', data=cont_tbl['peak'].to(u.mJy/u.beam)))
 cont_tbl.remove_column('peak')
 cont_tbl.add_column(Column(name='$T_{B,max}$', data=cont_tbl['peak_K'].to(u.K)))
 cont_tbl.remove_column('peak_K')
 mywcs = wcs.WCS(sgrb2contfile[0].header)
 pix_area = wcs.utils.proj_plane_pixel_area(mywcs)*u.deg**2
-cont_tbl.add_column(Column(name='$S_{nu,tot}$',
-                           data=(cont_tbl['sum'].to(u.Jy/u.beam)*cont_tbl['beam_area'].to(u.sr)/pix_area*u.beam).to(u.mJy,)))
+cont_tbl.add_column(Column(name='$S_{\\nu,tot}$',
+                           data=(u.Quantity(cont_tbl['sum'], u.Jy/u.beam) /
+                                 (u.Quantity(cont_tbl['beam_area'], u.sr) /
+                                 pix_area) * u.beam).to(u.mJy,)))
 cont_tbl.remove_column('sum')
 cont_tbl.add_column(Column(name='$\sigma_{bg}$',
                            data=u.Quantity(cont_tbl['bgmad'],
@@ -47,14 +49,6 @@ cont_tbl.remove_column('peak_mass_40K')
 cont_tbl.add_column(Column(name='$N(\hh)_{40 K}$', data=cont_tbl['peak_col_40K']))
 cont_tbl.remove_column('peak_col_40K')
 
-cont_tbl.add_column(Column(name='Classification',
-                           data=["{0}{1}{2} {3}"
-                                 .format(('S' if row['color'] == 'green' else
-                                          'W'),
-                                         ("\_" if row['Muno_xray_ID'] == '-' else "X"),
-                                         ("\_" if row['Caswell_Name'] == '-' else "M"),
-                                         str(row['SIMBAD_OTYPE']))
-                                 for row in cont_tbl]))
 cont_tbl.remove_column('color')
 
 for colname in ['SIMBAD_ID', 'SIMBAD_OTYPE', 'Caswell_Name', 'npix',
@@ -66,18 +60,18 @@ for colname in ['SIMBAD_ID', 'SIMBAD_OTYPE', 'Caswell_Name', 'npix',
     cont_tbl.remove_column(colname)
 
 formats = {'Coordinates': lambda x: x.to_string('hmsdms', sep=":"),
-           '$S_{nu,max}$': lambda x: strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
-           '$S_{nu,tot}$': lambda x: strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
+           '$S_{\\nu,max}$': lambda x: strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
+           '$S_{\\nu,tot}$': lambda x: strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            '$\sigma_{bg}$': lambda x: strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            '$\\alpha$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
-           '$E(\\alpha)$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
+           '$E(\\alpha)$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.3f}'.format(round_to_n(x,2))),
            '$N(\hh)_{40 K}$': format_float,
            '$M_{40K}$': lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
            "$T_{B,max}$": lambda x: '-' if np.isnan(x) else strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2))),
           }
 
 # shorter-form units
-cont_tbl['$S_{nu,max}$'].unit = 'mJy bm$^{-1}$'
+cont_tbl['$S_{\\nu,max}$'].unit = 'mJy bm$^{-1}$'
 cont_tbl['$\sigma_{bg}$'].unit = 'mJy bm$^{-1}$'
 
 # caption needs to be *before* preamble.
@@ -103,6 +97,6 @@ latexdict['tablefoot'] = ("}\par\n"
                           "source object type classification if one was found."
                          )
 
-cont_tbl.sort('$S_{nu,max}$')
+cont_tbl.sort('$S_{\\nu,max}$')
 cont_tbl[:-35:-1].write(paths.texpath("continuum_photometry.tex"),
                         formats=formats, overwrite=True, latexdict=latexdict)

@@ -616,10 +616,11 @@ We compare our mass estimates to those of \citet{Schmiedeke2016a}, who inferred
 stellar masses primarily from \hii region counts.  The last two columns of Table
 \ref{tab:clustermassestimates} show the observed and estimated masses based on
 \hii region counts.  For Sgr B2 M and N, our results are similar, as expected
-since our catalogs are identical.  For S and NE, we differ by a large factor:
-{\color{red}TODO: I don't know why; we have effectively the same source counts
-(though they have 1 more in South than I do) but significantly different
-inferred masses.}
+since our catalogs are similar.  For S and NE, we differ by a large factor,
+primarily because \citet{Schmiedeke2016a} assumed that $M_{min,MYSO}$ and $M_{max}$
+were the smallest and largest observed masses in the cluster, while we assumed
+$M_{min,MYSO}=8$ \msun and $M_{max}=200$ \msun; i.e., we assumed a spatially
+invariant IMF.
 
 % cluster mass estimates table
 % stellar_mass_estimates.py
@@ -1031,7 +1032,26 @@ The second row shows the corresponding residual images.}
 {fig:selfcalprogression}{1}{\textwidth}
 
 \section{Photometric Catalog}
-We include the full catalog here.
+We include the full catalog here.  Table \ref{tab:photometry} shows
+the brightest 35 sources; the rest are included in a digital-only catalog.
+Sources are labeled based on an arbitrary source
+number plus any pre-existing catalog name.  If a source is associated with a cluster,
+it has an entry corresponding to that cluster in the \texttt{Cluster} column;
+association is determined by checking whether a source is within a particular distance
+of the cluster center as defined by \citet{Schmiedeke2016a}.  A source
+\texttt{Classification} column is included, which states whether the source
+is a strong or weak detection, whether it has an X-ray association, whether it
+has a maser association, and its SIMBAD classification if it has one.
+Measurements reported include the peak flux density $S_{\nu,max}$, the
+corresponding brightness temperature $T_{B,max}$, the integrated flux density
+within a beam (0.5\arcsec) radius, the background RMS flux level $\sigma_{bg}$
+as an estimate of the local noise, the spectral index $\alpha$ and the error on
+that $E(\alpha)$.  Mass and column density estimates are given for an assumed
+temperature $T=40$ K ($M_{40K}$ and $N(\hh)_{40K}$); for sources with
+$T_{B,max}\gtrsim20$ K, these estimates are unlikely to be useful since the
+assumed temperature is likely to be much lower than the true temperature.
+For sources with $T_{B,max}>40$ K, it is not possible to measure a mass
+assuming $T=40$ K.
 
 \include{continuum_photometry}
 
