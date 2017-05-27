@@ -1,5 +1,8 @@
 import paths
 from astropy.io import fits
+from astropy.table import Table
+from astropy import coordinates
+from astropy import units as u
 import pylab as pl
 from astropy import wcs
 from astropy import visualization
@@ -65,3 +68,15 @@ dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
 
 fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column.png"), bbox_inches='tight')
+
+core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
+cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
+                             frame='fk5')
+markersize = 6
+tr_fk5 = ax.get_transform("fk5")
+coredots, = ax.plot(cores.ra, cores.dec, '.', color='lime', transform=tr_fk5,
+                    markersize=markersize, zorder=50)
+ax.axis([195,340,180,320])
+
+fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column_withcores.png"),
+            bbox_inches='tight')
