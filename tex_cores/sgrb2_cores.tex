@@ -18,7 +18,7 @@ centrally condensed prestellar cores.  The spatial distribution of these sources
 demonstrates that Sgr B2 is experiencing a highly extended star formation
 event, not just an isolated `starburst' within the protocluster regions M, N,
 and S.  While all protostars reside in regions of high column density, not all
-regions of high column density possess a high density of protostars.  
+regions of high column density contain a high density of protostars.  
 These observations constitute the largest single, possibly coeval, sample of
 forming massive stars.
 % the high-density, low-SFR regions raise questions...
@@ -136,7 +136,10 @@ the diffuse components in the southern half of the image are likely to be real.
 }
 {fig:continuumDS}{1}{0.5\textwidth}
 
-
+The processed data are available from
+\url{http://apps.canfar.net/storage/list/SgrB2_ALMA_3mm} in the form of four
+$\sim225$ GB data cubes. {\color{red} Additional data sets will be made
+available via dataverse or some other service prior to submission.}
 
 \subsection{Column Density Maps}
 We use archival data from SCUBA, SHARC, and Herschel to create column density
@@ -611,7 +614,7 @@ discrepancy. The discrepancy may arise from the combined effects of source
 confusion at our 0.5\arcsec resolution and the increased noise around the
 extremely bright central region that makes detection of $<2$ mJy sources
 difficult.  The majority of pixels within the cluster region have significant
-detections at 3 mm, and we do not presently have the capability to distinguish
+detections at 3 mm, but we do not presently have the capability to distinguish
 between extended dust emission, free-free emission, or a confusion-limited
 point source population.
 
@@ -857,17 +860,24 @@ at pericenter passage.  See Section \ref{sec:clustersandextended}.
 \subsubsection{Cloud-cloud collision}
 There are no definitive signs of `cloud-cloud collision' or `colliding flows'
 in our data.  Most of the notable kinematic features evident in the dense gas
-images can ba attributed to expanding \hii regions or otherwise feedback-driven
+images can be attributed to expanding \hii regions or otherwise feedback-driven
 flows (see Section \ref{sec:expandingshells}).  While interacting independent
 gas streams are a possible agent affecting Sgr B2, their effects are not
-obvious in our core catalog.
+obvious in our core catalog or in the gas data cubes.
+
+We note that some `colliding flows' are expected in almost any collapse
+scenario.  For example, simulations of a cloud passing through Galactic
+pericenter (Dale et al, in prep) show that some material is ejected during this
+passage that later collapses back onto the original cloud.  It is possible that
+any apparent colliding flows are a relic of this process.
 
 \subsubsection{Expanding Shells}
 \label{sec:expandingshells}
 There is plenty of evidence of expanding shells in Sgr B2, but 
 these shells are not uniformly sites of star formation.
 There are four shell examples we consider: Sgr B2 DS, Sgr B2 N/NE,
-Sgr B2 E, and Sgr B2 W.
+Sgr B2 E, and Sgr B2 W.  Two of these (N/NE and DS) show signs
+of star formation, two (E and W) do not.
 
 There is extended ionized emission in Sgr B2 Deep South that appears to be a
 bubble surrounded by the millimeter continuum sources.  While this region looks
@@ -879,15 +889,15 @@ central source of ionizing radiation or energetic particles.  Whatever the
 driver, it is possible that an expanding bubble of hot gas has compressed
 the molecular material along the ridge where we observe star formation.
 
-By contrast, Sgr B2 Far North does not contain any ionized emission.  It
-contains fewer total sources, but these sources trace the edge of an expanding
-bubble previously noted by \citet{de-Vicente1997a}.  The coincidence of star
-forming cores along the edge of a bubble again suggests some sort of
-compressional triggering.
+By contrast, the Sgr B2 North bubble does not contain any ionized emission.  It
+contains fewer total sources, which trace the edge of an expanding bubble
+previously noted by \citet{de-Vicente1997a}.  The coincidence of star forming
+cores along the edge of a bubble again suggests some sort of compressional
+triggering.
 
 However, while both N/NE and DS show circumstantial, morphological evidence
 for a compressional event, there are other regions within our map that show
-the same general morphology in the gas, yet exhibit no star formation.
+the same general morphology in the gas yet exhibit no star formation.
 Sgr B2 E and W are the regions east and west of the central ridge, respectively.
 
 Shell-like features in Sgr B2 E can be seen in Figure \ref{fig:hc3nonscuba}.
@@ -931,22 +941,24 @@ the core-inferred mass.  While the lack of faint sources in Sgr B2 M could
 be an observational limitation, it may also be physical.
 
 Sgr B2 M has more \hii regions and is more centrally condensed than any of the
-other clusters and the distributed star forming population.  This difference
-implies that Sgr B2 M is older than Sgr B2 N and older than the distributed
-population.  Along the Sgr B2 DS ridge, there are no \hii regions, but there
-are $\sim100$ high-mass protostars, implying a near-simultaneous formation
-time.
+other clusters and the distributed star forming population.  Assuming that \hii
+regions represent a later stage in protostellar evolution than the dusty
+protostellar core stage, this difference implies that Sgr B2 M is older than
+Sgr B2 N and the distributed protostar population.  By contrast, along the Sgr
+B2 DS ridge, there are no \hii regions, but there are $\sim100$ high-mass
+protostars, which implies that these protostars began their formation nearly
+simultaneously.
 
-The relative ages suggest two possibilities for the formation history of the
-region.  If we take the ages at face value, Sgr B2 M collapsed to form stars in
-a first event, then sometime later the DS ridge collapsed in a separate star
-forming event.  A second possibility is that the overall collapse of both Sgr
-B2 M and DS began at the same time, but the Sgr B2 M region was denser and had
-a shorter dynamical time.  Our catalog does not allow us to distinguish these
-possibilities.  However, the latter scenario would predict that the cloud
-should be in a state of global collapse, with the least dense regions collapsing
-most slowly.  This collapse may leave detectable kinematic signatures in the
-dense gas.
+The relative ages of M and the rest of the region suggest two possibilities for
+their formation history.  If we take the ages at face value, Sgr B2 M must have
+collapsed first to form stars in an early event, then sometime later the DS
+ridge collapsed to form stars in a later event.  A second possibility is that
+the overall collapse of both Sgr B2 M and DS began at the same time, but the
+Sgr B2 M region was denser and therefore had a shorter collapse time.  Our
+catalog does not allow us to distinguish these possibilities.  However, the
+latter scenario would predict that the cloud should be in a state of global
+collapse, with the least dense regions collapsing most slowly.  This collapse
+may leave detectable kinematic signatures in the dense gas.
 
 \section{Conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
@@ -957,7 +969,9 @@ of high-mass protostars.
 
 The large population of high-mass protostellar cores indicates that the entire
 Sgr B2 cloud, not just the well-known clusters N, M, and S, is undergoing a
-burst of star formation.
+burst of star formation.  More than half of the currently forming generation of
+stars is not associated with any of the clusters but is instead part of the
+extended burst.
 
 Using Herschel, SCUBA, and SHARC data, we have measured a threshold for
 high-mass star formation analogous to that done in local clouds by
@@ -968,7 +982,11 @@ there is a higher threshold for low-mass star formation, but the threshold
 for high-mass star formation appears consistent with that theorized for
 Galactic plane conditions.
 
-
+The large detected population of high-mass protostars implies a much larger
+population of as-yet undetectable lower-mass protostars.  Future ALMA and JWST
+programs to probe this population would provide the data needed to directly
+compare star formation thresholds in the most intensely star-forming cloud in
+our Galaxy to those in nearby clouds.
 
 \software{
 The software used to make this version of the paper is available from github at
