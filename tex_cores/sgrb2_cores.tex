@@ -81,16 +81,39 @@ protocluster, Sgr B2 N, is in the center.  Imaging artifacts are evident at the
 \section{Observation and Data Reduction}
 \label{sec:observations}
 Data were acquired as part of ALMA project 2013.1.00269.S.  Observations were
-taken with the 12m Total Power array, the ALMA 7m array, and in two
-configurations with the ALMA 12m array.  The setup included the maximum allowed
-number of channels, 30720, across 4 spectral windows in a single polarization;
-the single-polarization mode was adopted to support moderate spectral resolution
-across the broad bandwidth.
+taken in ALMA Band 3 with the 12m Total Power array (not included in this
+work), the ALMA 7m array, and in two configurations with the ALMA 12m array.
+The setup included the maximum allowed number of channels, 30720, across 4
+spectral windows in a single polarization; the single-polarization mode was
+adopted to support moderate spectral resolution across the broad bandwidth.
+The basebands were centered at 89.48, 91.28, 101.37, and 103.23 GHz with
+bandwidth 1.875 GHz.
+
+
+\begin{table*}[htp]
+\centering
+\caption{Observation Summary}
+\begin{tabular}{llll}
+\label{tab:observations}
+Date & Array & Total Observing Time &  Longest Baseline Length \\
+     &       & seconds              & meters \\
+\hline
+01-Jul-2014 & 7.0 & 4045 & 49\\
+02-Jul-2014 & 7.0 & 4043 & 49\\
+03-Jul-2014 & 7.0 & 7345 & 48\\
+06-Dec-2014 & 12.0 & 6849 & 349\\
+01-Apr-2015 & 12.0 & 3464 & 328\\
+02-Apr-2015 & 12.0 & 3517 & 328\\
+01-Jul-2015 & 12.0 & 3517 & 1574\\
+02-Jul-2015 & 12.0 & 10598 & 1574\\
+\hline
+\end{tabular}
+\end{table*}
 
 % analysis/measure_dynamic_range.py
 The ALMA QA2 calibrated measurement sets were combined to make a single
 high-resolution, high-dynamic range data set.  We imaged the continuum jointly
-across all four bands, and found that the central regions surrounding Sgr B2 M
+across all four basebands, and found that the central regions surrounding Sgr B2 M
 were severely affected by artifacts that could not be cleaned out.  We
 therefore ran 3 iterations of phase-only self-calibration and two iterations of
 amplitude + phase self-calibration, the latter using multi-scale
@@ -98,12 +121,14 @@ multi-frequency synthesis with two Taylor terms, to yield a substantially
 improved image (see Appendix \ref{sec:selfcal}).  The total dynamic range,
 measured as the peak brightness in
 Sgr B2 to the RMS noise in a signal-free region of the combined 7m+12m image,
-is 18000 (noise $\sim0.09$ mJy/beam), while the dynamic range within one
+is 18000 (noise $\sim0.09$ mJy/beam, 0.05 K), while the dynamic range within one
 primary beam ($\sim0.5$\arcmin) of Sgr B2M is only 5300 (noise $\sim0.3$
-mJy/beam).  Because of the dynamic range limitations and an empirical
+mJy/beam, 0.16 K).  Because of the dynamic range limitations and an empirical
 determination that clean did not converge if allowed to go too deep, we cleaned
 to a threshold of 0.1 mJy/beam over all pixels with $S_\nu > 2.5$ mJy bm$^{-1}$
 as determined from a previous iteration.
+The final image used for most of the analysis in this paper was imaged with 
+Briggs robust parameter 0.5, achieving a beam size $0.54\times0.46\arcsec$.
 % We performed this same
 % process for both the longest-baseline data only (resolution $\sim0.5\arcsec$,
 % largest angular scale theoretically 15\arcsec\ [the shortest baseline] but more
@@ -150,12 +175,12 @@ in detail in Appendix \ref{sec:singledishcomb}.
 The SHARC data were reported in \citet{Bally2010a} and have a nominal
 resolution of 9\arcsec at 350 \um, however, at this resolution,
 the SHARC data display a much higher surface brightness than the Herschel
-data on the same angular scale.  A resolution of 11.5\arcsec gives a better
-surface brightness match and is consistent with the measured scale of Sgr
-B2 N in the image.  This calibration difference is likely to have been a
-combination of blurring by pointing errors, surface imperfections, and
-the gridding process, and flux calibration errors.  In any case, the
-Herschel data provide the most trustworthy absolute calibration scale.
+data on the same angular scale.  An assumed resolution of 11.5\arcsec gives a
+better surface brightness match and is consistent with the measured scale of
+Sgr B2 N in the image.  This calibration difference is likely to have been a
+combination of blurring by pointing errors, surface imperfections, and the
+gridding process, and flux calibration errors.  In any case, the Herschel data
+provide the most trustworthy absolute calibration scale.
 
 The SCUBA 450 \um data were reported in \citet{Pierce-Price2000a} and
 \citet{di-Francesco2008a} with a resolution of 8\arcsec.  We found that the
@@ -164,25 +189,31 @@ even accounting for the central wavelength difference.  We had to scale the
 SCUBA data up by a factor $\approx3.0$ to make the data agree with the Herschel
 images on the angular scales they are both hypothetically sensitive to.
 While such a large flux calibration error seems implausible, the measured
-FWHM is approximately 14\arcsec, which means the beam area is $\approx3\times$
+FWHM toward Sgr B2 N is approximately 14\arcsec, which means the beam area is $\approx3\times$
 larger than the theoretical size.  We attempted to fit several other isolated
 sources in the large SCUBA map, and the smallest FWHM we measured was $\approx10.5$
 arcsec.  Between the larger beam area, flux calibration errors \citep[quoted at
 20\percent in][]{Pierce-Price2000a}, and the dust emissivity correction
 (35-50\percent for $\beta=3-4$), this large flux scaling factor is actually
-plausible.  
+plausible. This large correction factor is consistent with the large error beam
+found by \citet{di-Francesco2008a}, with effective FWHM $\approx17.3$\arcsec,
+since they used additional smoothing when creating their maps.
 
 
-To determine the column density, we adopted a few independent approaches.
-First, we use the Herschel data to perform SED fits to each pixel (Battersby et
-al, in prep).  We performed these fits at 25\arcsec resolution, excluding the
-500 \um channel.  To obtain higher resolution column density maps, we used the
-combined Herschel-SHARC and Herschel-SCUBA maps assuming optically thin dust
-using both a constant temperature and the temperature measured with Herschel at
-25\arcsec resolution interpolated onto the higher-resolution SCUBA and SHARC
-grids.  Because of the interpolation or fixed temperature assumptions, the
-column maps are not very accurate and should not be used for systematic
-statistical analysis of the column distribution.
+To determine the column density, we use the Herschel data to perform SED fits
+to each pixel (Battersby et al, in prep).  We performed these fits at 25\arcsec
+resolution, using the 70, 160, 250, and 350 \um data and excluding the 500 \um
+channel.
+
+To obtain higher resolution column density maps, we used the combined
+Herschel-SHARC and Herschel-SCUBA maps.  We created several temperature maps,
+some assuming arbitrary constant temperatures equal to the minimum and maximum
+expected dust temperatures (20 and 50 K), and another using the
+temperature measured with Herschel interpolated onto the higher-resolution
+SCUBA and SHARC grids.  Because of the interpolation or fixed temperature
+assumptions, the column maps are not very accurate and should not be used for
+systematic statistical analysis of the column density distribution without
+careful attention to the large implied uncertainties.  
 
 
 \section{Analysis}
