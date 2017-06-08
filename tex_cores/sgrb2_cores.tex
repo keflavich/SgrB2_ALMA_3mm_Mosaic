@@ -2,7 +2,7 @@
 \usepackage{datetime} % TODO: remove this after submission
 \input{preface}
 \input{ncores}
-\newcommand{\dsgrb}{8.5 kpc\xspace}
+\newcommand{\dsgrb}{8.4 kpc\xspace}
 \newcommand{\percent}{\%\xspace}
 
 \begin{document}
@@ -60,6 +60,12 @@ identified star formation along the entire molecular dust ridge known as Sgr B2
 Deep South (DS).  These observations allow us to perform the first
 star-counting based determination of the star formation rate within the
 molecular gas of the CMZ.
+
+We adopt a distance to Sgr B2 \dsgrb, which is consistent with Sgr B2 being
+located in the CMZ dust ridge.  While \citet{Reid2009a} measure a closer
+distance of 7.9 kpc, we use a value closer to the IAU-recommended Galactic
+Center distance of 8.5 kpc, accounting for the distance difference of
+$\approx100$ pc measured by \citet{Reid2009a}.
 
 We describe the observations in Section \ref{sec:observations}. In this paper,
 we focus on the continuum sources, which we identify in Section
@@ -283,7 +289,7 @@ K2; in these regions, it is unclear whether the free-free or dust emission
 dominates.}
 {fig:fluxhist}{1}{0.5\textwidth}
 
-We first note some key properties of dust at 3 mm.   At 8.4 kpc, a 1 mJy source
+We first note some key properties of dust at 3 mm.   At \dsgrb, a 1 mJy source
 corresponds to an optically thin dust mass of $M(40\mathrm{K})=18$ \msun or
 $M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$
 ($\alpha=3.75$ on the Rayleigh-Jeans tail) to
@@ -295,18 +301,19 @@ reasonably) assumed for local clouds, they would be extremely massive and
 dense, with the lowest measurable density being $n(40\mathrm{K}) > 3\ee{6}$
 \percc (corresponding to 7 \msun in a 0.5\arcsec radius sphere).  Such extreme
 objects are possible, but since we have detected $>100$ of these sources, we
-evaluate other possibilities.
+evaluate other possibilities.  We start with a few alternatives we are able
+to rule out.
 
 
 \subsubsection{Alternative 1: The sources are externally ionized gas blobs}
 One possibility is that these sources are not dusty at all, nor pre- or
-protostellar, but are instead the brightest compact clumps surrounding \hii
-regions.  They would then be analogous to the heads of cometary clouds,
+protostellar, but are instead the brightest compact clumps surrounding diffuse
+\hii regions.  They would then be analogous to the heads of cometary clouds,
 externally ionized globules (``EGGs"), or proplyds, and their observed emission
 would give no clue to their nature because the light source is extrinsic.
 
 The majority of the detected sources have size $<4000$ AU, i.e., they are
-unresolved.  By contrast, the free-floating EGGs so far observed have sizes
+unresolved.  By contrast, the free-floating EGGs (`frEGGs') so far observed have sizes
 10,000-20,000 AU \citep{Sahai2012a,Sahai2012b}, so they would be resolved in
 our observations.  Toward the brightest frEGG in Cygnus X, \citet{Sahai2012b}
 measured a peak intensity $S_{8.5 GHz} \approx 1.5$ mJy/beam in a
@@ -316,7 +323,8 @@ emission is thin, the brightness in our data would be $S_{95 GHz} =
 (95/8.5)^{-0.1} S_{8.5 GHz} = 0.79 S_{8.5 GHz} \approx 1.2$ mJy/beam.  These
 frEGGs would be detectable in our data.  Comparison to radio observations
 at a comparable resolution will be needed to rule out the externally ionized
-globule hypothesis for resolved regions.
+globule hypothesis for the resolved regions within our sample, but the unresolved
+sources are unlikely to be frEGGs.
 
 
 \FigureOneCol{figures/core_alpha_coloredbyclass.png}
@@ -334,7 +342,7 @@ be contaminated by the nearby \hii region.}
 {fig:alphahist}{1}{0.5\textwidth}
 
 If the detected sources were either EGGs or cometary clouds, we would expect
-them to be located within \hii regions.  Many of the sources are near \hii
+them to be located within diffuse \hii regions.  Many of the sources are near \hii
 regions, as seen in Figure \ref{fig:coreson20cmandhc3n}a.  However, they are
 nearly all associated with a ridge of HC$_3$N emission (Figure
 \ref{fig:coreson20cmandhc3n}b).  If they are deeply embedded within the
@@ -484,12 +492,15 @@ and are therefore inconsistent with free-free emission.
 
 
 
+% HII notebook
 \Figure{figures/HII_region_brightness.png}
 {Simple models of spherical \hii regions to illustrate the observable
 properties of such regions.  The \hii region size is shown by line color; the legend
 in the left plot applies to both figures.  (left) The expected brightness temperature (left
 axis) and corresponding flux density within a FWHM=0.5\arcsec beam (right axis) as a
 function of the Lyman continuum luminosity for a variety of source radii.
+The grey filled region shows the range of our 5-sigma sensitivity limits,
+which vary with location from 0.25 to 0.8 K.
 (right) The density required to produce an \hii region of that radius.  The
 horizontal dashed line shows the density corresponding to an unresolved dust
 source at the 5-$\sigma$ detection limit ($\approx0.5$ mJy, or about 10 \msun
@@ -513,7 +524,7 @@ but is probably warmer than the cloud average $\sim20-40$ K.
 We test and validate the hypothesis that most or all of the sources
 are protostellar in this section.
 
-We cross-matched out source catalog with catalogs of \hii regions and 
+We cross-matched our source catalog with catalogs of \hii regions and 
 methanol masers.  Class II methanol masers are always associated
 with sites of high-mass star formation.
 The \citet{Caswell2010a} Methanol Multibeam Survey identified 11 sources in our
@@ -535,7 +546,7 @@ fluxes at 870\um scaled to 3 mm assuming a dust opacity index $\beta=1.5$,
 which is shallower than usually inferred, so the extrapolated
 fluxes may be slightly overestimated.  The 870\um data were acquired with a
 $\sim20\arcsec$ FWHM beam, which translates to a resolution $\sim1\arcsec$ at
-$d_{Sgr B2} = 8.4$ kpc assuming $d_{Orion}=415$ pc, so our beam size is somewhat smaller than
+$d_{Sgr B2} = $\dsgrb assuming $d_{Orion}=415$ pc, so our beam size is somewhat smaller than
 theirs.  The HOPS sources are all fainter than the Sgr B2 sources.  The
 brightest HOPS source, with $L_{tot}<2000$ 
 \lsun, would only be 0.2 mJy in Sgr B2, or about a 4-$\sigma$
@@ -571,7 +582,7 @@ safe to conclude that all of our detected sources are MYSOs.
 \FigureOneCol{figures/Orion_SgrB2HII_side_by_side.png}
 {Comparison of two extended \hii regions in Sgr B2 to the M42 nebula in Orion.
 The three panels are shown on the same physical and color scale assuming
-$d_{Orion} = 415$ pc and $d_{Sgr B2} = 8.4$ kpc and that the ALMA and MUSTANG
+$d_{Orion} = 415$ pc and $d_{Sgr B2} = $\dsgrb and that the ALMA and MUSTANG
 data have the same continuum bandpass.  Sgr B2 \hii T is comparable in
 brightness and extent to M42; Sgr B2 \hii L is much brighter and is saturated
 on the displayed brightness scale.  The compact source to the top right of the
@@ -600,7 +611,7 @@ sources and the implied total stellar masses.
 
 The flux density distribution of the non-\hii region sources follows a powerlaw
 with slope $\alpha=1.94\pm0.07$ \citep[fitted with the MLE method
-of][]{Clauset2007a}.  If we assume that the stellar mass is linearly
+of][]{Clauset2007a}.  If we assume (incorrectly) that the stellar mass is linearly
 proportional to the 3 mm continuum flux density, this measurement implies a
 slope shallower than the $\alpha\sim2.35$ expected for a normal IMF.  It is
 possible that the IMF is genuinely different from Salpeter here, but it is more
@@ -624,8 +635,9 @@ $\gtrsim2\times$, since high-mass stars have a high multiplicity fraction
 
 % COMPARE TO SCHMIEDEKE
 
-For each subcluster, we count the number of \hii regions identified in our
-survey plus those identified in previous works \citep{de-Pree1996a} and
+For each subcluster identified in \citet{Schmiedeke2016a}, we count the number
+of \hii regions identified in our
+survey plus those identified in previous works \citep{de-Pree1996a}, and
 we count the number of protostellar cores not associated with \hii regions.
 To estimate the stellar mass, we assume each core contains a star
 with $\bar{M(8-20)} = 12$ \msun and each \hii region contains a $\geq$B0 star
@@ -702,7 +714,7 @@ mean particle mass is 2.8 amu \citep{Kauffmann2008a}.  We first note, then,
 that \emph{all pixels} in our column density maps are above this threshold
 by \emph{at least} a factor of 10.
 
-However, Sgr B2 is \dsgrb kpc away from us in the direction of our Galaxy's
+However, Sgr B2 is \dsgrb away from us in the direction of our Galaxy's
 center, meaning there is a potentially enormous amount of material unassociated
 with the Sgr B2 cloud along the line of sight.  This material may have column
 densities as low as

@@ -96,9 +96,9 @@ over20mean = (x*y).sum()/y.sum()
 over20fraction = (kroupa.m_integrate(hii_cutoff, mmax)[0] /
                   kroupa.m_integrate(kroupa.mmin, mmax)[0])
 
-tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{obs}$',
+tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
                    '$M_{inferred}$', '$M_{inferred, H\\textsc{ii}}$',
-                   '$M_{inferred, cores}$', '$M_{obs}^s$', '$M_{inf}^s$',
+                   '$M_{inferred, cores}$', '$M_{count}^s$', '$M_{inf}^s$',
                    'SFR'],
             dtype=['S10', int, int, int, int, int, int, int, int, float])
 
@@ -159,7 +159,7 @@ latexdict['header_start'] = '\label{tab:clustermassestimates}'
 latexdict['caption'] = 'Cluster Masses'
 latexdict['preamble'] = '\centering'
 latexdict['tablefoot'] = ("\par\n"
-                          "$M_{{obs}}$ is the mass of directly observed protostars, "
+                          "$M_{{count}}$ is the mass of directly counted protostars, "
                           "assuming each millimeter source is {0:0.1f} \msun, or "
                           "{1:0.1f} \msun "
                           "if it is also an \hii region.  "
@@ -168,7 +168,7 @@ latexdict['tablefoot'] = ("\par\n"
                           "fractions of the total mass {2:0.2f} (cores) and "
                           "{3:0.2f} (\hii regions).  $M_{{inferred}}$ is the average "
                           "of these two.  "
-                          "$M_{{obs}}^s$ and $M_{{inf}}^s$ are the observed and inferred "
+                          "$M_{{count}}^s$ and $M_{{inf}}^s$ are the counted and inferred "
                           "masses reported in \citet{{Schmiedeke2016a}}.  "
                           "The star formation rate is computed using an age $t=0.74$ Myr, "
                           "which is the time of the last pericenter passage in the "
