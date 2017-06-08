@@ -10,16 +10,18 @@ from astropy import wcs
 from astropy.convolution import convolve, Gaussian2DKernel
 from mpl_plot_templates import asinh_norm
 import matplotlib
+from visualization import make_scalebar, hide_scalebar
+from constants import distance
 
 pl.matplotlib.rc_file('pubfiguresrc')
 
 pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 75.
 pl.rcParams['savefig.dpi'] = 300.
-pl.rcParams['axes.labelsize'] = 9
-pl.rcParams['xtick.labelsize'] = 8
-pl.rcParams['ytick.labelsize'] = 8
-tick_fontsize = 6
+pl.rcParams['axes.labelsize'] = 13
+pl.rcParams['xtick.labelsize'] = 12
+pl.rcParams['ytick.labelsize'] = 12
+tick_fontsize = 12
 if matplotlib.__version__[0] == '1':
     markersize = 6
 elif matplotlib.__version__[0] == '2':
@@ -131,6 +133,17 @@ tr_fk5 = ax.get_transform("fk5")
 (x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
 ax.axis([x1,x2,y1,y2])
 
+scalebarpos = coordinates.SkyCoord("17:47:27", "-28:26:15.0",
+                                   unit=(u.h, u.deg), frame='fk5')
+make_scalebar(ax, scalebarpos,
+              length=(2.0*u.pc / distance).to(u.arcsec,
+                                              u.dimensionless_angles()),
+              color='k',
+              label='2 pc',
+              text_offset=1.0*u.arcsec,
+             )
+
+
 coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
                     alpha=0.5,
                     zorder=50, )
@@ -201,6 +214,16 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     (x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
     ax.axis([x1,x2,y1,y2])
 
+    scalebarpos = coordinates.SkyCoord("17:47:27", "-28:26:15.0",
+                                       unit=(u.h, u.deg), frame='fk5')
+    sb = make_scalebar(ax, scalebarpos,
+                       length=(2.0*u.pc / distance).to(u.arcsec,
+                                                       u.dimensionless_angles()),
+                       color='k',
+                       label='2 pc',
+                       text_offset=1.0*u.arcsec,
+                      )
+
     if matplotlib.__version__[0] == '1':
         markersize = 6
     elif matplotlib.__version__[0] == '2':
@@ -229,6 +252,19 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     (x1,y1),(x2,y2) = mywcs.wcs_world2pix([[bottomleft.ra.deg, bottomleft.dec.deg]],0)[0],mywcs.wcs_world2pix([[topright.ra.deg, topright.dec.deg]],0)[0]
     ax.set_aspect(1)
     ax.axis([x1,x2,y1,y2])
+
+
+    hide_scalebar(sb)
+    scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:45.0",
+                                       unit=(u.h, u.deg), frame='fk5')
+    sb = make_scalebar(ax, scalebarpos,
+                       length=(2.0*u.pc / distance).to(u.arcsec,
+                                                       u.dimensionless_angles()),
+                       color='k',
+                       label='2 pc',
+                       text_offset=1.0*u.arcsec,
+                      )
+
 
     coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
                         zorder=50, )

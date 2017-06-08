@@ -5,7 +5,10 @@ from astropy import coordinates
 from astropy import units as u
 import pylab as pl
 from astropy import wcs
-from astropy import visualization
+
+from visualization import make_scalebar, hide_scalebar
+from constants import distance
+
 import matplotlib
 matplotlib.use('Qt5Agg')
 assert matplotlib.get_backend() == 'Qt5Agg'
@@ -66,6 +69,16 @@ ra.ticklabels.set_fontsize(tick_fontsize)
 ra.set_ticks(exclude_overlapping=True)
 dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
+
+scalebarpos = coordinates.SkyCoord("17:47:27", "-28:26:00.0",
+                                   unit=(u.h, u.deg), frame='fk5')
+make_scalebar(ax, scalebarpos,
+              length=(2.0*u.pc / distance).to(u.arcsec,
+                                              u.dimensionless_angles()),
+              color='k',
+              label='2 pc',
+              text_offset=1.0*u.arcsec,
+             )
 
 fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column.png"), bbox_inches='tight')
 

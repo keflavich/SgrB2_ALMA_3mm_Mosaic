@@ -8,6 +8,8 @@ import matplotlib
 from astropy.io import fits
 from astropy import wcs
 from mpl_plot_templates import asinh_norm
+from constants import distance
+from visualization import make_scalebar, hide_scalebar
 
 pl.matplotlib.rc_file('pubfiguresrc')
 
@@ -71,5 +73,16 @@ im = ax.imshow(hdu.data.squeeze(),
                norm=asinh_norm.AsinhNorm())
 cb.set_clim(im.get_clim())
 cb.draw_all()
+
+scalebarpos = coordinates.SkyCoord("17:47:13", "-28:25:30.0",
+                                   unit=(u.h, u.deg), frame='fk5')
+make_scalebar(ax, scalebarpos,
+              length=(2.0*u.pc / distance).to(u.arcsec,
+                                              u.dimensionless_angles()),
+              color='k',
+              label='2 pc',
+              text_offset=5.0*u.arcsec,
+             )
+
 
 fig3.savefig(paths.fpath("cores_on_SCUBA_column_saturated.png"), bbox_inches='tight')
