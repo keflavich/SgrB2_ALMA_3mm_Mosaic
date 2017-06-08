@@ -70,7 +70,7 @@ ra.set_ticks(exclude_overlapping=True)
 dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
 
-scalebarpos = coordinates.SkyCoord("17:47:27", "-28:26:00.0",
+scalebarpos = coordinates.SkyCoord("17:47:27.5", "-28:26:00.0",
                                    unit=(u.h, u.deg), frame='fk5')
 make_scalebar(ax, scalebarpos,
               length=(2.0*u.pc / distance).to(u.arcsec,
