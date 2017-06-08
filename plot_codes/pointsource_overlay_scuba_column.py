@@ -14,10 +14,10 @@ pl.matplotlib.rc_file('pubfiguresrc')
 pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 75.
 pl.rcParams['savefig.dpi'] = 300.
-pl.rcParams['axes.labelsize'] = 9
-pl.rcParams['xtick.labelsize'] = 8
-pl.rcParams['ytick.labelsize'] = 8
-tick_fontsize = 6
+pl.rcParams['axes.labelsize'] = 15
+pl.rcParams['xtick.labelsize'] = 14
+pl.rcParams['ytick.labelsize'] = 14
+tick_fontsize = 14
 if matplotlib.__version__[0] == '1':
     markersize = 6
 elif matplotlib.__version__[0] == '2':

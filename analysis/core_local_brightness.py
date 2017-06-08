@@ -322,7 +322,7 @@ def plotit():
     pl.legend(loc='best', fontsize=20)
     pl.tight_layout()
     pl.xlabel("Column Density $N(\mathrm{H}_2)$ [cm$^{-2}$]", fontsize=24)
-    pl.ylabel("Cumulative fraction\nof cores at column $>N$", fontsize=24)
+    pl.ylabel("Cumulative fraction\nof cores at column $<N$", fontsize=24)
     ax1 = pl.gca()
     pl.draw()
     ax2 = ax1.twiny()
@@ -384,7 +384,7 @@ def plotit():
     pl.draw()
 
 
-    ax2.set_ylabel("Fraction of point sources above N(H$_2$)")
+    ax2.set_ylabel("Fraction of point sources below N(H$_2$)")
 
     pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.png"), bbox_inches='tight')
 
