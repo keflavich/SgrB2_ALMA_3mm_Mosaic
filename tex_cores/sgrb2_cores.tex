@@ -12,19 +12,20 @@
 \input{authors}
 \begin{abstract}
 We report ALMA observations at 3 mm  of the extended Sgr B2 cloud. We detected
-\ncores compact sources, the majority of which have extents 
-smaller than 5000 AU.  These sources are predominantly protostars or
-centrally condensed prestellar cores.  The spatial distribution of these sources
-demonstrates that Sgr B2 is experiencing a highly extended star formation
-event, not just an isolated `starburst' within the protocluster regions M, N,
-and S.  While all protostars reside in regions of high column density, not all
-regions of high column density contain a high density of protostars.  
-We observe a threshold for high-mass star formation that is substantially higher
-than the local threshold for star formation, implying either that high-mass star
-formation requires a higher column density or that the star formation threshold
-in the CMZ is higher than locally.
-These observations constitute the largest single, possibly coeval, sample of
-forming massive stars.
+\ncores compact sources, the majority of which have extents smaller than 5000
+AU.  By ruling out alternative possibilities such as externally ionized
+globules, we conclude that these sources are predominantly protostars or
+centrally condensed prestellar cores.  The spatial distribution of these
+sources demonstrates that Sgr B2 is experiencing a highly extended star
+formation event, not just an isolated `starburst' within the protocluster
+regions M, N, and S.  While all protostars reside in regions of high column
+density, not all regions of high column density contain a high density of
+protostars.  We observe a threshold for high-mass star formation that is
+substantially higher than the local threshold for star formation, implying
+either that high-mass star formation requires a higher column density or that
+the star formation threshold in the CMZ is higher than locally.  These
+observations constitute the largest single, possibly coeval, sample of forming
+massive stars.
 % the high-density, low-SFR regions raise questions...
 
 This version produced \today\ at \currenttime.
@@ -51,7 +52,8 @@ in star formation relative to the gas mass it contains \citep{Longmore2013a,
 Kauffmann2016a,Kauffmann2016b,Barnes2016c,Barnes2017b}.  This deficiency
 suggests that star formation laws, i.e., the empirical relations between
 the star formation rate and gas density, are not universal.  The gas
-conditions in the Galactic center provide a powerful lever arm in a few
+conditions in the Galactic center are different from those in nearby clouds,
+providing a powerful lever arm in a few
 parameters \citep[e.g., pressure, temperature, velocity
 dispersion][]{Ginsburg2016a,Immer2016a,Shetty2012a,Henshaw2016a} to assess the
 influence of environmental effects on star formation.
@@ -141,7 +143,7 @@ across all four basebands, and found that the central regions surrounding Sgr B2
 were severely affected by artifacts that could not be cleaned out.  We
 therefore ran 3 iterations of phase-only self-calibration and two iterations of
 amplitude + phase self-calibration, the latter using multi-scale
-multi-frequency synthesis with two Taylor terms, to yield a substantially
+multi-frequency synthesis with two Taylor terms \citep{Rau2011a}, to yield a substantially
 improved image (see Appendix \ref{sec:selfcal}).  The total dynamic range,
 measured as the peak brightness in
 Sgr B2 to the RMS noise in a signal-free region of the combined 7m+12m image,
@@ -175,7 +177,7 @@ is the Sgr B2 North core \citep{Sanchez-Monge2017a}.
 \FigureTwo
 {figures/continuum_peak_DeepSouth_saturated.pdf}
 {figures/cores_on_continuum_peak_DeepSouth_saturated.pdf}
-{Images of the 3 mm continuum in the Sgr B2 DS region.  The right figure
+{Images of the 3 mm continuum in the Sgr B2 Deep South (DS) region.  The right figure
 includes a red dot at the position of each identified continuum pointlike
 source.  The \hii region Sgr B2 S is the bright source at the top of the image;
 imaging artifacts can be seen surrounding it.  The largest angular
@@ -231,11 +233,11 @@ resolution, using the 70, 160, 250, and 350 \um data and excluding the 500 \um
 channel.
 
 To obtain higher resolution column density maps, we used the combined
-Herschel-SHARC and Herschel-SCUBA maps.  We created several temperature maps,
+Herschel+SHARC and Herschel+SCUBA maps.  We created several temperature maps,
 some assuming arbitrary constant temperatures equal to the minimum and maximum
 expected dust temperatures (20 and 50 K), and another using the
 temperature measured with Herschel interpolated onto the higher-resolution
-SCUBA and SHARC grids.  Because of the interpolation or fixed temperature
+SCUBA and SHARC grids.  Because of the interpolation and fixed temperature
 assumptions, the column maps are not very accurate and should not be used for
 systematic statistical analysis of the column density distribution without
 careful attention to the large implied uncertainties.  
@@ -257,14 +259,14 @@ source identification particularly challenging in the most source-dense regions.
 All of these features are evident in Figures \ref{fig:continuumMandN} and
 \ref{fig:continuumDS}.
 
-Because the noise varies significantly across the map, a uniform selection
-criterion is not possible.  We therefore include two levels of source
-identification, `high confidence' sources, which are selected conservatively in
-regions of low-background, and `low-confidence' sources that are somewhat lower
-signal-to-noise and are often in regions with higher background (labeled
-`conservative' and `aggressive' in Figure \ref{fig:fluxhist}).  Both of
-these selection criteria are significantly more conservative than a local
-$5-\sigma$ threshold.
+Because the noise varies significantly across the map (it is higher near Sgr B2
+M), a uniform selection criterion is not possible.  We therefore include two
+levels of source identification, `high confidence' sources, which are selected
+conservatively in regions of low-background, and `low-confidence' sources that
+are somewhat lower signal-to-noise and are often in regions with higher
+background (labeled `conservative' and `aggressive' in Figure
+\ref{fig:fluxhist}).  Both of these selection criteria are significantly more
+conservative than a local $5-\sigma$ threshold.
 
 We measure the local noise for each source by taking the median absolute
 deviation in an annulus 0.5 to 1.5\arcsec around the source center.
@@ -275,12 +277,21 @@ density and therefore have overestimated local noise.
 Our selection criteria result in a reliable but potentially incomplete catalog.
 
 For a subset of the sources, primarily the brightest, we measured the spectral
-index $\alpha$.  We relied on CASA's $\alpha$ and $\sigma(\alpha)$ maps to
-obtain these measurements, including only those with $|\alpha| > 5
-\sigma(\alpha)$ or $\sigma(\alpha) < 0.1$.  Several of the brightest sources
-did not have significant measurements of $\alpha$ because they are in the
-immediate neighborhood of Sgr B2 M or N and therefore have significantly higher
-background and noise, preventing a clear measurement.
+index $\alpha$ based on CASA \texttt{tclean}'s fit to the 2-term Taylor
+expansion model of the data.  \texttt{tclean} produces $\alpha$ and
+$\sigma(\alpha)$ (error on $\alpha$) maps, and we used the $\alpha$ value at
+the position of peak intensity for each source.  We include in the catalog only
+those sources with $|\alpha| > 5 \sigma(\alpha)$ or $\sigma(\alpha) < 0.1$; the
+latter include sources with $\alpha\sim0$ measured at relatively high
+precision.  Several of the brightest sources did not have significant
+measurements of $\alpha$ because they are in the immediate neighborhood of Sgr
+B2 M or N and therefore have significantly higher background and noise,
+preventing a clear measurement.  To check the calibration of the spectral index
+measurement, we imaged one of our calibrators, J1752-2956, and obtained a
+spectral index $\alpha=-0.62\pm0.14$, consistent with the expected
+$\alpha\approx-0.7$.  We also note that the \emph{relative} spectral index
+measurements in our catalog should be accurate, since all sources come from the
+same map with identical calibration.
 
 
 We detected \ncores compact continuum sources.  Their flux distribution is
@@ -295,7 +306,7 @@ For the majority of the detected sources, we have only a continuum detection at
 faint ones.  A subset have detections at other bands and can be classified
 based on previous literature work, especially those associated with \hii
 regions detected at 0.7 and 1.3 cm
-\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,Pree2015a}, which includes 78
+\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,de-Pree2015a}, which includes 78
 sources.  In this section, we employ various means to classify the sample of
 new sources.
 
@@ -476,11 +487,11 @@ source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
 as long as the source is optically thin.  Rearranging \citet{Condon2007a} equations
 4.60 and 4.61:
 \begin{eqnarray}
-S_{\nu}(Q_{lyc})  = 4.67 \left[1-\exp\left(c_* T_* \nu_* EM_* \right) \right] \nonumber \\
-\nu_* = \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \nonumber \\
-T_* = \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \nonumber \\
-c_* = -3.28\times10^{-7} \nonumber \\
-EM_* = \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_b} \nonumber \\
+S_{\nu}(Q_{lyc})  &=& 4.67 \left[1-\exp\left(c_* T_* \nu_* EM_* \right) \right] \nonumber \\
+\nu_* &=& \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \nonumber \\
+T_* &=& \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \nonumber \\
+c_* &=& -3.28\times10^{-7} \nonumber \\
+EM_* &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_b} \nonumber \\
 \end{eqnarray}
 where $\alpha_b=2\ee{-13}$ cm$^3$ s$^{-1}$, $Q_{lyc}$ is the count rate
 of ionizing photons in $s^{-1}$, and $R$ is the \hii region radius.
