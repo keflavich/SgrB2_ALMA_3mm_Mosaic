@@ -17,7 +17,7 @@ cm = pl.cm.rainbow
 norm = pl.Normalize(vmin=18, vmax=56)
 
 for reg in regions:
-    seg = np.array(zip(reg.coord_list[::2], reg.coord_list[1::2])).T
+    seg = np.array(list(zip(reg.coord_list[::2], reg.coord_list[1::2]))).T
     vel = float(reg.attr[1]['text'])
 
     color = cm(norm(vel))

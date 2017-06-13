@@ -1,8 +1,14 @@
 import paths
 from astropy.io import fits
+from astropy.table import Table
+from astropy import coordinates
+from astropy import units as u
 import pylab as pl
 from astropy import wcs
-from astropy import visualization
+
+from visualization import make_scalebar, hide_scalebar
+from constants import distance
+
 import matplotlib
 matplotlib.use('Qt5Agg')
 assert matplotlib.get_backend() == 'Qt5Agg'
@@ -64,4 +70,26 @@ ra.set_ticks(exclude_overlapping=True)
 dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
 
+scalebarpos = coordinates.SkyCoord("17:47:27.5", "-28:26:00.0",
+                                   unit=(u.h, u.deg), frame='fk5')
+make_scalebar(ax, scalebarpos,
+              length=(2.0*u.pc / distance).to(u.arcsec,
+                                              u.dimensionless_angles()),
+              color='k',
+              label='2 pc',
+              text_offset=1.0*u.arcsec,
+             )
+
 fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column.png"), bbox_inches='tight')
+
+core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
+cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
+                             frame='fk5')
+markersize = 6
+tr_fk5 = ax.get_transform("fk5")
+coredots, = ax.plot(cores.ra, cores.dec, '.', color='lime', transform=tr_fk5,
+                    markersize=markersize, zorder=50)
+ax.axis([195,340,180,320])
+
+fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column_withcores.png"),
+            bbox_inches='tight')

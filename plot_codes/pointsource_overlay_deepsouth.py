@@ -13,6 +13,8 @@ import matplotlib
 from collections import defaultdict
 from files import contfilename
 import warnings
+from visualization import make_scalebar
+from constants import distance
 
 warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
 
@@ -52,9 +54,11 @@ for regionname in ('DeepSouth', 'MandN'):
         # Deep South
         bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:26:02.565", unit=(u.h, u.deg), frame='fk5')
         topright = coordinates.SkyCoord("17:47:17.666", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
+        scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:45.0", unit=(u.h, u.deg), frame='fk5')
     elif regionname == 'MandN':
         bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
         topright = coordinates.SkyCoord("17:47:14.666", "-28:21:04.980", unit=(u.h, u.deg), frame='fk5')
+        scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
     else:
         raise Exception
 
@@ -94,6 +98,16 @@ for regionname in ('DeepSouth', 'MandN'):
                            mywcs.wcs_world2pix([[topright.ra.deg,
                                                  topright.dec.deg]],0)[0]
                           )
+
+        make_scalebar(ax, scalebarpos,
+                      length=(0.5*u.pc / distance).to(u.arcsec,
+                                                      u.dimensionless_angles()),
+                      color='k',
+                      label='0.5 pc',
+                      text_offset=1.0*u.arcsec,
+                     )
+
+
         ax.set_aspect(1)
         ax.axis([x1,x2,y1,y2])
 

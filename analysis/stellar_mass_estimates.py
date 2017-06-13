@@ -1,7 +1,7 @@
 import numpy as np
 from imf import imf
 import paths
-from astropy.table import Table
+from astropy.table import Table,Column
 from astropy import coordinates
 from astropy import units as u
 import regions
@@ -96,9 +96,9 @@ over20mean = (x*y).sum()/y.sum()
 over20fraction = (kroupa.m_integrate(hii_cutoff, mmax)[0] /
                   kroupa.m_integrate(kroupa.mmin, mmax)[0])
 
-tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{obs}$',
+tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
                    '$M_{inferred}$', '$M_{inferred, H\\textsc{ii}}$',
-                   '$M_{inferred, cores}$', '$M_{obs}^s$', '$M_{inf}^s$',
+                   '$M_{inferred, cores}$', '$M_{count}^s$', '$M_{inf}^s$',
                    'SFR'],
             dtype=['S10', int, int, int, int, int, int, int, int, float])
 
@@ -106,6 +106,8 @@ for col in tbl.colnames:
     if 'M' in col:
         tbl[col].unit = u.Msun
 tbl['SFR'].unit = u.Msun/u.kyr
+
+cluster_column = np.array(['--']*len(core_phot_tbl))
 
 print("Mass fraction M>20 = {0}".format(over20fraction))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
@@ -129,10 +131,13 @@ for reg in clusters:
           " core-inferred mass={6:10.2f}"
           .format(name, ncores, nhii, mass,
                   inferred_mass, hii_only_inferred_mass, core_inferred_mass))
+
     if name == 'Total':
         sst_mask = [-1]
     else:
         sst_mask = schmiedeke_summary_table['Name'] == 'Sgr B2({0})'.format(name)
+        cluster_column[mask] = name
+
     tbl.add_row([name,
                  ncores,
                  nhii,
@@ -154,7 +159,7 @@ latexdict['header_start'] = '\label{tab:clustermassestimates}'
 latexdict['caption'] = 'Cluster Masses'
 latexdict['preamble'] = '\centering'
 latexdict['tablefoot'] = ("\par\n"
-                          "$M_{{obs}}$ is the mass of directly observed protostars, "
+                          "$M_{{count}}$ is the mass of directly counted protostars, "
                           "assuming each millimeter source is {0:0.1f} \msun, or "
                           "{1:0.1f} \msun "
                           "if it is also an \hii region.  "
@@ -163,17 +168,36 @@ latexdict['tablefoot'] = ("\par\n"
                           "fractions of the total mass {2:0.2f} (cores) and "
                           "{3:0.2f} (\hii regions).  $M_{{inferred}}$ is the average "
                           "of these two.  "
-                          "$M_{{obs}}^s$ and $M_{{inf}}^s$ are the observed and inferred "
+                          "$M_{{count}}^s$ and $M_{{inf}}^s$ are the counted and inferred "
                           "masses reported in \citet{{Schmiedeke2016a}}.  "
                           "The star formation rate is computed using an age $t=0.74$ Myr, "
                           "which is the time of the last pericenter passage in the "
-                          "\citet{{Kruijssen2015a}} model.  " 
+                          "\citet{{Kruijssen2015a}} model."
+                          "  The \emph{{total}} column represents the total over the whole observed "
+                          "region.  "
+                          "  The clusters sum to much less "
+                          "than the \emph{{total}} because the Deep South region is not included, "
+                          "and it dominates the overall core count."
                           .format(over8lt20mean, over20mean, over8lt20fraction,
                                   over20fraction)
                          )
 tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
           formats=formats,
           latexdict=latexdict, overwrite=True)
+
+core_phot_tbl.add_column(Column(name='Cluster', data=cluster_column))
+
+classification = Column(name='Classification',
+                        data=["{0}{1}{2} {3}"
+                              .format(('S' if row['color'] == 'green' else 'W'),
+                                      ("\_" if row['Muno_xray_ID'] == '-' else "X"),
+                                      ("\_" if row['Caswell_Name'] == '-' else "M"),
+                                      str(row['SIMBAD_OTYPE']))
+                              for row in core_phot_tbl])
+core_phot_tbl.add_column(classification)
+
+core_phot_tbl.write(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipac"),
+                    format='ascii.ipac', overwrite=True)
 
 """
 Result as of 3/24/2017:
