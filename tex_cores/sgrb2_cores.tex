@@ -6,7 +6,8 @@
 \newcommand{\percent}{\%\xspace}
 
 \begin{document}
-\title{A catalog of 3mm point sources in the Sgr B2 cloud: signs of extended star formation in a CMZ cloud}
+\title{A catalog of 3mm point sources in the Sagittarius B2 cloud: signs of
+extended star formation in a Central Molecular Zone cloud}
 \titlerunning{Sgr B2 ALMA}
 \authorrunning{Ginsburg et al}
 \input{authors}
@@ -60,13 +61,13 @@ influence of environmental effects on star formation.
 
 
 The observations that have demonstrated the star formation deficiency compare
-bulk tracers of star formation to $\gtrsim0.1$ pc resolution gas observations
-\citep[e.g.]{Barnes2017b}.  More recently, high-resolution observations
+bulk tracers of star formation to $>0.1$ pc resolution gas observations
+\citep[e.g.][]{Barnes2017b}.  More recently, high-resolution observations
 of selected clouds in the CMZ have revealed very few star-forming cores
 even when examined at high resolution and sensitivity
 \citep{Rathborne2015a,Kauffmann2016a,Kauffmann2016b}.  The only sites with
 obvious signs of ongoing star formation along the CMZ dust ridge are
-the Sgr B2 N, M, and S protoclusters \citep{Schmiedeke2016a} and, at a much
+the Sgr B2 N (North), M (Main), and S (South) protoclusters \citep{Schmiedeke2016a} and, at a much
 lower level, Clouds C, D, and E \citep[][Walker et al, in
 prep;]{Ginsburg2015b,Barnes2017b}.  These regions contain a handful of
 high-mass cores detected with ALMA, but only a small number of protostars.
@@ -193,10 +194,12 @@ $\sim225$ GB data cubes. {\color{red} Additional data sets will be made
 available via dataverse or some other service prior to submission.}
 
 \subsection{Other data - Column Density Maps}
-We use archival data from SCUBA, SHARC, and Herschel to create column density
-maps.  We combined the SHARC and SCUBA data with Herschel SPIRE 350 and 500 \um
-images \citep{Molinari2010a}, respectively.  The data combination is discussed
-in detail in Appendix \ref{sec:singledishcomb}.  
+We use archival data to create column density maps.   To determine the column
+density and dust temperature on large angular scales, we use Herschel Hi-Gal
+data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby et al,
+in prep).  We performed these fits at 25\arcsec resolution, using the 70, 160,
+250, and 350 \um data and excluding the 500 \um channel.
+
 
 The SHARC data were reported in \citet{Bally2010a} and have a nominal
 resolution of 9\arcsec at 350 \um, however, at this resolution,
@@ -227,21 +230,19 @@ found by \citet{di-Francesco2008a}, with effective FWHM $\approx17.3$\arcsec,
 since they used additional smoothing when creating their maps.
 
 
-To determine the column density, we use the Herschel data to perform SED fits
-to each pixel (Battersby et al, in prep).  We performed these fits at 25\arcsec
-resolution, using the 70, 160, 250, and 350 \um data and excluding the 500 \um
-channel.
-
 To obtain higher resolution column density maps, we used the combined
-Herschel+SHARC and Herschel+SCUBA maps.  We created several temperature maps,
-some assuming arbitrary constant temperatures equal to the minimum and maximum
-expected dust temperatures (20 and 50 K), and another using the
-temperature measured with Herschel interpolated onto the higher-resolution
-SCUBA and SHARC grids.  Because of the interpolation and fixed temperature
-assumptions, the column maps are not very accurate and should not be used for
-systematic statistical analysis of the column density distribution without
-careful attention to the large implied uncertainties.  
-
+Herschel+SHARC and Herschel+SCUBA maps.
+%We combined the SHARC and SCUBA data with Herschel SPIRE 350 and 500 \um
+%images \citep{Molinari2010a}, respectively.   
+We created several temperature maps, some assuming arbitrary constant
+temperatures equal to the minimum and maximum expected dust temperatures (20
+and 50 K), and another using the temperature measured with Herschel
+interpolated onto the higher-resolution SCUBA and SHARC grids.  Because of the
+interpolation and fixed temperature assumptions, the column maps are not very
+accurate and should not be used for systematic statistical analysis of the
+column density distribution without careful attention to the large implied
+uncertainties.  The data combination is discussed in more detail in Appendix
+\ref{sec:singledishcomb}.
 
 \section{Analysis}
 
@@ -312,7 +313,7 @@ new sources.
 
 % core_flux_distributions
 \FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
-{A histogram of the peak flux density of the observed sources with a powerlaw
+{A histogram of the flux density of the observed sources with a powerlaw
 fit to the data excluding known \hii regions.  The powerlaw is an excellent
 fit, and it is shallower than the IMF slope, with $\alpha=1.94\pm0.07$.  The
 two brightest regions not identified as \hii regions are Sgr B2M f1 and Sgr B2N
@@ -323,17 +324,17 @@ dominates.}
 We first note some key properties of dust at 3 mm.   At \dsgrb, a 1 mJy source
 corresponds to an optically thin dust mass of $M(40\mathrm{K})=18$ \msun or
 $M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$
-($\alpha=3.75$ on the Rayleigh-Jeans tail) to
-extrapolate the \citet{Ossenkopf1994a} opacity to $\kappa_{3mm}=0.0018$ cm$^2$
-g$^{-1}$.  Our dust-only 5-$\sigma$ sensitivity limit at 40 K therefore ranges
-from $M>7$ \msun (0.5 mJy) to $M>45$ \msun (2.5 mJy) across the map.  If we
-were to assume that these are all cold, dusty sources, as is typically (and
-reasonably) assumed for local clouds, they would be extremely massive and
-dense, with the lowest measurable density being $n(40\mathrm{K}) > 3\ee{6}$
-\percc (corresponding to 7 \msun in a 0.5\arcsec radius sphere).  Such extreme
-objects are possible, but since we have detected $>100$ of these sources, we
-evaluate other possibilities.  We start with a few alternatives we are able
-to rule out.
+($\alpha=3.75$ on the Rayleigh-Jeans tail) to extrapolate the
+\citet{Ossenkopf1994a} opacity to $\kappa_{3mm}=0.0018$ cm$^2$ g$^{-1}$ (per
+gram of gas, assuming a dust to gas ratio of 100).  Our dust-only 5-$\sigma$
+sensitivity limit at 40 K therefore ranges from $M>7$ \msun (0.5 mJy) to $M>45$
+\msun (2.5 mJy) across the map.  If we were to assume that these are all cold,
+dusty sources, as is typically (and reasonably) assumed for local clouds, they
+would be extremely massive and dense, with the lowest measurable density being
+$n(40\mathrm{K}) > 3\ee{6}$ \percc (corresponding to 7 \msun in a 0.5\arcsec
+radius sphere).  Such extreme objects are possible, but since we have detected
+$>100$ of these sources, we evaluate other possibilities.  We start with a few
+alternatives we are able to rule out.
 
 
 \subsubsection{Alternative 1: The sources are externally ionized gas blobs}
@@ -499,7 +500,7 @@ of ionizing photons in $s^{-1}$, and $R$ is the \hii region radius.
 An extremely compact \hii region,
 e.g., one with $R<100$ AU and corresponding density $n>10^6$ \percc, would be
 optically thick and therefore fainter, $S_{95 \mathrm{GHz}}(R=100 \mathrm{AU},
-Q_{lyc}=10^{47} \pers)=3.4$ mJy.  Even the brightest O-stars could produce \hii
+Q_{lyc}=10^{47} \pers)=3.4$ mJy.  Even the most luminous O-stars could produce \hii
 regions as faint as 0.5 mJy if embedded in extremely high density gas; above
 $Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would be $\sim0.5$ mJy.
 
@@ -557,6 +558,12 @@ predominantly embedded protostars.  Their emission is likely dust-dominated,
 but is probably warmer than the cloud average $\sim20-40$ K.
 We test and validate the hypothesis that most or all of the sources
 are protostellar in this section.
+
+As noted at the top of this section, a cold `core' at our detection limit would
+have $M(20\mathrm{K})\approx20$ \msun.  At these high densities, it is unlikely
+any such cores are unbound.  If we assume higher dust temperatures, the
+inferred gas mass is lower, but an internal heating source - i.e., a protostar
+- is required.
 
 We cross-matched our source catalog with catalogs of \hii regions and 
 methanol masers.  Class II methanol masers are always associated
@@ -643,18 +650,23 @@ thick inner region models are both plausible.
 In this section we examine the flux density distribution of the observed
 sources and the implied total stellar masses.  
 
-The flux density distribution of the non-\hii region sources follows a powerlaw
-with slope $\alpha=1.94\pm0.07$ \citep[fitted with the MLE method
-of][]{Clauset2007a}.  If we assume (incorrectly) that the stellar mass is linearly
-proportional to the 3 mm continuum flux density, this measurement implies a
-slope shallower than the $\alpha\sim2.35$ expected for a normal IMF.  It is
-possible that the IMF is genuinely different from Salpeter here, but it is more
-likely that the more massive stars are surrounded by warmer gas, implying that
-the source mass distribution is steeper than the source flux distribution.
+% The flux density distribution of the non-\hii region sources follows a powerlaw
+% with slope $\alpha=1.94\pm0.07$ \citep[fitted with the MLE method
+% of][]{Clauset2007a}.  If we assume (incorrectly) that the stellar mass is linearly
+% proportional to the 3 mm continuum flux density, this measurement implies a
+% slope shallower than the $\alpha\sim2.35$ expected for a normal IMF.  It is
+% possible that the IMF is genuinely different from Salpeter here, but it is more
+% likely that the more massive stars are surrounded by warmer gas, implying that
+% the source mass distribution is steeper than the source flux distribution.
 
 If we make the very simplistic assumptions that the sources we detect are all
 $L\gtrsim2000$ \lsun ($M\gtrsim8 \msun$), we can infer the total (proto)stellar
-mass in the observed region.  Using a \citet{Kroupa2001a} mass function with
+mass in the observed region.  We assume the stellar masses based on the arguments
+in Section \ref{sec:theyareprotostars}: in order to be detected, the sources
+must either be active OB stars illuminating \hii regions or cores, or they must
+be very compact cores with $M>10$ \msun of warm dust within $R<4000$ AU.
+
+Using a \citet{Kroupa2001a} mass function with
 $M_{max}=200$ \msun, 23\% of the mass is contained in $M>8\msun$ stars.  Using
 $M=8\msun$ as the lower-limit case for each source, the identified sources have
 total mass $M(>8)=1800$ \msun.  The total stellar mass implied is $M_{tot} =
@@ -795,9 +807,9 @@ above that threshold even if the foreground is assumed to be an extreme $5\ee{22
 The \citet{Lada2010a} sample used Spitzer observations of nearby clouds that
 were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
 discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
-to stars with $M\gtrsim8$ \msun.  The apparently higher threshold either means
-that there is a genuinely higher threshold for star formation in the CMZ or
-that there is a higher threshold for high-mass star formation that may still
+to stars with $M\gtrsim8$ \msun.  The apparently higher column threshold either
+means that there is a genuinely higher threshold for star formation in the CMZ
+or that there is a higher threshold for high-mass star formation that may still
 be universal.
 
 
@@ -1157,13 +1169,12 @@ Sgr B2 M in Figure \ref{fig:selfcalprogression}.
 \Figure{figures/selfcal_progression_TCTE7m_try2_SgrB2M.pdf}
 {Progression of the self-calibration iterations.  The images show, from left to
 right, the initial image, one, two, and three iterations of phase-only self
-calibration, one iteration of phase and amplitude self-calibration, one
-iteration of phase and amplitude self-calibration, a reimaging of the 5th
-iteration with a deeper 0.1 mJy threshold using a mask at the 2.5 mJy level,
-and finally, a sixth iteration of phase and amplitude self-cal cleaned to
-0.1 mJy over a region thresholded at 1.5 mJy.
-All imaging was done using two Taylor terms and multiscale clean.
-The second row shows the corresponding residual images.}
+calibration, two iterations of phase and amplitude self-calibration,  a
+reimaging of the 5th iteration with a deeper 0.1 mJy threshold using a mask at
+the 2.5 mJy level, and finally, a sixth iteration of phase and amplitude
+self-cal cleaned to 0.1 mJy over a region thresholded at 1.5 mJy.  All imaging
+was done using two Taylor terms and multiscale clean.  The second row shows the
+corresponding residual images.}
 {fig:selfcalprogression}{1}{\textwidth}
 
 \section{Photometric Catalog}
