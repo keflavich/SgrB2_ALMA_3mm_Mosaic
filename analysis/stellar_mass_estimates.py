@@ -173,10 +173,10 @@ latexdict['tablefoot'] = ("\par\n"
                           "The star formation rate is computed using an age $t=0.74$ Myr, "
                           "which is the time of the last pericenter passage in the "
                           "\citet{{Kruijssen2015a}} model."
-                          "  The \emph{total} column represents the total over the whole observed "
+                          "  The \emph{{total}} column represents the total over the whole observed "
                           "region.  "
                           "  The clusters sum to much less "
-                          "than the \emph{total} because the Deep South region is not included, "
+                          "than the \emph{{total}} because the Deep South region is not included, "
                           "and it dominates the overall core count."
                           .format(over8lt20mean, over20mean, over8lt20fraction,
                                   over20fraction)
