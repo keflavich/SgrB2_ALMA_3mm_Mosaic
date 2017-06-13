@@ -63,3 +63,5 @@ for fn in files:
     medmax.hdu.writeto('max/{0}_max_medsub.fits'.format(pfx), clobber=True)
     medm0 = medsub_cube.moment0(axis=0)
     medm0.hdu.writeto('moment0/{0}_moment0_medsub.fits'.format(pfx), clobber=True)
+
+    medsub_cube.write(pfx+"_medsub.fits")

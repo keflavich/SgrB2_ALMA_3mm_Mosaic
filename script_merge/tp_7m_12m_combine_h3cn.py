@@ -7,6 +7,7 @@ from astropy import log
 
 log.debug('Reading...')
 cube = SpectralCube.read('SgrB2_b3_7M_12M.HC3N.image.pbcor_medsub.fits').with_spectral_unit(u.GHz)
+cube.allow_huge_operations=True
 log.debug("Read file")
 cube_k = cube.to(u.K, cube.beam.jtok_equiv(cube.spectral_axis[:,None,None]))
 log.debug("Converted first file to K")
