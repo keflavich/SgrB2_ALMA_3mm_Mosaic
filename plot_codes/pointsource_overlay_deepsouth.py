@@ -117,7 +117,7 @@ for regionname in ('DeepSouth', 'MandN'):
         cax = fig3.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
                              ax.bbox._bbox.y1-ax.bbox._bbox.y0])
         cb = fig3.colorbar(mappable=im, cax=cax)
-        cb.set_label("$S_{3 mm}$ [mJy bm$^{-1}$]")
+        cb.set_label("$S_{3 mm}$ [mJy beam$^{-1}$]")
 
         fig3.savefig(paths.fpath("core_overlays/{0}_peak_{1}.png".format(line,regionname)), bbox_inches='tight')
         fig3.savefig(paths.fpath("core_overlays/{0}_peak_{1}.pdf".format(line,regionname)), bbox_inches='tight')

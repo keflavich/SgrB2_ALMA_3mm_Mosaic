@@ -20,7 +20,8 @@ centrally condensed prestellar cores.  The spatial distribution of these
 sources demonstrates that Sgr B2 is experiencing a highly extended star
 formation event, not just an isolated `starburst' within the protocluster
 regions M, N, and S.  While all protostars reside in regions of high column
-density, not all regions of high column density contain a high density of
+density, not all regions of high column density ($N(\hh)>10^{23}$ \persc)
+contain a high density of
 protostars.  We observe a threshold for high-mass star formation that is
 substantially higher than the local threshold for star formation, implying
 either that high-mass star formation requires a higher column density or that
@@ -76,7 +77,9 @@ We report the first observations of extended, ongoing star formation in a
 Galactic center cloud \emph{not} isolated to a centralized protocluster dust
 clump.  We observed a $\sim15\times15$ pc section of the Sgr B2 cloud and
 identified star formation along the entire molecular dust ridge known as Sgr B2
-Deep South (DS).  These observations allow us to perform the first
+Deep South \citep[DS, also known as the `Southern
+Complex'][]{Jones2012a,Schmiedeke2016a}).  These observations allow us to
+perform the first
 star-counting based determination of the star formation rate within the dense
 molecular gas of the CMZ.
 
@@ -90,6 +93,8 @@ We describe the observations in Section \ref{sec:observations}. In this paper,
 we focus on the continuum sources, which we identify in Section
 \ref{sec:contsources}.  We classify the sources in Section
 \ref{sec:classification}.  
+{\color{red} TODO: complete this `overview of the paper' once all sections have
+been included.}
 
 % pointsource_overlay_deepsouth.py
 \FigureTwo
@@ -98,7 +103,7 @@ we focus on the continuum sources, which we identify in Section
 {Images of the 3 mm continuum in the Sgr B2 M and N region.  The right figure
 includes a red dot at the position of each identified continuum pointlike
 source.  The massive protocluster Sgr B2 M is the collection of \hii regions
-and compact source in the lower half of the image.  The other massive
+and compact sources in the lower half of the image.  The other massive
 protocluster, Sgr B2 N, is in the center.  Imaging artifacts are evident at the
 1-2 mJy bm$^{-1}$ level.
 }
@@ -107,14 +112,15 @@ protocluster, Sgr B2 N, is in the center.  Imaging artifacts are evident at the
 \section{Observation and Data Reduction}
 \label{sec:observations}
 \subsection{ALMA data}
-Data were acquired as part of ALMA project 2013.1.00269.S.  Observations were
-taken in ALMA Band 3 with the 12m Total Power array (not included in this
-work), the ALMA 7m array, and in two configurations with the ALMA 12m array.
-The setup included the maximum allowed number of channels, 30720, across 4
-spectral windows in a single polarization; the single-polarization mode was
-adopted to support moderate spectral resolution across the broad bandwidth.
-The basebands were centered at 89.48, 91.28, 101.37, and 103.23 GHz with
-bandwidth 1.875 GHz.
+Data were acquired as part of ALMA project 2013.1.00269.S (see Table
+\ref{tab:observations}).  Observations were taken in ALMA Band 3 with the 12m
+Total Power array (not included in this work), the ALMA 7m array, and in two
+configurations with the ALMA 12m array.  The setup included the maximum allowed
+number of channels, 30720, across 4 spectral windows in a single polarization;
+the single-polarization mode was adopted to support moderate spectral
+resolution ($\sim1.6$ \kms) across the broad bandwidth.  The basebands were
+centered at 89.48, 91.28, 101.37, and 103.23 GHz with bandwidth 1.875 GHz (total
+7.5 GHz).
 
 
 \begin{table*}[htp]
@@ -140,7 +146,8 @@ Date & Array & Total Observing Time &  Longest Baseline Length \\
 % analysis/measure_dynamic_range.py
 The ALMA QA2 calibrated measurement sets were combined to make a single
 high-resolution, high-dynamic range data set.  We imaged the continuum jointly
-across all four basebands, and found that the central regions surrounding Sgr B2 M
+across all four basebands (without excluding
+any spectral line regions), and found that the central regions surrounding Sgr B2 M
 were severely affected by artifacts that could not be cleaned out.  We
 therefore ran 3 iterations of phase-only self-calibration and two iterations of
 amplitude + phase self-calibration, the latter using multi-scale
@@ -152,7 +159,7 @@ is 18000 (noise $\sim0.09$ mJy/beam, 0.05 K), while the dynamic range within one
 primary beam ($\sim0.5$\arcmin) of Sgr B2M is only 5300 (noise $\sim0.3$
 mJy/beam, 0.16 K).  Because of the dynamic range limitations and an empirical
 determination that clean did not converge if allowed to go too deep, we cleaned
-to a threshold of 0.1 mJy/beam over all pixels with $S_\nu > 2.5$ mJy bm$^{-1}$
+to a threshold of 0.1 mJy/beam over all pixels with $S_\nu > 2.5$ mJy / beam
 as determined from a previous iteration.
 The final image used for most of the analysis in this paper was imaged with 
 Briggs robust parameter 0.5, achieving a beam size $0.54\times0.46\arcsec$.
@@ -167,13 +174,16 @@ Briggs robust parameter 0.5, achieving a beam size $0.54\times0.46\arcsec$.
 
 We also produced cubes of all of the spectral lines.  These were lightly
 cleaned with a maximum of 2000 iterations of cleaning to a threshold of
-100 mJy/beam.  No self-calibration was applied.
+100 mJy/beam.  No self-calibration was applied, both because the dynamic range
+limitations were less significant and because the image cubes are
+computationally expensive to process.
 Before continuum subtraction, dynamic range related artifacts similar to those
 in the continuum images were present, but these structures are identical across
 frequencies, and were therefore removable in the image domain.  We use
 median-subtracted cubes for the majority of our analysis, noting that the only
 location in which an error on the median-estimated continuum $>5\%$ is expected
-is the Sgr B2 North core \citep{Sanchez-Monge2017a}.
+is the Sgr B2 North core \citep[][Sanchez-Monge et al. 2017,
+submitted]{Sanchez-Monge2017a}.
 
 \FigureTwo
 {figures/continuum_peak_DeepSouth_saturated.pdf}
@@ -197,11 +207,13 @@ available via dataverse or some other service prior to submission.}
 We use archival data to create column density maps.   To determine the column
 density and dust temperature on large angular scales, we use Herschel Hi-Gal
 data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby et al,
-in prep).  We performed these fits at 25\arcsec resolution, using the 70, 160,
-250, and 350 \um data and excluding the 500 \um channel.
+in prep).  These fits were performed at 25\arcsec resolution, using the 70, 160,
+250, and 350 \um data and excluding the 500 \um channel.  The estimated 
+uncertainty is $\sim25\%$, with an upper limit on the systematic uncertainty
+of a factor of two (Batterby et al, in prep).
 
 
-The SHARC data were reported in \citet{Bally2010a} and have a nominal
+The CSO SHARC data were reported in \citet{Bally2010a} and have a nominal
 resolution of 9\arcsec at 350 \um, however, at this resolution,
 the SHARC data display a much higher surface brightness than the Herschel
 data on the same angular scale.  An assumed resolution of 11.5\arcsec gives a
@@ -209,13 +221,15 @@ better surface brightness match and is consistent with the measured scale of
 Sgr B2 N in the image.  This calibration difference is likely to have been a
 combination of blurring by pointing errors, surface imperfections, the
 gridding process, and flux calibration errors.  In any case, the Herschel data
-provide the most trustworthy absolute calibration scale.
+provide the most trustworthy absolute calibration scale, since they were taken
+from space and calibrated to an absolute scale using Planck data
+\citep{Bendo2013a,Bertincourt2015a}.
 
-The SCUBA 450 \um data were reported in \citet{Pierce-Price2000a} and
+The JCMT SCUBA 450 \um data were reported in \citet{Pierce-Price2000a} and
 \citet{di-Francesco2008a} with a resolution of 8\arcsec.  We found that the
-SCUBA data had a flux scale significantly discrepant from the Herschel data,
+SCUBA data had a flux scale significantly discrepant from the Herschel-SPIRE 500 \um data,
 even accounting for the central wavelength difference.  We had to scale the
-SCUBA data up by a factor $\approx3.0$ to make the data agree with the Herschel
+SCUBA data up by a factor $\approx3.0$ to make the data agree with the Herschel-SPIRE
 images on the angular scales they are both hypothetically sensitive to.
 While such a large flux calibration error seems implausible, the measured
 FWHM toward Sgr B2 N is approximately 14\arcsec, which means the beam area is $\approx3\times$
@@ -231,7 +245,7 @@ since they used additional smoothing when creating their maps.
 
 
 To obtain higher resolution column density maps, we used the combined
-Herschel+SHARC and Herschel+SCUBA maps.
+Herschel-SPIRE+SHARC and Herschel-SPIRE+SCUBA maps.
 %We combined the SHARC and SCUBA data with Herschel SPIRE 350 and 500 \um
 %images \citep{Molinari2010a}, respectively.   
 We created several temperature maps, some assuming arbitrary constant
@@ -267,8 +281,8 @@ levels of source identification, `high confidence' sources, which are selected
 conservatively in regions of low-background, and `low-confidence' sources that
 are somewhat lower signal-to-noise and are often in regions with higher
 background (labeled `conservative' and `aggressive' in Figure
-\ref{fig:fluxhist}).  Both of these selection criteria are significantly more
-conservative than a local $5-\sigma$ threshold.
+\ref{fig:fluxhist} and \ref{fig:alphahist}).  Both of these selection criteria
+are significantly more conservative than a local $5-\sigma$ threshold.
 
 We measure the local noise for each source by taking the median absolute
 deviation in an annulus 0.5 to 1.5\arcsec around the source center.
@@ -283,6 +297,12 @@ background noise and make fainter sources difficult to detect, as described in
 Section \ref{sec:observations}.  Additionally, they both contain extended
 structures, including \hii regions and dust filaments, which likely obscure
 compact sources.
+
+Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
+inspected.  Peaks that were part of extended structures but not significantly
+different from them (e.g., a 5-$\sigma$ peak sitting on a $4-\sigma$ extended
+structure) were excluded.
+
 
 For a subset of the sources, primarily the brightest, we measured the spectral
 index $\alpha$ based on CASA \texttt{tclean}'s fit to the 2-term Taylor
@@ -569,11 +589,11 @@ but is probably warmer than the cloud average $\sim20-40$ K.
 We test and validate the hypothesis that most or all of the sources
 are protostellar in this section.
 
-As noted at the top of this section, a cold `core' at our detection limit would
-have $M(20\mathrm{K})\approx20$ \msun.  At these high densities, it is unlikely
-any such cores are unbound.  If we assume higher dust temperatures, the
-inferred gas mass is lower, but an internal heating source - i.e., a protostar
-- is required.
+As noted at the top of this section, a cold `prestellar core' at our detection
+limit would have $M(20\mathrm{K})\approx20$ \msun.  At these high densities, it
+is unlikely any such cores are unbound.  If we assume higher dust temperatures,
+the inferred gas mass is lower, but an internal heating source - i.e., a
+protostar - is required.
 
 We cross-matched our source catalog with catalogs of \hii regions and 
 methanol masers.  Class II methanol masers are always associated
@@ -1095,6 +1115,10 @@ our Galaxy to those in nearby clouds.
 The software used to make this version of the paper is available from github at
 \url{https://github.com/keflavich/SgrB2_ALMA_3mm_Mosaic/} with hash \githash
 (\gitdate).}
+
+\textit{Acknowledgements}
+This work is partly supported by a grant from the National Science Foundation
+(AST-1615311, De Pree).
 
 \input{solobib}
 
