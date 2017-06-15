@@ -137,7 +137,11 @@ ax3.set_ylabel("90-100 GHz Spectral Index")
 
 
 alphaok_mask = (np.abs(cont_tbl['alpha']) > cont_tbl['alphaerror']*5) | (cont_tbl['alphaerror'] < 0.1)
-print("{0} sources have acceptable alpha measurements".format(alphaok_mask.sum()))
+ngt2 = ((cont_tbl['alpha'] > 2) & alphaok_mask).sum()
+with open(paths.texpath('alpha.tex'), 'w') as fh:
+    fh.write("\\newcommand{{\\nalphas}}{{{0}\\xspace}}\n".format(alphaok_mask.sum()))
+    fh.write("\\newcommand{{\\ngttwo}}{{{0}\\xspace}}\n".format(ngt2))
+    print("{0} sources have acceptable alpha measurements".format(alphaok_mask.sum()))
 
 fig4 = pl.figure(4)
 fig4.clf()
@@ -151,6 +155,8 @@ ax4.errorbar(cont_tbl['peak'][alphaok_mask], cont_tbl['alpha'][alphaok_mask],
 fig5 = pl.figure(5)
 fig5.clf()
 ax5 = fig5.gca()
+if any(~(highconf | lowconf | hii) & alphaok_mask):
+    raise ValueError("There are some unplotted alphas.")
 hs,l,p = ax5.hist([core_phot_tbl['alpha'][highconf & ~hii & alphaok_mask],
                    core_phot_tbl['alpha'][lowconf & ~hii & alphaok_mask],
                    core_phot_tbl['alpha'][hii & alphaok_mask],
@@ -164,6 +170,7 @@ hs,l,p = ax5.hist([core_phot_tbl['alpha'][highconf & ~hii & alphaok_mask],
                   stacked=True,
                   histtype='barstacked')
 (hh,hl,hhii) = hs
+assert hhii.sum() == alphaok_mask.sum()
 
 #ax5.set_xscale('log')
 ax5.set_xlim(l[:-1][hh>0].min()*1.1, l[1:][hh>0].max()*1.1)
@@ -213,6 +220,9 @@ pl.figure(7).clf()
 pl.plot(cont_tbl['alpha'],
         spindx,
         'r.', markersize=2)
+pl.plot(cont_tbl['alpha'][alphaok_mask],
+        spindx[alphaok_mask],
+        'go', alpha=0.5)
 pl.plot(cont_tbl['alpha'][alphaok_mask & significant_mask],
         spindx[alphaok_mask & significant_mask],
         'ko', alpha=0.5)
@@ -220,6 +230,7 @@ pl.plot([-2,4],[-2,4], 'k--')
 pl.xlabel("CASA Alpha")
 pl.ylabel("90-100 GHz spectral index")
 pl.axis([-2,4,-2,4])
+pl.savefig(paths.fpath("compare_spindx_measurements.png"), bbox_inches='tight')
 
 pl.draw()
 pl.show()

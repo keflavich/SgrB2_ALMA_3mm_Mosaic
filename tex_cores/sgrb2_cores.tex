@@ -2,6 +2,7 @@
 \usepackage{datetime} % TODO: remove this after submission
 \input{preface}
 \input{ncores}
+\input{alpha}
 \newcommand{\dsgrb}{8.4 kpc\xspace}
 \newcommand{\percent}{\%\xspace}
 
@@ -353,6 +354,13 @@ sources.  We classified sources as \hii regions if there is a corresponding 0.7
 or 1.3 cm source from one of the previous VLA surveys within one ALMA beam
 (0.5\arcsec).  The majority of these are unresolved, but we have included \hii
 regions with radii up to $\approx1\arcsec$ in our catalog.
+Optically thick \hii regions (like any blackbody) have a spectral index $\alpha=2$.
+Optically thin \hii regions have a nearly flat spectral index, $\alpha=-0.1$
+\citep{Condon2007a}.   The observed sources with \hii region counterparts have
+spectral indices consistent with the theoretical expectation for optically thin
+\hii regions in Figure \ref{fig:alphahist}.
+The existing VLA data do not cover the entire area of our observations, so
+we only have a lower limit on the number of \hii regions in our sample.
 
 % core_flux_distributions
 %\FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
@@ -367,7 +375,7 @@ regions with radii up to $\approx1\arcsec$ in our catalog.
 }
 {fig:fluxhist}{1}{0.5\textwidth}
 
-We first note some key properties of dust at 3 mm.   At \dsgrb, a 1 mJy source
+We note some properties of dust at 3 mm.   At \dsgrb, a 1 mJy source
 corresponds to an optically thin dust mass of $M(40\mathrm{K})=18$ \msun or
 $M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$
 ($\alpha=3.75$ on the Rayleigh-Jeans tail) to extrapolate the
@@ -434,7 +442,7 @@ than a thin PDR-like layer.
 
 A final point against the externally ionized hypothesis is the observed
 spectral indices shown in Figure \ref{fig:alphahist}.  We measured spectral
-indices for 43 sources, of which 23 have $\alpha>2$.  These sources are
+indices for \nalphas sources, of which \ngttwo have $\alpha>2$.  These sources are
 inconsistent with free-free emission and are at least reasonably consistent
 with dust emission.
 %Of the 20 that are consistent with free-free emission, 11
@@ -579,11 +587,12 @@ and are therefore inconsistent with free-free emission.
 % HII notebook
 \Figure{figures/HII_region_brightness.png}
 {Simple models of spherical \hii regions to illustrate the observable
-properties of such regions.  The \hii region size is shown by line color; the legend
-in the left plot applies to both figures.  (left) The expected brightness temperature (left
-axis) and corresponding flux density within a FWHM=0.5\arcsec beam (right axis) as a
-function of the Lyman continuum luminosity for a variety of source radii.
-The grey filled region shows the range of our 5-sigma sensitivity limits,
+properties of such regions.  The \hii region size is shown by line color; the
+legend in the left plot applies to both figures.  (left) The expected
+brightness temperature (left axis) and corresponding flux density at 95 GHz
+within a FWHM=0.5\arcsec beam (right axis) as a function of the Lyman continuum
+luminosity for a variety of source radii.  The grey filled region shows the
+range of our 5-sigma sensitivity limits,
 which vary with location from 0.25 to 0.8 K.
 (right) The density required to produce an \hii region of that radius.  The
 horizontal dashed line shows the density corresponding to an unresolved dust
@@ -600,13 +609,13 @@ The electron densities required to produce \hii regions within our observed rang
 {fig:hiibrightness}{1}{18cm}
 
 
-\subsubsection{The sources are protostars}
+\subsubsection{The sources are protostellar}
 \label{sec:theyareprotostars}
 After ruling out the other hypotheses, we conclude that these sources are
 predominantly embedded protostars.  Their emission is likely dust-dominated,
-but is probably warmer than the cloud average $\sim20-40$ K.
-We test and validate the hypothesis that most or all of the sources
-are protostellar in this section.
+but is probably warmer than the cloud average $\sim20-40$ K
+\citep[e.g.,]{Ginsburg2016a}.  We test and validate the hypothesis that most or
+all of the sources are protostellar in this section.
 
 As noted at the top of this section, a cold `prestellar core' at our detection
 limit would have $M(20\mathrm{K})\approx20$ \msun.  At these high densities, it
@@ -614,16 +623,23 @@ is unlikely any such cores are unbound.  If we assume higher dust temperatures,
 the inferred gas mass is lower, but an internal heating source - i.e., a
 protostar - is required.
 
-We cross-matched our source catalog with catalogs of \hii regions and 
-methanol masers.  Class II methanol masers are always associated
-with sites of high-mass star formation.
-The \citet{Caswell2010a} Methanol Multibeam Survey identified 11 sources in our
-observed field of view, of which 10 have a clear match in our catalog.
-Several other sources in our catalog match known \hii regions from
-\citet{Gaume1995a}, mostly associated with the brightest sources in our sample;
-these all have $S_{3 \textrm{mm}} > 9$ mJy.  Additionally, some of the
-sources have X-ray counterparts in the \citet{Muno2009a} Chandra point source
-catalog.
+We cross-matched our source catalog with catalogs of \hii regions, X-ray
+sources, and methanol masers.  Several sources (\nhii) in our catalog match
+known \hii regions from \citet{Gaume1995a} to within 0.5\arcsec, most of which
+are associated with the brightest sources in our sample; these all have $S_{3
+\textrm{mm}} > 9$ mJy.  These sources clearly contain high-mass young stars.
+Class II methanol masers are always associated with sites of high-mass star
+formation.  The \citet{Caswell2010a} Methanol Multibeam (MMB) Survey identified
+11 sources in our observed field of view, of which \nmasermatch have a clear
+match to within 1\arcsec of a source in our catalog (the MMB catalog sources
+have a positional accuracy of $\approx0.4\arcsec$, but masers may have an
+extent up to 1\arcsec).  Some young stars exhibit X-ray emission, including
+some MYSOs \citep[e.g.][]{Townsley2014a}, so we searched for X-ray emission
+from our sources.  \nxraymatch of the sources have X-ray counterparts in the
+\citet{Muno2009a} Chandra point source catalog within 1 \arcsec.
+Both the \citet{Muno2009a} and \citet{Caswell2010a} cover the entire observed
+area, but the \citet{Gaume1995a} observations (and other VLA observations
+at similar resolution) are limited to only the Sgr B2 M and N regions.
 
 
 We compare our detected sample to that of the Herschel Orion Protostar Survey
@@ -632,7 +648,8 @@ sources we have detected.  We selected this survey for comparison because it is
 one of the largest protostellar core samples with well-characterized bolometric
 luminosities available.
 Figure \ref{fig:hopshist} shows the HOPS source
-fluxes at 870\um scaled to 3 mm assuming a dust opacity index $\beta=1.5$,
+flux densities at 870\um (from LABOCA on the APEX telescope) scaled to 3 mm
+assuming a dust opacity index $\beta=1.5$,
 which is shallower than usually inferred, so the extrapolated
 fluxes may be slightly overestimated\footnote{We err on the shallower side,
 implying that the extrapolated 3 mm fluxes are brighter, since this approach
@@ -700,8 +717,8 @@ thick inner region models are both plausible.
 \subsection{Source distribution functions and the star formation rate}
 \label{sec:distributionsandsfr}
 
-In this section we examine the flux density distribution of the observed
-sources and the implied total stellar masses.  
+In this section we examine the distribution of observed flux densities and the
+implied total stellar masses.  
 
 % The flux density distribution of the non-\hii region sources follows a powerlaw
 % with slope $\alpha=1.94\pm0.07$ \citep[fitted with the MLE method
@@ -718,30 +735,33 @@ mass in the observed region.  We assume the stellar masses based on the argument
 in Section \ref{sec:theyareprotostars}: in order to be detected, the sources
 must either be active OB stars illuminating \hii regions or cores, or they must
 be very compact cores with $M>10$ \msun of warm dust within $R<4000$ AU.
+Note that the mass estimates in this section are for the \emph{stars}, not
+their envelopes.
 
-Using a \citet{Kroupa2001a} mass function with
-$M_{max}=200$ \msun, 23\% of the mass is contained in $M>8\msun$ stars.  Using
-$M=8\msun$ as the lower-limit case for each source, the identified sources have
-total mass $M(>8)=1800$ \msun.  The total stellar mass implied is $M_{tot} =
-8\ee{3}$ \msun.  If instead we assume each source has a mass equal to the mean
-stellar mass for $M>8$ \msun, $\bar{M}=21.1$ \msun, then the total inferred
-stellar mass is $M_{tot}=2\ee{4}$ \msun.  These are lower limits in the Sgr B2
-N and M regions because our catalog is incomplete due to confusion and dynamic
-range limitations.  Additionally, we are using a single-star IMF and our
-resolution is only $\sim4000$ AU, so it is likely that we have undercounted by
-$\gtrsim2\times$, since high-mass stars have a high multiplicity fraction
-\citep{Mason2009a}.
+Using a \citet{Kroupa2001a} mass function with $M_{max}=200$ \msun, 23\% of the
+mass is contained in $M>8\msun$ stars.  Using $M=8\msun$ as the mass of each
+source to obtain a lower limit on the total stellar mass, the identified
+sources have total mass $M(>8)=1800$ \msun.  The total stellar mass implied is
+$M_{tot} = 8\ee{3}$ \msun.  If instead we assume each source has a mass equal
+to the mean stellar mass for $M>8$ \msun, $\bar{M}=21.1$ \msun, then the total
+inferred stellar mass is $M_{tot}=2\ee{4}$ \msun.  These are lower limits in
+the Sgr B2 N and M regions because our catalog is incomplete due to confusion
+and dynamic range limitations.  Additionally, we are using a single-star IMF
+and our resolution is only $\sim4000$ AU, so it is likely that we have
+undercounted by $\gtrsim2\times$, since high-mass stars have a high
+multiplicity fraction \citep{Mason2009a}.
 
 % COMPARE TO SCHMIEDEKE
 
-For each subcluster identified in \citet{Schmiedeke2016a}, we count the number
-of \hii regions identified in our
+For each subcluster identified in \citet[][see Figure
+\ref{fig:overview}]{Schmiedeke2016a}, we count the number of \hii regions
+identified in our
 survey plus those identified in previous works \citep{de-Pree1996a}, and
 we count the number of protostellar cores not associated with \hii regions.
 To estimate the stellar mass, we assume each core contains a star
 with $\bar{M}(8-20) = 12$ \msun and each \hii region contains a $\geq$B0 star
 with $\bar{M}(>20) = 45$ \msun.  In Table \ref{tab:clustermassestimates},
-this estimate is shown as $M_{obs}$.  We also compute the total stellar
+this estimate is shown as $M_{count}$.  We also compute the total stellar
 mass using the mass fractions $f(M>20) = 0.14$ and $f(8<M<20)=0.09$.
 The inferred masses computed from \hii region counts and from core
 counts are shown in columns $M_{inferred,\hii}$ and $M_{inferred,cores}$
@@ -802,7 +822,7 @@ only occur above a certain density or column density threshold\footnote{Column
 density is more commonly used because of its observational convenience, but it
 is physically meaningless unless high column density leads to high optical
 depths and thereby changes the gas's ability to cool.}. 
-We discuss our measurements of column thresholds in this Section.
+We discuss our measurements of column density thresholds in this Section.
 
 
 
@@ -839,7 +859,7 @@ nearly the whole Sgr B2 cloud exists above this threshold.
 To directly compare our observations to the star formation thresholds reported
 in \citet{Lada2010a}, we examined the column density associated with each
 millimeter continuum source.  The \citet{Lada2010a} data used a variable
-resolution for the column measurements toward their sample, ranging from
+resolution for the column density measurements toward their sample, ranging from
 0.06-0.35 pc (equivalent to 1.5 to 9.2\arcsec at a distance of \dsgrb).  The
 Herschel data we have available with per-pixel SED fits lack the resolution
 needed to make a direct comparison to the Lada et al data set, but the SHARC
@@ -887,21 +907,22 @@ dashed line shows the $N(\hh)=5.2\ee{21}$ column density threshold from
 \citet{Lada2010a}.}
 {fig:corebackgroundcdf}{1}{0.5\textwidth}
 
-% plot_codes/pointsource_overlay_scuba_column.py
-\FigureOneCol{figures/cores_on_SCUBA_column_saturated.png}
-{Overlay of the core and \hchii region locations on the SCUBA column density map
-created by interpolating the Herschel-measured temperatures onto the SCUBA grid
-and assuming the dust is optically thin at 450 \um.  The square grid at the center
-shows a region affected by saturation in the Herschel data.
-Contours are shown at $N(\hh) = 2\ee{23}$ \persc (green dashed lines)
-and $N(\hh) = 5,10,50,100\ee{23}$ \persc (blue lines).
-As shown in Figure \ref{fig:corebackgroundcdf}, the threshold above which nearly
-all cores are found is high, but this figure shows that the core density is not
-well-correlated with the column density: there is a relative dearth of cores
-in the high-column north region and an overabundance in the moderate-column deep
-south region.
-}
-{fig:coresonscubacol}{1}{0.5\textwidth}
+% TODO: find someplace to include this figure?
+% % plot_codes/pointsource_overlay_scuba_column.py
+% \FigureOneCol{figures/cores_on_SCUBA_column_saturated.png}
+% {Overlay of the core and \hchii region locations on the SCUBA column density map
+% created by interpolating the Herschel-measured temperatures onto the SCUBA grid
+% and assuming the dust is optically thin at 450 \um.  The square grid at the center
+% shows a region affected by saturation in the Herschel data.
+% Contours are shown at $N(\hh) = 2\ee{23}$ \persc (green dashed lines)
+% and $N(\hh) = 5,10,50,100\ee{23}$ \persc (blue lines).
+% As shown in Figure \ref{fig:corebackgroundcdf}, the threshold above which nearly
+% all cores are found is high, but this figure shows that the core density is not
+% well-correlated with the column density: there is a relative dearth of cores
+% in the high-column north region and an overabundance in the moderate-column deep
+% south region.
+% }
+% {fig:coresonscubacol}{1}{0.5\textwidth}
 
 % \Figure{figures/flux_histograms_with_core_location_CDF.png}
 % {Histograms of the brightness measured with a variety of instruments at
@@ -1005,11 +1026,11 @@ at pericenter passage.  See Section \ref{sec:clustersandextended}.
 
 \subsubsection{Cloud-cloud collision}
 There are no definitive signs of `cloud-cloud collision' or `colliding flows'
-in our data.  Most of the notable kinematic features evident in the dense gas
-images can be attributed to expanding \hii regions or otherwise feedback-driven
-flows (see Section \ref{sec:expandingshells}).  While interacting independent
-gas streams are a possible agent affecting Sgr B2, their effects are not
-obvious in our core catalog or in the gas data cubes.
+in our line or continuum data.  Most of the notable kinematic features evident
+in the dense gas images can be attributed to expanding \hii regions or
+otherwise feedback-driven flows (see Section \ref{sec:expandingshells}).  While
+interacting independent gas streams are a possible agent affecting Sgr B2,
+their effects are not obvious in our core catalog or in the gas data cubes.
 
 We note that some `colliding flows' are expected in almost any collapse
 scenario.  For example, simulations of a cloud passing through Galactic

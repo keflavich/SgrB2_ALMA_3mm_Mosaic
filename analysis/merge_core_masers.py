@@ -58,7 +58,7 @@ caswell_names = []
 caswell_velos = []
 caswell_matchdist = []
 for match,distance,_ in zip(*caswell_matches):
-    if distance < 2*u.arcsec:
+    if distance < 1*u.arcsec:
         caswell_names.append(caswell_maser_results[match]['Name'])
         caswell_velos.append(caswell_maser_results[match]['VpkSC'])
         caswell_matchdist.append(distance.to(u.arcsec))
@@ -82,7 +82,7 @@ muno_xray_names = []
 muno_xray_countrates = []
 muno_xray_matchdist = []
 for match,distance,_ in zip(*muno_xray_matches):
-    if distance < 2*u.arcsec:
+    if distance < 1*u.arcsec:
         muno_xray_names.append(muno_xray_results[match]['CXOGC'])
         muno_xray_countrates.append(muno_xray_results[match]['Flux'])
         muno_xray_matchdist.append(distance.to(u.arcsec))
