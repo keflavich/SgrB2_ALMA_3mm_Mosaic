@@ -138,6 +138,8 @@ for regionname in ('DeepSouth', 'MandN'):
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_saturated.png".format(line,regionname)), bbox_inches='tight')
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_saturated.pdf".format(line,regionname)), bbox_inches='tight')
 
-        coredots.set_visible(False)
+        #coredots.set_visible(False)
+        for cd in coredots:
+            cd.set_visible(False)
         fig3.savefig(paths.fpath("core_overlays/{0}_peak_{1}_saturated.png".format(line,regionname)), bbox_inches='tight')
         fig3.savefig(paths.fpath("core_overlays/{0}_peak_{1}_saturated.pdf".format(line,regionname)), bbox_inches='tight')

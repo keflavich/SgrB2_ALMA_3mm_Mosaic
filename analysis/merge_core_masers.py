@@ -41,6 +41,12 @@ for match,distance,_ in zip(*matches):
 cont_tbl.add_column(Column(data=simbad_col_data, name='SIMBAD_ID'))
 cont_tbl.add_column(Column(data=simbad_otype, name='SIMBAD_OTYPE'))
 
+# HACK for broken SIMBAD
+cont_tbl[cont_tbl['name'] == 'core_172_K2']['SIMBAD_ID'] = "NAME Sgr B2 HII K2"
+cont_tbl[cont_tbl['name'] == 'core_172_K2']['SIMBAD_OTYPE'] = "HII"
+cont_tbl[cont_tbl['name'] == 'core_176_f1']['SIMBAD_ID'] = "NAME Sgr B2 HII F1"
+cont_tbl[cont_tbl['name'] == 'core_176_f1']['SIMBAD_OTYPE'] = "HII"
+
 # query Methanol Multibeam Catalog (Caswell 2010: 2010MNRAS.404.1029C) for each source
 caswell_maser_results = Vizier.query_region(sgrb2_coords.fk5, radius=2*u.arcsec, catalog='VIII/96/catalog')['VIII/96/catalog']
 caswell_coords = coordinates.SkyCoord(stringy(caswell_maser_results['RAJ2000']),

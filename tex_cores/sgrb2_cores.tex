@@ -266,7 +266,7 @@ uncertainties.  The data combination is discussed in more detail in Appendix
 
 \subsection{Continuum Source Identification}
 \label{sec:contsources}
-We selected continuum point sources as candidate cores or protostars by eye,
+We selected continuum point sources by eye,
 scanning across images with different weighting schemes (different robust
 parameters).  An automated selection is not viable across the majority of the
 field because there are many extended \hii regions that dominate the overall
@@ -290,6 +290,7 @@ are significantly more conservative than a local $5-\sigma$ threshold.
 
 We measure the local noise for each source by taking the median absolute
 deviation in an annulus 0.5 to 1.5\arcsec around the source center.
+%TODO: check
 All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
 sources are all in regions of particularly high background or source
 density and therefore have overestimated local noise.
@@ -307,15 +308,20 @@ inspected.  Peaks that were part of extended structures but not significantly
 different from them (e.g., a 5-$\sigma$ peak sitting on a $4-\sigma$ extended
 structure) were excluded.
 
+% The majority of the sources are unresolved.  Some of these sit within regions
+% of extended emission.  A small handful were moderately resolved, including some
+% of the known \hii regions.
 
 For a subset of the sources, primarily the brightest, we measured the spectral
-index $\alpha$ based on CASA \texttt{tclean}'s fit to the 2-term Taylor
-expansion model of the data.  \texttt{tclean} produces $\alpha$ and
-$\sigma(\alpha)$ (error on $\alpha$) maps, and we used the $\alpha$ value at
-the position of peak intensity for each source.  We include in the catalog only
-those sources with $|\alpha| > 5 \sigma(\alpha)$ or $\sigma(\alpha) < 0.1$; the
-latter include sources with $\alpha\sim0$ measured at relatively high
-precision.  Several of the brightest sources did not have significant
+index $\alpha$ based on CASA \texttt{tclean}'s  2-term Taylor expansion model
+of the data (parameters \texttt{deconvolver='mtmfs'} and \texttt{nterms=2}).
+This measurement is over a narrow frequency range ($\approx90-100$ GHz).
+\texttt{tclean} produces $\alpha$ and $\sigma(\alpha)$ (error on $\alpha$)
+maps, and we used the $\alpha$ value at the position of peak intensity for each
+source.  We include in the analysis only those sources with $|\alpha| > 5
+\sigma(\alpha)$ or $\sigma(\alpha) < 0.1$; the latter include sources with
+$\alpha\sim0$ measured at relatively high precision.  Sixty sources met these
+criteria. Several of the brightest sources did not have significant
 measurements of $\alpha$ because they are in the immediate neighborhood of Sgr
 B2 M or N and therefore have significantly higher background and noise,
 preventing a clear measurement.  To check the calibration of the spectral index
@@ -326,7 +332,8 @@ measurements in our catalog should be accurate, since all sources come from the
 same map with identical calibration.
 
 
-We detected \ncores compact continuum sources.  Their flux distribution is
+We detected \ncores compact continuum sources, and they are listed
+in Table \ref{tab:photometry}.  Their flux distribution is
 shown in Figure \ref{fig:fluxhist}.  The distribution of their measured
 spectral indices $\alpha$ is shown in Figure \ref{fig:alphahist}.
 
@@ -341,18 +348,23 @@ new sources.
 A subset of the detected sources have detections at other bands and can be
 classified based on previous literature work, especially those associated with
 \hii regions detected at 0.7 and 1.3 cm
-\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,de-Pree2015a}, which includes 78
+\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,de-Pree2015a}, which includes \nhii
 sources.  We classified sources as \hii regions if there is a corresponding 0.7
-or 1.3 cm source within one ALMA beam (0.5\arcsec).  The majority of these are
-unresolved, but we have included \hii regions with radii up to
-$\approx1\arcsec$ in our catalog.
+or 1.3 cm source from one of the previous VLA surveys within one ALMA beam
+(0.5\arcsec).  The majority of these are unresolved, but we have included \hii
+regions with radii up to $\approx1\arcsec$ in our catalog.
 
 % core_flux_distributions
 %\FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
 \FigureOneCol{figures/core_peak_fluxdensity_coloredbyclass.png}
-{A histogram of the flux density of the observed sources.  The two brightest
-regions not identified as \hii regions are Sgr B2M f1 and Sgr B2N K2; in these
-regions, it is unclear whether the free-free or dust emission dominates.}
+{A histogram of the flux density of the observed sources. 
+%The two brightest
+%regions not identified as \hii regions are Sgr B2M f1 and Sgr B2N K2; in these
+%regions, it is unclear whether the free-free or dust emission dominates, and
+%these sources are not cataloged as \hii regions in online databases (Sgr B2M f1
+%is an \hii region, but the closest match in our catalog is an SMA-detected dust
+%core).
+}
 {fig:fluxhist}{1}{0.5\textwidth}
 
 We first note some key properties of dust at 3 mm.   At \dsgrb, a 1 mJy source
@@ -503,7 +515,7 @@ Figure \ref{fig:coreson20cmandhc3n}b, where molecular material is seen with no
 associated millimeter sources).  If there is a free-floating population of OB
 stars responsible for the 3 mm point source population, if we assume the
 spatial distribution of the stars is uniform, the distribution of \hii regions
-surrounding them should match of the gas (since we are assuming the gas and
+surrounding them should match that of the gas (since we are assuming the gas and
 stars are moving independently).  Also, there is no such population of sources
 seen outside of the dense gas in the infrared \citep[TODO: Who has done
 infrared studies of Sgr B2?  You can infer what I have stated `by inspection'
@@ -622,15 +634,19 @@ luminosities available.
 Figure \ref{fig:hopshist} shows the HOPS source
 fluxes at 870\um scaled to 3 mm assuming a dust opacity index $\beta=1.5$,
 which is shallower than usually inferred, so the extrapolated
-fluxes may be slightly overestimated.  The 870\um data were acquired with a
-$\sim20\arcsec$ FWHM beam, which translates to a resolution $\sim1\arcsec$ at
-$d_{Sgr B2} = $\dsgrb assuming $d_{Orion}=415$ pc, so our beam size is somewhat smaller than
-theirs.  The HOPS sources are all fainter than the Sgr B2 sources.  The
-brightest HOPS source, with $L_{tot}<2000$ 
-\lsun, would only be 0.2 mJy in Sgr B2, or about a 4-$\sigma$
+fluxes may be slightly overestimated\footnote{We err on the shallower side,
+implying that the extrapolated 3 mm fluxes are brighter, since this approach
+gives a more conservative view of the detectability of the Orion sources.
+In reality, such sources are likely even fainter than predicted here.}.  The
+870\um data
+were acquired with a $\sim20\arcsec$ FWHM beam, which translates to a
+resolution $\sim1\arcsec$ at $d_{Sgr B2} = $\dsgrb assuming $d_{Orion}=415$ pc,
+so our beam size is somewhat smaller than theirs.  The HOPS sources are all
+fainter than the Sgr B2 sources.  The brightest HOPS source, with
+$L_{tot}<2000$ \lsun, would only be 0.2 mJy in Sgr B2, or about a 4-$\sigma$
 source - below our detection threshold even in the noise-free regions of the
-map.  We  conclude that the Sgr B2 sources are much more luminous
-and are therefore massive protostars.
+map.  We  conclude that the Sgr B2 sources are much more luminous and are
+therefore massive protostars.
 
 % HOPS_core_plots
 \FigureOneCol{figures/core_peak_intensity_histogram_withHOPS.png}
@@ -723,8 +739,8 @@ of \hii regions identified in our
 survey plus those identified in previous works \citep{de-Pree1996a}, and
 we count the number of protostellar cores not associated with \hii regions.
 To estimate the stellar mass, we assume each core contains a star
-with $\bar{M(8-20)} = 12$ \msun and each \hii region contains a $\geq$B0 star
-with $\bar{M(>20)} = 45$ \msun.  In Table \ref{tab:clustermassestimates},
+with $\bar{M}(8-20) = 12$ \msun and each \hii region contains a $\geq$B0 star
+with $\bar{M}(>20) = 45$ \msun.  In Table \ref{tab:clustermassestimates},
 this estimate is shown as $M_{obs}$.  We also compute the total stellar
 mass using the mass fractions $f(M>20) = 0.14$ and $f(8<M<20)=0.09$.
 The inferred masses computed from \hii region counts and from core
@@ -1219,7 +1235,9 @@ corresponding residual images.}
 {fig:selfcalprogression}{1}{\textwidth}
 
 \section{Photometric Catalog}
-We include the full catalog here.  Table \ref{tab:photometry} shows
+We include the full catalog in digital form
+(\url{https://github.com/keflavich/SgrB2_ALMA_3mm_Mosaic/blob/master/tables/continuum_photometry_withSIMBAD_andclusters.ipac}).
+Table \ref{tab:photometry} shows
 the brightest 35 sources; the rest are included in a digital-only catalog.
 Sources are labeled based on an arbitrary source
 number plus any pre-existing catalog name.  If a source is associated with a cluster,

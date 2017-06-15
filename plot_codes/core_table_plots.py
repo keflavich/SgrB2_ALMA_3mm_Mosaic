@@ -137,6 +137,7 @@ ax3.set_ylabel("90-100 GHz Spectral Index")
 
 
 alphaok_mask = (np.abs(cont_tbl['alpha']) > cont_tbl['alphaerror']*5) | (cont_tbl['alphaerror'] < 0.1)
+print("{0} sources have acceptable alpha measurements".format(alphaok_mask.sum()))
 
 fig4 = pl.figure(4)
 fig4.clf()

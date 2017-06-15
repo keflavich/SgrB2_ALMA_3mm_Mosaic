@@ -104,7 +104,9 @@ con = ax.contour(cx,
 ax.axis([x1,x2,y1,y2])
 
 fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum_withdots.png"), bbox_inches='tight')
-coredots.set_visible(False)
+#coredots.set_visible(False)
+for cd in coredots:
+    cd.set_visible(False)
 fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum.png"), bbox_inches='tight')
 
 hdu2 = fits.open('/Users/adam/work/sgrb2/continuumdata/sgrb2_20cm_12as.fits')[0]
