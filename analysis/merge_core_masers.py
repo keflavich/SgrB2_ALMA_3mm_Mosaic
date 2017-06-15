@@ -8,6 +8,12 @@ Vizier.ROW_LIMIT = 10000
 
 import paths
 
+def stringy(x):
+    if hasattr(x, 'astype'):
+        return x.astype('str')
+    else:
+        return str(x)
+
 cont_tbl = Table.read(paths.tpath('continuum_photometry.ipac'), format='ascii.ipac')
 
 sgrb2_coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'],
@@ -37,7 +43,9 @@ cont_tbl.add_column(Column(data=simbad_otype, name='SIMBAD_OTYPE'))
 
 # query Methanol Multibeam Catalog (Caswell 2010: 2010MNRAS.404.1029C) for each source
 caswell_maser_results = Vizier.query_region(sgrb2_coords.fk5, radius=2*u.arcsec, catalog='VIII/96/catalog')['VIII/96/catalog']
-caswell_coords = coordinates.SkyCoord(caswell_maser_results['RAJ2000'].astype('str'), caswell_maser_results['DEJ2000'].astype('str'), frame='fk5', unit=(u.hour, u.deg))
+caswell_coords = coordinates.SkyCoord(stringy(caswell_maser_results['RAJ2000']),
+                                      stringy(caswell_maser_results['DEJ2000']),
+                                      frame='fk5', unit=(u.hour, u.deg))
 caswell_matches = coordinates.match_coordinates_sky(sgrb2_coords, caswell_coords)
 
 caswell_names = []
@@ -96,7 +104,9 @@ core_phot_tbl = cont_tbl
 
 caswell_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.305', '-28:23:33.589', frame='fk5', unit=(u.hour, u.deg)),
                                        width=7.5*u.arcmin, height=7.5*u.arcmin, catalog='VIII/96/catalog')['VIII/96/catalog']
-caswell_in_field_coords = coordinates.SkyCoord(caswell_in_field['RAJ2000'].astype('str'), caswell_in_field['DEJ2000'].astype('str'), frame='fk5', unit=(u.hour, u.deg))
+caswell_in_field_coords = coordinates.SkyCoord(stringy(caswell_in_field['RAJ2000']),
+                                               stringy(caswell_in_field['DEJ2000']),
+                                               frame='fk5', unit=(u.hour, u.deg))
 caswell_in_field_matches = coordinates.match_coordinates_sky(caswell_in_field_coords, sgrb2_coords)
 sgrb2_ids = []
 sgrb2_dists = []
@@ -114,8 +124,8 @@ with open(paths.rpath("caswell_masers_matches.reg"),'w') as fh:
     fh.write('fk5\n')
     for row in caswell_in_field:
         fh.write("point({0},{1}) # point=cross color=red text={{{2}}}\n"
-                 .format(row['RAJ2000'].astype(str).replace(" ",":"),
-                         row['DEJ2000'].astype(str).replace(" ",":"), row['ALMA_ID']))
+                 .format(stringy(row['RAJ2000']).replace(" ",":"),
+                         stringy(row['DEJ2000']).replace(" ",":"), row['ALMA_ID']))
 
 
 
@@ -141,8 +151,5 @@ with open(paths.rpath("muno_xrays_matches.reg"),'w') as fh:
     fh.write('fk5\n')
     for row in muno_in_field:
         fh.write("point({0},{1}) # point=cross color=red text={{{2}}}\n"
-                 .format(row['RAJ2000'].astype(str).replace(" ",":"),
-                         row['DEJ2000'].astype(str).replace(" ",":"), row['ALMA_ID']))
-
-
-
+                 .format(stringy(row['RAJ2000']).replace(" ",":"),
+                         stringy(row['DEJ2000']).replace(" ",":"), row['ALMA_ID']))

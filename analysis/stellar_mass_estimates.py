@@ -69,11 +69,17 @@ for row in hii_regions:
     #    continue
     #nm = reg.meta['text'].strip("{}")
     nm = row['ID']
-    coord = coordinates.SkyCoord(row['RA'], row['Dec'], frame='fk5', unit=(u.hour, u.deg))
-    if not obj_in_tbl(nm):
+    if (hasattr(nm,'mask') and nm.mask):
+        print("Skipping row {0} because masked.".format(row))
+    elif not obj_in_tbl(nm):
+        coord = coordinates.SkyCoord(row['RA'], row['Dec'], frame='fk5', unit=(u.hour, u.deg))
         core_phot_tbl.add_row({'name': nm, 'SIMBAD_OTYPE':'HII',
                                'RA': coord.ra,
                                'Dec': coord.dec,
+                               'color': 'green',
+                               'Muno_xray_ID': '-',
+                               'Caswell_Name': '-',
+                               #'Classification': 'HII',
                                #'RA': reg.center.ra[0],
                                #'Dec': reg.center.dec[0]
                               })

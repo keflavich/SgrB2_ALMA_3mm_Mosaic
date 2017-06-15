@@ -12,6 +12,7 @@ from mpl_plot_templates import asinh_norm
 import matplotlib
 from visualization import make_scalebar, hide_scalebar
 from constants import distance
+from overlay_common import core_phot_tbl, plotcores, cores
 
 pl.matplotlib.rc_file('pubfiguresrc')
 
@@ -27,9 +28,6 @@ if matplotlib.__version__[0] == '1':
 elif matplotlib.__version__[0] == '2':
     markersize = 0.5
 
-core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
-cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
-                             frame='fk5')
 
 hdu = fits.open('/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_fix.fits')[0]
 hdu = fits.open('/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_fix_gal.fits')[0]
@@ -71,8 +69,9 @@ bins = [np.linspace(clims[1,0], clims[0,0], 200),
 
 tr_fk5 = ax.get_transform("fk5")
 
-coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
-                    zorder=50)
+#coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
+#                    zorder=50)
+coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50)
 
 ax.axis([x1,x2,y1,y2])
 
@@ -144,9 +143,11 @@ make_scalebar(ax, scalebarpos,
              )
 
 
-coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
-                    alpha=0.5,
-                    zorder=50, )
+#coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
+#                    alpha=0.5,
+#                    zorder=50, )
+coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
+                     alpha=0.5)
 fig.savefig(paths.fpath("cores_on_20cm_continuum.png"), bbox_inches='tight')
 pl.draw()
 pl.show()
@@ -177,8 +178,11 @@ tr_fk5 = ax.get_transform("fk5")
 (x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
 ax.axis([x1,x2,y1,y2])
 
-coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
-                    zorder=50, )
+#coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5,
+# markersize=markersize, alpha=0.5,
+#                    zorder=50, )
+coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
+                     alpha=0.5)
 fig3.savefig(paths.fpath("cores_on_h41a_peak.png"), bbox_inches='tight')
 
 ax.imshow(hdu_h41a.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_h41a.header).celestial),
@@ -228,8 +232,10 @@ for line in ("HC3N","HCN","HNC","HCOp"):
         markersize = 6
     elif matplotlib.__version__[0] == '2':
         markersize = 0.5
-    coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
-                        zorder=50, )
+    #coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5,
+    #                    markersize=markersize, alpha=0.5, zorder=50, )
+    coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
+                         alpha=0.5)
     fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
 
     ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
@@ -266,8 +272,10 @@ for line in ("HC3N","HCN","HNC","HCOp"):
                       )
 
 
-    coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
-                        zorder=50, )
+    coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
+                         alpha=0.5)
+    #coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5,
+    #                    markersize=markersize, alpha=0.5, zorder=50, )
     ax.axis([x1,x2,y1,y2])
     fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth.png".format(line)), bbox_inches='tight')
     fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth.pdf".format(line)), bbox_inches='tight')

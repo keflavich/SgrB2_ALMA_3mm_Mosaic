@@ -15,6 +15,7 @@ from files import contfilename
 import warnings
 from visualization import make_scalebar
 from constants import distance
+from overlay_common import core_phot_tbl, plotcores
 
 warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
 
@@ -34,10 +35,6 @@ else:
     tick_fontsize = 10
     markersize = 8
 
-
-core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
-cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
-                             frame='fk5')
 
 for regionname in ('DeepSouth', 'MandN'):
 
@@ -122,8 +119,8 @@ for regionname in ('DeepSouth', 'MandN'):
         fig3.savefig(paths.fpath("core_overlays/{0}_peak_{1}.png".format(line,regionname)), bbox_inches='tight')
         fig3.savefig(paths.fpath("core_overlays/{0}_peak_{1}.pdf".format(line,regionname)), bbox_inches='tight')
 
-        coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize, alpha=0.5,
-                            zorder=50, )
+        coredots = plotcores(ax, alpha=0.5, transform=tr_fk5,
+                             markersize=markersize, zorder=50)
         ax.axis([x1,x2,y1,y2])
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}.png".format(line,regionname)), bbox_inches='tight')
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}.pdf".format(line,regionname)), bbox_inches='tight')
