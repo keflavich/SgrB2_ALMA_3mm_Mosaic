@@ -140,15 +140,17 @@ zoomregions = {'SouthOfSouth':
                                                  unit=(u.h, u.deg),
                                                  frame='fk5'),
                 'inregion': 'MandN',
-                'bbox':[-0.025,0.425],
+                'bbox':[-0.024,0.425],
                 'loc': 2,
-                'l1':1,
-                'l2':4,
+                'l1':2,
+                'l2':3,
                 'min': -1,
                 'max': 300,
-                'zoom': 7,
+                'zoom': 2.25,
+                'inset_axes': 'M',
                },
               }
+zoomregions_order = ['M', 'N', 'M_inner', 'SouthOfSouth', 'MidDS', 'LowerDS']
 
 
 for regionname in ('MandN', 'DeepSouth', ):
@@ -225,11 +227,13 @@ for regionname in ('MandN', 'DeepSouth', ):
         ax.axis([x1,x2,y1,y2])
 
 
-        for zoomregion in zoomregions:
+        for zoomregion in zoomregions_order:
 
             ZR = zoomregions[zoomregion]
             if ZR['inregion'] != regionname:
                 continue
+
+            parent_ax = zoomregions[ZR['inset_axes']]['axins'] if 'inset_axes' in ZR else ax
 
             bl, tr = ZR['bottomleft'],ZR['topright'],
             (zx1,zy1),(zx2,zy2) = (mywcs.wcs_world2pix([[bl.ra.deg,
@@ -238,18 +242,18 @@ for regionname in ('MandN', 'DeepSouth', ):
                                                          tr.dec.deg]],0)[0]
                                   )
 
-            axins = zoomed_inset_axes(ax, zoom=ZR['zoom'], loc=ZR['loc'],
+            axins = zoomed_inset_axes(parent_ax, zoom=ZR['zoom'], loc=ZR['loc'],
                                       bbox_to_anchor=ZR['bbox'],
                                       bbox_transform=fig3.transFigure,
                                       axes_class=astropy.visualization.wcsaxes.core.WCSAxes,
                                       axes_kwargs=dict(wcs=wcsaxes))
+            ZR['axins'] = axins
             imz = axins.imshow(hdu_line.data.squeeze()*1e3,
-                               transform=ax.get_transform(mywcs),
+                               transform=parent_ax.get_transform(mywcs),
                                vmin=ZR['min'], vmax=ZR['max'], cmap=pl.cm.gray_r,
                                interpolation='nearest',
                                origin='lower', norm=asinh_norm.AsinhNorm())
 
-            axins.axis([zx1,zx2,zy1,zy2])
 
             coredots = plotcores(axins, alpha=1,
                                  transform=axins.get_transform('fk5'),
@@ -257,6 +261,7 @@ for regionname in ('MandN', 'DeepSouth', ):
                                  markerfacecolor='none',
                                  markersize=markersize, zorder=50)
             ax.axis([x1,x2,y1,y2])
+            axins.axis([zx1,zx2,zy1,zy2])
 
             axins.set_xticklabels([])
             axins.set_yticklabels([])
@@ -268,8 +273,8 @@ for regionname in ('MandN', 'DeepSouth', ):
 
             # draw a bbox of the region of the inset axes in the parent axes and
             # connecting lines between the bbox and the inset axes area
-            mark_inset(parent_axes=ax, inset_axes=axins, loc1=ZR['l1'], loc2=ZR['l2'], fc="none",
-                       ec="0.5")
+            mark_inset(parent_axes=parent_ax, inset_axes=axins,
+                       loc1=ZR['l1'], loc2=ZR['l2'], fc="none", ec="0.5")
 
 
             fig3.canvas.draw()
