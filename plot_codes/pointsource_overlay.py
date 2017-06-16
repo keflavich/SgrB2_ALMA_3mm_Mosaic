@@ -16,6 +16,7 @@ from overlay_common import core_phot_tbl, plotcores, cores
 
 pl.matplotlib.rc_file('pubfiguresrc')
 
+pl.rcParams['image.interpolation'] = 'nearest'
 pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 75.
 pl.rcParams['savefig.dpi'] = 300.

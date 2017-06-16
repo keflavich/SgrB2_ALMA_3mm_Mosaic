@@ -20,6 +20,7 @@ from overlay_common import core_phot_tbl, plotcores
 warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
 
 
+pl.rcParams['image.interpolation'] = 'nearest'
 if int(matplotlib.__version__[0]) >= 2:
     pl.rcParams['figure.dpi'] = 75.
     pl.rcParams['savefig.dpi'] = 300.
