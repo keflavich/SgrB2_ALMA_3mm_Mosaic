@@ -25,7 +25,7 @@ point(17:47:22.036,-28:24:53.230) # point=x text={core_21}
 point(17:47:21.927,-28:24:40.040) # point=x text={core_22}
 point(17:47:22.217,-28:24:33.860) # point=x text={core_23}
 point(17:47:21.610,-28:24:30.430) # point=x text={core_24}
-point(17:47:21.775,-28:24:34.650) # point=x text={core_25}
+point(17:47:21.784,-28:24:34.617) # point=x text={core_25}
 point(17:47:18.783,-28:24:33.040) # point=x text={core_26}
 point(17:47:16.757,-28:24:31.030) # point=x text={core_27}
 point(17:47:26.342,-28:20:39.330) # point=x text={core_28}
@@ -260,3 +260,8 @@ point(17:47:20.835,-28:25:40.005) # point=x color=orange text={core_255}
 point(17:47:20.996,-28:25:44.522) # point=x color=orange text={core_256}
 point(17:47:21.090,-28:25:45.514) # point=x color=orange text={core_257}
 point(17:47:23.405,-28:25:53.410) # point=x color=orange text={core_258}
+point(17:47:21.817,-28:24:34.569) # point=x color=orange text={core_259}
+point(17:47:21.739,-28:24:33.773) # point=x color=orange text={core_260}
+point(17:47:21.053,-28:23:59.499) # point=x color=orange text={core_261}
+point(17:47:20.697,-28:23:59.207) # point=x color=orange text={core_262}
+point(17:47:21.517,-28:23:56.476) # point=x color=orange text={core_263}

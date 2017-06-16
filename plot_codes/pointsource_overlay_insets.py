@@ -54,6 +54,9 @@ zoomregions = {'SouthOfSouth':
                 'loc': 2,
                 'l1':3,
                 'l2':1,
+                'min': -0.2,
+                'max': 2.5,
+                'zoom': 3,
                },
                'MidDS':
                {'bottomleft': coordinates.SkyCoord("17:47:22.272",
@@ -69,6 +72,9 @@ zoomregions = {'SouthOfSouth':
                 'loc': 2,
                 'l1':1,
                 'l2':4,
+                'min': -0.2,
+                'max': 2.5,
+                'zoom': 3,
                },
                'LowerDS':
                {'bottomleft': coordinates.SkyCoord("17:47:23.673",
@@ -84,11 +90,68 @@ zoomregions = {'SouthOfSouth':
                 'loc': 2,
                 'l1':2,
                 'l2':4,
-               }
+                'min': -0.2,
+                'max': 2.5,
+                'zoom': 3,
+               },
+               'M':
+               {'bottomleft': coordinates.SkyCoord("17:47:20.929",
+                                                   "-28:23:12.813",
+                                                   unit=(u.h, u.deg),
+                                                   frame='fk5'),
+                'topright': coordinates.SkyCoord("17:47:18.469",
+                                                 "-28:22:49.771",
+                                                 unit=(u.h, u.deg),
+                                                 frame='fk5'),
+                'inregion': 'MandN',
+                'bbox':[-0.43,0.45],
+                'loc': 2,
+                'l1':1,
+                'l2':4,
+                'min': -1,
+                'max': 50,
+                'zoom': 3,
+               },
+               'N':
+               {'bottomleft': coordinates.SkyCoord("17:47:21.006",
+                                                   "-28:22:24.555",
+                                                   unit=(u.h, u.deg),
+                                                   frame='fk5'),
+                'topright': coordinates.SkyCoord("17:47:18.206",
+                                                 "-28:22:02.383",
+                                                 unit=(u.h, u.deg),
+                                                 frame='fk5'),
+                'inregion': 'MandN',
+                'bbox':[-0.4,0.95],
+                'loc': 2,
+                'l1':1,
+                'l2':4,
+                'min': -1,
+                'max': 50,
+                'zoom': 3,
+               },
+               'M_inner':
+               {'bottomleft': coordinates.SkyCoord("17:47:20.364",
+                                                   "-28:23:08.792",
+                                                   unit=(u.h, u.deg),
+                                                   frame='fk5'),
+                'topright': coordinates.SkyCoord("17:47:19.886",
+                                                 "-28:22:59.814",
+                                                 unit=(u.h, u.deg),
+                                                 frame='fk5'),
+                'inregion': 'MandN',
+                'bbox':[-0.025,0.425],
+                'loc': 2,
+                'l1':1,
+                'l2':4,
+                'min': -1,
+                'max': 300,
+                'zoom': 7,
+               },
               }
 
 
-for regionname in ('DeepSouth', ):#'MandN'):
+for regionname in ('MandN', 'DeepSouth', ):
 
     vmax_hi = defaultdict(lambda: 0.25*1e3)
     vmax_hi['continuum'] = 0.01*1e3
@@ -175,22 +238,23 @@ for regionname in ('DeepSouth', ):#'MandN'):
                                                          tr.dec.deg]],0)[0]
                                   )
 
-            axins = zoomed_inset_axes(ax, zoom=3, loc=ZR['loc'],
+            axins = zoomed_inset_axes(ax, zoom=ZR['zoom'], loc=ZR['loc'],
                                       bbox_to_anchor=ZR['bbox'],
                                       bbox_transform=fig3.transFigure,
                                       axes_class=astropy.visualization.wcsaxes.core.WCSAxes,
                                       axes_kwargs=dict(wcs=wcsaxes))
             imz = axins.imshow(hdu_line.data.squeeze()*1e3,
                                transform=ax.get_transform(mywcs),
-                               vmin=vmin_lo[line], vmax=vmax_lo[line], cmap=pl.cm.gray_r,
+                               vmin=ZR['min'], vmax=ZR['max'], cmap=pl.cm.gray_r,
                                interpolation='nearest',
                                origin='lower', norm=asinh_norm.AsinhNorm())
 
             axins.axis([zx1,zx2,zy1,zy2])
 
-            coredots = plotcores(axins, alpha=0.5,
+            coredots = plotcores(axins, alpha=1,
                                  transform=axins.get_transform('fk5'),
-                                 dot='x',
+                                 dot='o',
+                                 markerfacecolor='none',
                                  markersize=markersize, zorder=50)
             ax.axis([x1,x2,y1,y2])
 
