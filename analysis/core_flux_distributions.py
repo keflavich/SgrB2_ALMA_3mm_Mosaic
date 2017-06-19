@@ -42,7 +42,7 @@ hs,l,p = ax1.hist([core_phot_tbl['peak'][highconf & ~hii],
 (hh,hl,hhii) = hs
 
 ax1.set_xscale('log')
-ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
+ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][(hh>0)|(hhii>0)].max()*1.1)
 #ax1.set_ylim(0.6, 15)
 pl.setp(ax1.get_xticklabels(), rotation='horizontal', fontsize=20)
 pl.setp(ax1.get_yticklabels(), rotation='vertical', fontsize=20)

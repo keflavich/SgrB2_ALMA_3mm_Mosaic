@@ -48,9 +48,9 @@ This version produced \today\ at \currenttime.
 % overview.py
 \Figure{figures/overview_figure.pdf}
 {An overview of the Sgr B2 region, with the most prominent clusters labeled.
-The image shows the 3 mm observations here, imaged with 1.5\arcsec resolution
+The image shows the ALMA 3 mm observations imaged with 1.5\arcsec resolution
 to emphasize the larger scale emission features.  For a cartoon version of this
-figure, see \citet{Schmiedeke2016a} Figure 1}
+figure, see \citet{Schmiedeke2016a} Figure 1.}
 {fig:overview}{1}{\textwidth}
 
 The Central Molecular Zone (CMZ) of our Galaxy appears to be overall deficient
@@ -107,17 +107,16 @@ been included.}
 \FigureTwo
 {figures/continuum_peak_MandN.pdf}
 {figures/cores_on_continuum_peak_MandN.pdf}
-{Images of the 3 mm continuum in the Sgr B2 M and N region.  The right figure
-includes marker at the position of each identified continuum pointlike
-source: red dots are `conservative', high-confidence sources,
-orange dots are `optimistic', low-confidence sources,
-cyan are \hii regions, magenta +'s are masers, and green X's are X-ray sources.
-The massive protocluster Sgr B2 M is the collection of \hii regions and compact
-sources in the lower half of the image.  The other massive protocluster, Sgr B2
-N, is in the center.  Imaging artifacts (sidelobes) are evident at the
-1-2 mJy bm$^{-1}$ level.
-The crowded parts of the images are shown with inset zoom-in panels
-in Figure \ref{fig:MandNzooms}.
+{Images of the ALMA 3 mm continuum in the Sgr B2 M and N region.  The right
+figure additionally includes marker at the position of each identified
+continuum pointlike source: red dots are `conservative', high-confidence
+sources, orange dots are `optimistic', low-confidence sources, cyan are \hii
+regions, magenta +'s are masers, and green X's are X-ray sources.  The massive
+protocluster Sgr B2 M is the collection of \hii regions and compact sources in
+the lower half of the image.  The other massive protocluster, Sgr B2 N, is in
+the center.  Imaging artifacts (sidelobes) are evident at the 1-2 mJy bm$^{-1}$
+level.  The crowded parts of the images are shown with inset zoom-in panels in
+Figure \ref{fig:MandNzooms}.
 }
 {fig:continuumMandN}{1}{0.5\textwidth}
 
@@ -143,14 +142,14 @@ centered at 89.48, 91.28, 101.37, and 103.23 GHz with bandwidth 1.875 GHz (total
 Date & Array & Total Observing Time &  Longest Baseline Length \\
      &       & seconds              & meters \\
 \hline
-01-Jul-2014 & 7.0 & 4045 & 49\\
-02-Jul-2014 & 7.0 & 4043 & 49\\
-03-Jul-2014 & 7.0 & 7345 & 48\\
-06-Dec-2014 & 12.0 & 6849 & 349\\
-01-Apr-2015 & 12.0 & 3464 & 328\\
-02-Apr-2015 & 12.0 & 3517 & 328\\
-01-Jul-2015 & 12.0 & 3517 & 1574\\
-02-Jul-2015 & 12.0 & 10598 & 1574\\
+01-Jul-2014 & 7m & 4045 & 49\\
+02-Jul-2014 & 7m & 4043 & 49\\
+03-Jul-2014 & 7m & 7345 & 48\\
+06-Dec-2014 & 12m & 6849 & 349\\
+01-Apr-2015 & 12m & 3464 & 328\\
+02-Apr-2015 & 12m & 3517 & 328\\
+01-Jul-2015 & 12m & 3517 & 1574\\
+02-Jul-2015 & 12m & 10598 & 1574\\
 \hline
 \end{tabular}
 \end{table*}
@@ -186,9 +185,9 @@ Briggs robust parameter 0.5, achieving a beam size $0.54\times0.46\arcsec$.
 
 
 \Figure{figures/cores_on_continuum_peak_MandN_zoomin.pdf}
-{A close-in look at the Sgr B2 M and N region.  Multiple insets show identified sources
-in some of the richer sub-regions.  The points are colored as in Figure
-\ref{fig:continuumMandN}.  The background image is the 3 mm continuum.}
+{A close-in look at the Sgr B2 M and N region.  Multiple insets show identified
+sources in some of the richer sub-regions.  The points are colored as in Figure
+\ref{fig:continuumMandN}.  The background image is the ALMA 3 mm continuum.}
 {fig:MandNzooms}{1}{\textwidth}
 
 We also produced cubes of all of the spectral lines.  These were lightly
@@ -210,8 +209,8 @@ widely detected.
 \FigureTwo
 {figures/continuum_peak_DeepSouth_saturated.pdf}
 {figures/cores_on_continuum_peak_DeepSouth_saturated.pdf}
-{Images of the 3 mm continuum in the Sgr B2 Deep South (DS) region.  
-The right figure
+{Images of the ALMA 3 mm continuum in the Sgr B2 Deep South (DS) region.  
+The right figure additionally
 includes marker at the position of each identified continuum pointlike
 source: red dots are `conservative', high-confidence sources,
 orange dots are `optimistic', low-confidence sources,
@@ -266,7 +265,7 @@ sources in the large SCUBA map, and the smallest FWHM we measured was
 $\approx10.5$\arcsec.  Between the larger beam area, flux calibration errors
 \citep[quoted at
 20\percent in][]{Pierce-Price2000a}, and the dust emissivity correction
-(35-50\percent for $\beta=3-4$), this large flux scaling factor is actually
+(35-50\percent for $\beta=3-4$), this large flux scaling factor is 
 plausible. This large correction factor is consistent with the large error beam
 found by \citet{di-Francesco2008a}, with effective FWHM $\approx17.3$\arcsec,
 since they used additional smoothing when creating their maps.
@@ -343,7 +342,7 @@ structure) were excluded.
 
 For a subset of the sources, primarily the brightest, we measured the spectral
 index $\alpha$ based on CASA \texttt{tclean}'s  2-term Taylor expansion model
-of the data (parameters \texttt{deconvolver='mtmfs'} and \texttt{nterms=2}).
+of the data (parameters \texttt{deconvolver=`mtmfs'} and \texttt{nterms=2}).
 This measurement is over a narrow frequency range ($\approx90-100$ GHz).
 \texttt{tclean} produces $\alpha$ and $\sigma(\alpha)$ (error on $\alpha$)
 maps, and we used the $\alpha$ value at the position of peak intensity for each
@@ -356,14 +355,15 @@ B2 M or N and therefore have significantly higher background and noise,
 preventing a clear measurement.  To check the calibration of the spectral index
 measurement, we imaged one of our calibrators, J1752-2956, and obtained a
 spectral index $\alpha=-0.62\pm0.14$, consistent with the expected
-$\alpha\approx-0.7$.  We also note that the \emph{relative} spectral index
-measurements in our catalog should be accurate, since all sources come from the
-same map with identical calibration.
+$\alpha\approx-0.7$ for an optically thin synchrotron source
+\citep[e.g.][]{Condon2007a}.  We also note that the \emph{relative} spectral
+index measurements in our catalog should be accurate, since all sources come
+from the same map with identical calibration.
 
 \Figure{figures/cores_on_continuum_peak_DeepSouth_zoomin.pdf}
 {A close-in look at the Sgr B2 DS region.  Multiple insets show identified sources
 in some of the richer sub-regions.  The points are colored as in Figure
-\ref{fig:continuumMandN}.  The background image is the 3 mm continuum.}
+\ref{fig:continuumMandN}.  The background image is the ALMA 3 mm continuum.}
 {fig:deepsouthzooms}{1}{\textwidth}
 
 We detected \ncores compact continuum sources, and they are listed
@@ -399,7 +399,10 @@ we only have a lower limit on the number of \hii regions in our sample.
 % core_flux_distributions
 %\FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
 \FigureOneCol{figures/core_peak_fluxdensity_coloredbyclass.png}
-{A histogram of the flux density of the observed sources. 
+{A histogram of the flux density (the peak intensity converted to flux density
+assuming the source is unresolved) of the observed sources. 
+The histograms are stacked such that there are a total of 27 sources in the
+highest bin.
 %The two brightest
 %regions not identified as \hii regions are Sgr B2M f1 and Sgr B2N K2; in these
 %regions, it is unclear whether the free-free or dust emission dominates, and
@@ -544,9 +547,10 @@ with dust emission.
 cm continuum VLA map highlighting the diffuse free-free (or possibly
 synchrotron) emission in the region \citep{Yusef-Zadeh2004a}.
 (right) Continuum sources overlaid on a map
-of the HC$_3$N peak intensity.  HC$_3$N traces moderate-density molecular gas.
-In both figures, red dots are `conservative', high-confidence sources,
-orange dots are `optimistic', low-confidence sources,
+of the \cyanoacetylene J=10-9 peak intensity over the range [-200, 200] \kms.
+\cyanoacetylene traces moderate-density molecular gas.  In both figures, red
+dots are `conservative',
+high-confidence sources, orange dots are `optimistic', low-confidence sources,
 cyan are \hii regions, magenta +'s are masers, and green X's are X-ray sources.
 }
 {fig:coreson20cmandhc3n}{1}{0.5\textwidth}
@@ -581,7 +585,7 @@ recently-formed OB stars}
 \label{sec:theyarehiiregions}
 
 We know from previous observations
-\citep[e.g.][]{Mehringer1995b,De-Pree1996a,De-Pree2015a} that there is a
+\citep[e.g.][]{Mehringer1995b,de-Pree1996a,de-Pree2015a} that there is a
 substantial population of \hii regions in the Sgr B2 clusters.  The \nhii
 sources associated with these previously-identified \hii regions are among the
 brightest in our catalog.  We address here whether the remaining primarily

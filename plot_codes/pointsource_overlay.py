@@ -104,6 +104,11 @@ con = ax.contour(cx,
 #ax.axis(lims)
 ax.axis([x1,x2,y1,y2])
 
+cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
+                    ax.bbox._bbox.y1-ax.bbox._bbox.y0])
+cb = fig.colorbar(mappable=im, cax=cax)
+cb.set_label("$S_{1.3 cm}$ [mJy beam$^{-1}$]")
+
 fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum_withdots.png"), bbox_inches='tight')
 #coredots.set_visible(False)
 for cd in coredots:
@@ -128,8 +133,8 @@ ra.set_ticks(exclude_overlapping=True)
 dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
 
-ax.imshow(hdu2.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu2.header).celestial),
-          vmax=0.45, cmap=pl.cm.gray_r, origin='lower', )
+ax.imshow(hdu2.data.squeeze()*1e3, transform=ax.get_transform(wcs.WCS(hdu2.header).celestial),
+          vmax=0.45*1e3, cmap=pl.cm.gray_r, origin='lower', )
 tr_fk5 = ax.get_transform("fk5")
 #(x1,y1),(x2,y2) = (1807,2100),(2221,2697)
 (x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
@@ -145,6 +150,10 @@ make_scalebar(ax, scalebarpos,
               text_offset=1.0*u.arcsec,
              )
 
+cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
+                    ax.bbox._bbox.y1-ax.bbox._bbox.y0])
+cb = fig.colorbar(mappable=im, cax=cax)
+cb.set_label("$S_{20 cm}$ [mJy beam$^{-1}$]")
 
 #coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
 #                    alpha=0.5,
@@ -195,6 +204,12 @@ fig3.savefig(paths.fpath("cores_on_h41a_peak_saturated.png"), bbox_inches='tight
 
 
 
+linenames = {'HC3N': '\\cyanoacetylene',
+             'HCN': 'HCN',
+             'HNC': 'HNC',
+             'HCOp': 'HCO$^+$',
+            }
+
 for line in ("HC3N","HCN","HNC","HCOp"):
     hdu_line = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_max_medsub.fits'.format(line)))[0]
     mywcs = wcs.WCS(hdu_line.header).celestial
@@ -214,12 +229,17 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     dec.ticklabels.set_fontsize(tick_fontsize)
     dec.set_ticks(exclude_overlapping=True)
 
-    ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
-              vmin=-0.0001, vmax=0.25, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    ax.imshow(hdu_line.data.squeeze()*1e3, transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+              vmin=-0.0001*1e3, vmax=0.25*1e3, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
     tr_fk5 = ax.get_transform("fk5")
     #(x1,y1),(x2,y2) = (680,350),(2720,3150)
     (x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
     ax.axis([x1,x2,y1,y2])
+
+    cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
+                        ax.bbox._bbox.y1-ax.bbox._bbox.y0])
+    cb = fig.colorbar(mappable=im, cax=cax)
+    cb.set_label("$S_{{\\mathrm{0}}}$ [mJy beam$^{{-1}}$]".format(linenames[line]))
 
     scalebarpos = coordinates.SkyCoord("17:47:27", "-28:26:15.0",
                                        unit=(u.h, u.deg), frame='fk5')
