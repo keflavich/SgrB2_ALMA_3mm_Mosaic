@@ -3,7 +3,7 @@
 \input{preface}
 \input{ncores}
 \input{alpha}
-\newcommand{\dsgrb}{8.4 kpc\xspace}
+\newcommand{\dsgrb}{\ensuremath{8.4 \textrm{kpc}}\xspace}
 \newcommand{\percent}{\%\xspace}
 
 \begin{document}
@@ -20,8 +20,9 @@ globules, we conclude that these sources are predominantly protostars or
 centrally condensed prestellar cores.  The spatial distribution of these
 sources demonstrates that Sgr B2 is experiencing a highly extended star
 formation event, not just an isolated `starburst' within the protocluster
-regions M, N, and S.  While all protostars reside in regions of high column
-density, not all regions of high column density ($N(\hh)>10^{23}$ \persc)
+regions Main (M), North (N), and South (S).  While all protostars reside in
+regions of high column density, not all regions of high column density
+($N(\hh)>10^{23}$ \persc)
 contain a high density of
 protostars.  We observe a threshold for high-mass star formation that is
 substantially higher than the local threshold for star formation, implying
@@ -84,7 +85,8 @@ perform the first
 star-counting based determination of the star formation rate within the dense
 molecular gas of the CMZ.
 
-We adopt a distance to Sgr B2 \dsgrb, which is consistent with Sgr B2 being
+We adopt a distance to Sgr B2 $D_{\mathrm{Sgr B2}}=\dsgrb$, which is consistent
+with Sgr B2 being
 located in the CMZ dust ridge.  While \citet{Reid2009a} measure a closer
 distance of 7.9 kpc, we use a value closer to the IAU-recommended Galactic
 Center distance of 8.5 kpc, accounting for the distance difference of
@@ -194,7 +196,7 @@ Before continuum subtraction, dynamic range related artifacts similar to those
 in the continuum images were present, but these structures are identical across
 frequencies, and were therefore removable in the image domain.  We use
 median-subtracted cubes for the majority of our analysis, noting that the only
-location in which an error on the median-estimated continuum $>5\%$ is expected
+location in which an error $>5\%$ on the median-estimated continuum is expected
 is the Sgr B2 North core \citep[][Sanchez-Monge et al. 2017,
 submitted]{Sanchez-Monge2017a}.
 
@@ -273,8 +275,12 @@ and 50 K), and another using the temperature measured with Herschel
 interpolated onto the higher-resolution SCUBA and SHARC grids.  Because of the
 interpolation and fixed temperature assumptions, the column maps are not very
 accurate and should not be used for systematic statistical analysis of the
-column density distribution without careful attention to the large implied
-uncertainties.  The data combination is discussed in more detail in Appendix
+column density distribution (i.e., PDF analysis) without careful attention to
+the large implied
+uncertainties.  However, these higher-resolution data are used in this paper
+to provide the best estimates of the local column density around our sample
+of compact millimeter continuum sources.
+The data combination is discussed in more detail in Appendix
 \ref{sec:singledishcomb}.
 
 \section{Analysis}
