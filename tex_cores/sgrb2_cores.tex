@@ -3,7 +3,7 @@
 \input{preface}
 \input{ncores}
 \input{alpha}
-\newcommand{\dsgrb}{\ensuremath{8.4 \textrm{kpc}}\xspace}
+\newcommand{\dsgrb}{\ensuremath{8.4\textrm{~kpc}}\xspace}
 \newcommand{\percent}{\%\xspace}
 
 \begin{document}
@@ -231,6 +231,7 @@ $\sim225$ GB data cubes. {\color{red} Additional data sets will be made
 available via dataverse or some other service prior to submission.}
 
 \subsection{Other data - Column Density Maps}
+\label{sec:colmaps}
 We use archival data to create column density maps.   To determine the column
 density and dust temperature on large angular scales, we use Herschel Hi-Gal
 data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby et al,
@@ -628,10 +629,18 @@ outshine the \hii region; more likely, such sources would have much hotter dust
 and therefore would be much brighter (and more extended) than our observations
 allow.
 
-This restrictive parameter space, combined with a steep luminosity function
-that implies there are many more sources at slightly lower luminosity, is
+The luminosity function of the observed sources is apparently steep, assuming
+the flux density distribution (Figure \ref{fig:fluxhist}) represents the
+luminosity distribution.  The observed distribution cuts off near our
+sensitivity limit, which implies that the steep spectrum should continue to
+lower luminosities, and therefore there are many more sources below our
+detection threshold than above.  This argument is pure extrapolation, and
+therefore could easily be wrong, but if there is a large population of sources
+below $<0.5 mJy$, they are too faint to be \hii regions.
+
+This restrictive parameter space, combined with a steep luminosity function, is
 evidence against the population being dominated by \hii regions.  The spectral
-indices also support this conclusion, since many are steeper than $\alpha>2$
+indices also support this conclusion, since some are steeper than $\alpha>2$
 and are therefore inconsistent with free-free emission.
 
 
@@ -663,11 +672,9 @@ The electron densities required to produce \hii regions within our observed rang
 
 \subsubsection{Our hypothesis: The sources are protostellar}
 \label{sec:theyareprotostars}
-After ruling out the other hypotheses, we conclude that these sources are
-predominantly embedded protostars.  Their emission is likely dust-dominated,
-but is probably warmer than the cloud average $\sim20-40$ K
-\citep[e.g.,]{Ginsburg2016a}.  We test and validate the hypothesis that most or
-all of the sources are protostellar in this section.
+After ruling out the other possibilities, we test and validate the hypothesis
+that most or all of the sources are protostellar in this section.
+
 
 As noted at the top of this section, a cold `prestellar core' at our detection
 limit would have $M(20\mathrm{K})\approx20$ \msun.  At these high densities
@@ -677,25 +684,35 @@ internal heating source - i.e., a protostar - is required.  The high density
 required for our sources results in a very short free-fall timescale,
 $t_{ff}\lessapprox6000$ yr, which suggests that the cores are unlikely to be
 prestellar cores and instead, even if their emission is dust-dominated, they
-contain protostars.
+contain protostars.  Their emission is likely dust-dominated, but is probably
+warmer than the cloud average $\sim20-40$ K \citep[e.g.,]{Ginsburg2016a}.  
+
 
 We cross-matched our source catalog with catalogs of \hii regions, X-ray
-sources, and methanol masers.  Several sources (\nhii) in our catalog match
-known \hii regions from \citet{Gaume1995a} to within 0.5\arcsec, most of which
-are associated with the brightest sources in our sample; these all have $S_{3
-\textrm{mm}} > 9$ mJy.  These sources clearly contain high-mass young stars.
-Class II methanol masers are always associated with sites of high-mass star
-formation.  The \citet{Caswell2010a} Methanol Multibeam (MMB) Survey identified
-11 sources in our observed field of view, of which \nmasermatch have a clear
-match to within 1\arcsec of a source in our catalog (the MMB catalog sources
-have a positional accuracy of $\approx0.4\arcsec$, but masers may have an
-extent up to 1\arcsec).  Some young stars exhibit X-ray emission, including
-some MYSOs \citep[e.g.][]{Townsley2014a}, so we searched for X-ray emission
-from our sources.  \nxraymatch of the sources have X-ray counterparts in the
-\citet{Muno2009a} Chandra point source catalog within 1 \arcsec.
-Both the \citet{Muno2009a} and \citet{Caswell2010a} cover the entire observed
-area, but the \citet{Gaume1995a} observations (and other VLA observations
-at similar resolution) are limited to only the Sgr B2 M and N regions.
+sources, and methanol masers.  Associations with these types of sources can be
+used to classify the sources.
+
+Several sources (\nhii) in our catalog match known \hii regions from
+\citet{Gaume1995a} to within 0.5\arcsec, most of which are associated with the
+brightest sources in our sample; these all have $S_{3 \textrm{mm}} > 9$ mJy.
+The \citet{Gaume1995a} catalog does not cover the full observed area, so the
+\hii region source association is incomplete.  These sources evidently contain
+high-mass young stars, but they are not `protostars'.
+
+Class II methanol masers are exclusively associated with sites of high-mass
+star formation.  The \citet{Caswell2010a} Methanol Multibeam (MMB) Survey
+identified 11 sources in our observed field of view (their survey covers our
+entire observed area), of which \nmasermatch have a clear match to within
+1\arcsec of a source in our catalog (the MMB catalog sources have a positional
+accuracy of $\approx0.4\arcsec$, but masers may have an extent up to 1\arcsec).
+These sources are clearly identified as high-mass protostars.
+
+Some young stars exhibit X-ray emission, including some MYSOs
+\citep[e.g.][]{Townsley2014a}, so we searched for X-ray emission from our
+sources.  \nxraymatch of the sources have X-ray counterparts in the
+\citet{Muno2009a} Chandra point source catalog within 1 \arcsec.  The
+\citet{Muno2009a} catalog covers our entire observed area.  The X-ray
+associated sources most likely either contain protostars or young stars.
 
 
 We compare our detected sample to that of the Herschel Orion Protostar Survey
@@ -739,7 +756,7 @@ somewhere in the middle of our sample.  It is  extended, and the
 extended component would be readily detected in our data. 
 Since Source I is the only known high-mass YSO in the Orion cloud, and it would
 be detectable while no other sources in the Orion cloud would be, it appears
-safe to conclude that all of our detected sources are MYSOs.
+safe to conclude that most of our detected sources are MYSOs.
 %The M42 nebula would
 %also be readily detectable, and is very similar in size and surface brightness
 %to the \hii region Sgr B2 \hii T.
@@ -786,7 +803,7 @@ implied total stellar masses.
 % the source mass distribution is steeper than the source flux distribution.
 
 If we make the very simplistic assumptions that the sources we detect all
-contain protostars with $L\gtrsim2000$ \lsun ($M\gtrsim8 \msun$), we
+contain protostars with $L_{bol}\gtrsim2000$ \lsun ($M\gtrsim8 \msun$), we
 can infer the total (proto)stellar mass in the observed region.  We assume the
 stellar masses based on the arguments in Section \ref{sec:theyareprotostars}:
 in order to be detected, the sources must either be active OB stars
@@ -888,8 +905,9 @@ local clouds performed by \citet{Lada2010a}.  They determined that all star
 formation in local clouds occurs above a column density threshold $M_{thresh} >
 116$ \msun pc$^{-2}$, or $N_{thresh}(\hh) > 5.2\ee{21}$ \persc assuming the
 mean particle mass is 2.8 amu \citep{Kauffmann2008a}.  We first note, then,
-that \emph{all pixels} in our column density maps are above this threshold
-by \emph{at least} a factor of 10.
+that \emph{all pixels} in our column density maps (Section \ref{sec:colmaps},
+Battersby et al, in prep) are above this threshold by \emph{at least} a factor
+of 10.
 
 However, Sgr B2 is \dsgrb away from us in the direction of our Galaxy's
 center, meaning there is a potentially enormous amount of material unassociated
@@ -991,18 +1009,36 @@ dashed line shows the $N(\hh)=5.2\ee{21}$ column density threshold from
 % the CDF of core background brightness, and is labeled by the right axis.}
 % {fig:fluxhist}{1}{\textwidth}
 
-\subsubsection{Comparison to other CMZ clouds}
+\subsubsection{Comparison to G0.253+0.016}
 In G0.253+0.016 (The Brick, G0.253), very little star formation
 has been observed \citep{Longmore2013a,Johnston2014a,Rathborne2015a} despite
 most of the cloud existing above the locally measured \citet{Lada2010a} column
 density threshold.  The column density distribution function for G0.253
 is shown in Figure \ref{fig:bricksgrb2colcompare}.
 
+The \citet{Rathborne2015a} are the deepest observations of G0.253 so far, with
+a sensitivity about $4\times$ better than ours, but a beam of 1.7\arcsec
+(similar to that shown in Figure \ref{fig:overview}; compare to Figure 2 in
+Rathborne et al).  Despite the higher sensitivity of their data, they detected
+only 3 compact continuum sources.  Similarly, \citet{Kauffmann2013a} detected
+no compact continuum sources in their SMA and CARMA observations.  By contrast,
+even in our coarse resolution data, which have a worse sensitivity (RMS
+$\approx 0.25$ mJy beam$^{-1}$, $10\times$ worse than Rathborne et al), dozens
+of compact sources are evident.  Our better resolution was critical for
+identifying the hundreds of sources we have identified, but it is nonetheless
+evident that the star formation activity is much higher in Sgr B2 than G0.253.
+
+
 Comparing Sgr B2 to G0.253, the majority of the Sgr B2 cloud is at higher
 column than G0.253.  The presence of star formation in Sgr B2 nearly all occurs
 at a higher column than exists within G0.253 (Figure
-\ref{fig:bricksgrb2colcompare}).  The lack of observed cores in The Brick is
-therefore consistent with the active SF seen in Sgr B2.
+\ref{fig:bricksgrb2colcompare}).  The dearth of observed cores in G0.253 is
+therefore seems most easily explained if there is a column density for star
+formation that is not reached in G0.253.  Given that the G0.253 observations
+were deeper than our own, yet still identified almost no forming stars, it
+appears more likely that there is a lack of star formation rather than simply a
+lack of high-mass star formation.  Nonetheless, robust verification of this
+hypothesis will require much deeper observations.
 
 % core_local_brightness
 \FigureOneCol{figures/compare_brick_sgrb2_colPDF.png}
@@ -1012,6 +1048,8 @@ interpolated Herschel dust temperatures.  The cumulative distribution of
 core `background' column densities in Sgr B2 is shown as a thick gray
 line.}
 {fig:bricksgrb2colcompare}{1}{0.5\textwidth}
+
+
 
 \section{Discussion}
 We have reported the detection of a large number of point sources and inferred
@@ -1078,21 +1116,35 @@ which process is dominant.
 
 \subsubsection{Pericenter Triggering}
 Our observations are reconcilable with a star formation event triggered
-at pericenter passage.  See Section \ref{sec:clustersandextended}.
+at pericenter passage.  If the entire cloud was stable prior to pericenter
+passage, at closest approach it would have been simultaneously crushed and 
+stretched by shear \citep{Kruijssen2015a}.  This event would have driven
+collapse of the whole cloud, with the densest regions collapsing fastest
+and possibly forming the clusters we observe today.  This model is discussed
+further in Section \ref{sec:clustersandextended}.
 
 \subsubsection{Cloud-cloud collision}
 There are no definitive signs of `cloud-cloud collision' or `colliding flows'
-in our line or continuum data.  Most of the notable kinematic features evident
-in the dense gas images can be attributed to expanding \hii regions or
-otherwise feedback-driven flows (see Section \ref{sec:expandingshells}).  While
-interacting independent gas streams are a possible agent affecting Sgr B2,
-their effects are not obvious in our core catalog or in the gas data cubes.
+in our line or continuum data, though that is largely because all possible
+evidence for such flows is highly ambiguous. For example, \citet{Haworth2015c}
+show some of the best cases for cloud-cloud collision using the `extended bridge'
+in position-velocity between two colliding clouds, but these signatures can be 
+completely hidden when multiple clouds exist along a line of sight, as in Sgr B2. 
+We cannot rule out cloud-cloud collision, but neither can we provide evidence
+to support it.
+
+Most of the notable kinematic features evident in the dense gas images can be
+attributed to expanding \hii regions or otherwise feedback-driven flows (see
+Section \ref{sec:expandingshells}).  While interacting independent gas streams
+are a possible agent affecting Sgr B2, their effects are not obvious in our
+core catalog or in the gas data cubes.
 
 We note that some `colliding flows' are expected in almost any collapse
 scenario.  For example, simulations of a cloud passing through Galactic
 pericenter (Dale et al, in prep) show that some material is ejected during this
 passage that later collapses back onto the original cloud.  It is possible that
-any apparent colliding flows are a relic of this process.
+any apparent colliding flows \citep[e.g.][]{Sato2000a} are a relic of this
+process.
 
 \subsubsection{Expanding Shells}
 \label{sec:expandingshells}
