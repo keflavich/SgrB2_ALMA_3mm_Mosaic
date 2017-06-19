@@ -360,7 +360,8 @@ in some of the richer sub-regions.  The points are colored as in Figure
 {fig:deepsouthzooms}{1}{\textwidth}
 
 We detected \ncores compact continuum sources, and they are listed
-in Table \ref{tab:photometry}.  Their flux distribution is
+in Table \ref{tab:photometry} {\color{red} This ref is broken and I don't know
+why yet.}.  Their flux distribution is
 shown in Figure \ref{fig:fluxhist}.  The distribution of their measured
 spectral indices $\alpha$ is shown in Figure \ref{fig:alphahist}.
 
@@ -407,22 +408,28 @@ $M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$
 ($\alpha=3.75$ on the Rayleigh-Jeans tail) to extrapolate the
 \citet{Ossenkopf1994a} opacity to $\kappa_{3mm}=0.0018$ cm$^2$ g$^{-1}$ (per
 gram of gas, assuming a dust to gas ratio of 100).  Our dust-only 5-$\sigma$
-sensitivity limit at 40 K therefore ranges from $M>7$ \msun (0.5 mJy) to $M>45$
+sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5 mJy) to $M>94$
 \msun (2.5 mJy) across the map.  If we were to assume that these are all cold,
 dusty sources, as is typically (and reasonably) assumed for local clouds, they
 would be extremely massive and dense, with the lowest measurable density being
-$n(40\mathrm{K}) > 3\ee{6}$ \percc (corresponding to 7 \msun in a 0.5\arcsec
-radius sphere).  Such extreme objects are possible, but since we have detected
-$>100$ of these sources, we evaluate other possibilities.  We start with a few
-alternatives we are able to rule out.
+$n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in an
+$r=0.2$\arcsec radius sphere).  Such extreme objects are possible, but since we
+have detected $>100$ of these sources, we evaluate other possibilities.
+
+We start with a few alternatives we are able to rule out: externally
+ionized gas globules, internally ionized \hii regions from an older
+generation of `interloper' stars, and internally ionized \hii regions
+from a newly-formed generation of massive stars.  We then discuss
+why these sources are most likely embedded protostars.
 
 
 \subsubsection{Alternative 1: The sources are externally ionized gas blobs}
 One possibility is that these sources are not dusty at all, nor pre- or
 protostellar, but are instead the brightest compact clumps surrounding diffuse
 \hii regions.  They would then be analogous to the heads of cometary clouds,
-externally ionized globules (``EGGs"), or proplyds, and their observed emission
-would give no clue to their nature because the light source is extrinsic.
+externally ionized globules \citep[``EGGs"][]{Sahai2012a}, or proplyds, and
+their observed emission would give no clue to their nature because the light
+source is extrinsic.
 
 The majority of the detected sources have size $<4000$ AU, i.e., they are
 unresolved.  By contrast, the free-floating EGGs (`frEGGs') so far observed have sizes
@@ -566,6 +573,13 @@ free-free sources.
 recently-formed OB stars}
 \label{sec:theyarehiiregions}
 
+We know from previous observations
+\citep[e.g.][]{Mehringer1995b,De-Pree1996a,De-Pree2015a} that there is a
+substantial population of \hii regions in the Sgr B2 clusters.  The \nhii
+sources associated with these previously-identified \hii regions are among the
+brightest in our catalog.  We address here whether the remaining primarily
+fainter sources could also be \hii regions.
+
 For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
 flux density is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers
 source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
@@ -636,7 +650,7 @@ The electron densities required to produce \hii regions within our observed rang
 {fig:hiibrightness}{1}{18cm}
 
 
-\subsubsection{The sources are protostellar}
+\subsubsection{Our hypothesis: The sources are protostellar}
 \label{sec:theyareprotostars}
 After ruling out the other hypotheses, we conclude that these sources are
 predominantly embedded protostars.  Their emission is likely dust-dominated,
@@ -645,10 +659,14 @@ but is probably warmer than the cloud average $\sim20-40$ K
 all of the sources are protostellar in this section.
 
 As noted at the top of this section, a cold `prestellar core' at our detection
-limit would have $M(20\mathrm{K})\approx20$ \msun.  At these high densities, it
-is unlikely any such cores are unbound.  If we assume higher dust temperatures,
-the inferred gas mass is lower, but an internal heating source - i.e., a
-protostar - is required.
+limit would have $M(20\mathrm{K})\approx20$ \msun.  At these high densities
+($n\gtrapprox10^8$ \percc), it is unlikely any such cores are unbound.  If we
+assume higher dust temperatures, the inferred gas mass is lower, but an
+internal heating source - i.e., a protostar - is required.  The high density
+required for our sources results in a very short free-fall timescale,
+$t_{ff}\lessapprox6000$ yr, which suggests that the cores are unlikely to be
+prestellar cores and instead, even if their emission is dust-dominated, they
+contain protostars.
 
 We cross-matched our source catalog with catalogs of \hii regions, X-ray
 sources, and methanol masers.  Several sources (\nhii) in our catalog match
@@ -756,14 +774,14 @@ implied total stellar masses.
 % likely that the more massive stars are surrounded by warmer gas, implying that
 % the source mass distribution is steeper than the source flux distribution.
 
-If we make the very simplistic assumptions that the sources we detect are all
-$L\gtrsim2000$ \lsun ($M\gtrsim8 \msun$), we can infer the total (proto)stellar
-mass in the observed region.  We assume the stellar masses based on the arguments
-in Section \ref{sec:theyareprotostars}: in order to be detected, the sources
-must either be active OB stars illuminating \hii regions or cores, or they must
-be very compact cores with $M>10$ \msun of warm dust within $R<4000$ AU.
-Note that the mass estimates in this section are for the \emph{stars}, not
-their envelopes.
+If we make the very simplistic assumptions that the sources we detect all
+contain protostars with $L\gtrsim2000$ \lsun ($M\gtrsim8 \msun$), we
+can infer the total (proto)stellar mass in the observed region.  We assume the
+stellar masses based on the arguments in Section \ref{sec:theyareprotostars}:
+in order to be detected, the sources must either be active OB stars
+illuminating \hii regions or cores, or they must be very compact cores with
+$M>10$ \msun of warm dust within $R<4000$ AU.  Note that the mass estimates in
+this section are for the \emph{stars}, not their envelopes.
 
 Using a \citet{Kroupa2001a} mass function with $M_{max}=200$ \msun, 23\% of the
 mass is contained in $M>8\msun$ stars.  Using $M=8\msun$ as the mass of each
