@@ -26,11 +26,11 @@ protostars reside in regions of high column density, not all regions of high
 column density
 ($N(\hh)>10^{23}$ \persc)
 contain a high density of
-protostars.  We observe a threshold for high-mass star formation that is
+protostars.  {\color{red} We observe a threshold} for high-mass star formation that is
 substantially higher than the local threshold for star formation, implying
 either that high-mass star formation requires a higher column density or that
-the star formation threshold in the CMZ is higher than locally.  These
-observations constitute the largest single, possibly coeval, sample of forming
+the star formation threshold in the CMZ is higher than the local threshold.  These
+observations constitute the largest known single, possibly coeval, sample of forming
 massive stars.
 % the high-density, low-SFR regions raise questions...
 
@@ -61,8 +61,9 @@ the star formation rate and gas density, are not universal.  The gas
 conditions in the Galactic center are different from those in nearby clouds,
 providing a powerful lever arm in a few
 parameters \citep[e.g., pressure, temperature, velocity
-dispersion][]{Ginsburg2016a,Immer2016a,Shetty2012a,Henshaw2016a} to assess the
-influence of environmental effects on star formation.
+dispersion;
+][]{Kruijssen2013a,Ginsburg2016a,Immer2016a,Shetty2012a,Henshaw2016a} to assess
+the influence of environmental effects on star formation.
 
 
 The observations that have demonstrated the star formation deficiency compare
@@ -70,10 +71,12 @@ bulk tracers of star formation to $>0.1$ pc resolution gas observations
 \citep[e.g.][]{Barnes2017b}.  More recently, high-resolution observations
 of selected clouds in the CMZ have revealed very few star-forming cores
 even when examined at high resolution and sensitivity
-\citep{Rathborne2015a,Kauffmann2016a,Kauffmann2016b}.  The only sites with
-obvious signs of ongoing star formation along the CMZ dust ridge are
-the Sgr B2 N (North), M (Main), and S (South) protoclusters \citep{Schmiedeke2016a} and, at a much
-lower level, Clouds C, D, and E \citep[][Walker et al, in
+\citep{Rathborne2014a,Rathborne2015a,Kauffmann2016a,Kauffmann2016b}.  The only
+sites with
+obvious signs of ongoing star formation along the CMZ dust ridge are the Sgr B2
+N (North), M (Main), and S (South) protoclusters \citep[][Figure
+\ref{fig:overview}]{Schmiedeke2016a} and,
+at a much lower level, Clouds C, D, and E \citep[][Walker et al, in
 prep;]{Ginsburg2015b,Barnes2017b}.  These regions contain a handful of
 high-mass cores detected with ALMA, but only a small number of protostars.
 
@@ -312,7 +315,7 @@ M), a uniform selection criterion is not possible.  We therefore include two
 levels of source identification, `high confidence' sources, which are selected
 conservatively in regions of low-background, and `low-confidence' sources that
 are somewhat lower signal-to-noise and are often in regions with higher
-background (labeled `conservative' and `optimistic' in Figure
+background (labeled `conservative' and `optimistic', respectively, in Figure
 \ref{fig:fluxhist} and \ref{fig:alphahist}).  Both of these selection criteria
 are significantly more conservative than a local $5-\sigma$ threshold.
 
@@ -334,7 +337,7 @@ compact sources.
 
 Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
 inspected.  Peaks that were part of extended structures but not significantly
-different from them (e.g., a 5-$\sigma$ peak sitting on a $4-\sigma$ extended
+different from them (e.g., a 5-$\sigma$ peak sitting on a 4-$\sigma$ extended
 structure) were excluded.
 
 % The majority of the sources are unresolved.  Some of these sit within regions
@@ -372,6 +375,11 @@ in Table \ref{tab:photometry} {\color{red} This ref is broken and I don't know
 why yet.}.  Their flux distribution is
 shown in Figure \ref{fig:fluxhist}.  The distribution of their measured
 spectral indices $\alpha$ is shown in Figure \ref{fig:alphahist}.
+Generally, spectral indices $\alpha<0$ indicate nonthermal (e.g., synchrotron)
+emission, $-0.1<\alpha<2$ may correspond to free-free sources of various
+optical depths, $\alpha=2$ for any optically thick thermal source,
+and $\alpha>2$ usually indicates optically thin dust emission.  These indices
+will be discussed further in the next Section.
 
 
 \subsection{Source Classification}
@@ -424,8 +432,9 @@ sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5 mJy) to $M>94$
 dusty sources, as is typically (and reasonably) assumed for local clouds, they
 would be extremely massive and dense, with the lowest measurable density being
 $n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in an
-$r=0.2$\arcsec radius sphere).  Such extreme objects are possible, but since we
-have detected $>100$ of these sources, we evaluate other possibilities.
+$r=0.2$\arcsec$=1700$ AU radius sphere).  Such extreme objects are possible,
+but since we have detected $>100$ of these sources, we evaluate other
+possibilities.
 
 We start with a few alternatives we are able to rule out: externally
 ionized gas globules, internally ionized \hii regions from an older
@@ -595,8 +604,8 @@ fainter sources could also be \hii regions.
 For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
 flux density is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers
 source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
-as long as the source is optically thin.  Rearranging \citet{Condon2007a} equations
-4.60 and 4.61:
+as long as the source is optically thin.   We rearrange \citet{Condon2007a}
+equations 4.60 and 4.61:
 \begin{eqnarray}
 S_{\nu}(Q_{lyc})  &=& 4.67 \left[1-\exp\left(c_* T_* \nu_* EM_* \right) \right] \nonumber \\
 \nu_* &=& \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \nonumber \\
@@ -606,6 +615,8 @@ EM_* &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_b} \nonumber \\
 \end{eqnarray}
 where $\alpha_b=2\ee{-13}$ cm$^3$ s$^{-1}$, $Q_{lyc}$ is the count rate
 of ionizing photons in $s^{-1}$, and $R$ is the \hii region radius.
+The constant $c_*$ was computed by \citet{Mezger1967a} and is never
+incorrect by more than $\approx25\%$.
 
 An extremely compact \hii region,
 e.g., one with $R<100$ AU and corresponding density $n>10^6$ \percc, would be
@@ -659,13 +670,16 @@ which vary with location from 0.25 to 0.8 K.
 horizontal dashed line shows the density corresponding to an unresolved dust
 source at the 5-$\sigma$ detection limit ($\approx0.5$ mJy, or about 10 \msun
 of dust,
-assuming $T=40$ K).  Above this line, dust emission would dominate over
+assuming $T=40$ K).    Above this line, dust emission would dominate over
 free-free emission.  The dotted line shows the density required for dust
-emission to produce a 10 mJy source at $T=40$ K.  
-As seen in the left plot, for any moderate-sized \hii region, $R>100$ AU, a high-luminosity
-star ($Q_{lyc} > 10^{47}$ \pers) would produce an \hii region brighter than the
-majority of our sample, which includes only a few sources brighter than 10 mJy.
-The electron densities required to produce \hii regions within our observed range
+emission to produce a 10 mJy source at $T=40$ K.
+The density has been scaled by a factor of two,
+assumine $n_e = 2 n(\hh)$.
+As seen in the left plot, for
+any moderate-sized \hii region, $R>100$ AU, a high-luminosity star ($Q_{lyc} >
+10^{47}$ \pers) would produce an \hii region brighter than the majority of our
+sample, which includes only a few sources brighter than 10 mJy.  The electron
+densities required to produce \hii regions within our observed range
 ($1<S_\nu<10$ mJy) are fairly extreme, $n_e\gtrsim10^6$ \percc, for O-stars.}
 {fig:hiibrightness}{1}{18cm}
 
@@ -1011,22 +1025,25 @@ dashed line shows the $N(\hh)=5.2\ee{21}$ column density threshold from
 
 \subsubsection{Comparison to G0.253+0.016}
 In G0.253+0.016 (The Brick, G0.253), very little star formation
-has been observed \citep{Longmore2013a,Johnston2014a,Rathborne2015a} despite
-most of the cloud existing above the locally measured \citet{Lada2010a} column
+has been observed
+\citep{Longmore2013a,Johnston2014a,Rathborne2014a,Rathborne2015a} despite most
+of the cloud existing above the locally measured \citet{Lada2010a} column
 density threshold.  The column density distribution function for G0.253
 is shown in Figure \ref{fig:bricksgrb2colcompare}.
 
-The \citet{Rathborne2015a} are the deepest observations of G0.253 so far, with
-a sensitivity about $4\times$ better than ours, but a beam of 1.7\arcsec
+The \citet{Rathborne2014a} and \citet{Rathborne2015a} data are the deepest
+observations of G0.253 so far, with a sensitivity about $4\times$ better than
+ours, but a beam of 1.7\arcsec
 (similar to that shown in Figure \ref{fig:overview}; compare to Figure 2 in
-Rathborne et al).  Despite the higher sensitivity of their data, they detected
-only 3 compact continuum sources.  Similarly, \citet{Kauffmann2013a} detected
-no compact continuum sources in their SMA and CARMA observations.  By contrast,
-even in our coarse resolution data, which have a worse sensitivity (RMS
-$\approx 0.25$ mJy beam$^{-1}$, $10\times$ worse than Rathborne et al), dozens
-of compact sources are evident.  Our better resolution was critical for
-identifying the hundreds of sources we have identified, but it is nonetheless
-evident that the star formation activity is much higher in Sgr B2 than G0.253.
+both Rathborne et al papers).  Despite the higher sensitivity of their data,
+they detected only 3 compact continuum sources.  Similarly,
+\citet{Kauffmann2013a} detected no compact continuum sources in their SMA and
+CARMA observations.  By contrast, even in our coarse resolution data, which
+have a worse sensitivity (RMS $\approx 0.25$ mJy beam$^{-1}$, $10\times$ worse
+than Rathborne et al), dozens of compact sources are evident.  Our better
+resolution was critical for identifying the hundreds of sources we have
+identified, but it is nonetheless evident that the star formation activity is
+much higher in Sgr B2 than G0.253.
 
 
 Comparing Sgr B2 to G0.253, the majority of the Sgr B2 cloud is at higher
@@ -1186,7 +1203,8 @@ In Sgr B2 W, there is a secondary ridge of \cyanoacetylene emission paralleling
 the central ridge.  No MYSOs are detected in this ridge.
 
 While the expanding shells may have some effect on where MYSOs are forming,
-they do not provide a sufficient condition to drive star forming bursts.
+unless Sgr B2 DS proves to be the edge of a shell, it appears that these shells
+do not provide a sufficient condition to drive star forming bursts.
 
 
 % contour_overlays.py
@@ -1233,7 +1251,8 @@ Sgr B2 M region was denser and therefore had a shorter collapse time.  Our
 catalog does not allow us to distinguish these possibilities.  However, the
 latter scenario would predict that the cloud should be in a state of global
 collapse, with the least dense regions collapsing most slowly.  This collapse
-may leave detectable kinematic signatures in the dense gas.
+may leave detectable kinematic signatures (e.g., self-absorption in moderately
+optically thick lines) in the dense gas.
 
 \section{Conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
