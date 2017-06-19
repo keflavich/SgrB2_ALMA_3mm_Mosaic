@@ -104,6 +104,10 @@ con = ax.contour(cx,
 #ax.axis(lims)
 ax.axis([x1,x2,y1,y2])
 
+
+fig.canvas.draw()
+assert np.abs(ax.bbox._bbox.x1 - 0.95) > 1e-4
+
 cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
                     ax.bbox._bbox.y1-ax.bbox._bbox.y0])
 cb = fig.colorbar(mappable=im, cax=cax)
@@ -133,8 +137,9 @@ ra.set_ticks(exclude_overlapping=True)
 dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
 
-ax.imshow(hdu2.data.squeeze()*1e3, transform=ax.get_transform(wcs.WCS(hdu2.header).celestial),
-          vmax=0.45*1e3, cmap=pl.cm.gray_r, origin='lower', )
+im = ax.imshow(hdu2.data.squeeze()*1e3,
+               transform=ax.get_transform(wcs.WCS(hdu2.header).celestial),
+               vmax=0.45*1e3, cmap=pl.cm.gray_r, origin='lower', )
 tr_fk5 = ax.get_transform("fk5")
 #(x1,y1),(x2,y2) = (1807,2100),(2221,2697)
 (x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
@@ -150,19 +155,21 @@ make_scalebar(ax, scalebarpos,
               text_offset=1.0*u.arcsec,
              )
 
-cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
-                    ax.bbox._bbox.y1-ax.bbox._bbox.y0])
-cb = fig.colorbar(mappable=im, cax=cax)
-cb.set_label("$S_{20 cm}$ [mJy beam$^{-1}$]")
-
 #coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5, markersize=markersize,
 #                    alpha=0.5,
 #                    zorder=50, )
 coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
                      alpha=0.5)
+
+fig.canvas.draw()
+assert np.abs(ax.bbox._bbox.x1 - 0.95) > 1e-4
+
+cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
+                    ax.bbox._bbox.y1-ax.bbox._bbox.y0])
+cb = fig.colorbar(mappable=im, cax=cax)
+cb.set_label("$S_{20 \mathrm{cm}}$ [mJy beam$^{-1}$]")
+
 fig.savefig(paths.fpath("cores_on_20cm_continuum.png"), bbox_inches='tight')
-pl.draw()
-pl.show()
 
 
 hdu_h41a = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.H41a.image.pbcor_max_medsub.fits'))[0]
@@ -204,10 +211,10 @@ fig3.savefig(paths.fpath("cores_on_h41a_peak_saturated.png"), bbox_inches='tight
 
 
 
-linenames = {'HC3N': '\\cyanoacetylene',
-             'HCN': 'HCN',
-             'HNC': 'HNC',
-             'HCOp': 'HCO$^+$',
+linenames = {'HC3N': '\mathrm{HC}_3\mathrm{N}',
+             'HCN': '\mathrm{HCN}',
+             'HNC': '\mathrm{HNC}',
+             'HCOp': '\mathrm{HCO}^+',
             }
 
 for line in ("HC3N","HCN","HNC","HCOp"):
@@ -229,17 +236,22 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     dec.ticklabels.set_fontsize(tick_fontsize)
     dec.set_ticks(exclude_overlapping=True)
 
-    ax.imshow(hdu_line.data.squeeze()*1e3, transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
-              vmin=-0.0001*1e3, vmax=0.25*1e3, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    im = ax.imshow(hdu_line.data.squeeze()*1e3,
+                   transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+                   vmin=-0.0001*1e3, vmax=0.25*1e3, cmap=pl.cm.gray_r,
+                   origin='lower', norm=asinh_norm.AsinhNorm())
     tr_fk5 = ax.get_transform("fk5")
     #(x1,y1),(x2,y2) = (680,350),(2720,3150)
     (x1,y1),(x2,y2) = mywcs.wcs_world2pix(mylims_fk5, 0)
     ax.axis([x1,x2,y1,y2])
 
-    cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
+    fig3.canvas.draw()
+    assert np.abs(ax.bbox._bbox.x1 - 0.95) > 1e-4
+
+    cax = fig3.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
                         ax.bbox._bbox.y1-ax.bbox._bbox.y0])
-    cb = fig.colorbar(mappable=im, cax=cax)
-    cb.set_label("$S_{{\\mathrm{0}}}$ [mJy beam$^{{-1}}$]".format(linenames[line]))
+    cb = fig3.colorbar(mappable=im, cax=cax)
+    cb.set_label("$S_{{{0}}}$ [mJy beam$^{{-1}}$]".format(linenames[line]))
 
     scalebarpos = coordinates.SkyCoord("17:47:27", "-28:26:15.0",
                                        unit=(u.h, u.deg), frame='fk5')
@@ -261,9 +273,12 @@ for line in ("HC3N","HCN","HNC","HCOp"):
                          alpha=0.5)
     fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
 
-    ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
-              vmin=-0.001, vmax=0.1, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    im = ax.imshow(hdu_line.data.squeeze()*1e3,
+                   transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+                   vmin=-0.001*1e3, vmax=0.1*1e3, cmap=pl.cm.gray_r,
+                   origin='lower', norm=asinh_norm.AsinhNorm())
     fig3.savefig(paths.fpath("cores_on_{0}_peak_saturated.png".format(line)), bbox_inches='tight')
+    cb.on_mappable_changed(mappable=im)
 
 
     # Deep South
@@ -273,8 +288,10 @@ for line in ("HC3N","HCN","HNC","HCOp"):
         markersize = 2
     bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:26:02.565", unit=(u.h, u.deg), frame='fk5')
     topright = coordinates.SkyCoord("17:47:17.666", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
-    ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
-              vmin=-0.0001, vmax=0.25, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    im = ax.imshow(hdu_line.data.squeeze()*1e3,
+                   transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+                   vmin=-0.0001*1e3, vmax=0.25*1e3, cmap=pl.cm.gray_r, origin='lower',
+                   norm=asinh_norm.AsinhNorm())
     tr_fk5 = ax.get_transform("fk5")
     (x1,y1),(x2,y2) = (1200,434),(2142,1743)
     # wrong (x1,y1),(x2,y2) = tr_fk5.transform_point([bottomleft.ra.deg, bottomleft.dec.deg]),tr_fk5.transform_point([topright.ra.deg, topright.dec.deg])
@@ -282,6 +299,7 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     ax.set_aspect(1)
     ax.axis([x1,x2,y1,y2])
 
+    cb.on_mappable_changed(mappable=im)
 
     hide_scalebar(sb)
     scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:45.0",
@@ -303,8 +321,11 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth.png".format(line)), bbox_inches='tight')
     fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth.pdf".format(line)), bbox_inches='tight')
 
-    ax.imshow(hdu_line.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
-              vmin=-0.001, vmax=0.1, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
+    im = ax.imshow(hdu_line.data.squeeze()*1e3,
+                   transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
+                   vmin=-0.001*1e3, vmax=0.1*1e3, cmap=pl.cm.gray_r,
+                   origin='lower', norm=asinh_norm.AsinhNorm())
+    cb.on_mappable_changed(mappable=im)
     ax.axis([x1,x2,y1,y2])
     fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth_saturated.png".format(line)), bbox_inches='tight')
     fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth_saturated.pdf".format(line)), bbox_inches='tight')
