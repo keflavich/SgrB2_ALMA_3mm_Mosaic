@@ -755,9 +755,11 @@ therefore massive protostars.
 % HOPS_core_plots
 \FigureOneCol{figures/core_peak_intensity_histogram_withHOPS.png}
 {A histogram combining the detected Sgr B2 cores with predicted flux densities
-based on the HOPS \citep{Furlan2016a} survey.  The HOPS histogram shows the 870
-\um data from that survey scaled to 3 mm assuming $\beta=1.5$.  Every HOPS
-source is well below the detection threshold for our observations.}
+based on the HOPS \citep{Furlan2016a} survey.  The sources are labeled by their
+infrared (2-20 \um) spectral index: Class 0 and I have positive spectral index
+and flat spectrum sources have $-0.3 < \alpha_{IR} < 0.3$. The HOPS histogram
+shows the 870 \um data from that survey scaled to 3 mm assuming $\beta=1.5$.
+Every HOPS source is well below the detection threshold for our observations.}
 {fig:hopshist}{1}{0.5\textwidth}
 
 This conclusion is supported by a more direct comparison with the Orion nebula
@@ -826,16 +828,16 @@ $M>10$ \msun of warm dust within $R<4000$ AU.  Note that the mass estimates in
 this section are for the \emph{stars}, not their envelopes.
 
 Using a \citet{Kroupa2001a} mass function with $M_{max}=200$ \msun, 23\% of the
-mass is contained in $M>8\msun$ stars.  Using $M=8\msun$ as the mass of each
-source to obtain a lower limit on the total stellar mass, the identified
-sources have total mass $M(>8)=1800$ \msun.  The total stellar mass implied is
-$M_{tot} = 8\ee{3}$ \msun.  If instead we assume each source has a mass equal
-to the mean stellar mass for $M>8$ \msun, $\bar{M}=21.1$ \msun, then the total
-inferred stellar mass is $M_{tot}=2\ee{4}$ \msun.  These are lower limits in
-the Sgr B2 N and M regions because our catalog is incomplete due to confusion
-and dynamic range limitations.  Additionally, we are using a single-star IMF
-and our resolution is only $\sim4000$ AU, so it is likely that we have
-undercounted by $\gtrsim2\times$, since high-mass stars have a high
+mass is contained in $M>8\msun$ stars.  Using the lower-limit mass
+of $M=8\msun$ as the mass of each of our \nsources identified sources, we
+obtain a total mass $M(>8)=2100$ \msun.  The total stellar mass implied is
+$M_{tot} = 9\ee{3}$ \msun.  If instead we assume each source has a mass equal
+to the mean stellar mass over the IMF for $M>8$ \msun, $\bar{M}=21.1$ \msun,
+then the total inferred stellar mass is $M_{tot}=2.5\ee{4}$ \msun.  These are
+lower limits in the Sgr B2 N and M regions because our catalog is incomplete
+due to confusion and dynamic range limitations.  Additionally, we are using a
+single-star IMF and our resolution is only $\sim4000$ AU, so it is likely that
+we have undercounted by $\gtrsim2\times$, since high-mass stars have a high
 multiplicity fraction \citep{Mason2009a}.
 
 % COMPARE TO SCHMIEDEKE
@@ -884,11 +886,12 @@ invariant IMF.
 
 To determine the star formation rate, we need to know the age of the current
 star forming burst.  We can use the dynamical model of \citet{Kruijssen2015a}
-to get an age of the Sgr B2 cloud $t=0.74$ Myr.  To infer the star formation
-rate, we divide the observed mass by this age; the results are shown in
+to get an age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a}.  To infer
+the star formation rate, we divide the observed mass by this age; the results
+are shown in
 Table \ref{tab:clustermassestimates}.  This rate assumes that star formation was
-initiated by the cloud's most recent pericenter passage.  The total inferred
-SFR of the Sgr B2 cloud is 0.036 \msun \permyr, between one quarter and one
+initiated at the cloud's most recent pericenter passage.  The total inferred
+SFR of the Sgr B2 cloud is 0.036 \msun \peryr, between one quarter and one
 half of the total for the CMZ \citep{Longmore2013a,Barnes2017b}.
 
 
@@ -904,8 +907,9 @@ half of the total for the CMZ \citep{Longmore2013a,Barnes2017b}.
 % or N}
 
 \subsection{An examination of star formation thresholds}
-Many authors \citep[e.g.,][]{Lada2010a} have proposed that star formation can
-only occur above a certain density or column density threshold\footnote{Column
+Several authors \citep[e.g.,][]{Lada2010a,Heiderman2010a} have proposed that star
+formation can only occur above a certain density or column density
+threshold\footnote{Column
 density is more commonly used because of its observational convenience, but it
 is physically meaningless unless high column density leads to high optical
 depths and thereby changes the gas's ability to cool.}. 
@@ -936,7 +940,7 @@ approximately the lowest seen within our field of view.
 %correct foreground, there must be a perfect vacuum surrounding the dense gas in
 %the Sgr B2 cloud - the `hole' seen in Fig...TODO: show a hole figure.
 Even with the very aggressive foreground value of 5\ee{22} \persc subtracted,
-nearly the whole Sgr B2 cloud exists above this threshold.
+nearly the whole Sgr B2 cloud exists above the \citet{Lada2010a} threshold.
 %We can therefore
 %immediately rule out the possibility that there is a universal star formation
 %column threshold, since a large fraction of the observed volume exhibits
@@ -973,6 +977,9 @@ means that there is a genuinely higher threshold for star formation in the CMZ
 or that there is a higher threshold for high-mass star formation that may still
 be universal.
 
+{\color{red} Can this discussion be expanded by examining other thresholds?
+Diederik suggested Krumholz HMSF threshold, Kauffmann and Pillai threshold should
+be examined.}
 
 % core_local_brightness
 \FigureOneCol{figures/core_background_column_cdf.png}

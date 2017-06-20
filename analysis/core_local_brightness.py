@@ -230,7 +230,7 @@ def plotit():
                         #normed=True,
                         histtype='step')
         # Lada threshold, approximately (116 Msun/pc^2)
-        pl.vlines(5e21, 1.1, H.max())
+        pl.vlines(5e21, 1.1, H.max(), label='Lada+ 2010 Threshold')
         #pl.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
         pl.xlim(np.min([bL.min(), L.min()]), L.max())
         pl.semilogx()
