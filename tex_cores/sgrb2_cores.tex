@@ -27,11 +27,11 @@ column density
 ($N(\hh)>10^{23}$ \persc)
 contain a high density of
 protostars.  {\color{red} We observe a threshold} for high-mass star formation that is
-substantially higher than the local threshold for star formation, implying
+substantially higher than the solar vicinity threshold for star formation, implying
 either that high-mass star formation requires a higher column density or that
-the star formation threshold in the CMZ is higher than the local threshold.  These
-observations constitute the largest known single, possibly coeval, sample of forming
-massive stars.
+the star formation threshold in the CMZ is higher than the solar vicinity
+threshold.  These observations constitute the largest known single, possibly
+coeval to within 1 Myr, sample of forming massive stars.
 % the high-density, low-SFR regions raise questions...
 
 This version produced \today\ at \currenttime.
@@ -57,7 +57,7 @@ The Central Molecular Zone (CMZ) of our Galaxy appears to be overall deficient
 in star formation relative to the gas mass it contains \citep{Longmore2013a,
 Kauffmann2016a,Kauffmann2016b,Barnes2016c,Barnes2017b}.  This deficiency
 suggests that star formation laws, i.e., the empirical relations between
-the star formation rate and gas density, are not universal.  The gas
+the star formation rate and gas column density, are not universal.  The gas
 conditions in the Galactic center are different from those in nearby clouds,
 providing a powerful lever arm in a few
 parameters \citep[e.g., pressure, temperature, velocity
@@ -76,10 +76,10 @@ sites with
 obvious signs of ongoing star formation along the CMZ dust ridge are the Sgr B2
 N (North), M (Main), and S (South) protoclusters \citep[][Figure
 \ref{fig:overview}]{Schmiedeke2016a}, 
-and, at a much lower level, the 20 \kms cloud \citep{Lu2016a,2017a}, and Clouds
-C, D, and E \citep[][Walker et al, in prep;]{Ginsburg2015b,Barnes2017b}.  These
-regions contain a handful of high-mass cores but only a small number of
-protostars.
+and, at a much lower level, the 20 \kms and 50 \kms clouds
+\citep{Lu2016a,2017a}, and Clouds C, D, and E \citep[][Walker et al, in
+prep;]{Ginsburg2015b,Barnes2017b}.  These regions contain a handful of
+high-mass cores but only a small number of protostars.
 
 We report the first observations of extended, ongoing star formation in a
 Galactic center cloud \emph{not} isolated to a centralized protocluster dust
@@ -112,7 +112,7 @@ been included.}
 {figures/continuum_peak_MandN.pdf}
 {figures/cores_on_continuum_peak_MandN.pdf}
 {Images of the ALMA 3 mm continuum in the Sgr B2 M and N region.  The right
-figure additionally includes marker at the position of each identified
+figure additionally includes markers at the position of each identified
 continuum pointlike source: red dots are `conservative', high-confidence
 sources, orange dots are `optimistic', low-confidence sources, cyan are \hii
 regions, magenta +'s are masers, and green X's are X-ray sources.  The massive
@@ -215,7 +215,7 @@ widely detected.
 {figures/cores_on_continuum_peak_DeepSouth_saturated.pdf}
 {Images of the ALMA 3 mm continuum in the Sgr B2 Deep South (DS) region.  
 The right figure additionally
-includes marker at the position of each identified continuum pointlike
+includes markers at the position of each identified continuum pointlike
 source: red dots are `conservative', high-confidence sources,
 orange dots are `optimistic', low-confidence sources,
 cyan are \hii regions, magenta +'s are masers, and green X's are X-ray sources.
@@ -685,7 +685,7 @@ densities required to produce \hii regions within our observed range
 {fig:hiibrightness}{1}{18cm}
 
 
-\subsubsection{Our hypothesis: The sources are protostellar}
+\subsubsection{Our hypothesis: The sources are (mostly) protostellar}
 \label{sec:theyareprotostars}
 After ruling out the other possibilities, we test and validate the hypothesis
 that most or all of the sources are protostellar in this section.
@@ -1230,7 +1230,7 @@ forming bursts.
 \FigureTwo
 {figures/HC3N_contours_on_SCUBA_column.png}
 {figures/HC3N_contours_on_SCUBA_column_withcores.png}
-{ALMA HC$_3$N peak intensity contours (red) overlaid on the derived SCUBA
+{ALMA \cyanoacetylene peak intensity contours (red) overlaid on the derived SCUBA
 column density
 image using Herschel Hi-Gal interpolated temperatures. The HC$_3$N was
 shown in grayscale in Figure \ref{fig:coreson20cmandhc3n}.
@@ -1263,6 +1263,28 @@ B2 DS ridge, there are no \hii regions, but there are $\sim100$ high-mass
 protostars, which implies that these protostars began their formation nearly
 simultaneously.
 
+The large number of probable protostars observed along an elongated ridge
+allows us to estimate an upper limit on their age.  Assuming all of these
+forming stars are bound to the cloud and/or central clusters, they should
+approach a spherical distribution within about one crossing time
+\citep{Efremov1998a}.  If we assume the turbulent velocity dispersion is
+$\sigma_{1D}\approx10$ \kms \citep[e.g.][]{Henshaw2016a}, and the length of the
+DS ridge is $L\approx10$ pc, the upper limit on the formation time of the
+protostars is $L/\sigma_{1D}<1$ Myr.  Given the tight alignment of the
+protostars with the gas ridge (Figures \ref{fig:coreson20cmandhc3n} and
+\ref{fig:hc3nonscuba}), it is  possible to establish a lower upper
+limit.  Most of the sources are within $r<0.5$ pc of the `ridge', which
+suggests an upper age limit $t<r/\sigma_{1D}=5\ee{4}$ yr; however, if
+the sources have a lower velocity dispersion, this limit would be higher.
+Nonetheless, the DS ridge sources appear to be recently formed.
+
+The expanding \hii regions observed around Sgr B2 M and N (and assumed to be
+associated with them) give a lower limit on their ages.  The HII regions I, J,
+A1, and K4 have radii $r\approx0.1$ pc \citep{Gaume1995a}, suggesting their
+ages are at least $t>10^5$ yr assuming they are expanding into 
+a density $n\gtrsim10^5 \percc$ \citep{de-Pree1995a,Schmiedeke2016a}.
+The clusters therefore appear to be somewhat older than the ridge sources.
+
 % This argument doesn't work for me.
 % If we assume the turbulent velocity dispersion is $\sigma_{1D}\approx10$ \kms
 % \citep{Henshaw2016a}, and the crossing time is an upper limit on the age spread
@@ -1272,21 +1294,21 @@ simultaneously.
 % clusters are much more compact, with $r<1$ pc, implying an age spread $<0.1$
 % Myr.  
 
-The relative ages of M and the rest of the region (i.e., Sgr B2 M is older)
-suggest two possibilities for their formation history.  If we take the ages at
-face value, Sgr B2 M must have
-collapsed first to form stars in an early event, then sometime later the DS
-ridge collapsed to form stars in a later event.  A second possibility is that
-the overall collapse of both Sgr B2 M and DS began at the same time, but the
-Sgr B2 M region was denser and therefore had a shorter collapse time, which is
-predicted by hierarchical cluster formation models to lead to higher star
-formation efficiencies \citep{Kruijssen2012a}.  Our
-catalog does not allow us to distinguish these possibilities.  However, the
-latter scenario would predict that the cloud should be in a state of global
-collapse, with the least dense regions collapsing most slowly.  This collapse
-has been suggested to be ongoing in CMZ clouds by \citet{Walker2015a,Walker2016a}
-and may leave detectable kinematic signatures (e.g., self-absorption in
-moderately optically thick lines) in the dense gas.
+The relative ages of M and the rest of the region (i.e., Sgr B2 M is apparently
+older) suggest two possibilities for their formation history.  If we take the
+ages at face value, Sgr B2 M must have collapsed first to form stars in an
+early event, then sometime later the DS ridge collapsed to form stars in a
+later event.  A second possibility is that the overall collapse of both Sgr B2
+M and DS began at the same time, but the Sgr B2 M region was denser and
+therefore had a shorter collapse time, which is predicted by hierarchical
+cluster formation models to lead to higher star formation efficiencies
+\citep{Kruijssen2012a}.  Our catalog does not allow us to distinguish these
+possibilities.  However, the latter scenario would predict that the cloud
+should be in a state of global collapse, with the least dense regions
+collapsing most slowly.  This collapse has been suggested to be ongoing in CMZ
+clouds by \citet{Walker2015a,Walker2016a} and may leave detectable kinematic
+signatures (e.g., self-absorption in moderately optically thick lines) in the
+dense gas.
 
 \section{Conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
