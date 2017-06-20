@@ -154,7 +154,7 @@ if __name__ == "__main__":
                           ]])
 
     peak_brightness = (tbl['peak']*u.beam).to(u.K,
-                                              u.brightness_temperature(tbl['beam_area'],
+                                              u.brightness_temperature(u.Quantity(tbl['beam_area']),
                                                                        masscalc.centerfreq))
     tbl.add_column(Column(data=peak_brightness, name='peak_K', unit=u.K))
 
