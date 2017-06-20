@@ -75,10 +75,11 @@ even when examined at high resolution and sensitivity
 sites with
 obvious signs of ongoing star formation along the CMZ dust ridge are the Sgr B2
 N (North), M (Main), and S (South) protoclusters \citep[][Figure
-\ref{fig:overview}]{Schmiedeke2016a} and,
-at a much lower level, Clouds C, D, and E \citep[][Walker et al, in
-prep;]{Ginsburg2015b,Barnes2017b}.  These regions contain a handful of
-high-mass cores detected with ALMA, but only a small number of protostars.
+\ref{fig:overview}]{Schmiedeke2016a}, 
+and, at a much lower level, the 20 \kms cloud \citep{Lu2016a,2017a}, and Clouds
+C, D, and E \citep[][Walker et al, in prep;]{Ginsburg2015b,Barnes2017b}.  These
+regions contain a handful of high-mass cores but only a small number of
+protostars.
 
 We report the first observations of extended, ongoing star formation in a
 Galactic center cloud \emph{not} isolated to a centralized protocluster dust
@@ -1068,9 +1069,10 @@ hypothesis will require much deeper observations.
 \FigureOneCol{figures/compare_brick_sgrb2_colPDF.png}
 {Histograms of the column density of G0.253+0.016 (blue) and Sgr B2 (gray)
 using the combined SCUBA 450 \um and Herschel 500 \um intensity with the
-interpolated Herschel dust temperatures.  The cumulative distribution of
-core `background' column densities in Sgr B2 is shown as a thick gray
-line.}
+interpolated Herschel dust temperatures.  The cumulative distribution of core
+`background' column densities in Sgr B2 is shown as a thick gray line, showing
+that the densities at which stars are forming in Sgr B2 are barely
+reached in G0.253.  }
 {fig:bricksgrb2colcompare}{1}{0.5\textwidth}
 
 
@@ -1082,7 +1084,8 @@ reside in gas above $N\gtrsim2\ee{23}$ \persc.  In this section, we discuss
 the implications of this apparent threshold for high-mass star formation in the
 CMZ.
 
-A theoretical threshold for high-mass star formation, $N > 1$ g \persc was
+A theoretical threshold for high-mass star formation, $N > 1$ g \persc ($N(\hh)
+> 2\ee{23}$ \persc) was
 developed by \citet{Krumholz2008a}.   Nearly all of the sources we have
 detected reside above this threshold, and we determined our sources are all
 likely to be massive protostars in Section \ref{sec:theyareprotostars}.
@@ -1129,11 +1132,12 @@ literature: pericenter passage \citep{Kruijssen2015a}, cloud-cloud collision
 massive stars \citep{Martin-Pintado1999a}.  These scenarios are distinct and
 apply to different scales.  The pericenter passage model assumes that gas is
 fed into a $\sim100$ pc radius non-circular orbit and experiences significant
-compression at closest approach to the central cluster.  The compression leads
-to progressively increasing star formation along the CMZ dust ridge.
-Cloud-cloud collision models assume that independent clouds on different orbits
-are interacting.  The expanding shell model assumes the shells are driven by
-feedback from a previously formed generation of high-mass stars.
+tidal compression at closest approach to the bottom of the gravitational
+potential.  The compression leads to progressively increasing star formation
+along the CMZ dust ridge.  Cloud-cloud collision models assume that independent
+clouds on different orbits are interacting.  The expanding shell model assumes
+the shells are driven by feedback from a previously formed generation of
+high-mass stars.
 
 We examine these three possibilities but reach no definitive conclusion about
 which process is dominant.
@@ -1165,10 +1169,10 @@ core catalog or in the gas data cubes.
 
 We note that some `colliding flows' are expected in almost any collapse
 scenario.  For example, simulations of a cloud passing through Galactic
-pericenter (Dale et al, in prep) show that some material is ejected during this
-passage that later collapses back onto the original cloud.  It is possible that
-any apparent colliding flows \citep[e.g.][]{Sato2000a} are a relic of this
-process.
+pericenter (Kruijssen et al. in prep.; Dale et al. in prep.) show that some
+material is ejected during this passage that later collapses back onto the
+original cloud.  It is possible that any apparent colliding flows
+\citep[e.g.][]{Sato2000a} are a relic of this process.
 
 \subsubsection{Expanding Shells}
 \label{sec:expandingshells}
@@ -1187,6 +1191,9 @@ analogy, they may be magnetically dominated regions, but there must be some
 central source of ionizing radiation or energetic particles.  Whatever the
 driver, it is possible that an expanding bubble of hot gas has compressed
 the molecular material along the ridge where we observe star formation.
+However, the ridge of millimeter sources extends well above the apparent bubble
+edge, so it is unlikely that the entire DS ridge was driven by a single
+coherent expanding bubble.
 
 By contrast, the Sgr B2 North bubble does not contain any ionized emission.  It
 contains fewer total sources, which trace the edge of an expanding bubble
@@ -1209,9 +1216,13 @@ ongoing star formation.
 In Sgr B2 W, there is a secondary ridge of \cyanoacetylene emission paralleling
 the central ridge.  No MYSOs are detected in this ridge.
 
-While the expanding shells may have some effect on where MYSOs are forming,
-unless Sgr B2 DS proves to be the edge of a shell, it appears that these shells
-do not provide a sufficient condition to drive star forming bursts.
+
+We observe that some sources appear to be associated with shells, but there are
+some shells that have no associated ongoing star formation.  Most of the
+observed star formation is not along shell edges.  We therefore conclude that,
+while the expanding shells may have some effect on where MYSOs are forming, it
+appears that these shells do not provide a sufficient condition to drive star
+forming bursts.
 
 
 % contour_overlays.py
@@ -1225,10 +1236,12 @@ image using Herschel Hi-Gal interpolated temperatures. The HC$_3$N was
 shown in grayscale in Figure \ref{fig:coreson20cmandhc3n}.
 Contours are at levels [3,7,11,15,19,23] K.  The  HC$_3$N bubble edges can be
 seen surrounding cavities in the SCUBA column density map on the east side of
-the main ridge.  To the north, the HC$_3$N also traces bubbles, but these are
+the main ridge.  To the north, the \cyanoacetylene also traces bubbles, but these are
 less evident in this velocity-integrated view.  The important feature discussed
 in Section \ref{sec:whatdrives} is the differing column density around each of
-the bubbles.  The right figure has the cores overlaid as green dots.}
+the bubbles.  The right figure has the cores overlaid as green dots,
+showing that the 3 mm sources closely trace the molecular gas, but not all
+dense molecular gas contains cores or protostars.}
 {fig:hc3nonscuba}{1}{0.5\textwidth}
 
 \subsection{The clusters and the extended population}
@@ -1238,7 +1251,8 @@ protostellar mass matches the core-inferred protostellar mass to within a
 factor of 2 in the whole Sgr B2 cloud and the individual clusters excepting Sgr
 B2 M.  In Sgr B2 M, the \hii-region inferred mass is $\sim9\times$ greater than
 the core-inferred mass.  While the lack of faint sources in Sgr B2 M could
-be an observational limitation, it may also be physical.
+be an observational limitation, it may be a real effect signifying an evolutionary
+difference.
 
 Sgr B2 M has more \hii regions and is more centrally condensed than any of the
 other clusters and the distributed star forming population.  Assuming that \hii
@@ -1249,17 +1263,30 @@ B2 DS ridge, there are no \hii regions, but there are $\sim100$ high-mass
 protostars, which implies that these protostars began their formation nearly
 simultaneously.
 
-The relative ages of M and the rest of the region suggest two possibilities for
-their formation history.  If we take the ages at face value, Sgr B2 M must have
+% This argument doesn't work for me.
+% If we assume the turbulent velocity dispersion is $\sigma_{1D}\approx10$ \kms
+% \citep{Henshaw2016a}, and the crossing time is an upper limit on the age spread
+% \citep[e.g.][]{Efremov1998a}, we can infer the age spread in the clusters
+% compared to that in the whole cloud.   The total size scale of the Sgr B2 cloud
+% is $\sim10$ pc, which yields an ag spread upper limit $\lesssim 1$ Myr.  The
+% clusters are much more compact, with $r<1$ pc, implying an age spread $<0.1$
+% Myr.  
+
+The relative ages of M and the rest of the region (i.e., Sgr B2 M is older)
+suggest two possibilities for their formation history.  If we take the ages at
+face value, Sgr B2 M must have
 collapsed first to form stars in an early event, then sometime later the DS
 ridge collapsed to form stars in a later event.  A second possibility is that
 the overall collapse of both Sgr B2 M and DS began at the same time, but the
-Sgr B2 M region was denser and therefore had a shorter collapse time.  Our
+Sgr B2 M region was denser and therefore had a shorter collapse time, which is
+predicted by hierarchical cluster formation models to lead to higher star
+formation efficiencies \citep{Kruijssen2012a}.  Our
 catalog does not allow us to distinguish these possibilities.  However, the
 latter scenario would predict that the cloud should be in a state of global
 collapse, with the least dense regions collapsing most slowly.  This collapse
-may leave detectable kinematic signatures (e.g., self-absorption in moderately
-optically thick lines) in the dense gas.
+has been suggested to be ongoing in CMZ clouds by \citet{Walker2015a,Walker2016a}
+and may leave detectable kinematic signatures (e.g., self-absorption in
+moderately optically thick lines) in the dense gas.
 
 \section{Conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
@@ -1272,7 +1299,8 @@ The large population of high-mass protostellar cores indicates that the entire
 Sgr B2 cloud, not just the well-known clusters N, M, and S, is undergoing a
 burst of star formation.  More than half of the currently forming generation of
 stars is not associated with any of the clusters but is instead part of the
-extended burst.
+extended burst, as is predicted by models of hierarchical star and cluster
+formation.
 
 Using Herschel, SCUBA, and SHARC data, we have measured a threshold for
 high-mass star formation analogous to that done in local clouds by
@@ -1296,7 +1324,13 @@ The software used to make this version of the paper is available from github at
 
 \textit{Acknowledgements}
 This work is partly supported by a grant from the National Science Foundation
-(AST-1615311, De Pree).
+(AST-1615311, De Pree).  JMDK gratefully acknowledges funding from the German
+Research Foundation (DFG) in the form of an Emmy Noether Research Group (grant
+number KR4801/1-1), from the European Research Council (ERC) under the European
+Union's Horizon 2020 research and innovation programme via the ERC Starting
+Grant MUSTANG (grant agreement number 714907), and from Sonderforschungsbereich
+SFB 881 ``The Milky Way System'' (subproject P1) of the DFG.
+
 
 \input{solobib}
 
