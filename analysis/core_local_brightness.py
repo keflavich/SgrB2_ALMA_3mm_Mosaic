@@ -100,14 +100,14 @@ for imname in files:
 
 # Fix column around Sgr B2
 col = files['HerschelColumn36']['file'].data
-col_conv = convolve_fft(col, Gaussian2DKernel(5), interpolate_nan=True,
+col_conv = convolve_fft(col, Gaussian2DKernel(5), nan_treatment='interpolate',
                         normalize_kernel=True)
 files['HerschelColumn36']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
 files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
 files['HerschelColumn36']['bunit'] = u.cm**-2
 
 col = files['HerschelColumn25']['file'].data
-col_conv = convolve_fft(col, Gaussian2DKernel(5), interpolate_nan=True,
+col_conv = convolve_fft(col, Gaussian2DKernel(5), nan_treatment='interpolate',
                         normalize_kernel=True)
 files['HerschelColumn25']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
 files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
