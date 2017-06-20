@@ -255,14 +255,12 @@ def plotit():
         pixarea_cm2 = (files[imname]['pixarea']*distance**2)
         cum_mass = (cumul * pixarea_cm2 * 2.8*u.Da).to(u.M_sun, u.dimensionless_angles())
         pl.figure(3)
-        pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1)
         pl.plot(sorted_col, cum_mass, label=names[imname])
         pl.legend(loc='best')
         pl.xlim(1e21,2e25)
         pl.loglog()
 
         pl.figure(4)
-        pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1)
         pl.plot(sorted_col-5e22*u.cm**-2, cum_mass-(5e22*u.cm**-2*pixarea_cm2*2.8*u.Da).to(u.M_sun, u.dimensionless_angles()), label=names[imname])
         pl.legend(loc='best')
         pl.xlim(1e21,2e25)
@@ -275,16 +273,21 @@ def plotit():
 
 
     pl.figure(3)
+    pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1,
+              label='Lada+ 2010 Threshold')
     pl.tight_layout()
+    pl.legend(loc='best')
     pl.savefig(paths.fpath("mass_cdf_histograms.png"), bbox_inches='tight')
     pl.figure(4)
+    pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1,
+              label='Lada+ 2010 Threshold')
+    pl.legend(loc='best')
     pl.tight_layout()
     pl.savefig(paths.fpath("mass_cdf_histograms_bgsubd.png"), bbox_inches='tight')
 
     pl.figure(5).clf()
     for imname,color in [('HerschelColumn25', 'k'), ('HerschelColumn36','g'),
                          ('SharcHTemColumn','b'), ('ScubaHTemColumn','r')]:
-        pl.vlines(5e21, 0, 1, color='k', linestyle='--', linewidth=1)
         pl.plot(np.sort(tbl[imname]), np.arange(len(tbl),
                                                 dtype='float')/len(tbl),
                 linestyle='-', linewidth=4, alpha=1, zorder=10,
@@ -319,6 +322,8 @@ def plotit():
 
 
     pl.figure(5)
+    pl.vlines(5e21, 0, 1, color='k', linestyle='--', linewidth=1,
+              label='Lada+ 2010 Threshold')
     pl.legend(loc='best', fontsize=20)
     pl.tight_layout()
     pl.xlabel("Column Density $N(\mathrm{H}_2)$ [cm$^{-2}$]", fontsize=24)
@@ -358,7 +363,8 @@ def plotit():
                     #normed=True,
                     histtype='step')
     # Lada threshold, approximately (116 Msun/pc^2)
-    pl.vlines(5e21, 1.1, H.max())
+    pl.vlines(5e21, 1.1, H.max(),
+              label='Lada+ 2010 Threshold')
     #pl.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
     pl.xlim(np.min([bL.min(), L.min()]), L.max())
     pl.ylim(0.5,np.max([bH.max(), H.max()])*1.1)
