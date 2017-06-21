@@ -17,16 +17,19 @@ pl.style.use('classic')
 annotation_fontsize = 10
 
 hc3nfn = paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather.fits')
+#hc3nfn = paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather_r05.fits')
 
 sourcename = 'SgrB2'
 species = 'HC3N'
 cubefn = hc3nfn
 
 dx = 5
-slabs = [(x, x+dx) for x in range(5,90)]*u.km/u.s
+slabs = [(x, x+dx) for x in range(5,105,5)]*u.km/u.s
 
 cube = SpectralCube.read(cubefn)
+cube._unit = u.K
 scube = cube
+scube.allow_huge_operations=True
 #cutout = Cutout2D(cube[0,:,:], source, radius, wcs=cube.wcs.celestial)
 
 #scube = cube_cutout = cube[(slice(None),)+cutout.slices_original]
@@ -41,8 +44,8 @@ else:
 
 
 # Begin channel map code here
-Nrows = 5
-Ncols = 6
+Nrows = 4
+Ncols = 5
 figsize = ((Ncols/Nrows)*12,12)
 fig3 = pl.figure(3)
 if any(fig3.get_size_inches() != figsize):
@@ -69,7 +72,7 @@ for ii,(v1,v2) in enumerate(slabs):
     ax = axes[int(ii / Ncols), int(ii % Ncols)]
     im = ax.imshow(layer.value, norm=ImageNormalize(vmin=mn, vmax=mx,
                                                     stretch=AsinhStretch(),),
-                   cmap=pl.cm.gray_r)
+                   cmap=pl.cm.gray_r, interpolation='nearest', origin='lower')
     axlims = ax.axis()
     #ax.plot(refvec_pix[0], refvec_pix[1], 'r--', alpha=0.5)
     ax.annotate("${0:d} < v < {1:d}$".format(int(v1.value),

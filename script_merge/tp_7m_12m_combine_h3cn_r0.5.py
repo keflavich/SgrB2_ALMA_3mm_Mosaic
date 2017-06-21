@@ -57,6 +57,7 @@ combohdu.writeto('HC3N_TP_7m_12m_feather_126_r05.fits', clobber=True)
 combhdu = fourier_combine_cubes(cube_k, tpcube_k_ds_rg, return_hdu=True,
                                 lowresfwhm=tpcube_k_ds_rg.beam.major,
                                 maximum_cube_size=3e9)
+combhdu.header.update(cube_k.header)
 combhdu.header.update(avbm.to_header_keywords())
 combcube = SpectralCube.read(combhdu).with_spectral_unit(u.km/u.s,
                                                          velocity_convention='radio')
