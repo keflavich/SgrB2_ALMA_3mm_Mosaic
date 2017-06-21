@@ -71,22 +71,25 @@ bulk tracers of star formation to $>0.1$ pc resolution gas observations
 \citep[e.g.][]{Barnes2017b}.  More recently, high-resolution observations
 of selected clouds in the CMZ have revealed very few star-forming cores
 even when examined at high resolution and sensitivity
-\citep{Rathborne2014a,Rathborne2015a,Kauffmann2016a,Kauffmann2016b}.  The only
-sites with
-obvious signs of ongoing star formation along the CMZ dust ridge are the Sgr B2
+\citep{Rathborne2014a,Rathborne2015a,Kauffmann2016a,Kauffmann2016b}.  There are 
+few sites with obvious signs of ongoing star formation along the CMZ dust ridge.
+The Sgr B2
 N (North), M (Main), and S (South) protoclusters \citep[][Figure
-\ref{fig:overview}]{Schmiedeke2016a}, 
-and, at a much lower level, the 20 \kms and 50 \kms clouds
+\ref{fig:overview}]{Schmiedeke2016a} are actively  forming star clusters
+and contain high-mass protostars and many compact \hii regions
+\citep[e.g.][]{Higuchi2015a,Gaume1995a}. 
+Besides Sgr B2, at a much lower level, the 20 \kms and 50 \kms clouds
 \citep{Lu2016a,2017a}, and Clouds C, D, and E \citep[][Walker et al, in
 prep;]{Ginsburg2015b,Barnes2017b}.  These regions contain a handful of
-high-mass cores but only a small number of protostars.
+high-mass cores but only a small number of protostars and no ultra-
+or hyper-compact \hii regions.
 
 We report the first observations of extended, ongoing star formation in a
 Galactic center cloud \emph{not} isolated to a centralized protocluster dust
 clump.  We observed a $\sim15\times15$ pc section of the Sgr B2 cloud and
 identified star formation along the entire molecular dust ridge known as Sgr B2
 Deep South \citep[DS, also known as the `Southern
-Complex'][]{Jones2012a,Schmiedeke2016a}).  These observations allow us to
+Complex'][]{Jones2012a,Schmiedeke2016a}.  These observations allow us to
 perform the first
 star-counting based determination of the star formation rate within the dense
 molecular gas of the CMZ.
@@ -133,8 +136,9 @@ Total Power array (not included in this work), the ALMA 7m array, and in two
 configurations with the ALMA 12m array.  The setup included the maximum allowed
 number of channels, 30720, across 4 spectral windows in a single polarization;
 the single-polarization mode was adopted to support moderate spectral
-resolution ($\sim1.6$ \kms) across the broad bandwidth.  The basebands were
-centered at 89.48, 91.28, 101.37, and 103.23 GHz with bandwidth 1.875 GHz (total
+resolution ($\sim0.8$ \kms, 244 kHz channels) across the broad bandwidth.  The
+basebands were centered at 89.48, 91.28, 101.37, and 103.23 GHz with bandwidth
+1.875 GHz (total
 7.5 GHz).
 
 
@@ -177,7 +181,7 @@ determination that clean did not converge if allowed to go too deep, we cleaned
 to a threshold of 0.1 mJy/beam over all pixels with $S_\nu > 2.5$ mJy / beam
 as determined from a previous iteration.
 The final image used for most of the analysis in this paper was imaged with 
-Briggs robust parameter 0.5, achieving a beam size $0.54\times0.46\arcsec$.
+Briggs robust parameter 0.5, achieving a beam size $0.54\arcsec\times0.46\arcsec$.
 % We performed this same
 % process for both the longest-baseline data only (resolution $\sim0.5\arcsec$,
 % largest angular scale theoretically 15\arcsec\ [the shortest baseline] but more
@@ -259,21 +263,21 @@ from space and calibrated to an absolute scale using Planck data
 
 The JCMT SCUBA 450 \um data were reported in \citet{Pierce-Price2000a} and
 \citet{di-Francesco2008a} with a resolution of 8\arcsec.  We found that the
-SCUBA data had a flux scale significantly discrepant from the Herschel-SPIRE 500 \um data,
-even accounting for the central wavelength difference.  We had to scale the
-SCUBA data up by a factor $\approx3.0$ to make the data agree with the Herschel-SPIRE
-images on the angular scales they are both hypothetically sensitive to.
-While such a large flux calibration error seems implausible, the measured
-FWHM toward Sgr B2 N is approximately 14\arcsec, which means the beam area is $\approx3\times$
-larger than the theoretical size.  We attempted to fit several other isolated
-sources in the large SCUBA map, and the smallest FWHM we measured was
-$\approx10.5$\arcsec.  Between the larger beam area, flux calibration errors
-\citep[quoted at
-20\percent in][]{Pierce-Price2000a}, and the dust emissivity correction
-(35-50\percent for $\beta=3-4$), this large flux scaling factor is 
-plausible. This large correction factor is consistent with the large error beam
-found by \citet{di-Francesco2008a}, with effective FWHM $\approx17.3$\arcsec,
-since they used additional smoothing when creating their maps.
+SCUBA data had a flux scale significantly discrepant from the Herschel-SPIRE
+500 \um data, even accounting for the central wavelength difference.  We had to
+scale the SCUBA data up by a factor $\approx3.0$ to make the data agree with
+the Herschel-SPIRE images on the angular scales they are both hypothetically
+sensitive to.  While such a large flux calibration error seems implausible, the
+measured FWHM toward Sgr B2 N is approximately 14\arcsec, which means the beam
+area is $\approx3\times$ larger than the theoretical size.  We attempted to fit
+several other isolated sources in the large SCUBA map, and the smallest FWHM we
+measured was $\approx10.5$\arcsec.  Between the larger beam area, flux
+calibration errors \citep[quoted at 20\percent in][]{Pierce-Price2000a}, and
+the dust emissivity correction (35-50\percent for $\beta=3-4$), this large flux
+scaling factor is plausible. This large correction factor is consistent with
+the large error beam found by \citet{di-Francesco2008a}, with effective FWHM
+$\approx17.3$\arcsec, since they used additional smoothing when creating their
+maps.
 
 
 To obtain higher resolution column density maps, we used the combined
@@ -298,7 +302,7 @@ The data combination is discussed in more detail in Appendix
 
 \subsection{Continuum Source Identification}
 \label{sec:contsources}
-We selected continuum point sources by eye,
+We selected compact continuum  sources by eye,
 scanning across images with different weighting schemes (different robust
 parameters).  An automated selection is not viable across the majority of the
 field because there are many extended \hii regions that dominate the overall
@@ -339,7 +343,8 @@ compact sources.
 Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
 inspected.  Peaks that were part of extended structures but not significantly
 different from them (e.g., a 5-$\sigma$ peak sitting on a 4-$\sigma$ extended
-structure) were excluded.
+structure) were excluded.  We excluded sources with extents $r>1\arcsec$, i.e.,
+extended \hii regions.
 
 % The majority of the sources are unresolved.  Some of these sit within regions
 % of extended emission.  A small handful were moderately resolved, including some
@@ -386,9 +391,11 @@ will be discussed further in the next Section.
 \subsection{Source Classification}
 \label{sec:classification}
 For the majority of the detected sources, we have only a continuum detection at
-3 mm.  No lines are detected peaking toward most of the sources, especially the
-faint ones.  In this section, we employ various means to classify the sample of
-new sources.
+3 mm.  We visually inspect the spectra extracted from the full line cubes, and
+no lines are detected peaking toward the majority of the sources (most sources
+have emission in some lines, but this emission is clearly extended and not
+associated with the compact source).  In this section, we employ various means
+to classify the sample of new sources.
 
 A subset of the detected sources have detections at other bands and can be
 classified based on previous literature work, especially those associated with
@@ -577,7 +584,7 @@ dense gas and dust ridges, not all of the high-column molecular gas regions
 have such sources in them (i.e., the left and right sides of the image in
 Figure \ref{fig:coreson20cmandhc3n}b, where molecular material is seen with no
 associated millimeter sources).  If there is a free-floating population of OB
-stars responsible for the 3 mm point source population, if we assume the
+stars responsible for the 3 mm compact source population, if we assume the
 spatial distribution of the stars is uniform, the distribution of \hii regions
 surrounding them should match that of the gas (since we are assuming the gas and
 stars are moving independently).  Also, there is no such population of sources
