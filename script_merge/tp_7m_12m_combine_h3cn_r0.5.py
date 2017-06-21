@@ -7,10 +7,14 @@ from astropy import log
 
 log.setLevel("DEBUG")
 log.debug('Reading...')
-cube = SpectralCube.read('SgrB2_b3_7M_12M.HC3N.image.pbcor_medsub.fits').with_spectral_unit(u.GHz)
-cube.allow_huge_operations=True
+cube_GHz = SpectralCube.read('SgrB2_b3_7M_12M.HC3N.r0.5.image.pbcor.fits').with_spectral_unit(u.GHz)
+cube_GHz.allow_huge_operations=True
 log.debug("Read file")
-cube_k = cube.to(u.K, cube.beam.jtok_equiv(cube.spectral_axis))
+avbm = cube_GHz.average_beams(0.1)
+cube_k = cube_GHz.to(u.K, avbm.jtok_equiv(cube_GHz.spectral_axis))
+cube_k.with_spectral_unit(u.km/u.s,
+                          velocity_convention='radio').write('SgrB2_b3_7M_12M.HC3N.r0.5.image.pbcor.K.fits',
+                                                             overwrite=True)
 log.debug("Converted first file to K")
 
 
@@ -30,30 +34,30 @@ tpcube_k_smooth = tpcube_k.spectral_smooth(Gaussian1DKernel(kw/(8*np.log(2))**0.
 log.debug("completed cube smooth")
 
 tpcube_k_ds = tpcube_k_smooth[::2,:,:]
-tpcube_k_ds.hdu.writeto('HC3N_tp_freq_ds.fits', clobber=True)
+tpcube_k_ds.hdu.writeto('HC3N_tp_freq_ds_r05.fits', clobber=True)
 log.debug("wrote kelvin tp cube")
 
 tpcube_k_ds_rg = tpcube_k_ds.spectral_interpolate(cube_k.spectral_axis)
 #tpkrg = spectral_regrid(tpcube_k_ds, cube_k.spectral_axis)
 log.debug("done regridding")
 #tpkrg.writeto('HC3N_tp_freq_ds_interp.fits', clobber=True)
-tpcube_k_ds_rg.write('HC3N_tp_freq_ds_interp.fits', overwrite=True)
+tpcube_k_ds_rg.write('HC3N_tp_freq_ds_interp_r05.fits', overwrite=True)
 #
 #cube_tpkrg = SpectralCube.read('HC3N_tp_freq_ds_interp.fits')
 
 frq = 90.9662*u.GHz
 im = cube_k[cube_k.closest_spectral_channel(frq)]
 sdim = tpcube_k_ds_rg[tpcube_k_ds_rg.closest_spectral_channel(frq)]
-im.write('cubek_ch126.fits', overwrite=True)
-sdim.write('tpcube_k_rg_ch126.fits', overwrite=True)
+im.write('cubek_ch126_r05.fits', overwrite=True)
+sdim.write('tpcube_k_rg_ch126_r05.fits', overwrite=True)
 combohdu, hdu2 = feather_simple(im.hdu, sdim.hdu, return_regridded_lores=True, return_hdu=True)
-combohdu.writeto('HC3N_TP_7m_12m_feather_126.fits', clobber=True)
+combohdu.writeto('HC3N_TP_7m_12m_feather_126_r05.fits', clobber=True)
 
 # final goal
 combhdu = fourier_combine_cubes(cube_k, tpcube_k_ds_rg, return_hdu=True,
                                 lowresfwhm=tpcube_k_ds_rg.beam.major,
-                                maximum_cube_size=3e8)
-combhdu.header.update(cube_k.beam.to_header_keywords())
+                                maximum_cube_size=3e9)
+combhdu.header.update(avbm.to_header_keywords())
 combcube = SpectralCube.read(combhdu).with_spectral_unit(u.km/u.s,
                                                          velocity_convention='radio')
-combcube.write('HC3N_TP_7m_12m_feather.fits', overwrite=True)
+combcube.write('HC3N_TP_7m_12m_feather_r05.fits', overwrite=True)
