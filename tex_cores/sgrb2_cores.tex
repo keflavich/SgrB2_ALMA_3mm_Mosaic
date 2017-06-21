@@ -199,8 +199,10 @@ sources in some of the richer sub-regions.  The points are colored as in Figure
 {fig:MandNzooms}{1}{\textwidth}
 
 We also produced cubes of all of the spectral lines.  These were lightly
-cleaned with a maximum of 2000 iterations of cleaning to a threshold of
-100 mJy/beam.  No self-calibration was applied, both because the dynamic range
+cleaned with a maximum of 2000 iterations of cleaning to a threshold of 100
+mJy/beam.  The noise is typically $\approx9$ mJy \perbeam (6 K) per 0.8 \kms
+channel in the robust 0.5 cubes.
+No self-calibration was applied, both because the dynamic range
 limitations were less significant and because the image cubes are
 computationally expensive to process.
 Before continuum subtraction, dynamic range related artifacts similar to those
@@ -391,19 +393,31 @@ will be discussed further in the next Section.
 \subsection{Source Classification}
 \label{sec:classification}
 For the majority of the detected sources, we have only a continuum detection at
-3 mm.  We visually inspect the spectra extracted from the full line cubes, and
-no lines are detected peaking toward the majority of the sources (most sources
+3 mm.    In this section, we employ a variety of arguments to classify the
+sample of new sources.  For the majority of the detected sources, we have no
+detections at other band to assist with the classification, so we discuss what
+types of objects they could be given their 3 mm continuum detections.
+Plausible emission mechanisms include free-free and thermal dust emission,
+so we explore whether the sources could be different classes free-free sources
+in subsections \ref{sec:alt1}, \ref{sec:alt2}, and \ref{sec:theyarehiiregions}.
+We conclude that they are primarily dusty sources in subsection
+\ref{sec:theyareprotostars}.
+
+We visually inspected the spectra extracted from the full line cubes, and no
+lines are detected peaking toward the majority of the sources (most sources
 have emission in some lines, but this emission is clearly extended and not
-associated with the compact source).  In this section, we employ various means
-to classify the sample of new sources.
+associated with the compact source).  Given the relatively poor line
+sensitivity (RMS \approx 6 K), the dearth of detections is not very surprising.
+We therefore cannot use spectral lines to classify most sources.
 
 A subset of the detected sources have detections at other bands and can be
 classified based on previous literature work, especially those associated with
 \hii regions detected at 0.7 and 1.3 cm
-\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,de-Pree2015a}, which includes \nhii
-sources.  We classified sources as \hii regions if there is a corresponding 0.7
+\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,de-Pree2015a}.  We classified
+sources as \hii regions if there is a corresponding 0.7
 or 1.3 cm source from one of the previous VLA surveys within one ALMA beam
-(0.5\arcsec).  The majority of these are unresolved, but we have included \hii
+(0.5\arcsec).  \nhii of our sources are classified as \hii regions.  The
+majority of these are unresolved, but we have included \hii
 regions with radii up to $\approx1\arcsec$ in our catalog.
 Optically thick \hii regions (like any blackbody) have a spectral index $\alpha=2$.
 Optically thin \hii regions have a nearly flat spectral index, $\alpha=-0.1$
@@ -411,7 +425,9 @@ Optically thin \hii regions have a nearly flat spectral index, $\alpha=-0.1$
 spectral indices consistent with the theoretical expectation for optically thin
 \hii regions in Figure \ref{fig:alphahist}.
 The existing VLA data do not cover the entire area of our observations, so
-we only have a lower limit on the number of \hii regions in our sample.
+we only have a lower limit on the number of \hii regions in our sample; the
+sources in Sgr B2 DS have not yet been observed in the radio at high
+resolution.
 
 % core_flux_distributions
 %\FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
@@ -430,16 +446,17 @@ highest bin.
 {fig:fluxhist}{1}{0.5\textwidth}
 
 We note some properties of dust at 3 mm.   At \dsgrb, a 1 mJy source
-corresponds to an optically thin dust mass of $M(40\mathrm{K})=18$ \msun or
+corresponds to an optically thin gas mass\footnote{We assume a gas-to-dust
+ratio of 100 throughout this work.} of $M(40\mathrm{K})=18$ \msun or
 $M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$
 ($\alpha=3.75$ on the Rayleigh-Jeans tail) to extrapolate the
 \citet{Ossenkopf1994a} opacity to $\kappa_{3mm}=0.0018$ cm$^2$ g$^{-1}$ (per
-gram of gas, assuming a dust to gas ratio of 100).  Our dust-only 5-$\sigma$
-sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5 mJy) to $M>94$
-\msun (2.5 mJy) across the map.  If we were to assume that these are all cold,
-dusty sources, as is typically (and reasonably) assumed for local clouds, they
-would be extremely massive and dense, with the lowest measurable density being
-$n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in an
+gram of gas).  Our dust-only (i.e., excluding free-free emission) 5-$\sigma$
+sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5 mJy) to
+$M>94$ \msun (2.5 mJy) across the map.  If we were to assume that these are all
+cold, dusty sources, as is typically (and reasonably) assumed for local clouds,
+they would be extremely massive and dense, with the lowest measurable density
+being $n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in an
 $r=0.2$\arcsec$=1700$ AU radius sphere).  Such extreme objects are possible,
 but since we have detected $>100$ of these sources, we evaluate other
 possibilities.
@@ -452,12 +469,14 @@ why these sources are most likely embedded protostars.
 
 
 \subsubsection{Alternative 1: The sources are externally ionized gas blobs}
-One possibility is that these sources are not dusty at all, nor pre- or
-protostellar, but are instead the brightest compact clumps surrounding diffuse
-\hii regions.  They would then be analogous to the heads of cometary clouds,
-externally ionized globules \citep[``EGGs"][]{Sahai2012a}, or proplyds, and
-their observed emission would give no clue to their nature because the light
-source is extrinsic.
+\label{sec:alt1}
+One possibility is that these sources are not dust-dominated, nor pre- or
+protostellar, but are instead externally ionized, mostly neutral gas clumps
+embedded within diffuse \hii regions.  They would then be analogous to the
+heads of cometary clouds, externally ionized globules
+\citep[``EGGs"][]{Sahai2012a}, or proplyds (externally ionized protoplanetary
+disks), and their observed emission would give little clue to their nature because
+the light source is extrinsic.
 
 The majority of the detected sources have size $<4000$ AU, i.e., they are
 unresolved.  By contrast, the free-floating EGGs (`frEGGs') so far observed have sizes
@@ -466,7 +485,7 @@ our observations.  Toward the brightest frEGG in Cygnus X, \citet{Sahai2012b}
 measured a peak intensity $S_{8.5 GHz} \approx 1.5$ mJy/beam in a
 $\approx3\arcsec$ beam.  Cygnus X is $6\times$ closer that the Galactic center,
 so their beam size is the same physical scale as ours.  If the free-free
-emission is thin, the brightness in our data would be $S_{95 GHz} =
+emission is thin ($\alpha=-0.1$), the brightness in our data would be $S_{95 GHz} =
 (95/8.5)^{-0.1} S_{8.5 GHz} = 0.79 S_{8.5 GHz} \approx 1.2$ mJy/beam.  These
 frEGGs would be detectable in our data.  Comparison to radio observations
 at a comparable resolution will be needed to rule out the externally ionized
@@ -575,6 +594,7 @@ cyan are \hii regions, magenta +'s are masers, and green X's are X-ray sources.
 
 \subsubsection{Alternative 2: The sources are \hii regions produced by
 interloper ionizing stars}
+\label{sec:alt2}
 If there is a large population of older (age 1-30 Myr) massive stars, they could
 ignite compact \hii regions when they fly through molecular material.  See
 \ref{sec:theyarehiiregions} for calculations of stationary \hii region

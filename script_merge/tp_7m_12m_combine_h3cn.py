@@ -1,6 +1,6 @@
 import numpy as np
-import FITS_tools
 from spectral_cube import SpectralCube
+from astropy.convolution import convolve, convolve_fft, Gaussian1DKernel
 from singledish_combine import spectral_regrid, feather_simple, fourier_combine_cubes
 from astropy import units as u
 from astropy import log
@@ -23,8 +23,9 @@ log.debug("Converted TP to K")
 # determine smooth factor
 kw = cube_k.spectral_axis.diff().mean() / tpcube_k.spectral_axis.diff().mean()
 log.debug("determined kernel")
-tbcube_k_smooth = FITS_tools.cube_regrid.spectral_smooth_cube(tpcube_k,
-                                                              kw.value/np.sqrt(8*np.log(2)))
+tbcube_k_smooth = tpcube_k.spectral_smooth(Gaussian1DKernel(kw/(8*np.log(2))**0.5))
+#tbcube_k_smooth = FITS_tools.cube_regrid.spectral_smooth_cube(tpcube_k,
+#                                                              kw.value/np.sqrt(8*np.log(2)))
 log.debug("completed cube smooth")
 
 tpcube_k_ds = tbcube_k_smooth[::2,:,:]
