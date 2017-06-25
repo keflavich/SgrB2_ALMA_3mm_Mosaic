@@ -307,15 +307,25 @@ The data combination is discussed in more detail in Appendix
 We selected compact continuum  sources by eye,
 scanning across images with different weighting schemes (different robust
 parameters).  An automated selection is not viable across the majority of the
-field because there are many extended \hii regions that dominate the overall
-map emission.  A future automated selection algorithm may work if images at
-comparable resolution at other frequencies become available; the \hii-region
-sources could then be excluded.  Additionally, however, there are substantial
-imaging artifacts produced by the extremely bright emission sources in Sgr B2 M
-($S_{3 mm,max} \approx 1.6$ Jy) and Sgr B2 N ($S_{3 mm,max} \approx 0.3$ Jy)
-that make automated source identification particularly challenging in the most
-source-dense regions.  All of these features are evident in Figures
-\ref{fig:continuumMandN} and \ref{fig:continuumDS}.
+observed field for several reasons:
+\begin{enumerate}
+    \item There are many extended \hii regions that dominate the overall map
+        emission.  These are clumpy and have local peaks that would dominate
+        the identified source population using most source-finding algorithms.
+    \item There are substantial imaging artifacts produced by the extremely
+        bright emission sources in Sgr B2 M ($S_{3 mm,max} \approx 1.6$ Jy) and
+        Sgr B2 N ($S_{3 mm,max} \approx 0.3$ Jy) that make automated source
+        identification particularly challenging in the most source-dense
+        regions.  These are `sidelobes' from the bright sources that cannot be
+        entirely removed.
+    \item Resolved-out emission has left multi-scale artifacts throughout the
+        images.  While these can be filtered out to a limited degree by
+        excluding large angular scales (short baselines), there remain
+        small-scale ripples, and the noise increases when baselines are
+        excluded.
+\end{enumerate}
+All of these features are evident in Figures \ref{fig:continuumMandN} and
+\ref{fig:continuumDS}. 
 
 Because the noise varies significantly across the map (it is higher near Sgr B2
 M), a uniform selection criterion is not possible.  We therefore include two
@@ -325,21 +335,23 @@ are somewhat lower signal-to-noise and are often in regions with higher
 background (labeled `conservative' and `optimistic', respectively, in Figure
 \ref{fig:fluxhist} and \ref{fig:alphahist}).  Both of these selection criteria
 are significantly more conservative than a local $5-\sigma$ threshold.
-
 We measure the local noise for each source by taking the median absolute
 deviation in an annulus 0.5 to 1.5\arcsec around the source center.
-%TODO: check
-All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
-sources are all in regions of particularly high background or source
-density and therefore have overestimated local noise.
 
-Our selection criteria result in a reliable but potentially incomplete catalog.
-The greatest concerns for our completeness are in the densest regions around
-Sgr B2 M and N.  In these regions, dynamic range limitations increase the
-background noise and make fainter sources difficult to detect, as described in
-Section \ref{sec:observations}.  Additionally, they both contain extended
-structures, including \hii regions and dust filaments, which likely obscure
-compact sources.
+% %TODO: check
+% All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
+% sources are all in regions of particularly high background or source
+% density and therefore have overestimated local noise.
+
+Our selection criteria result in a reliable but potentially incomplete catalog;
+because we did not employ an automated source identification algorithm, we
+cannot readily quantify our completeness.  The regions most likely
+to be incomplete near our noise threshold are Sgr B2 M and N.  In these
+regions, dynamic range limitations increase the background noise and make
+fainter sources difficult to detect, as described in Section
+\ref{sec:observations}.  Additionally, they both contain extended structures,
+including \hii regions and dust filaments, which likely obscure compact
+sources.
 
 
 Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
@@ -810,7 +822,8 @@ safe to conclude that most of our detected sources are MYSOs.
 % Bontemps+ 2010: 3.5mm flux of N63 ~ 36 mJy, -> 1 mJy @ Sgr B2
 
 \FigureOneCol{figures/Orion_SgrB2HII_side_by_side.png}
-{Comparison of two extended \hii regions in Sgr B2 to the M42 nebula in Orion.
+{Comparison of two extended \hii regions in Sgr B2 (ALMA 3 mm continuum) to the
+M42 \citep[GBT MUSTANG 3 mm continuum;][]{Dicker2009a} nebula in Orion.
 The three panels are shown on the same physical and color scale assuming
 $d_{Orion} = 415$ pc and $d_{Sgr B2} = $\dsgrb and that the ALMA and MUSTANG
 data have the same continuum bandpass.  Sgr B2 \hii T is comparable in
@@ -1201,12 +1214,15 @@ scenario.  For example, simulations of a cloud passing through Galactic
 pericenter (Kruijssen et al. in prep.; Dale et al. in prep.) show that some
 material is ejected during this passage that later collapses back onto the
 original cloud.  It is possible that any apparent colliding flows
-\citep[e.g.][]{Sato2000a} are a relic of this process.
+\citep[e.g.][]{Sato2000a} are a component of this process.
 
 \subsubsection{Expanding Shells}
 \label{sec:expandingshells}
-There is evidence of expanding shells in Sgr B2, but 
-these shells are not uniformly sites of star formation.
+There is some evidence of expanding shells (bubbles) in Sgr B2
+\citep{de-Vicente1997a,Martin-Pintado1999a}.
+
+but these shells are not uniformly
+sites of star formation.
 There are four shell examples we consider: Sgr B2 DS, Sgr B2 N/NE,
 Sgr B2 E, and Sgr B2 W.  Two of these (N/NE and DS) show signs
 of star formation, two (E and W) do not.
