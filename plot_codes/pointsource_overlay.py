@@ -269,6 +269,7 @@ for line in ("HC3N","HCN","HNC","HCOp"):
         markersize = 0.5
     #coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5,
     #                    markersize=markersize, alpha=0.5, zorder=50, )
+    fig3.savefig(paths.fpath("{0}_peak.png".format(line)), bbox_inches='tight')
     coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
                          alpha=0.5)
     fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')

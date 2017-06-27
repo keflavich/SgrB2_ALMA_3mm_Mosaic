@@ -13,11 +13,13 @@ extended star formation in a Central Molecular Zone cloud}
 \authorrunning{Ginsburg et al}
 \input{authors}
 \begin{abstract}
-We report ALMA observations at 3 mm  of the extended Sgr B2 cloud. We detected
-\ncores compact sources, the majority of which have extents smaller than 5000
-AU.  By ruling out alternative possibilities such as externally ionized
-globules, we conclude that these sources are predominantly protostars or
-centrally condensed prestellar cores.  The spatial distribution of these
+We report ALMA observations with resolution $\approx0.5$ \arcsec at 3 mm  of
+the extended Sgr B2 cloud. We detected \ncores compact sources, the majority of
+which have extents smaller than 5000 AU.  By ruling out alternative
+possibilities such as externally ionized
+globules, we conclude that these sources are predominantly high-mass
+($M\gtrsim$ \msun) protostars or centrally condensed prestellar cores.  The
+spatial distribution of these
 sources, which is spread over a $\sim12\times3$ pc region, demonstrates that
 Sgr B2 is experiencing a highly extended star
 formation event, not just an isolated `starburst' within the protocluster
@@ -54,16 +56,18 @@ figure, see \citet{Schmiedeke2016a} Figure 1.}
 {fig:overview}{1}{\textwidth}
 
 The Central Molecular Zone (CMZ) of our Galaxy appears to be overall deficient
-in star formation relative to the gas mass it contains \citep{Longmore2013a,
+in star formation relative to the gas mass it contains
+\citep{Beuther2012a,Immer2012a,Longmore2013a,
 Kauffmann2016a,Kauffmann2016b,Barnes2016c,Barnes2017b}.  This deficiency
 suggests that star formation laws, i.e., the empirical relations between
 the star formation rate and gas column density, are not universal.  The gas
 conditions in the Galactic center are different from those in nearby clouds,
-providing a powerful lever arm in a few
+providing a long lever arm in a few
 parameters \citep[e.g., pressure, temperature, velocity
 dispersion;
-][]{Kruijssen2013a,Ginsburg2016a,Immer2016a,Shetty2012a,Henshaw2016a} to assess
-the influence of environmental effects on star formation.
+][]{Kruijssen2013a,Ginsburg2016a,Immer2016a,Shetty2012a,Henshaw2016a} that
+facilitates measurements of the influence of environmental effects on star
+formation.
 
 
 The observations that have demonstrated the star formation deficiency compare
@@ -71,15 +75,19 @@ bulk tracers of star formation to $>0.1$ pc resolution gas observations
 \citep[e.g.][]{Barnes2017b}.  More recently, high-resolution observations
 of selected clouds in the CMZ have revealed very few star-forming cores
 even when examined at high resolution and sensitivity
-\citep{Rathborne2014a,Rathborne2015a,Kauffmann2016a,Kauffmann2016b}.  There are 
+\citep{Johnston2014a,Rathborne2014a,Rathborne2015a,Kauffmann2016a,Kauffmann2016b}.
+There are 
 few sites with obvious signs of ongoing star formation along the CMZ dust ridge.
 The Sgr B2
 N (North), M (Main), and S (South) protoclusters \citep[][Figure
 \ref{fig:overview}]{Schmiedeke2016a} are actively  forming star clusters
 and contain high-mass protostars and many compact \hii regions
 \citep[e.g.][]{Higuchi2015a,Gaume1995a}. 
-Besides Sgr B2, at a much lower level, the 20 \kms and 50 \kms clouds
-\citep{Lu2016a,2017a}, and Clouds C, D, and E \citep[][Walker et al, in
+Besides Sgr B2, a few regions are forming stars at a much lower level,
+including the 20 \kms and 50 \kms clouds \citep{Lu2015b,Lu2016a,2017a},
+Sgr C \citep{Kendrew2013a},
+and
+Clouds C, D, and E \citep[][Walker et al, in
 prep;]{Ginsburg2015b,Barnes2017b}.  These regions contain a handful of
 high-mass cores but only a small number of protostars and no ultra-
 or hyper-compact \hii regions.
@@ -90,18 +98,19 @@ clump.  We observed a $\sim15\times15$ pc section of the Sgr B2 cloud and
 identified star formation along the entire molecular dust ridge known as Sgr B2
 Deep South \citep[DS, also known as the `Southern
 Complex'][]{Jones2012a,Schmiedeke2016a}.  These observations allow us to
-perform the first
-star-counting based determination of the star formation rate within the dense
-molecular gas of the CMZ.
+perform one of the first star-counting based determinations of the star
+formation rate within the dense molecular gas of the CMZ.
 
 We adopt a distance to Sgr B2 $D_{\mathrm{Sgr B2}}=\dsgrb$, which is consistent
-with Sgr B2 being
-located in the CMZ dust ridge.  While \citet{Reid2009a} measure a closer
-distance of 7.9 kpc, we use a value closer to the IAU-recommended Galactic
-Center distance of 8.5 kpc, accounting for the distance difference of
-$\approx100$ pc measured by \citet{Reid2009a}.  Choosing the closer distance
-would result in masses and luminosities smaller by 12\%, which would not
-affect any of the conclusions of this paper.
+with Sgr B2 being located in the CMZ dust ridge.  While \citet{Reid2009a}
+measure a closer distance of $7.9\pm0.8$ kpc, we use a value closer to the
+IAU-recommended Galactic Center distance of 8.5 kpc, accounting for the
+distance difference of $\approx100$ pc measured by
+\citet{Reid2009a}\footnote{\citet{Reid2014a} also conclude that the distance to
+the Galactic center is 8.34 kpc, suggesting that the direct parallax
+measurement to Sgr B2 is underestimated.}.  Choosing the closer distance would
+result in masses and luminosities smaller by 12\%, which would not affect any
+of the conclusions of this paper.
 
 We describe the observations in Section \ref{sec:observations}. In this paper,
 we focus on the continuum sources, which we identify in Section
@@ -198,7 +207,7 @@ sources in some of the richer sub-regions.  The points are colored as in Figure
 \ref{fig:continuumMandN}.  The background image is the ALMA 3 mm continuum.}
 {fig:MandNzooms}{1}{\textwidth}
 
-We also produced cubes of all of the spectral lines.  These were lightly
+We also produced full spectral data cubes.  These were lightly
 cleaned with a maximum of 2000 iterations of cleaning to a threshold of 100
 mJy/beam.  The noise is typically $\approx9$ mJy \perbeam (6 K) per 0.8 \kms
 channel in the robust 0.5 cubes.
@@ -208,8 +217,10 @@ computationally expensive to process.
 Before continuum subtraction, dynamic range related artifacts similar to those
 in the continuum images were present, but these structures are identical across
 frequencies, and were therefore removable in the image domain.  We use
-median-subtracted cubes for the majority of our analysis, noting that the only
-location in which an error $>5\%$ on the median-estimated continuum is expected
+median-subtracted cubes (i.e., spectral cubes with the median along each spectrum
+treated as continuum and subtracted) for our analysis of the lines, noting that
+the only location in which an error $>5\%$ on the median-estimated continuum is
+expected
 is the Sgr B2 North core \citep[][Sanchez-Monge et al. 2017,
 submitted]{Sanchez-Monge2017a}.
 While many lines were included in the spectral setup, only \cyanoacetylene
@@ -242,8 +253,9 @@ available via dataverse or some other service prior to submission.}
 
 \subsection{Other data - Column Density Maps}
 \label{sec:colmaps}
-We use archival data to create column density maps.   To determine the column
-density and dust temperature on large angular scales, we use Herschel Hi-Gal
+We use archival data to create column density maps at a coarser
+resolution than the ALMA data, since the ALMA data are not sensitive
+enough to make direct colum density measurements.   We use Herschel Hi-Gal
 data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby et al,
 in prep).  These fits were performed at 25\arcsec resolution, using the 70, 160,
 250, and 350 \um data and excluding the 500 \um channel.  The estimated 
@@ -462,7 +474,8 @@ corresponds to an optically thin gas mass\footnote{We assume a gas-to-dust
 ratio of 100 throughout this work.} of $M(40\mathrm{K})=18$ \msun or
 $M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$
 ($\alpha=3.75$ on the Rayleigh-Jeans tail) to extrapolate the
-\citet{Ossenkopf1994a} opacity to $\kappa_{3mm}=0.0018$ cm$^2$ g$^{-1}$ (per
+\citet[][MRN with thin ice mantles anchored at 1mm]{Ossenkopf1994a} opacity to
+$\kappa_{3.1 \mathrm{mm}}=0.0018$ cm$^2$ g$^{-1}$ (per
 gram of gas).  Our dust-only (i.e., excluding free-free emission) 5-$\sigma$
 sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5 mJy) to
 $M>94$ \msun (2.5 mJy) across the map.  If we were to assume that these are all
@@ -522,7 +535,7 @@ be contaminated by the nearby \hii region.}
 If the detected sources were either EGGs or cometary clouds, we would expect
 them to be located within diffuse \hii regions.  Many of the sources are near \hii
 regions, as seen in Figure \ref{fig:coreson20cmandhc3n}a.  However, they are
-nearly all associated with a ridge of \cyanoacetylene emission (Figure
+nearly all associated with a ridge of molecular (\cyanoacetylene) emission (Figure
 \ref{fig:coreson20cmandhc3n}b).  If they are deeply embedded within the
 molecular material, they cannot be externally ionized.  
 %The current data do not provide enough information on the
@@ -622,12 +635,14 @@ stars responsible for the 3 mm compact source population, if we assume the
 spatial distribution of the stars is uniform, the distribution of \hii regions
 surrounding them should match that of the gas (since we are assuming the gas and
 stars are moving independently).  Also, there is no such population of sources
-seen outside of the dense gas in the infrared \citep[TODO: Who has done
-infrared studies of Sgr B2?  You can infer what I have stated `by inspection'
-of 2MASS, but it would be more straightforward to quote someone else][]{},
-which again we should expect if there is a uniformly distributed population.
-Finally, the spectral indices discussed above (Figure \ref{fig:alphahist})
-suggest the previously-unidentified sources are dust emission sources, not
+seen outside of the dense gas in the infrared,
+%\citep[TODO: Who has done
+%infrared studies of Sgr B2?  You can infer what I have stated `by inspection'
+%of 2MASS, but it would be more straightforward to quote someone else][]{},
+which again we should expect if there is a uniformly distributed stellar
+population.  Finally, the spectral indices discussed above (Figure
+\ref{fig:alphahist}) suggest the previously-unidentified sources are dust
+emission sources, not
 free-free sources.
 
 
@@ -732,18 +747,39 @@ After ruling out the other possibilities, we test and validate the hypothesis
 that most or all of the sources are protostellar in this section.
 
 
+\emph{General calculations:}
 As noted at the top of this section, a cold `prestellar core' at our detection
-limit would have $M(20\mathrm{K})\approx20$ \msun.  At these high densities
-($n\gtrapprox10^8$ \percc), it is unlikely any such cores are unbound.  If we
-assume higher dust temperatures, the inferred gas mass is lower, but an
-internal heating source - i.e., a protostar - is required.  The high density
-required for our sources results in a very short free-fall timescale,
-$t_{ff}\lessapprox6000$ yr, which suggests that the cores are unlikely to be
-prestellar cores and instead, even if their emission is dust-dominated, they
-contain protostars.  Their emission is likely dust-dominated, but is probably
-warmer than the cloud average $\sim20-40$ K \citep[e.g.,]{Ginsburg2016a}.  
+limit would have $M(20\mathrm{K})\approx20$ \msun ($M(40\mathrm{K})\approx10$
+\msun).  At these high densities ($n(20 \mathrm{K})\gtrapprox10^8$ \percc), it
+is unlikely any
+such cores are unbound.  The high density required for our sources results in a very short
+free-fall timescale, $t_{ff}\lessapprox6000$ yr, which suggests that the cores
+are unlikely to be prestellar cores and instead, even if their emission is
+dust-dominated, they contain protostars.  Their emission is likely
+dust-dominated, but is probably warmer than the cloud average $T_D\sim20-40$ K.  
+
+If we assume higher dust temperatures, the inferred gas mass is lower, but an
+internal heating source - i.e., a protostar - is required.  For example,
+if we assume $T_D=80$ K\footnote{At these dust temperatures,
+we should be concerned about the assumed opacity, since ices
+will begin to evaporate  \citep[e.g.,][]{Bergin1995a}, reducing the 3 mm
+opacity and correspondingly increasing the required mass
+\citep{Ossenkopf1994a}.  }, our detection limit is only $M(80\mathrm{K}) = 4
+\msun$.  Heating that much dust to 80 K most likely requires a high-luminosity
+central heating source.
+
+To constrain the required heating source, we examine the protostellar model grid
+of \citet{Robitaille2017a}.  The models that produce $S_{3 \mathrm{mm}} > 0.5$
+mJy within a 5000 AU aperture uniformly have $L>10^4$ \lsun.  Such luminosities
+imply either that an intermediate-mass star has already formed and is still
+surrounded by a massive envelope, or a high-mass YSO is present and accreting.
+The models of \citet{Zhang2015f}, for example, generally only exhibit $L>10^4$
+\lsun once a star has reached $M\approx10$ \msun as it continues to accrete to
+a high mass.
 
 
+
+\emph{Catalog cross-matching:}
 We cross-matched our source catalog with catalogs of \hii regions, X-ray
 sources, and methanol masers.  Associations with these types of sources can be
 used to classify the sources.
@@ -771,16 +807,18 @@ sources.  \nxraymatch of the sources have X-ray counterparts in the
 associated sources most likely either contain protostars or young stars.
 
 
+\emph{Comparison to similar data:}
 We compare our detected sample to that of the Herschel Orion Protostar Survey
 \citep[HOPS;][]{Furlan2016a} in order to get a general sense of what types of
 sources we have detected.  We selected this survey for comparison because it is
 one of the largest protostellar core samples with well-characterized bolometric
 luminosities available.
 Figure \ref{fig:hopshist} shows the HOPS source
-flux densities at 870\um (from LABOCA on the APEX telescope) scaled to 3 mm
-assuming a dust opacity index $\beta=1.5$,
+flux densities at 870\um (from LABOCA on the APEX telescope) scaled to
+$d=d_{Sgr B2}$ and 3 mm assuming a dust opacity index $\beta=1.5$,
 which is shallower than usually inferred, so the extrapolated
-fluxes may be slightly overestimated\footnote{We err on the shallower side,
+fluxes may be slightly overestimated\footnote{\label{footnote:beta}
+We err on the shallower side,
 implying that the extrapolated 3 mm fluxes are brighter, since this approach
 gives a more conservative view of the detectability of the Orion sources.
 In reality, such sources are likely even fainter than predicted here.}.  The
@@ -789,7 +827,7 @@ were acquired with a $\sim20\arcsec$ FWHM beam, which translates to a
 resolution $\sim1\arcsec$ at $d_{Sgr B2} = $\dsgrb assuming $d_{Orion}=415$ pc,
 so our beam size is somewhat smaller than theirs.  The HOPS sources are all
 fainter than the Sgr B2 sources.  The brightest HOPS source, with
-$L_{tot}<2000$ \lsun, would only be 0.2 mJy in Sgr B2, or about a 4-$\sigma$
+$L_{tot}<2000$ \lsun, would only be 0.2 mJy in Sgr B2, or about a 2-$\sigma$
 source - below our detection threshold even in the noise-free regions of the
 map.  We  conclude that the Sgr B2 sources are much more luminous and are
 therefore massive protostars.
@@ -797,10 +835,12 @@ therefore massive protostars.
 % HOPS_core_plots
 \FigureOneCol{figures/core_peak_intensity_histogram_withHOPS.png}
 {A histogram combining the detected Sgr B2 cores with predicted flux densities
+for sources at $d=\dsgr$ and $\lambda=3$ mm
 based on the HOPS \citep{Furlan2016a} survey.  The sources are labeled by their
 infrared (2-20 \um) spectral index: Class 0 and I have positive spectral index
 and flat spectrum sources have $-0.3 < \alpha_{IR} < 0.3$. The HOPS histogram
-shows the 870 \um data from that survey scaled to 3 mm assuming $\beta=1.5$.
+shows the 870 \um data from that survey scaled to 3 mm
+assuming $\beta=1.5$ (see footnote \ref{footnote:beta}).
 Every HOPS source is well below the detection threshold for our observations.}
 {fig:hopshist}{1}{0.5\textwidth}
 
@@ -809,12 +849,19 @@ as observed at 3 mm with MUSTANG \citep[][Figure
 \ref{fig:orioncompare}]{Dicker2009a}.  Their data were taken at
 9\arcsec FWHM resolution, corresponding to 0.48\arcsec at $d_{Sgr B2}$.  The
 peak flux density measured in that map is toward Source I, $S_{90 GHz}(d_{Sgr
-B2}) = 3.6$ mJy.  Source I would therefore  be detected and would be
+B2}) = 3.6$ mJy.  Source I\footnote{This source includes Source I, BN, and a few
+other objects at this resolution, and at 3 mm Source I and BN are comparably
+bright \citep{Plambeck2013a}.}
+would therefore  be detected and would be
 somewhere in the middle of our sample.  It is  extended, and the
-extended component would be readily detected in our data. 
-Since Source I is the only known high-mass YSO in the Orion cloud, and it would
-be detectable while no other sources in the Orion cloud would be, it appears
-safe to conclude that most of our detected sources are MYSOs.
+extended component would be readily detected (and resolved) in our data. 
+Source I is the only known high-mass YSO in the Orion cloud, and it would
+be detectable in our survey while no other compact sources in the Orion cloud
+would be.  This comparison supports the interpretation that most of the
+non-\hii region sources are massive protostars.
+%it appears
+%safe to conclude that most of the detected sources that are not \hii regions
+%are MYSOs.
 %The M42 nebula would
 %also be readily detectable, and is very similar in size and surface brightness
 %to the \hii region Sgr B2 \hii T.
@@ -861,57 +908,79 @@ implied total stellar masses.
 % likely that the more massive stars are surrounded by warmer gas, implying that
 % the source mass distribution is steeper than the source flux distribution.
 
-If we make the very simplistic assumptions that the sources we detect all
-contain protostars with $L_{bol}\gtrsim2000$ \lsun ($M\gtrsim8 \msun$), we
-can infer the total (proto)stellar mass in the observed region.  We assume the
+If we make the very simplistic, but justified (Section
+\ref{sec:theyareprotostars}), assumption that the sources we
+detect all contain protostars with $L_{bol}\gtrsim10^4$ \lsun, and in turn make
+a less well-justified but still plausible assumption that each source either
+currently contains or will form into an $M\gtrsim8 \msun$ star, we can infer
+the total (proto)stellar mass in the observed region.  Since we are assuming
+each star is at least a certain minimum mass, the values we derive here are
+most likely to be upper limits.
+
+We assume the
 stellar masses based on the arguments in Section \ref{sec:theyareprotostars}:
 in order to be detected, the sources must either be active OB stars
-illuminating \hii regions or cores, or they must be very compact cores with
-$M>10$ \msun of warm dust within $R<4000$ AU.  Note that the mass estimates in
-this section are for the \emph{stars}, not their envelopes.
+illuminating \hii regions or cores, they must be very compact cores with
+$M>10$ \msun of warm dust within $R<4000$ AU, or they must be
+at least moderately-massive protostars within warm envelopes.  Note that the
+mass estimates in this section are for the resulting stars, not their
+envelopes.
 
-Using a \citet{Kroupa2001a} mass function with $M_{max}=200$ \msun, 23\% of the
-mass is contained in $M>8\msun$ stars.  Using the lower-limit mass
-of $M=8\msun$ as the mass of each of our \ncores identified sources, we
-obtain a total mass $M(>8)=2100$ \msun.  The total stellar mass implied is
-$M_{tot} = 9\ee{3}$ \msun.  If instead we assume each source has a mass equal
-to the mean stellar mass over the IMF for $M>8$ \msun, $\bar{M}=21.1$ \msun,
-then the total inferred stellar mass is $M_{tot}=2.5\ee{4}$ \msun.  These are
-lower limits in the Sgr B2 N and M regions because our catalog is incomplete
-due to confusion and dynamic range limitations.  Additionally, we are using a
-single-star IMF and our resolution is only $\sim4000$ AU, so it is likely that
-we have undercounted by $\gtrsim2\times$, since high-mass stars have a high
-multiplicity fraction \citep{Mason2009a}.
+%Using a \citet{Kroupa2001a} mass function with $M_{max}=200$ \msun, 23\% of the
+%mass is contained in $M>8\msun$ stars.  Using the lower-limit mass
+%of $M=8\msun$ as the mass of each of our \ncores identified sources, we
+%obtain a total mass $M(>8)=2100$ \msun.  The total stellar mass implied is
+%$M_{tot} = 9\ee{3}$ \msun.  If instead we assume each source has a mass equal
+%to the mean stellar mass over the IMF for $M>8$ \msun, $\bar{M}=21.1$ \msun,
+%then the total inferred stellar mass is $M_{tot}=2.5\ee{4}$ \msun. 
+
+%These are
+%lower limits in the Sgr B2 N and M regions because our catalog is incomplete
+%due to confusion and dynamic range limitations.  Additionally, we are using a
+%single-star IMF and our resolution is only $\sim4000$ AU, so it is likely that
+%we have undercounted by $\gtrsim2\times$, since high-mass stars have a high
+%multiplicity fraction \citep{Mason2009a}.
 
 % COMPARE TO SCHMIEDEKE
 
 For each subcluster identified in \citet[][see Figure
 \ref{fig:overview}]{Schmiedeke2016a}, we count the number of \hii regions
-identified in our
-survey plus those identified in previous works \citep{de-Pree1996a}, and
-we count the number of protostellar cores not associated with \hii regions.
-To estimate the stellar mass, we assume each core contains a star
-with $\bar{M}(8-20) = 12$ \msun and each \hii region contains a $\geq$B0 star
-with $\bar{M}(>20) = 45$ \msun.  In Table \ref{tab:clustermassestimates},
-this estimate is shown as $M_{count}$.  We also compute the total stellar
-mass using the mass fractions $f(M>20) = 0.14$ and $f(8<M<20)=0.09$.
-The inferred masses computed from \hii region counts and from core
-counts are shown in columns $M_{inferred,\hii}$ and $M_{inferred,cores}$
-respectively; $M_{inferred}$ is the average of these two estimates.
-If our assumptions are correct and the mass distribution is governed
-by a power-law IMF, we expect $M_{inferred,\hii} = M_{inferred,cores}$.
-Except for Sgr B2 M, the core-based and \hii-region based estimates agree
-to within $\sim25\%$, which is about as good as expected from Poisson
-noise in the counting statistics.  
+identified in our survey plus those identified in previous works
+\citep{Gaume1995a,de-Pree1996a}, and we count the number of protostellar cores
+not associated with \hii regions.  
 
-Sgr B2 M has the largest sample in both counts and has a factor of nine
+We assume each source not associated with an \hii region has a mass equal to
+the average over the range 8-20 \msun assuming a \citet{Kroupa2001a} initial
+mass function, $\bar{M}(8-20) = 12$ \msun.  Based on the arguments in Section
+\ref{sec:theyarehiiregions}, we assume each \hii region contains a star that is
+B0 or earlier, and therefore that they have each have a mass equal to the
+average for a massive star, $\bar{M}(>20) = 45$.  In Table
+\ref{tab:clustermassestimates}, the total counted mass estimate is shown as
+$M_{count} = N \bar{M}$.
+
+We also compute the \emph{total} stellar mass using the mass fractions $f(M>20)
+= 0.14$ and $f(8<M<20)=0.09$, i.e., $M_{tot} = M_{count}(M>20) / f(M>20) =
+M_{count}(8<M<20) / f(8<M<20)$.  The inferred masses computed from \hii region
+counts and from core counts are shown in columns $M_{inferred,\hii}$ and
+$M_{inferred,cores}$ respectively. $M_{inferred}$ is the average of these two
+estimates; it is also what would be obtained if all stars were assumed to be
+average stars with $M>8$ \msun (and no upper limit).  If our assumptions are
+correct and the mass distribution is governed by a power-law IMF, we expect
+$M_{inferred,\hii} = M_{inferred,cores}$.  Except for Sgr B2 M, the core-based
+and \hii-region based estimates agree to within $\sim25\%$, which is about as
+good as expected from Poisson noise in the counting statistics.  
+
+Sgr B2 M contains the largest source sample, and it has a factor of nine
 discrepancy. The discrepancy may arise from the combined effects of source
 confusion at our 0.5\arcsec resolution and the increased noise around the
 extremely bright central region that makes detection of $<2$ mJy sources
 difficult.  The majority of pixels within the cluster region have significant
 detections at 3 mm, but we do not presently have the capability to distinguish
 between extended dust emission, free-free emission, or a confusion-limited
-point source population.
+point source population.  While it is possible that this discrepancy
+is driven by observational limitations, we also explore in Section
+\ref{sec:clustersandextended} the possibility that it is a real physical
+effect.
 
 We compare our mass estimates to those of \citet{Schmiedeke2016a}, who inferred
 stellar masses primarily from \hii region counts.  The last two columns of Table
@@ -927,15 +996,16 @@ invariant IMF.
 % stellar_mass_estimates.py
 \input{cluster_mass_estimates.tex}
 
+Finally, we estimate the star formation rate using the above mass estimates.
 To determine the star formation rate, we need to know the age of the current
-star forming burst.  We can use the dynamical model of \citet{Kruijssen2015a}
-to get an age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a}.  To infer
+star forming burst.  We use the dynamical model of \citet{Kruijssen2015a} to
+get an age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a}.  To infer
 the star formation rate, we divide the observed mass by this age; the results
-are shown in
-Table \ref{tab:clustermassestimates}.  This rate assumes that star formation was
-initiated at the cloud's most recent pericenter passage.  The total inferred
-SFR of the Sgr B2 cloud is 0.036 \msun \peryr, between one quarter and one
-half of the total for the CMZ \citep{Longmore2013a,Barnes2017b}.
+are shown in Table \ref{tab:clustermassestimates}.  This rate assumes that star
+formation was initiated at the cloud's most recent pericenter passage.  Our
+estimated total inferred SFR of the Sgr B2 cloud is 0.036 \msun \peryr, between
+one quarter and one half of the total for the CMZ
+\citep{Longmore2013a,Barnes2017b}.
 
 
 % While we identified \ncores sources from the continuum data, since we have only
