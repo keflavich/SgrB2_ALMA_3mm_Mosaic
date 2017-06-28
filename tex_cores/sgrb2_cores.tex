@@ -141,32 +141,43 @@ Figure \ref{fig:MandNzooms}.
 \subsection{ALMA data}
 Data were acquired as part of ALMA project 2013.1.00269.S (see Table
 \ref{tab:observations}).  Observations were taken in ALMA Band 3 with the 12m
-Total Power array (not included in this work), the ALMA 7m array, and in two
+Total Power array, the ALMA 7m array, and in two
 configurations with the ALMA 12m array.  The setup included the maximum allowed
 number of channels, 30720, across 4 spectral windows in a single polarization;
 the single-polarization mode was adopted to support moderate spectral
 resolution ($\sim0.8$ \kms, 244 kHz channels) across the broad bandwidth.  The
 basebands were centered at 89.48, 91.28, 101.37, and 103.23 GHz with bandwidth
-1.875 GHz (total
-7.5 GHz).
+1.875 GHz (total 7.5 GHz).  The off position used to calibrate the system
+temperature for the Total Power (TP) observations was at J2000 17:52:06.461
+-28:30:32.095.
 
 
 \begin{table*}[htp]
 \centering
 \caption{Observation Summary}
-\begin{tabular}{llll}
+\begin{tabular}{lllll}
 \label{tab:observations}
-Date & Array & Total Observing Time &  Longest Baseline Length \\
-     &       & seconds              & meters \\
+Date & Array & Observation Duration &  Longest Baseline Length  & \# of antennae\\
+     &       & seconds              & meters                    & \\
 \hline
-01-Jul-2014 & 7m & 4045 & 49\\
-02-Jul-2014 & 7m & 4043 & 49\\
-03-Jul-2014 & 7m & 7345 & 48\\
-06-Dec-2014 & 12m & 6849 & 349\\
-01-Apr-2015 & 12m & 3464 & 328\\
-02-Apr-2015 & 12m & 3517 & 328\\
-01-Jul-2015 & 12m & 3517 & 1574\\
-02-Jul-2015 & 12m & 10598 & 1574\\
+01-Jul-2014 & 7m & 4045 & 49 & 10\\
+02-Jul-2014 & 7m & 4043 & 49 & 10\\
+03-Jul-2014 & 7m & 7345 & 48 & 8\\
+06-Dec-2014 & 12m & 6849 & 349 & 34\\
+01-Apr-2015 & 12m & 3464 & 328 & 28\\
+02-Apr-2015 & 12m & 3517 & 328 & 39\\
+01-Jul-2015 & 12m & 3517 & 1574 & 43\\
+02-Jul-2015 & 12m & 10598 & 1574 & 42\\
+
+\hline
+
+25-Jan-2015 & 12m TP & 6924 & 89 & 3\\
+01-Apr-2015 & 12m TP & 1986 & 67 & 2\\
+11-Apr-2015 & 12m TP & 6920 & 89 & 3\\
+12-Apr-2015 & 12m TP & 10441 & 89 & 3\\
+25-Apr-2015 & 12m TP & 13928 & 89 & 3\\
+26-Apr-2015 & 12m TP & 22562 & 186 & 3\\
+18-May-2015 & 12m TP & 8342 & 89 & 3\\
 \hline
 \end{tabular}
 \end{table*}
@@ -1275,9 +1286,11 @@ in our line or continuum data, though that is largely because all possible
 evidence for such flows is highly ambiguous. For example, \citet{Haworth2015c}
 show some of the best cases for cloud-cloud collision using the `extended bridge'
 in position-velocity between two colliding clouds, but these signatures can be 
-completely hidden when multiple clouds exist along a line of sight, as in Sgr B2. 
-We cannot rule out cloud-cloud collision, but neither can we provide evidence
-to support it.
+completely hidden when multiple clouds exist along a line of sight or when
+the clouds' intrinsic line widths are of the same magnitude as their impact velocity,
+as in Sgr B2.  We cannot strictly rule out cloud-cloud collision, but neither
+can we provide evidence to support it; the kinematic features in our data are
+compatible with multiple interpretations.
 
 Most of the notable kinematic features evident in the dense gas images can be
 attributed to expanding \hii regions or otherwise feedback-driven flows (see

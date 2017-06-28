@@ -17,8 +17,11 @@ pl.style.use('classic')
 annotation_fontsize = 10
 
 
-for hc3nfn, suffix in ((paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather.fits'), ''),
-                       (paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather_r05.fits'), 'r05')):
+for hc3nfn, suffix, (mn,mx) in (
+    (paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HC3N.image.pbcor_medsub.fits'), '_noTP', (-0.5,20)),
+    (paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather.fits'), '', (-2,200)),
+    (paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather_r05.fits'), 'r05', (-10,400))
+):
 
     sourcename = 'SgrB2'
     species = 'HC3N'
@@ -62,9 +65,9 @@ for hc3nfn, suffix in ((paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather.fits'), 
               for v0,v1 in slabs
              ]
     # Determine the maximum value to display
-    mx = np.max([np.nanmax(x).value for x in layers])
-    mn = -1
-    mn = np.max([mn, np.min([np.nanmin(x).value for x in layers])])
+    #mx = np.max([np.nanmax(x).value for x in layers])
+    #mn = -1
+    #mn = np.max([mn, np.min([np.nanmin(x).value for x in layers])])
 
 
     for ii,(v1,v2) in enumerate(slabs):

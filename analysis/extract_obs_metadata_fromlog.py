@@ -57,7 +57,7 @@ def get_total_time(fn):
         time = timeline.split()[-2]
     return time
 
-def get_metadata_line(fn):
+def get_metadata_line(fn, DEBUG=False):
     ants,size = get_ant_pos(fn)
     start_date, end_date = get_date(fn)
     baselines = ants_to_baselines(ants)
@@ -67,29 +67,38 @@ def get_metadata_line(fn):
     if start_date != end_date:
         return None
     
-    line = "{0} & {1} & {2} & {3}\\\\".format(start_date, size, int(round(float(integrationtime))), int(round(longestbl)))
-    print(line)
-    return line, (start_date, size, integrationtime, longestbl)
+    line = "{0} & {1}m & {2} & {3} & {4}\\\\".format(start_date, int(round(float(size))),
+                                                     int(round(float(integrationtime))),
+                                                     int(round(longestbl)),
+                                                     len(ants))
+    if DEBUG:
+        print(line)
+    return line, (start_date, size, integrationtime, longestbl, len(ants))
 
-def make_meta_tables():
-    listobspath = os.path.join(paths.root, 'listobs')
-    listfiles = glob.glob(os.path.join(listobspath, '*.listobs'))
+def make_meta_tables(listobspath=os.path.join(paths.root, 'listobs'), DEBUG=False):
+    listfiles=glob.glob(os.path.join(listobspath, '*.listobs'))
 
-    lines = [get_metadata_line(fn) for fn in listfiles]
+    lines = [get_metadata_line(fn, DEBUG=DEBUG) for fn in listfiles]
     lines = [l for l in lines if l is not None]
     print()
     print()
 
     dct = {}
     dct1 = {}
-    for prtline,(date, size, integrationtime, longestbl) in lines:
+    for prtline,(date, size, integrationtime, longestbl, nants) in lines:
         if date in dct:
-            print("old integration time for {0} = {1}".format(date, integrationtime))
-            print("will add {0}".format(dct1[date][2]))
-            print("new sum is {0}".format(float(dct1[date][2])+float(integrationtime)))
+            if DEBUG:
+                print("old integration time for {0} = {1}".format(date, integrationtime))
+                print("will add {0}".format(dct1[date][2]))
+                print("new sum is {0}".format(float(dct1[date][2])+float(integrationtime)))
             integrationtime = float(dct1[date][2]) + float(integrationtime)
-            print("new integration time for {0} = {1}".format(date, integrationtime))
-            dct[date] = "{0} & {1} & {2} & {3}\\\\".format(date, size, int(round(float(integrationtime))), int(round(longestbl)))
+            if DEBUG:
+                print("new integration time for {0} = {1}".format(date, integrationtime))
+            dct[date] = "{0} & {1}m & {2} & {3} & {4}\\\\".format(date,
+                                                                  int(round(float(size))),
+                                                                  int(round(float(integrationtime))),
+                                                                  int(round(longestbl)),
+                                                                  nants)
             dct1[date] = [date,size,integrationtime,longestbl]
         else:
             dct[date] = prtline
@@ -100,3 +109,10 @@ def make_meta_tables():
         print(v)
 
     return lines
+
+if __name__ == "__main__":
+    table_12m = make_meta_tables()
+
+    tp_listobs_path = '/Volumes/passport/alma/sgrb2_b3/tp/2013.1.00269.S/science_goal.uid___A001_X121_X4b6/group.uid___A001_X121_X4b7/member.uid___A001_X147_X92/qa'
+    
+    table_tp = make_meta_tables(tp_listobs_path)
