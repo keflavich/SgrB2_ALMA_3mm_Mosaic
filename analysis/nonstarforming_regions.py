@@ -65,9 +65,10 @@ H2,L2,P2 = pl.hist(colfile.data[mask], bins=bins, log=True,
                    histtype='step')
 
 H3,L3,P3 = pl.hist(colfile.data[observed_mask & ~mask], bins=bins, log=True,
-                   alpha=0.8, color='r',
-                   zorder=5,
-                   linestyle='--',
+                   alpha=0.5, color='r',
+                   zorder=-5,
+                   linewidth=3,
+                   linestyle='-',
                    #normed=True,
                    histtype='step')
 pl.xscale('log')

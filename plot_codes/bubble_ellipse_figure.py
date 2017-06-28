@@ -41,17 +41,30 @@ line = 'HC3N'
 mylims_fk5 = ((266.8854477, -28.44946601), (266.7838311, -28.33589021))
 
 bubbles = regions.read_ds9(paths.rpath('bubble_ellipses.reg'))
+mpbubbles = regions.read_ds9(paths.rpath('martinpintado1999ellipses.reg'))
 
 
 hdu_line_r05 = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_max_medsub.fits'.format(line)))[0]
 hdu_line_lores = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_medsub_max.fits'.format(line)))[0]
+hdu_line_tp = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M_TP.{0}.image.pbcor_max.fits'.format(line)))[0]
+hdu_line_tp_05 = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M_TP_r05.{0}.image.pbcor_max.fits'.format(line)))[0]
 
 for hdu_line, suffix, (vmin,vmax) in [
+        (hdu_line_tp, 'tp', (-0.5, 30)),
+        (hdu_line_tp_05, 'tp05', (-0.5, 75)),
         (hdu_line_r05, 'r05', (-0.1,150)),
-        (hdu_line_lores, 'lores', (-0.5, 750))]:
+        (hdu_line_lores, 'lores', (-0.5, 750)),
+]:
 
     mywcs = wcs.WCS(hdu_line.header).celestial
     wcsaxes = mywcs # WCSaxes(mywcs.to_header())
+
+    if hdu_line.header['BUNIT'] == 'Jy':
+        cblabel = "$S_{{{0}}}$ [mJy beam$^{{-1}}$]".format(linenames[line])
+        scalefactor = 1e3
+    elif hdu_line.header['BUNIT'] == 'K':
+        scalefactor = 1
+        cblabel = "$T_{{B,max}}({{{0}}})$ [K]".format(linenames[line])
 
     fig3 = pl.figure(3)
     fig3.clf()
@@ -67,7 +80,7 @@ for hdu_line, suffix, (vmin,vmax) in [
     dec.ticklabels.set_fontsize(tick_fontsize)
     dec.set_ticks(exclude_overlapping=True)
 
-    im = ax.imshow(hdu_line.data.squeeze()*1e3,
+    im = ax.imshow(hdu_line.data.squeeze()*scalefactor,
                    transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
                    vmin=vmin, vmax=vmax, cmap=pl.cm.gray_r,
                    origin='lower', norm=asinh_norm.AsinhNorm())
@@ -82,7 +95,7 @@ for hdu_line, suffix, (vmin,vmax) in [
     cax = fig3.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
                         ax.bbox._bbox.y1-ax.bbox._bbox.y0])
     cb = fig3.colorbar(mappable=im, cax=cax)
-    cb.set_label("$S_{{{0}}}$ [mJy beam$^{{-1}}$]".format(linenames[line]))
+    cb.set_label(cblabel)
 
     scalebarpos = coordinates.SkyCoord("17:47:13", "-28:26:15.0",
                                        unit=(u.h, u.deg), frame='fk5')
@@ -94,10 +107,27 @@ for hdu_line, suffix, (vmin,vmax) in [
                        text_offset=1.0*u.arcsec,
                       )
 
-    for b in bubbles:
-        ell = b.to_pixel(mywcs).as_patch()
+    fig3.savefig(paths.fpath("{0}_peak{1}.png".format(line, suffix)), bbox_inches='tight')
+
+    bubble_ellipses = []
+    for bb in bubbles:
+        ell = bb.to_pixel(mywcs).as_patch()
         ell.set_facecolor('none')
         ell.set_edgecolor('r')
         ax.add_artist(ell)
+        bubble_ellipses.append(ell)
 
     fig3.savefig(paths.fpath("bubbles_on_{0}_peak{1}.png".format(line, suffix)), bbox_inches='tight')
+
+    for bb in bubble_ellipses:
+        bb.set_visible(False)
+
+    mpbubble_ellipses = []
+    for bb in mpbubbles:
+        ell = bb.to_pixel(mywcs).as_patch()
+        ell.set_facecolor('none')
+        ell.set_edgecolor('r')
+        ax.add_artist(ell)
+        mpbubble_ellipses.append(ell)
+
+    fig3.savefig(paths.fpath("martinpintado_bubbles_on_{0}_peak{1}.png".format(line, suffix)), bbox_inches='tight')
