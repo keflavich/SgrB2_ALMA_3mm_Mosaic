@@ -51,7 +51,7 @@ hs,l,p = ax1.hist([core_phot_tbl['peak'][highconf & ~hii],
                   label=['Sgr B2 optimistic',
                          'Sgr B2 conservative',
                          'Sgr B2 HII'],
-                  color=['#d62728','#2ca02c','#17bcef'],
+                  color=['#d62728','orange','#17bcef'],
                   edgecolor='none',
                   rwidth=1,
                   stacked=True,
@@ -120,7 +120,7 @@ hs,l,p = ax2.hist([sn[highconf & ~hii],
                   label=['Sgr B2 optimistic',
                          'Sgr B2 conservative',
                          'Sgr B2 HII'],
-                  color=['#d62728','#2ca02c','#17bcef'],
+                  color=['#d62728','orange','#17bcef'],
                   bins=np.logspace(0,2,50), histtype='barstacked')
 for pc, hatch in zip(p, ['/','\\','+']):
     for patch in pc:
