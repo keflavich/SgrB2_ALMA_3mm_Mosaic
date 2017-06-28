@@ -164,20 +164,21 @@ hs,l,p = ax5.hist([core_phot_tbl['alpha'][highconf & ~hii & alphaok_mask],
                   label=['Sgr B2 conservative','Sgr B2 optimistic',
                          'Sgr B2 HII'],
                   color=['#d62728','#2ca02c','#17bcef'],
-                  bins=np.linspace(-3.0, 5, 20),
+                  bins=np.linspace(-3.0, 5, 33),
                   edgecolor='w',
                   rwidth=1,
                   stacked=True,
                   histtype='barstacked')
 (hh,hl,hhii) = hs
 assert hhii.sum() == alphaok_mask.sum()
-for pc, hatch in zip(p, ['/','-','x']):
+for pc, hatch in zip(p, ['/','\\','+']):
     for patch in pc:
         patch.set_hatch(hatch)
-        color = patch.get_facecolor()
-        patch.set_edgecolor(color)
-        color = (*color[:3], 0.5)
-        patch.set_facecolor(color)
+        patch.set_edgecolor('w')
+        #color = patch.get_facecolor()
+        #patch.set_edgecolor(color)
+        #color = (*color[:3], 0.5)
+        #patch.set_facecolor(color)
 
 #ax5.set_xscale('log')
 ax5.set_xlim(l[:-1][hh>0].min()*1.1, l[1:][hh>0].max()*1.1)
@@ -188,6 +189,7 @@ pl.setp(ax5.get_yticklabels(), rotation='vertical', fontsize=20)
 ax5.set_xlabel("Spectral Index $\\alpha$", fontsize=22)
 ax5.set_ylabel("$N(cores)$", fontsize=22)
 pl.legend(loc='best', fontsize=20)
+pl.legend(loc='upper left', fontsize=20)
 pl.savefig(paths.fpath("core_alpha_coloredbyclass.png"), bbox_inches='tight')
 
 
@@ -208,13 +210,14 @@ hs,l,p = ax6.hist([core_phot_tbl['peak'][highconf & ~hii & alphaok_mask],
                   histtype='barstacked')
 (hh,hl,hhii) = hs
 assert hhii.sum() == alphaok_mask.sum()
-for pc, hatch in zip(p, ['/','-','x']):
+for pc, hatch in zip(p, ['/','\\','+']):
     for patch in pc:
         patch.set_hatch(hatch)
-        color = patch.get_facecolor()
-        patch.set_edgecolor(color)
-        color = (*color[:3], 0.5)
-        patch.set_facecolor(color)
+        patch.set_edgecolor('w')
+        #color = patch.get_facecolor()
+        #patch.set_edgecolor(color)
+        #color = (*color[:3], 0.5)
+        #patch.set_facecolor(color)
 
 ax6.set_xscale('log')
 ax6.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
