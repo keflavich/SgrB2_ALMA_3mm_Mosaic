@@ -40,6 +40,13 @@ hs,l,p = ax1.hist([core_phot_tbl['peak'][highconf & ~hii],
                   stacked=True,
                   histtype='barstacked')
 (hh,hl,hhii) = hs
+for pc, hatch in zip(p, ['/','-','x']):
+    for patch in pc:
+        patch.set_hatch(hatch)
+        color = patch.get_facecolor()
+        patch.set_edgecolor(color)
+        color = (*color[:3], 0.5)
+        patch.set_facecolor(color)
 
 ax1.set_xscale('log')
 ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][(hh>0)|(hhii>0)].max()*1.1)

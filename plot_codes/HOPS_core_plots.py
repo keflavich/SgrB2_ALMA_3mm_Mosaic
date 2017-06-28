@@ -48,7 +48,7 @@ hs,l,p = ax1.hist([core_phot_tbl['peak'][highconf & ~hii],
                    core_phot_tbl['peak'][hii],
                   ],
                   log=False,
-                  label=['Sgr B2 aggressive',
+                  label=['Sgr B2 optimistic',
                          'Sgr B2 conservative',
                          'Sgr B2 HII'],
                   color=['#d62728','#2ca02c','#17bcef'],
@@ -58,18 +58,34 @@ hs,l,p = ax1.hist([core_phot_tbl['peak'][highconf & ~hii],
                   histtype='barstacked',
                   bins=np.logspace(-4,0.2,50))
 (hh,hl,hhii) = hs
+for pc, hatch in zip(p, ['/','-','x']):
+    for patch in pc:
+        patch.set_hatch(hatch)
+        color = patch.get_facecolor()
+        patch.set_edgecolor(color)
+        color = (*color[:3], 0.5)
+        patch.set_facecolor(color)
 
-ax1.hist([flux_3mm_cmz[class0],
-          flux_3mm_cmz[classI],
-          #flux_3mm_cmz[classII],
-          flux_3mm_cmz[classflat],
-         ], label=['HOPS Class 0', 'HOPS Class I',
-                   #'HOPS Class II',
-                   'HOPS Flat'],
-         edgecolor='none',
-         rwidth=1,
-         stacked=True,
-         bins=np.logspace(-7,-3.5,50), histtype='barstacked')
+
+hs,l,p = ax1.hist([flux_3mm_cmz[class0],
+                   flux_3mm_cmz[classI],
+                   #flux_3mm_cmz[classII],
+                   flux_3mm_cmz[classflat],
+                  ], label=['HOPS Class 0', 'HOPS Class I',
+                            #'HOPS Class II',
+                            'HOPS Flat'],
+                  edgecolor='none',
+                  rwidth=1,
+                  stacked=True,
+                  bins=np.logspace(-7,-3.5,50), histtype='barstacked')
+for pc, hatch in zip(p, ['\\','|','+']):
+    for patch in pc:
+        patch.set_hatch(hatch)
+        color = patch.get_facecolor()
+        patch.set_edgecolor(color)
+        color = (*color[:3], 0.5)
+        patch.set_facecolor(color)
+
 
 ylim = ax1.get_ylim()
 #mx = np.logspace(-4, 0.2, 50)
@@ -99,11 +115,18 @@ hs,l,p = ax2.hist([sn[highconf & ~hii],
                    sn[hii],
                   ],
                   log=False,
-                  label=['Sgr B2 aggressive',
+                  label=['Sgr B2 optimistic',
                          'Sgr B2 conservative',
                          'Sgr B2 HII'],
                   color=['#d62728','#2ca02c','#17bcef'],
                   bins=np.logspace(0,2,50), histtype='barstacked')
+for pc, hatch in zip(p, ['/','-','x']):
+    for patch in pc:
+        patch.set_hatch(hatch)
+        color = patch.get_facecolor()
+        patch.set_edgecolor(color)
+        color = (*color[:3], 0.5)
+        patch.set_facecolor(color)
 ax2.set_xscale('log')
 ax2.set_xlabel("S/N", fontsize=12)
 ax2.set_ylabel("$N(cores)$", fontsize=12)
