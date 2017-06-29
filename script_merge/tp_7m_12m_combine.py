@@ -19,7 +19,7 @@ else:
 
 
 
-speciesre = re.compile('SgrB2_b3_7M_12M([_a-z]*).([-a-zA-Z0-9]*).image.pbcor.fits')
+speciesre = re.compile('SgrB2_b3_7M_12M([_a-z]*).([-a-zA-Z0-9]*)(\.r[0-9\.]*)?.image.pbcor.fits')
 
 # '../tp/tp_concat.spw17.image.fits: 90345430335.98326 Hz,92220007685.55771 Hz'
 # '../tp/tp_concat.spw19.image.fits: 88541267991.9948 Hz,90415845341.33504 Hz'
@@ -34,11 +34,16 @@ velocity_ranges = {'HC3N': (-150,-25),
                   }
 
 for interferometer_fn in (
-    "SgrB2_b3_7M_12M.HCN.image.pbcor.fits",
-    'SgrB2_b3_7M_12M.HCOp.image.pbcor.fits',
-    'SgrB2_b3_7M_12M.HNC.image.pbcor.fits',
-    'SgrB2_b3_7M_12M.CH3CN.image.pbcor.fits',
-    'SgrB2_b3_7M_12M.H41a.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.HNC.r0.5.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.HNC.r2.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.CH3CN.r0.5.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.H41a.r0.5.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.CH3CN.r2.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.H41a.r2.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.HCOp.r0.5.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.HCOp.r2.image.pbcor.fits',
+    "SgrB2_b3_7M_12M.HCN.r0.5.image.pbcor.fits",
+    "SgrB2_b3_7M_12M.HCN.r2.image.pbcor.fits",
     #"SgrB2_b3_7M_12M_natural.CH3CN.image.pbcor.fits",
     #'SgrB2_b3_7M_12M.HC3N.image.pbcor.fits',
     #"SgrB2_b3_7M_12M_natural.H2CS303-202.image.pbcor.fits",
@@ -51,10 +56,12 @@ for interferometer_fn in (
     #"SgrB2_b3_7M_12M_natural.HNC.image.pbcor.fits",
 ):
 
-    suffix,species = speciesre.search(interferometer_fn).groups()
-    outfilename = '{species}{suffix}_TP_7m_12m_feather.fits'.format(species=species, suffix=suffix)
+    suffix,species,robust = speciesre.search(interferometer_fn).groups()
+    outfilename = ('{species}{suffix}{robust}_TP_7m_12m_feather.fits'
+                   .format(species=species, suffix=suffix, robust=robust))
 
-    medsubfn = '{species}{suffix}_7m_12m_medsub.fits'.format(species=species, suffix=suffix)
+    medsubfn = ('{species}{suffix}{robust}_7m_12m_medsub.fits'
+                .format(species=species, suffix=suffix, robust=robust))
     if not os.path.exists(medsubfn):
         cube = (SpectralCube.read(dpath(interferometer_fn))
                 .with_spectral_unit(u.km/u.s, velocity_convention='radio'))
@@ -103,19 +110,19 @@ for interferometer_fn in (
     crop_channels = sorted((tpcube.closest_spectral_channel(minghz),
                             tpcube.closest_spectral_channel(maxghz)))
     tpcube = tpcube[crop_channels[0]-1:crop_channels[1]+1]
-    log.debug("Read tp freq")
+    log.info("Read tp freq")
     tpcube_k = tpcube.to(u.K, tpcube.beam.jtok_equiv(tpcube.spectral_axis[:,None,None]))
-    log.debug("Converted TP to K")
+    log.info("Converted TP to K")
     # determine smooth factor kw = kernel width
     kw = np.abs((cube.spectral_axis.diff().mean() /
                  tpcube_k.spectral_axis.diff().mean()).decompose().value)
-    log.debug("determined kernel = {0}".format(kw))
+    log.info("determined kernel = {0}".format(kw))
 
     tpcube_k_ds_hdu = spectral_smooth_and_downsample(tpcube_k, kw)
 
     tpdscube = SpectralCube.read(tpcube_k_ds_hdu)
     tpkrg_hdu = spectral_regrid(tpdscube, cube.spectral_axis)
-    log.debug("done regridding")
+    log.info("done regridding")
     #tpkrg.writeto('HC3N_tp_freq_ds_interp.fits', clobber=True)
 
     cube_tpkrg = SpectralCube.read(tpkrg_hdu) #'HC3N_tp_freq_ds_interp.fits')
@@ -132,14 +139,15 @@ for interferometer_fn in (
     imJy = cube[closestchan]
     imK = imJy.to(u.K, cube.beams[closestchan].jtok_equiv(frq))
     sdim = cube_tpkrg[cube_tpkrg.closest_spectral_channel(frq)]
-    imJy.write('singleframes/{species}{suffix}_cubeJy_65kms.fits'.format(species=species, suffix=suffix), overwrite=True)
-    imK.write('singleframes/{species}{suffix}_cubek_65kms.fits'.format(species=species, suffix=suffix), overwrite=True)
-    sdim.write('singleframes/{species}{suffix}_tpcube_k_rg_65kms.fits'.format(species=species, suffix=suffix), overwrite=True)
+    imJy.write('singleframes/{species}{suffix}{robust}_cubeJy_65kms.fits'.format(species=species, suffix=suffix, robust=robust), overwrite=True)
+    imK.write('singleframes/{species}{suffix}{robust}_cubek_65kms.fits'.format(species=species, suffix=suffix, robust=robust), overwrite=True)
+    sdim.write('singleframes/{species}{suffix}{robust}_tpcube_k_rg_65kms.fits'.format(species=species, suffix=suffix, robust=robust), overwrite=True)
 
     # for sanity checking purposes, write out the Jy version too
     sdim_Jy = sdim.to(u.Jy, tpcube.beam.jtok_equiv(frq))
     sdim_Jy._unit = u.Jy/u.beam
-    sdim_Jy.write('singleframes/{species}{suffix}_tpcube_Jy_rg_65kms.fits'.format(species=species, suffix=suffix), overwrite=True)
+    sdim_Jy.write('singleframes/{species}{suffix}{robust}_tpcube_Jy_rg_65kms.fits'
+                  .format(species=species, suffix=suffix, robust=robust), overwrite=True)
 
     imKhdu = imK.hdu
     #imKhdu.data[imKhdu.data<0] = 0 # DELETE THIS IT'S WRONG
@@ -153,14 +161,15 @@ for interferometer_fn in (
                                     return_hdu=True)
     combohdu.header.update(cube.header)
     combohdu.header.update(avgbeam.to_header_keywords())
-    combohdu.writeto('singleframes/{species}{suffix}_TP_7m_12m_feather_65kms.fits'.format(species=species, suffix=suffix), clobber=True)
+    combohdu.writeto('singleframes/{species}{suffix}{robust}_TP_7m_12m_feather_65kms.fits'
+                     .format(species=species, suffix=suffix, robust=robust), clobber=True)
     hdu2.header['BMAJ'] = tpcube_k_ds_hdu.header['BMAJ']
     hdu2.header['BMIN'] = tpcube_k_ds_hdu.header['BMIN']
     hdu2.header['BPA'] = tpcube_k_ds_hdu.header['BPA']
-    hdu2.writeto('singleframes/{species}{suffix}_tpcube_k_spatialandspectralregrid_65kms.fits'.format(species=species, suffix=suffix), clobber=True)
+    hdu2.writeto('singleframes/{species}{suffix}{robust}_tpcube_k_spatialandspectralregrid_65kms.fits'.format(species=species, suffix=suffix, robust=robust), clobber=True)
 
     combohdu, hdu2 = feather_simple(imK.hdu, sdim.hdu, return_regridded_lores=True, return_hdu=True, replace_hires=0.5)
-    combohdu.writeto('singleframes/{species}{suffix}_TP_7m_12m_replacefeather_65kms.fits'.format(species=species, suffix=suffix), clobber=True)
+    combohdu.writeto('singleframes/{species}{suffix}{robust}_TP_7m_12m_replacefeather_65kms.fits'.format(species=species, suffix=suffix, robust=robust), clobber=True)
 
     if 'do_full_cube' not in locals() or do_full_cube:
         # final goal

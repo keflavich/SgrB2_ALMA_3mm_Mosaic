@@ -1,3 +1,7 @@
+"""
+This is obsolete, even though it was used.  tp_7m_12m_combine.py is an improved
+and more efficient version of this.
+"""
 import numpy as np
 from spectral_cube import SpectralCube
 from astropy.convolution import convolve, convolve_fft, Gaussian1DKernel
