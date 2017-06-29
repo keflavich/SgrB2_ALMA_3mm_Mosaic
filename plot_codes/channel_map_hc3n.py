@@ -123,4 +123,4 @@ for hc3nfn, suffix, (mn,mx) in (
     pl.savefig(paths.fpath('channelmaps/{0}_{1}_channelmaps{2}.png'.format(sourcename,species,suffix)),
                bbox_inches='tight', dpi=150)
     pl.savefig(paths.fpath('channelmaps/{0}_{1}_channelmaps{2}.pdf'.format(sourcename,species,suffix)),
-               bbox_inches='tight')
+               bbox_inches='tight', dpi=300)
