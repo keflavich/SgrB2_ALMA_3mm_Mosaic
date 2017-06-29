@@ -1,7 +1,6 @@
 import numpy as np
 import os
 import glob
-import FITS_tools
 from spectral_cube import SpectralCube
 # from singledish_combine import spectral_regrid, feather_simple, fourier_combine_cubes
 from uvcombine import feather_simple, spectral_regrid, spectral_smooth_and_downsample
@@ -10,6 +9,15 @@ from astropy.utils.console import ProgressBar
 from astropy import units as u
 from astropy import log
 import re
+import socket
+
+if 'nmpost' in socket.gethostname():
+    dpath = lambda x: os.path.join("/lustre/aoc/users/aginsbur/sgrb2/2013.1.00269.S/merge",x)
+    tppath = lambda x: os.path.join("/lustre/aoc/users/aginsbur/sgrb2/2013.1.00269.S/tp",x)
+else:
+    raise ValueError("No match to socket hostname {0}.".format(socket.gethostname()))
+
+
 
 speciesre = re.compile('SgrB2_b3_7M_12M([_a-z]*).([-a-zA-Z0-9]*).image.pbcor.fits')
 
@@ -20,15 +28,19 @@ speciesre = re.compile('SgrB2_b3_7M_12M([_a-z]*).([-a-zA-Z0-9]*).image.pbcor.fit
 
 velocity_ranges = {'HC3N': (-150,-25),
                    'CH3CN': (-150,-25),
+                   'HCN': (-150,-25),
+                   'HNC': (-150,-25),
+                   'HCOp': (-150,-25),
                   }
 
 for interferometer_fn in (
-    # done 'SgrB2_b3_7M_12M.HCOp.image.pbcor.fits',
-    # done 'SgrB2_b3_7M_12M.HNC.image.pbcor.fits',
-    # done 'SgrB2_b3_7M_12M.CH3CN.image.pbcor.fits',
-    # done 'SgrB2_b3_7M_12M.H41a.image.pbcor.fits',
+    "SgrB2_b3_7M_12M.HCN.image.pbcor.fits",
+    'SgrB2_b3_7M_12M.HCOp.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.HNC.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.CH3CN.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.H41a.image.pbcor.fits',
+    #"SgrB2_b3_7M_12M_natural.CH3CN.image.pbcor.fits",
     #'SgrB2_b3_7M_12M.HC3N.image.pbcor.fits',
-    "SgrB2_b3_7M_12M_natural.CH3CN.image.pbcor.fits",
     #"SgrB2_b3_7M_12M_natural.H2CS303-202.image.pbcor.fits",
     #"SgrB2_b3_7M_12M_natural.H2CS321-220.image.pbcor.fits",
     #"SgrB2_b3_7M_12M_natural.H2CS322-221.image.pbcor.fits",
@@ -44,15 +56,15 @@ for interferometer_fn in (
 
     medsubfn = '{species}{suffix}_7m_12m_medsub.fits'.format(species=species, suffix=suffix)
     if not os.path.exists(medsubfn):
-        cube = SpectralCube.read(interferometer_fn).with_spectral_unit(u.km/u.s,
-                                                                       velocity_convention='radio')
+        cube = (SpectralCube.read(dpath(interferometer_fn))
+                .with_spectral_unit(u.km/u.s, velocity_convention='radio'))
         cube.beam_threshold = 100
         # try to avoid contamination... won't work universally; need to examine
         # individual cubes and have this as a parameter
         #med = cube.spectral_slab(90*u.km/u.s, 160*u.km/u.s).median(axis=0).value
         med = cube.spectral_slab(velocity_ranges[species][0]*u.km/u.s,
                                  velocity_ranges[species][1]*u.km/u.s).median(axis=0).value
-        os.system('cp {0} {1}'.format(interferometer_fn, medsubfn))
+        os.system('cp {0} {1}'.format(dpath(interferometer_fn), medsubfn))
         fh = fits.open(medsubfn, mode='update')
         log.info("Median subtracting")
         pb = ProgressBar(len(fh[0].data))
@@ -65,17 +77,21 @@ for interferometer_fn in (
     cube = SpectralCube.read(medsubfn).with_spectral_unit(u.GHz)
 
     if hasattr(cube, 'beam'):
+        avgbeam = cube.beam
         jtok = cube.beam.jtok(cube.spectral_axis).value
         print("Jansky/beam -> Kelvin factor = {0}".format(jtok))
     else:
         jtok = np.array([bm.jtok(x).value for bm,x in zip(cube.beams,
                                                           cube.spectral_axis)])
+        avgbeam = cube.average_beams(0.1)
         print("Median Jansky/beam -> Kelvin factor = {0}".format(np.median(jtok)))
+        print("Average Jansky/beam -> Kelvin factor = {0}"
+              .format(avgbeam.jtok(cube.spectral_axis.mean())))
 
     minghz, maxghz = cube.spectral_extrema
 
     OK = False
-    for fn in glob.glob("../tp/tp_concat*fits"):
+    for fn in glob.glob(tppath("tp_concat*fits")):
         tpcube = SpectralCube.read(fn)
         if minghz > tpcube.spectral_extrema[0] and maxghz < tpcube.spectral_extrema[1]:
             OK = True
@@ -91,8 +107,9 @@ for interferometer_fn in (
     tpcube_k = tpcube.to(u.K, tpcube.beam.jtok_equiv(tpcube.spectral_axis[:,None,None]))
     log.debug("Converted TP to K")
     # determine smooth factor kw = kernel width
-    kw = np.abs((cube.spectral_axis.diff().mean() / tpcube_k.spectral_axis.diff().mean()).decompose().value)
-    log.debug("determined kernel")
+    kw = np.abs((cube.spectral_axis.diff().mean() /
+                 tpcube_k.spectral_axis.diff().mean()).decompose().value)
+    log.debug("determined kernel = {0}".format(kw))
 
     tpcube_k_ds_hdu = spectral_smooth_and_downsample(tpcube_k, kw)
 
@@ -134,6 +151,8 @@ for interferometer_fn in (
                                     deconvSD=False,
                                     return_regridded_lores=True,
                                     return_hdu=True)
+    combohdu.header.update(cube.header)
+    combohdu.header.update(avgbeam.to_header_keywords())
     combohdu.writeto('singleframes/{species}{suffix}_TP_7m_12m_feather_65kms.fits'.format(species=species, suffix=suffix), clobber=True)
     hdu2.header['BMAJ'] = tpcube_k_ds_hdu.header['BMAJ']
     hdu2.header['BMIN'] = tpcube_k_ds_hdu.header['BMIN']
