@@ -1035,6 +1035,7 @@ one quarter and one half of the total for the CMZ
 % or N}
 
 \subsection{An examination of star formation thresholds}
+\label{sec:thresholds}
 Several authors \citep[e.g.,][]{Lada2010a,Heiderman2010a} have proposed that star
 formation can only occur above a certain density or column density
 threshold\footnote{Column
@@ -1046,6 +1047,7 @@ We discuss our measurements of column density thresholds in this Section.
 
 
 \subsubsection{Comparison to Lada, Lombardi, and Alves 2010}
+\label{sec:ladathreshold}
 In this section, we compare the star formation threshold in Sgr B2 to that in
 local clouds performed by \citet{Lada2010a}.  They determined that all star
 formation in local clouds occurs above a column density threshold $M_{thresh} >
@@ -1107,9 +1109,29 @@ means that there is a genuinely higher threshold for star formation in the CMZ
 or that there is a higher threshold for high-mass star formation that may still
 be universal.  
 
-{\color{red} Can this discussion be expanded by examining other thresholds?
-Diederik suggested Krumholz HMSF threshold, Kauffmann and Pillai threshold should
-be examined.}
+\subsubsection{Other Thresholds}
+
+A theoretical threshold for high-mass star formation, $N > 1$ g \persc ($N(\hh)
+> 2\ee{23}$ \persc) was developed by \citet{Krumholz2008a}.   Nearly all of the
+sources we have detected reside above this threshold, and we determined our
+sources are all likely to be massive protostars in Section
+\ref{sec:theyareprotostars}.  However, not all pixels with $N > 1$ g \persc are
+forming high-mass stars (Figure \ref{fig:coldistributionwithoutstarformation}).
+Again, we have inferred the presence of a necessary but not sufficient star
+formation threshold
+
+However, there is another threshold in our data, $N(\hh)>1\ee{24}$ \persc,
+above which the majority of the gas is associated with ongoing high-mass star
+formation (Figure \ref{fig:coldistributionwithoutstarformation}).  This
+threshold suggests that any gas reaching a column density
+$N(\hh)>10^{24}$\persc over a $\approx0.5$ pc size scale (the resolution of our
+column density maps) has more likely than not begun to form high-mass stars.
+
+
+% non-column-density (i.e., cloud-based) thresholds cannot be examined here.
+% {\color{red} Can this discussion be expanded by examining other thresholds?
+% Diederik suggested Krumholz HMSF threshold, Kauffmann and Pillai threshold should
+% be examined.}
 
 % core_local_brightness
 \FigureOneCol{figures/core_background_column_cdf.png}
@@ -1128,8 +1150,9 @@ column density maps.  The SHARC data fail to go to a cumulative fraction of 1
 because the central pixels around Sgr B2 M and N are saturated (the lower temperature
 assumptions result in optical depths $>1$, which cannot be converted to column
 densities using the optically thin assumption).  The vertical
-dashed line shows the $N(\hh)=5.2\ee{21}$ column density threshold from
-\citet{Lada2010a}.}
+dashed line shows the $N(\hh)=5.2\ee{21}$ \persc column density threshold from
+\citet{Lada2010a}, and the vertical dotted line shows the the $N(\hh)=2\ee{23}$
+\persc \citet{Krumholz2008a} threshold for high-mass star formation.}
 {fig:corebackgroundcdf}{1}{0.5\textwidth}
 
 % TODO: find someplace to include this figure?
@@ -1201,7 +1224,10 @@ using the combined SCUBA 450 \um and Herschel 500 \um intensity with the
 interpolated Herschel dust temperatures.  The cumulative distribution of core
 `background' column densities in Sgr B2 is shown as a thick gray line, showing
 that the densities at which stars are forming in Sgr B2 are barely
-reached in G0.253.  }
+reached in G0.253.  The vertical dotted line is the \citet{Krumholz2008a}
+threshold for high-mass star formation at $N(\hh)=2\ee{23}$ \persc, while
+the \citet{Lada2010a} threshold is below the minimum value plotted here (see
+Section \ref{sec:thresholds}).}
 {fig:bricksgrb2colcompare}{1}{0.5\textwidth}
 
 % \subsection{Cloud edge features - bubbles}
@@ -1223,21 +1249,23 @@ reached in G0.253.  }
 
 
 \section{Discussion}
+\label{sec:discussion}
 We have reported the detection of a large number of point sources and inferred
 that they are most likely all high-mass protostars.  These sources universally
-reside in gas above $N(\hh)\gtrsim2\ee{23}$ \persc.  In this section, we discuss
-the implications of this apparent threshold for high-mass star formation in the
-CMZ.
+reside in gas above $N(\hh)\gtrsim2\ee{23}$ \persc and are distributed along.
 
-A theoretical threshold for high-mass star formation, $N > 1$ g \persc ($N(\hh)
-> 2\ee{23}$ \persc) was
-developed by \citet{Krumholz2008a}.   Nearly all of the sources we have
-detected reside above this threshold, and we determined our sources are all
-likely to be massive protostars in Section \ref{sec:theyareprotostars}.
-However, not all pixels with $N > 1$ g \persc are forming high-mass stars
-(Figure \ref{fig:coldistributionwithoutstarformation}).  We
-have therefore apparently confirmed that this threshold is a necessary, but not
-sufficient, condition for high-mass star formation.
+\subsection{Thresholds}
+The column density threshold of $N(\hh)\gtrsim2\ee{23}$ \persc appears
+to be a necessary, but not sufficient, condition for high-mass star formation.  
+Above $N(\hh)>10^{24}$ \persc on scales of $\sim0.5$ pc, gas is more likely to
+have formed a high-mass star than not.
+
+TODO: expand
+
+% In this section, we discuss
+% the implications of this apparent threshold for high-mass star formation in the
+% CMZ.
+
 
 
 %While there is an apparent column density threshold required for high-mass
@@ -1255,8 +1283,8 @@ sufficient, condition for high-mass star formation.
 {Histograms of the column density measured with the combined SCUBA and Herschel
 data using the interpolated Herschel temperatures covering only the region
 observed with ALMA.  The black histogram shows the whole observed region,
-the blue solid shows the SCUBA pixels that do not contain an ALMA source,
-and the red dashed region shows those pixels that are within one beam
+the blue solid line shows the SCUBA pixels that do not contain an ALMA source,
+and the red thick line shows those pixels that are within one beam
 FWHM of an ALMA source.  While the ALMA sources (high mass protostars and young
 stars)
 clearly reside in high-column gas, there is abundant high-column material

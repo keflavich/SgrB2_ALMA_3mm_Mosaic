@@ -324,6 +324,10 @@ def plotit():
     pl.figure(5)
     pl.vlines(5e21, 0, 1, color='k', linestyle='--', linewidth=1,
               label='Lada+ 2010 Threshold')
+    pl.vlines(2e23, 0, 1,
+              color='k',
+              linestyle=':',
+              label='Krumholz+ 2008 Threshold')
     pl.legend(loc='best', fontsize=20)
     pl.tight_layout()
     pl.xlabel("Column Density $N(\mathrm{H}_2)$ [cm$^{-2}$]", fontsize=24)
@@ -356,15 +360,21 @@ def plotit():
     bH,bL,bP = pl.hist(brickdata[np.isfinite(brickdata)], bins=bins,
                        log=True, alpha=0.5, histtype='step',
                        bottom=0.1,
+                       linewidth=2,
                        color='b', zorder=-1)
     #weights = np.ones(np.isfinite(data).sum(), dtype='float')/np.isfinite(data).sum()
     H,L,P = pl.hist(data[np.isfinite(data) & mask], bins=bins, log=True,
                     alpha=0.5, color='k',
+                    linewidth=2,
                     #normed=True,
                     histtype='step')
     # Lada threshold, approximately (116 Msun/pc^2)
     pl.vlines(5e21, 1.1, H.max(),
               label='Lada+ 2010 Threshold')
+    pl.vlines(2e23, 0.1, H.max()*2,
+              color='k',
+              linestyle=':',
+              label='Krumholz+ 2008 Threshold')
     #pl.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
     pl.xlim(np.min([bL.min(), L.min()]), L.max())
     pl.ylim(0.5,np.max([bH.max(), H.max()])*1.1)

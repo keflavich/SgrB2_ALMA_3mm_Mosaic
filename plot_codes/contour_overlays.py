@@ -53,6 +53,7 @@ im = ax.imshow(scubafh.data, vmin=5e22, vmax=5e24,
                )
 cb = fig.colorbar(im)
 cb.ax.tick_params(labelsize=textsize)
+cb.set_label("$N(H_2)$ [cm$^{-2}$]")
 
 ax.contour(hc3ndata, colors=['red']*7,
            levels=[3,7,11,15,19,23],
