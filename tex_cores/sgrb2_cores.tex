@@ -7,8 +7,8 @@
 \newcommand{\percent}{\%\xspace}
 
 \begin{document}
-\title{A catalog of 3mm point sources in the Sagittarius B2 cloud: signs of
-extended star formation in a Central Molecular Zone cloud}
+\title{Evidence for extensive extended star formation in the Galactic Center
+cloud Sgr B2}
 \titlerunning{Sgr B2 ALMA}
 \authorrunning{Ginsburg et al}
 \input{authors}
@@ -26,15 +26,23 @@ formation event, not just an isolated `starburst' within the protocluster
 regions Main (M), North (N), and South (S).  While all of the detected
 protostars reside in regions of high column density, not all regions of high
 column density
-($N(\hh)>10^{23}$ \persc)
+($N(\hh)\gtrsim2\ee{23}$ \persc)
 contain a high density of
-protostars.  {\color{red} We observe a threshold} for high-mass star formation that is
+protostars.  We observe a threshold for high-mass star formation that is
 substantially higher than the solar vicinity threshold for star formation, implying
 either that high-mass star formation requires a higher column density or that
 the star formation threshold in the CMZ is higher than the solar vicinity
-threshold.  These observations constitute the largest known single, possibly
+threshold.
+We examine the spatial distribution of the new sources and determine that, out
+of the considered options of cloud-cloud collisions, expanding wind-driven
+bubbles, and pericenter triggering, no single model explains the observed
+distribution of present-day star formation.
+These observations constitute the largest known single, possibly
 coeval to within 1 Myr, sample of forming massive stars.
 % the high-density, low-SFR regions raise questions...
+
+{\color{red}``extensive'' will be removed from the title at a later date,
+but for now you must live with the excessive alliteration.}
 
 This version produced \today\ at \currenttime.
 \end{abstract}
@@ -712,14 +720,15 @@ outshine the \hii region; more likely, such sources would have much hotter dust
 and therefore would be much brighter (and more extended) than our observations
 allow.
 
-The luminosity function of the observed sources is apparently steep, assuming
-the flux density distribution (Figure \ref{fig:fluxhist}) represents the
-luminosity distribution.  The observed distribution cuts off near our
-sensitivity limit, which implies that the steep spectrum should continue to
-lower luminosities, and therefore there are many more sources below our
-detection threshold than above.  This argument is pure extrapolation, and
-therefore could easily be wrong, but if there is a large population of sources
-below $<0.5 mJy$, they are too faint to be \hii regions.
+The luminosity function of the observed sources is apparently steep (power law
+slope $\approx-2$), assuming the flux density distribution (Figure
+\ref{fig:fluxhist}) represents the luminosity distribution.  The observed
+distribution cuts off near our sensitivity limit, which implies that the steep
+spectrum should continue to lower luminosities, and therefore there are many
+more sources below our detection threshold than above.  This argument is pure
+extrapolation, and therefore could easily be wrong, but if there is a large
+population of sources below $<0.5 mJy$, they are too faint to be \hii regions
+(Figure \ref{fig:hiibrightness}a).
 
 This restrictive parameter space, combined with a steep luminosity function, is
 evidence against the population being dominated by \hii regions.  The spectral
@@ -795,9 +804,23 @@ a high mass.
 
 
 \emph{Catalog cross-matching:}
-We cross-matched our source catalog with catalogs of \hii regions, X-ray
-sources, and methanol masers.  Associations with these types of sources can be
-used to classify the sources.
+We cross-matched our source catalog with catalogs of \ammonia sources, \hii
+regions, X-ray sources, and methanol masers.  Associations with these types of
+sources can be used to classify the sources.
+
+\citet{Martin-Pintado1999a} observed part of Sgr B2 DS and M in \ammonia with
+the VLA.  They identified three ``hot cores'' based on \ammonia 4-4 detections.
+Only their first source HC1 has an associated 3 mm continuum source, suggesting
+that HC2 and HC3 are not genuine hot cores but are some other variant of
+locally heated (perhaps shock-heated) gas.  It is unlikely that a hot core
+could exist without a detectable central heating engine.  However, the
+association between HC1 and our source 43 suggests that it is a young stellar
+object with a massive envelope.  Of the 6 \ammonia 3-3 maser sources identified
+by \citet{Martin-Pintado1999a}, three are in regions with high 3 mm source
+density but lack a clear one-to-one source association, one is coincident with
+an \hii region not in our catalog, and two have no obvious associations; the
+\ammonia 3-3 masers therefore appear not to be unambiguous tracers of star
+formation.
 
 Several sources (\nhii) in our catalog match known \hii regions from
 \citet{Gaume1995a} to within 0.5\arcsec, most of which are associated with the
@@ -841,11 +864,11 @@ In reality, such sources are likely even fainter than predicted here.}.  The
 were acquired with a $\sim20\arcsec$ FWHM beam, which translates to a
 resolution $\sim1\arcsec$ at $d_{Sgr B2} = $\dsgrb assuming $d_{Orion}=415$ pc,
 so our beam size is somewhat smaller than theirs.  The HOPS sources are all
-fainter than the Sgr B2 sources.  The brightest HOPS source, with
-$L_{tot}<2000$ \lsun, would only be 0.2 mJy in Sgr B2, or about a 2-$\sigma$
-source - below our detection threshold even in the noise-free regions of the
-map.  We  conclude that the Sgr B2 sources are much more luminous and are
-therefore massive protostars.
+fainter than the Sgr B2 sources.  The most luminous and brightest HOPS source,
+with $L_{tot}<2000$ \lsun, would only be 0.2 mJy in Sgr B2, or about a
+2-$\sigma$ source - below our detection threshold even in the noise-free
+regions of the map.  We  conclude that the Sgr B2 sources are much more
+luminous and are therefore massive protostars.
 
 % HOPS_core_plots
 \FigureOneCol{figures/core_peak_intensity_histogram_withHOPS.png}
@@ -866,7 +889,7 @@ as observed at 3 mm with MUSTANG \citep[][Figure
 peak flux density measured in that map is toward Source I, $S_{90 GHz}(d_{Sgr
 B2}) = 3.6$ mJy.  Source I\footnote{This source includes Source I, BN, and a few
 other objects at this resolution, and at 3 mm Source I and BN are comparably
-bright \citep{Plambeck2013a}.}
+bright \citep{Plambeck2013a}.  This source is not part of the HOPS sample.}
 would therefore  be detected and would be
 somewhere in the middle of our sample.  It is  extended, and the
 extended component would be readily detected (and resolved) in our data. 
@@ -930,7 +953,9 @@ a less well-justified but still plausible assumption that each source either
 currently contains or will form into an $M\gtrsim8 \msun$ star, we can infer
 the total (proto)stellar mass in the observed region.  Since we are assuming
 each star is at least a certain minimum mass, the values we derive here are
-most likely to be upper limits.
+most likely to be upper limits.  However, the additional caveat
+that our survey is not complete means that the estimates presented here are not
+strict limits in either direction, they are just approximate guesses.
 
 We assume the
 stellar masses based on the arguments in Section \ref{sec:theyareprotostars}:
@@ -1038,10 +1063,10 @@ one quarter and one half of the total for the CMZ
 \label{sec:thresholds}
 Several authors \citep[e.g.,][]{Lada2010a,Heiderman2010a} have proposed that star
 formation can only occur above a certain density or column density
-threshold\footnote{Column
-density is more commonly used because of its observational convenience, but it
-is physically meaningless unless high column density leads to high optical
-depths and thereby changes the gas's ability to cool.}. 
+threshold\footnote{Column density is commonly used as a proxy for volume
+density because of its observational convenience, but volume density is the
+more meaningful physical parameter unless high column density leads to high
+optical depths and thereby changes the gas's ability to cool.}. 
 We discuss our measurements of column density thresholds in this Section.
 
 
@@ -1191,11 +1216,11 @@ of the cloud existing above the locally measured \citet{Lada2010a} column
 density threshold.  The column density distribution function for G0.253
 is shown in Figure \ref{fig:bricksgrb2colcompare}.
 
-The \citet{Rathborne2014a} and \citet{Rathborne2015a} data are the deepest
-observations of G0.253 so far, with a sensitivity about $4\times$ better than
-ours, but a beam of 1.7\arcsec
-(similar to that shown in Figure \ref{fig:overview}; compare to Figure 2 in
-both Rathborne et al papers).  Despite the higher sensitivity of their data,
+The \citet{Rathborne2014a} and \citet{Rathborne2015a} ALMA 3 mm data are the
+deepest observations of G0.253 in the millimeter regime to date, with a
+sensitivity about $4\times$ better than ours, but a beam of 1.7\arcsec (similar
+to that shown in Figure \ref{fig:overview}; compare to Figure 2 in both
+Rathborne et al papers).  Despite the higher sensitivity of their data,
 they detected only 3 compact continuum sources.  Similarly,
 \citet{Kauffmann2013a} detected no compact continuum sources in their SMA and
 CARMA observations.  By contrast, even in our coarse resolution data, which
@@ -1207,10 +1232,10 @@ much higher in Sgr B2 than G0.253.
 
 
 Comparing Sgr B2 to G0.253, the majority of the Sgr B2 cloud is at higher
-column than G0.253.  The presence of star formation in Sgr B2 nearly all occurs
+column than G0.253.  Star formation in Sgr B2 nearly all occurs
 at a higher column than exists within G0.253 (Figure
 \ref{fig:bricksgrb2colcompare}).  The dearth of observed cores in G0.253 is
-therefore seems most easily explained if there is a column density for star
+therefore most easily explained if there is a column density for star
 formation that is not reached in G0.253.  Given that the G0.253 observations
 were deeper than our own, yet still identified almost no forming stars, it
 appears more likely that there is a lack of star formation rather than simply a
@@ -1318,11 +1343,13 @@ which process is dominant.
 \subsubsection{Pericenter Triggering}
 Our observations are reconcilable with a star formation event triggered
 at pericenter passage.  If the entire cloud was stable prior to pericenter
-passage, at closest approach it would have been simultaneously crushed and 
+passage, at closest approach it would have been simultaneously crushed and
 stretched by shear \citep{Kruijssen2015a}.  This event would have driven
-collapse of the whole cloud, with the densest regions collapsing fastest
-and possibly forming the clusters we observe today.  This model is discussed
-further in Section \ref{sec:clustersandextended}.
+collapse of the whole cloud, with the densest regions collapsing fastest and
+possibly forming the clusters we observe today.  This model accounts for the
+relative ages of the extended star formation event and the clustered starbursts
+(discussed further in Section \ref{sec:clustersandextended}), but provides no
+direct explanation for the morphology of the star formation event.
 
 \subsubsection{Cloud-cloud collision}
 There are no definitive signs of `cloud-cloud collision' or `colliding flows'
@@ -1332,15 +1359,18 @@ show some of the best cases for cloud-cloud collision using the `extended bridge
 in position-velocity between two colliding clouds, but these signatures can be 
 completely hidden when multiple clouds exist along a line of sight or when
 the clouds' intrinsic line widths are of the same magnitude as their impact velocity,
-as in Sgr B2.  We cannot strictly rule out cloud-cloud collision, but neither
+as in Sgr B2.  While multiple line components have been invoked as evidence
+for cloud-cloud collision \citep{Hasegawa1994a,Corby2015a}, such multiple
+components are also expected in turbulent cloud models.
+We cannot strictly rule out cloud-cloud collision, but neither
 can we provide evidence to support it; the kinematic features in our data are
 compatible with multiple interpretations.
 
-Most of the notable kinematic features evident in the dense gas images can be
-attributed to expanding \hii regions or otherwise feedback-driven flows (see
-Section \ref{sec:expandingshells}).  While interacting independent gas streams
-are a possible agent affecting Sgr B2, their effects are not obvious in our
-core catalog or in the gas data cubes.
+Additionally, ost of the notable kinematic features evident in the dense gas
+images can be attributed to expanding \hii regions or otherwise feedback-driven
+flows (see Section \ref{sec:expandingshells}).  While interacting independent
+gas streams are a possible agent affecting Sgr B2, their effects are not
+obvious in our core catalog or in the gas data cubes.
 
 We note that some `colliding flows' are expected in almost any collapse
 scenario.  For example, simulations of a cloud passing through Galactic
@@ -1501,6 +1531,18 @@ collapsing most slowly.  This collapse has been suggested to be ongoing in CMZ
 clouds by \citet{Walker2015a,Walker2016a} and may leave detectable kinematic
 signatures (e.g., self-absorption in moderately optically thick lines) in the
 dense gas.
+
+
+{\color{red} TODO: find location for this paragraph}
+\citet{Yusef-Zadeh2013a} noted the presence of some Spitzer 4.5 \um
+excess sources and 24 \um sources in the southern part of Sgr B2, 
+and from these detections concluded that star formation had proceeded
+outside-in in the Sgr B2 cloud.  Our data have revealed a much larger
+population of what are most likely younger sources (dust-dominated protostars)
+in this region, which is inconsistent with the previous interpretation.
+Instead, it seems that the central clusters are the oldest sites of star
+formation.  The excess of 4.5 \um and 24 \um sources in DS may be because the
+cloud's envelope of opaque material is thinner along those lines-of-sight.
 
 \section{Conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
