@@ -11,7 +11,7 @@ from astropy.convolution import convolve_fft,Gaussian2DKernel
 import reproject
 import pyregion
 
-from constants import distance
+from constants import distance, mbar
 
 import paths
 
@@ -406,9 +406,8 @@ def plotit():
 
 
     nn11_pc = (u.Quantity(tbl['nn11'], u.arcsec) * distance).to(u.pc, u.dimensionless_angles())
-    # from stellar_mass_estimates
-    mbar = 12*u.M_sun / 0.09
-    nn11_msunpersqpc = mbar / (np.pi*nn11_pc)**2
+    nn = 11
+    nn11_msunpersqpc_starcentered = (nn-1) * mbar / (np.pi*nn11_pc)**2
 
     herschelsurfdens = (u.Quantity(tbl['HerschelColumn25'], u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
 
@@ -417,9 +416,10 @@ def plotit():
     ax7 = fig7.gca()
     ax7.loglog(
                herschelsurfdens,
-               nn11_msunpersqpc,
+               nn11_msunpersqpc_starcentered,
                '.')
     lims = ax7.axis()
+    ax7.loglog([1e3,1e6], [1e0, 1e5], 'k--')
     LM, = ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67), label='Mon R2')
     LO, = ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87), label='Ophiucus')
     ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67)*10, color=LM.get_color(), label='Mon R2')
@@ -427,8 +427,28 @@ def plotit():
     ax7.set_ylabel("11th Nearest Neighbor Surface Density [M$_\odot$ pc$^{-2}$]")
     ax7.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
     ax7.axis(lims)
-    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered.png"))
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.png"), bbox_inches='tight')
 
+    scubasurfdens = (u.Quantity(tbl['ScubaHTemColumn'], u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
+
+
+    fig8 = pl.figure(8)
+    fig8.clf()
+    ax8 = fig8.gca()
+    ax8.loglog(
+               scubasurfdens,
+               nn11_msunpersqpc_starcentered,
+               '.')
+    lims = ax8.axis()
+    ax7.loglog([1e3,1e6], [1e0, 1e5], 'k--')
+    LM, = ax8.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67), label='Mon R2')
+    LO, = ax8.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87), label='Ophiucus')
+    ax8.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67)*10, color=LM.get_color(), label='Mon R2')
+    ax8.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87)*10, color=LO.get_color(), label='Ophiucus')
+    ax8.set_ylabel("11th Nearest Neighbor Surface Density [M$_\odot$ pc$^{-2}$]")
+    ax8.set_xlabel("SCUBA-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+    ax8.axis(lims)
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba.png"), bbox_inches='tight')
 
 
     # TODO: plot the same (?) histograms for The Brick

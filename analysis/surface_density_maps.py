@@ -11,7 +11,7 @@ from astropy.convolution import convolve_fft,Gaussian2DKernel
 import reproject
 import pyregion
 
-from constants import distance
+from constants import distance, mbar
 import pylab as pl
 
 import paths
@@ -45,6 +45,10 @@ mywcs = wcs.WCS(header)
 x_edges,_ = mywcs.wcs_pix2world(np.arange(0, grid_size+1)-0.5, np.zeros(grid_size+1), 0)
 _,y_edges = mywcs.wcs_pix2world(np.zeros(grid_size+1), np.arange(0, grid_size+1)-0.5, 0)
 
+yy,xx = np.indices([grid_size, grid_size])
+x_centers,y_centers = mywcs.wcs_pix2world(xx.flat, yy.flat, 0)
+grid_coords = coordinates.SkyCoord(x_centers*u.deg, y_centers*u.deg, frame='fk5')
+
 
 cont_tbl = Table.read(paths.tpath('continuum_photometry.ipac'), format='ascii.ipac')
 sgrb2_coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'],
@@ -55,6 +59,10 @@ gridded_stars = np.histogram2d(sgrb2_coords.ra.deg, sgrb2_coords.dec.deg, bins=[
 hdu = fits.PrimaryHDU(data=gridded_stars, header=header)
 
 hdu.writeto(paths.Fpath('stellar_density_grid.fits'), overwrite=True)
+
+_,nn11_grid,_ = coordinates.match_coordinates_sky(grid_coords, sgrb2_coords, nthneighbor=11)
+nn11_grid = nn11_grid.reshape([grid_size, grid_size])
+nn11_grid_pc = (nn11_grid * distance).to(u.pc, u.dimensionless_angles())
 
 
 datapath = '/Users/adam/work/sgrb2/alma/FITS/continuumdata'
@@ -72,7 +80,6 @@ fig1.clf()
 ax1 = fig1.gca()
 
 ok = np.isfinite(herschel25reproj) & (gridded_stars > 0)
-mbar = 12*u.M_sun / 0.09
 gridded_star_massdensity = (gridded_stars * mbar / (cell_size**2)).to(u.M_sun/u.pc**2)
 gas_massdensity25 = (herschel25reproj * 1e22*u.cm**-2 * 2.8*u.Da).to(u.M_sun/u.pc**2)
 ax1.loglog(gas_massdensity25[ok], gridded_star_massdensity[ok], '.')
@@ -86,3 +93,20 @@ lostars = (np.isfinite(herschel25reproj)) & (gridded_stars == 0)
 ax1.plot(gas_massdensity25[lostars],
          np.nanmin(gridded_star_massdensity[ok])*0.5*np.ones(lostars.sum()),
          'v')
+ax1.loglog([1e3,1e6], [1e0, 1e5], 'k--')
+ax1.set_ylabel("Stellar Surface Density [M$_\odot$ pc$^{-2}$]")
+ax1.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.png"), bbox_inches='tight')
+
+nn = 11
+nn11_msunpersqpc = ((nn-1) * mbar / (np.pi*nn11_grid_pc)**2).to(u.M_sun/u.pc**2)
+
+fig2 = pl.figure(2)
+fig2.clf()
+ax2 = fig2.gca()
+
+ax2.loglog(gas_massdensity25.ravel().value, nn11_msunpersqpc.ravel().value, '.')
+ax2.loglog([1e3,1e6], [0.1, 1e4], 'k--')
+ax2.set_ylabel("Stellar Surface Density [M$_\odot$ pc$^{-2}$]")
+ax2.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.png"), bbox_inches='tight')
