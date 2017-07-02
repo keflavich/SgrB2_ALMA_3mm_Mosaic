@@ -111,7 +111,7 @@ for interferometer_fn in (
                             tpcube.closest_spectral_channel(maxghz)))
     tpcube = tpcube[crop_channels[0]-1:crop_channels[1]+1]
     log.info("Read tp freq")
-    tpcube_k = tpcube.to(u.K, tpcube.beam.jtok_equiv(tpcube.spectral_axis[:,None,None]))
+    tpcube_k = tpcube.to(u.K, tpcube.beam.jtok_equiv(tpcube.spectral_axis))
     log.info("Converted TP to K")
     # determine smooth factor kw = kernel width
     kw = np.abs((cube.spectral_axis.diff().mean() /

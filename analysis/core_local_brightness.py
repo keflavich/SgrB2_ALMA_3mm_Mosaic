@@ -73,7 +73,7 @@ alma_hdr = fits.Header(dict(NAXIS=2,
                       )
 
 
-tbl = table.Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac',)
+tbl = table.Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac',)
 
 regfile = pyregion.open(paths.rpath('coverage.reg'))
 
@@ -103,14 +103,14 @@ col = files['HerschelColumn36']['file'].data
 col_conv = convolve_fft(col, Gaussian2DKernel(5), nan_treatment='interpolate',
                         normalize_kernel=True)
 files['HerschelColumn36']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
-files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
+#files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
 files['HerschelColumn36']['bunit'] = u.cm**-2
 
 col = files['HerschelColumn25']['file'].data
 col_conv = convolve_fft(col, Gaussian2DKernel(5), nan_treatment='interpolate',
                         normalize_kernel=True)
 files['HerschelColumn25']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
-files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
+#files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
 files['HerschelColumn25']['bunit'] = u.cm**-2
 
 
@@ -170,9 +170,9 @@ for imname in brick_files:
     ww = wcs.WCS(brick_files[imname]['file'].header)
     brick_files[imname]['wcs'] = ww
 
-brick_files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
+#brick_files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
 brick_files['HerschelColumn25']['bunit'] = u.cm**-2
-brick_files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
+#brick_files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
 brick_files['HerschelColumn36']['bunit'] = u.cm**-2
 
 
@@ -404,6 +404,30 @@ def plotit():
 
     pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.png"), bbox_inches='tight')
 
+
+    nn11_pc = (u.Quantity(tbl['nn11'], u.arcsec) * distance).to(u.pc, u.dimensionless_angles())
+    # from stellar_mass_estimates
+    mbar = 12*u.M_sun / 0.09
+    nn11_msunpersqpc = mbar / (np.pi*nn11_pc)**2
+
+    herschelsurfdens = (u.Quantity(tbl['HerschelColumn25'], u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
+
+    fig7 = pl.figure(7)
+    fig7.clf()
+    ax7 = fig7.gca()
+    ax7.loglog(
+               herschelsurfdens,
+               nn11_msunpersqpc,
+               '.')
+    lims = ax7.axis()
+    LM, = ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67), label='Mon R2')
+    LO, = ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87), label='Ophiucus')
+    ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67)*10, color=LM.get_color(), label='Mon R2')
+    ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87)*10, color=LO.get_color(), label='Ophiucus')
+    ax7.set_ylabel("11th Nearest Neighbor Surface Density [M$_\odot$ pc$^{-2}$]")
+    ax7.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+    ax7.axis(lims)
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered.png"))
 
 
 

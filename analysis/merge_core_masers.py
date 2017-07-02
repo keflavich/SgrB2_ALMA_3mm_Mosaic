@@ -95,7 +95,9 @@ cont_tbl.add_column(Column(data=muno_xray_names, name='Muno_xray_ID'))
 cont_tbl.add_column(Column(data=muno_xray_countrates, name='Muno_xray_Counts', unit=u.cm**-2*u.s**-1))
 cont_tbl.add_column(Column(data=u.Quantity(muno_xray_matchdist, u.arcsec), name='Muno_xray_matchdistance', unit=u.arcsec))
 
-
+# calculate local surface density per Gutermuth+ 2011 approach
+nn11 = coordinates.match_coordinates_sky(sgrb2_coords, sgrb2_coords, nthneighbor=11)
+cont_tbl.add_column(Column(data=nn11[1], name='nn11', description='11th nearest neighbor distance'))
 
 cont_tbl.write(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac',
                overwrite=True)
