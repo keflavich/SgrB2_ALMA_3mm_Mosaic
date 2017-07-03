@@ -1284,7 +1284,12 @@ computed both the star-centric mass surface density using the 11th nearest
 neighbor and a gridded surface density.  We assume a mean mass per YSO of 21.8
 \msun, and that each such star represents 23\% of the total stellar mass (see
 Section \ref{sec:distributionsandsfr}), i.e., each 3 mm source is treated as 95
-\msun of stellar mass. The correlation is similar whether we use the Herschel
+\msun of stellar mass\footnote{In previous sections, we assigned different
+masses to different source classes, i.e., we assigned higher masses to \hii regions
+than non-\hii regions.  For methodological consistency, we assume a constant mass
+per source here, which may result in a systematic underestimation of 
+the stellar mass surface density at the highest densities (since the \hii regions
+are preferentially concentrated in clusters).}. The correlation is similar whether we use the Herschel
 column density directly or the SCUBA or SHARC-based column density maps (see
 Section \ref{sec:colmaps}).  
 
@@ -1307,14 +1312,18 @@ surface density $\Sigma < 10^3$ \msun pc$^{-2}$.
 The blue dotted line shows the Ophiucus relation scaled down by
 $\approx50\times$ to overlap with our data.
 The black dashed line shows the relation $\Sigma_* = 10^{-5}
-\Sigma_{gas}^{5/3}$; it is not a fit to the data.}
+\Sigma_{gas}^{5/3}$; it is not a fit to the data.
+The thick solid red line shows a linear relation, and it does not appear
+to describe the data well in either case.}
 {fig:stellarvsmasscolumn}{1}{0.5\textwidth}
 
 We do not fit a slope, as \citet{Gutermuth2011a} did, because we expect our
 data are affected by substantially stronger and more difficult to characterize
 errors, but note that our data are compatible with a power-law index
 $\alpha=5/3$, and therefore overall consistent with the slopes they
-derived.
+derived.  Figure \ref{fig:stellarvsmasscolumn} also shows a linear relation
+between $\Sigma_*$ and $\Sigma_{gas}$ as a red line, which does not match
+the data.
 
 
 \section{Discussion}
