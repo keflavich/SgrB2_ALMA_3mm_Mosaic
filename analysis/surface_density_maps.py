@@ -82,7 +82,7 @@ ax1 = fig1.gca()
 ok = np.isfinite(herschel25reproj) & (gridded_stars > 0)
 gridded_star_massdensity = (gridded_stars * mbar / (cell_size**2)).to(u.M_sun/u.pc**2)
 gas_massdensity25 = (herschel25reproj * 1e22*u.cm**-2 * 2.8*u.Da).to(u.M_sun/u.pc**2)
-ax1.loglog(gas_massdensity25[ok], gridded_star_massdensity[ok], '.')
+ax1.loglog(gas_massdensity25[ok], gridded_star_massdensity[ok], 'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
 
 logas = (~np.isfinite(herschel25reproj)) & (gridded_stars > 0)
 ax1.plot(np.nanmax(gas_massdensity25) * np.ones(logas.sum()),
@@ -94,9 +94,26 @@ ax1.plot(gas_massdensity25[lostars],
          np.nanmin(gridded_star_massdensity[ok])*0.5*np.ones(lostars.sum()),
          'v')
 ax1.loglog([1e3,1e6], [1e0, 1e5], 'k--')
-ax1.set_ylabel("Stellar Surface Density [M$_\odot$ pc$^{-2}$]")
+
+ax1.fill_between([0.1, 1e5],
+                 np.array([0.1, 1e5])**2.67/(100**2.67),
+                 np.array([0.1, 1e5])**2.67/(100**2.67)*10,
+                 alpha=0.5,
+                 color='orange',
+                 label='Mon R2')
+ax1.fill_between([0.1, 1e5],
+                 np.array([0.1, 1e5])**1.87/(100**1.87),
+                 np.array([0.1, 1e5])**1.87/(100**1.87)*10,
+                 color='blue',
+                 alpha=0.5,
+                 label='Ophiucus')
+ax1.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+
+ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]")
 ax1.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+ax1.axis([1e3,1e5,1e0,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.png"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.pdf"), bbox_inches='tight')
 
 nn = 11
 nn11_msunpersqpc = ((nn-1) * mbar / (np.pi*nn11_grid_pc)**2).to(u.M_sun/u.pc**2)
@@ -105,8 +122,27 @@ fig2 = pl.figure(2)
 fig2.clf()
 ax2 = fig2.gca()
 
-ax2.loglog(gas_massdensity25.ravel().value, nn11_msunpersqpc.ravel().value, '.')
-ax2.loglog([1e3,1e6], [0.1, 1e4], 'k--')
-ax2.set_ylabel("Stellar Surface Density [M$_\odot$ pc$^{-2}$]")
+ax2.loglog(gas_massdensity25.ravel().value, nn11_msunpersqpc.ravel().value, 'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
+lims = ax2.axis()
+ax2.loglog([1e3,1e6], [1e0, 1e5], 'k--')
+
+ax2.fill_between([0.1, 1e5],
+                 np.array([0.1, 1e5])**2.67/(100**2.67),
+                 np.array([0.1, 1e5])**2.67/(100**2.67)*10,
+                 alpha=0.5,
+                 color='green',
+                 label='Mon R2')
+ax2.fill_between([0.1, 1e5],
+                 np.array([0.1, 1e5])**1.87/(100**1.87),
+                 np.array([0.1, 1e5])**1.87/(100**1.87)*10,
+                 color='blue',
+                 alpha=0.5,
+                 label='Ophiucus')
+ax2.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+
+ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]")
 ax2.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+ax2.axis(lims)
+ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.png"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.pdf"), bbox_inches='tight')

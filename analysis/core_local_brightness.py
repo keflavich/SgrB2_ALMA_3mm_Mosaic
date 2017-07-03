@@ -417,17 +417,28 @@ def plotit():
     ax7.loglog(
                herschelsurfdens,
                nn11_msunpersqpc_starcentered,
-               '.')
+               'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
     lims = ax7.axis()
     ax7.loglog([1e3,1e6], [1e0, 1e5], 'k--')
-    LM, = ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67), label='Mon R2')
-    LO, = ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87), label='Ophiucus')
-    ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67)*10, color=LM.get_color(), label='Mon R2')
-    ax7.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87)*10, color=LO.get_color(), label='Ophiucus')
-    ax7.set_ylabel("11th Nearest Neighbor Surface Density [M$_\odot$ pc$^{-2}$]")
+    ax7.fill_between([0.1, 1e5],
+                     np.array([0.1, 1e5])**2.67/(100**2.67),
+                     np.array([0.1, 1e5])**2.67/(100**2.67)*10,
+                     alpha=0.5,
+                     color='green',
+                     label='Mon R2')
+    ax7.fill_between([0.1, 1e5],
+                     np.array([0.1, 1e5])**1.87/(100**1.87),
+                     np.array([0.1, 1e5])**1.87/(100**1.87)*10,
+                     color='blue',
+                     alpha=0.5,
+                     label='Ophiucus')
+    ax7.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+    ax7.set_ylabel("Source-centered NN11 Surface Density\n[M$_\odot$ pc$^{-2}$]")
     ax7.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
     ax7.axis(lims)
+    ax7.axis([1e3,1e5,1e0,1e5])
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.png"), bbox_inches='tight')
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.pdf"), bbox_inches='tight')
 
     scubasurfdens = (u.Quantity(tbl['ScubaHTemColumn'], u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
 
@@ -438,17 +449,28 @@ def plotit():
     ax8.loglog(
                scubasurfdens,
                nn11_msunpersqpc_starcentered,
-               '.')
+               'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
     lims = ax8.axis()
     ax7.loglog([1e3,1e6], [1e0, 1e5], 'k--')
-    LM, = ax8.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67), label='Mon R2')
-    LO, = ax8.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87), label='Ophiucus')
-    ax8.loglog([0.1, 1e5], np.array([0.1, 1e5])**2.67/(100**2.67)*10, color=LM.get_color(), label='Mon R2')
-    ax8.loglog([0.1, 1e5], np.array([0.1, 1e5])**1.87/(100**1.87)*10, color=LO.get_color(), label='Ophiucus')
-    ax8.set_ylabel("11th Nearest Neighbor Surface Density [M$_\odot$ pc$^{-2}$]")
+    ax8.fill_between([0.1, 1e5],
+                     np.array([0.1, 1e5])**2.67/(100**2.67),
+                     np.array([0.1, 1e5])**2.67/(100**2.67)*10,
+                     color='green',
+                     alpha=0.5,
+                     label='Mon R2')
+    ax8.fill_between([0.1, 1e5],
+                     np.array([0.1, 1e5])**1.87/(100**1.87),
+                     np.array([0.1, 1e5])**1.87/(100**1.87)*10,
+                     color='blue',
+                     alpha=0.5,
+                     label='Ophiucus')
+    ax8.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+    ax8.set_ylabel("Source-centered NN11 Surface Density\n[M$_\odot$ pc$^{-2}$]")
     ax8.set_xlabel("SCUBA-derived Surface Density [M$_\odot$ pc$^{-2}$]")
     ax8.axis(lims)
+    ax8.axis([1e3,1e5,1e0,1e5])
     fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba.png"), bbox_inches='tight')
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba.pdf"), bbox_inches='tight')
 
 
     # TODO: plot the same (?) histograms for The Brick

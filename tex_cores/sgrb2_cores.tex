@@ -1227,7 +1227,7 @@ CARMA observations.  By contrast, even in our coarse resolution data, which
 have a worse sensitivity (RMS $\approx 0.25$ mJy beam$^{-1}$, $10\times$ worse
 than Rathborne et al), dozens of compact sources are evident.  Our better
 resolution was critical for identifying the hundreds of sources we have
-identified, but it is nonetheless evident that the star formation activity is
+identified, but it is nonetheless clear that the star formation activity is
 much higher in Sgr B2 than G0.253.
 
 
@@ -1278,16 +1278,15 @@ formation law relating the gas to the stellar surface density,
 \citet{Gutermuth2011a} concluded that star formation was best represented as
 power-law relations between the stellar and gas mass surface densities.
 
-We adopt the same approach used in \citet{Gutermuth2011a} to compare
-gas and stellar mass surface densities.  We computed both the star-centric
-mass surface density using the 11th nearest neighbor and a gridded surface
-density.
-We assume a mean mass per YSO of 21.8 \msun, and that each
-such star represents 23\% of the total stellar mass (see Section
-\ref{sec:distributionsandsfr}), i.e., each 3 mm source is treated as 95 \msun
-of stellar mass. The correlation is similar whether we use the Herschel column
-density directly or the SCUBA or SHARC-based column density maps (see Section
-\ref{sec:colmaps}).  
+We adopt the same approach used in \citet{Gutermuth2009a} and
+\citet{Gutermuth2011a} to compare gas and stellar mass surface densities.  We
+computed both the star-centric mass surface density using the 11th nearest
+neighbor and a gridded surface density.  We assume a mean mass per YSO of 21.8
+\msun, and that each such star represents 23\% of the total stellar mass (see
+Section \ref{sec:distributionsandsfr}), i.e., each 3 mm source is treated as 95
+\msun of stellar mass. The correlation is similar whether we use the Herschel
+column density directly or the SCUBA or SHARC-based column density maps (see
+Section \ref{sec:colmaps}).  
 
 The relation we observe is several orders of magnitude lower than that
 extrapolated from \citet{Gutermuth2011a}.  This is primarily driven by an age
@@ -1295,10 +1294,27 @@ sensitivity difference; their samples consisted of Spitzer-measured YSOs,
 including Class II sources.  Our data are strictly limited to Class 0/I
 equivalents, since we do not observe stellar photospheres.
 
+\FigureTwo
+{figures/stellar_vs_gas_column_density_gridNN11_herschel.pdf}
+{figures/stellar_vs_gas_column_density_starcentered_herschel.pdf}
+{Plots of the protostellar mass surface density vs the gas mass surface
+density.  The surface densities are computed using the 11th nearest-neighbor
+distance.  (a) shows the protostar-centric surface densities, while (b) shows
+the densities computed on a 0.25 pc grid.  The shaded regions
+show the extrapolations of the relations derived by \citet{Gutermuth2011a}
+for Ophiucus (blue) and Mon R2 (green); their data cut off below a mass
+surface density $\Sigma < 10^3$ \msun pc$^{-2}$. 
+The blue dotted line shows the Ophiucus relation scaled down by
+$\approx50\times$ to overlap with our data.
+The black dashed line shows the relation $\Sigma_* = 10^{-5}
+\Sigma_{gas}^{5/3}$; it is not a fit to the data.}
+{fig:stellarvsmasscolumn}{1}{0.5\textwidth}
+
 We do not fit a slope, as \citet{Gutermuth2011a} did, because we expect our
-data are affected by substantially stronger systematics, but note that the
-stellar-centric data are compatible with a slope $\alpha\approx1.7$, and
-therefore overall consistent with the slopes they derived.
+data are affected by substantially stronger and more difficult to characterize
+errors, but note that the stellar-centric data are compatible with a slope
+$\alpha\approx5/3$, and therefore overall consistent with the slopes they
+derived.
 
 
 \section{Discussion}
