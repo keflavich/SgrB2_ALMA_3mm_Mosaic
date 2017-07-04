@@ -27,18 +27,19 @@ speciesre = re.compile('SgrB2_b3_7M_12M([_a-z]*).([-a-zA-Z0-9]*)(\.r[0-9\.]*)?.i
 # '../tp/tp_concat.spw23.image.fits: 102287973625.33496 Hz,104162550974.6752 Hz'
 
 velocity_ranges = {'HC3N': (-150,-25),
-                   'CH3CN': (-150,-25),
-                   'HCN': (-150,-25),
-                   'HNC': (-150,-25),
-                   'HCOp': (-150,-25),
+                   'CH3CN': (-100,-25),
+                   'HCN': (-150,-120),
+                   'HNC': (-150,-120),
+                   'HCOp': (-150,-120),
+                   'H41a': (-150,-25),
                   }
 
 for interferometer_fn in (
+    'SgrB2_b3_7M_12M.HCOp.r2.image.pbcor.fits',
+    "SgrB2_b3_7M_12M.HCN.r2.image.pbcor.fits",
     'SgrB2_b3_7M_12M.HNC.r2.image.pbcor.fits',
     'SgrB2_b3_7M_12M.CH3CN.r2.image.pbcor.fits',
     'SgrB2_b3_7M_12M.H41a.r2.image.pbcor.fits',
-    'SgrB2_b3_7M_12M.HCOp.r2.image.pbcor.fits',
-    "SgrB2_b3_7M_12M.HCN.r2.image.pbcor.fits",
     'SgrB2_b3_7M_12M.HCOp.r0.5.image.pbcor.fits',
     "SgrB2_b3_7M_12M.HCN.r0.5.image.pbcor.fits",
     'SgrB2_b3_7M_12M.HNC.r0.5.image.pbcor.fits',
@@ -71,7 +72,7 @@ for interferometer_fn in (
         #med = cube.spectral_slab(90*u.km/u.s, 160*u.km/u.s).median(axis=0).value
         med = cube.spectral_slab(velocity_ranges[species][0]*u.km/u.s,
                                  velocity_ranges[species][1]*u.km/u.s).median(axis=0).value
-        assert os.system('cp {0} {1}'.format(dpath(interferometer_fn), medsubfn)) == 0
+        cube.write(medsubfn, overwrite=True)
         fh = fits.open(medsubfn, mode='update')
         log.info("Median subtracting")
         pb = ProgressBar(len(fh[0].data))
@@ -191,8 +192,9 @@ for interferometer_fn in (
 
         for ii,(im, sdim, jtok_int) in enumerate(zip(cube, cube_tpkrg, jtok)):
             imhdu = im.hdu
-            imhdu.data = imhdu.data*jtok_int
-            imhdu.header['BUNIT'] = 'K'
+            if im.unit == u.Jy:
+                imhdu.data = imhdu.data*jtok_int
+                imhdu.header['BUNIT'] = 'K'
             comb = feather_simple(imhdu, sdim.hdu,
                                   lowresscalefactor=1.0,
                                   highresscalefactor=0.1,

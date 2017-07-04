@@ -18,12 +18,13 @@ annotation_fontsize = 10
 
 
 for cubefn, suffix, (mn,mx), species in (
-    (paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HCN.image.pbcor_medsub.fits'), '_noTPnoTE', (-0.5,20), 'HCN'),
-    (paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HNC.image.pbcor_medsub.fits'), '_noTPnoTE', (-0.5,20), 'HNC'),
-    (paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HCOp.image.pbcor_medsub.fits'), '_noTPnoTE', (-0.5,20), 'HCOp'),
-    (paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HC3N.image.pbcor_medsub.fits'), '_noTP', (-0.5,20), 'HC3N'),
-    (paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather.fits'), '', (-2,200), 'HC3N'),
-    (paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather_r05.fits'), 'r05', (-10,400), 'HC3N')
+    (paths.Fpath('merge/lines/HNC.r2_TP_7m_12m_feather.fits'), '', (-5,100), 'HNC'),
+    #(paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HCN.image.pbcor_medsub.fits'), '_noTPnoTE', (-0.5,20), 'HCN'),
+    #(paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HNC.image.pbcor_medsub.fits'), '_noTPnoTE', (-0.5,20), 'HNC'),
+    #(paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HCOp.image.pbcor_medsub.fits'), '_noTPnoTE', (-0.5,20), 'HCOp'),
+    #(paths.Fpath('merge/lines/SgrB2_b3_7M_12M.HC3N.image.pbcor_medsub.fits'), '_noTP', (-0.5,20), 'HC3N'),
+    #(paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather.fits'), '', (-2,200), 'HC3N'),
+    #(paths.Fpath('merge/lines/HC3N_TP_7m_12m_feather_r05.fits'), 'r05', (-10,400), 'HC3N')
 ):
 
     sourcename = 'SgrB2'
@@ -33,7 +34,7 @@ for cubefn, suffix, (mn,mx), species in (
 
     cube = SpectralCube.read(cubefn)
     cube._unit = u.K
-    scube = cube
+    scube = cube.with_spectral_unit(u.km/u.s, velocity_convention='radio')
     scube.allow_huge_operations=True
     #cutout = Cutout2D(cube[0,:,:], source, radius, wcs=cube.wcs.celestial)
 
@@ -43,7 +44,7 @@ for cubefn, suffix, (mn,mx), species in (
         scube = scube.to(u.K,
                          scube.beam.jtok_equiv(ghzaxis))
     else:
-        beam = scube.average_beam(0.1)
+        beam = scube.average_beams(0.1)
         scube = scube.to(u.K,
                          beam.jtok_equiv(ghzaxis))
 
