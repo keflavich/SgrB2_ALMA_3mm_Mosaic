@@ -34,16 +34,16 @@ velocity_ranges = {'HC3N': (-150,-25),
                   }
 
 for interferometer_fn in (
-    'SgrB2_b3_7M_12M.HNC.r0.5.image.pbcor.fits',
     'SgrB2_b3_7M_12M.HNC.r2.image.pbcor.fits',
-    'SgrB2_b3_7M_12M.CH3CN.r0.5.image.pbcor.fits',
-    'SgrB2_b3_7M_12M.H41a.r0.5.image.pbcor.fits',
     'SgrB2_b3_7M_12M.CH3CN.r2.image.pbcor.fits',
     'SgrB2_b3_7M_12M.H41a.r2.image.pbcor.fits',
-    'SgrB2_b3_7M_12M.HCOp.r0.5.image.pbcor.fits',
     'SgrB2_b3_7M_12M.HCOp.r2.image.pbcor.fits',
-    "SgrB2_b3_7M_12M.HCN.r0.5.image.pbcor.fits",
     "SgrB2_b3_7M_12M.HCN.r2.image.pbcor.fits",
+    'SgrB2_b3_7M_12M.HCOp.r0.5.image.pbcor.fits',
+    "SgrB2_b3_7M_12M.HCN.r0.5.image.pbcor.fits",
+    'SgrB2_b3_7M_12M.HNC.r0.5.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.CH3CN.r0.5.image.pbcor.fits',
+    'SgrB2_b3_7M_12M.H41a.r0.5.image.pbcor.fits',
     #"SgrB2_b3_7M_12M_natural.CH3CN.image.pbcor.fits",
     #'SgrB2_b3_7M_12M.HC3N.image.pbcor.fits',
     #"SgrB2_b3_7M_12M_natural.H2CS303-202.image.pbcor.fits",
@@ -71,7 +71,7 @@ for interferometer_fn in (
         #med = cube.spectral_slab(90*u.km/u.s, 160*u.km/u.s).median(axis=0).value
         med = cube.spectral_slab(velocity_ranges[species][0]*u.km/u.s,
                                  velocity_ranges[species][1]*u.km/u.s).median(axis=0).value
-        os.system('cp {0} {1}'.format(dpath(interferometer_fn), medsubfn))
+        assert os.system('cp {0} {1}'.format(dpath(interferometer_fn), medsubfn)) == 0
         fh = fits.open(medsubfn, mode='update')
         log.info("Median subtracting")
         pb = ProgressBar(len(fh[0].data))
@@ -173,7 +173,7 @@ for interferometer_fn in (
 
     if 'do_full_cube' not in locals() or do_full_cube:
         # final goal
-        os.system('cp {0} {1}'.format(interferometer_fn, outfilename))
+        assert os.system('cp {0} {1}'.format(interferometer_fn, outfilename)) == 0
         assert len(cube) == len(cube_tpkrg)
         if not np.sign(cube.spectral_axis.diff()[0]) == np.sign(cube_tpkrg.spectral_axis.diff()[0]):
             cube_tpkrg = cube_tpkrg[::-1]
@@ -192,6 +192,7 @@ for interferometer_fn in (
         for ii,(im, sdim, jtok_int) in enumerate(zip(cube, cube_tpkrg, jtok)):
             imhdu = im.hdu
             imhdu.data = imhdu.data*jtok_int
+            imhdu.header['BUNIT'] = 'K'
             comb = feather_simple(imhdu, sdim.hdu,
                                   lowresscalefactor=1.0,
                                   highresscalefactor=0.1,
