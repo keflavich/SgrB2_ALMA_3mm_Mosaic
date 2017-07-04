@@ -272,13 +272,18 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     fig3.savefig(paths.fpath("{0}_peak.png".format(line)), bbox_inches='tight')
     coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
                          alpha=0.5)
-    fig3.savefig(paths.fpath("cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
 
     im = ax.imshow(hdu_line.data.squeeze()*1e3,
                    transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
                    vmin=-0.001*1e3, vmax=0.1*1e3, cmap=pl.cm.gray_r,
                    origin='lower', norm=asinh_norm.AsinhNorm())
-    fig3.savefig(paths.fpath("cores_on_{0}_peak_saturated.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_saturated.png".format(line)), bbox_inches='tight')
+
+    for cd in coredots:
+        cd.set_visible(False)
+    fig3.savefig(paths.fpath("core_overlays/{0}_peak_saturated.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/{0}_peak_saturated.pdf".format(line)), bbox_inches='tight')
     cb.on_mappable_changed(mappable=im)
 
 
@@ -319,8 +324,8 @@ for line in ("HC3N","HCN","HNC","HCOp"):
     #coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5,
     #                    markersize=markersize, alpha=0.5, zorder=50, )
     ax.axis([x1,x2,y1,y2])
-    fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth.png".format(line)), bbox_inches='tight')
-    fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth.pdf".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_DeepSouth.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_DeepSouth.pdf".format(line)), bbox_inches='tight')
 
     im = ax.imshow(hdu_line.data.squeeze()*1e3,
                    transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
@@ -328,5 +333,5 @@ for line in ("HC3N","HCN","HNC","HCOp"):
                    origin='lower', norm=asinh_norm.AsinhNorm())
     cb.on_mappable_changed(mappable=im)
     ax.axis([x1,x2,y1,y2])
-    fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth_saturated.png".format(line)), bbox_inches='tight')
-    fig3.savefig(paths.fpath("cores_on_{0}_peak_DeepSouth_saturated.pdf".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_DeepSouth_saturated.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_DeepSouth_saturated.pdf".format(line)), bbox_inches='tight')
