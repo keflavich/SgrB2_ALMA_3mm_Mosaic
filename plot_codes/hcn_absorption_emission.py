@@ -21,6 +21,8 @@ pl.clf()
 (5*hcnspec).quicklook(color='k')
 hcnsgb2spec = cube[:,yp,xp]
 (hcnsgb2spec-4*hcnsgb2spec.unit).quicklook(color='k')
+otherhcnspec = cube[:,yp-60,xp-20]
+otherhcnspec.quicklook(color='r')
 ax = pl.gca()
 ax.set_xlim(hcnspec.spectral_axis.min().value, hcnspec.spectral_axis.max().value)
 pl.savefig(paths.fpath("absorption_emission_spectrum_sgrb2.png"), bbox_inches='tight')
