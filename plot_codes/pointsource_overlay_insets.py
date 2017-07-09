@@ -125,7 +125,7 @@ zoomregions = {'SouthOfSouth':
                 'bbox':[-0.4,0.95],
                 'loc': 2,
                 'l1':1,
-                'l2':4,
+                'l2':3,
                 'min': -1,
                 'max': 50,
                 'zoom': 3,
@@ -172,7 +172,7 @@ for regionname in ('MandN', 'DeepSouth', ):
     elif regionname == 'MandN':
         bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
         topright = coordinates.SkyCoord("17:47:14.666", "-28:21:04.980", unit=(u.h, u.deg), frame='fk5')
-        scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
+        scalebarpos = coordinates.SkyCoord("17:47:17.0", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
     else:
         raise Exception
 
