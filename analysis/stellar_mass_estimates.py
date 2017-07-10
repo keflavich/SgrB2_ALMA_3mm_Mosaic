@@ -72,6 +72,9 @@ for row in hii_regions:
     if (hasattr(nm,'mask') and nm.mask):
         print("Skipping row {0} because masked.".format(row))
     elif not obj_in_tbl(nm):
+        if row['robs'] > 5:
+            print("Skipping row {0} because it's too large".format(row))
+            continue
         coord = coordinates.SkyCoord(row['RA'], row['Dec'], frame='fk5', unit=(u.hour, u.deg))
         core_phot_tbl.add_row({'name': nm, 'SIMBAD_OTYPE':'HII',
                                'RA': coord.ra,

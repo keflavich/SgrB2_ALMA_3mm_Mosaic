@@ -52,10 +52,10 @@ cont_tbl[np.where(cont_tbl['name'] == 'core_245_A2')[0][0]]['SIMBAD_ID'] = "NAME
 cont_tbl[np.where(cont_tbl['name'] == 'core_245_A2')[0][0]]['SIMBAD_OTYPE'] = "HII"
 cont_tbl[np.where(cont_tbl['name'] == 'core_182_Y')[0][0]]['SIMBAD_ID'] = "NAME Sgr B2 HII Y"
 cont_tbl[np.where(cont_tbl['name'] == 'core_182_Y')[0][0]]['SIMBAD_OTYPE'] = "HII"
-cont_tbl[np.where(cont_tbl['name'] == 'core_241.30_f10')[0][0]]['SIMBAD_ID'] = "[GCD95] F10.30"
-cont_tbl[np.where(cont_tbl['name'] == 'core_241.30_f10')[0][0]]['SIMBAD_OTYPE'] = "HII"
-cont_tbl[np.where(cont_tbl['name'] == 'core_242.318_f10')[0][0]]['SIMBAD_ID'] = "[GCD95] F10.318"
-cont_tbl[np.where(cont_tbl['name'] == 'core_242.318_f10')[0][0]]['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_241_f10.30')[0][0]]['SIMBAD_ID'] = "[GCD95] F10.30"
+cont_tbl[np.where(cont_tbl['name'] == 'core_241_f10.30')[0][0]]['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_242_f10.318')[0][0]]['SIMBAD_ID'] = "[GCD95] F10.318"
+cont_tbl[np.where(cont_tbl['name'] == 'core_242_f10.318')[0][0]]['SIMBAD_OTYPE'] = "HII"
 
 assert cont_tbl[cont_tbl['name'] == 'core_176_f1']['SIMBAD_OTYPE'] == "HII"
 

@@ -21,7 +21,9 @@ for row in allrows[3:]:
 
     for colname, val in zip(colnames, row.findAll('td')):
 
-        data[colname].append(val.text)
+        text = " ".join([x for x in val.contents if '<' not in str(x)])
+
+        data[colname].append(text)
 
 for ii,xx in enumerate(data['Dec']):
     data['Dec'][ii] = xx.replace('–','-')
@@ -31,13 +33,21 @@ tbl = Table(data=[Column(data=data[colname], name=colname, unit=None or unit)
                   for colname, unit in zip(colnames, units)]
            )
 tbl.rename_column('log()','log(Q_lyc)')
+tbl.rename_column('robs','tmp')
+tbl.rename_column('ne','robs')
+tbl.rename_column('tmp','ne')
+tbl['ne'].unit = 1e4*u.cm**-3
+tbl['robs'].unit = 1e3*u.au
 
 tbl.write(paths.tpath("Schmiedeke2016_HIIregions_tableB1.txt"),
           format='ascii.fixed_width', overwrite=True)
 
 
 reglist = [regions.CircleSkyRegion(coordinates.SkyCoord(row['RA'], row['Dec'], frame='fk5', unit=(u.hour, u.deg)),
-                                   radius=(u.Quantity(float(row['robs'])*1000, u.au) / (8.5*u.kpc)).to(u.arcsec, u.dimensionless_angles()),
+                                   radius=(u.Quantity(float(row['robs'])*1000,
+                                                      u.au) /
+                                           (8.5*u.kpc)).to(u.arcsec,
+                                                           u.dimensionless_angles()),
                                    meta={'text': row['ID']},
                                    visual={'name': row['ID']},
                                   )
