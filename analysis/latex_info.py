@@ -54,6 +54,8 @@ def rounded(value, error, extra=1):
 def round_to_n(x, n):
     if np.isnan(x):
         return np.nan
+    elif x == 0:
+        return 0
     else:
         return round(x, -int(np.floor(np.log10(np.abs(x)))) + (n - 1))
 

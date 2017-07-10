@@ -42,10 +42,22 @@ cont_tbl.add_column(Column(data=simbad_col_data, name='SIMBAD_ID'))
 cont_tbl.add_column(Column(data=simbad_otype, name='SIMBAD_OTYPE'))
 
 # HACK for broken SIMBAD
-cont_tbl[cont_tbl['name'] == 'core_172_K2']['SIMBAD_ID'] = "NAME Sgr B2 HII K2"
-cont_tbl[cont_tbl['name'] == 'core_172_K2']['SIMBAD_OTYPE'] = "HII"
-cont_tbl[cont_tbl['name'] == 'core_176_f1']['SIMBAD_ID'] = "NAME Sgr B2 HII F1"
-cont_tbl[cont_tbl['name'] == 'core_176_f1']['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_172_K2')[0][0]]['SIMBAD_ID'] = "NAME Sgr B2 HII K2"
+cont_tbl[np.where(cont_tbl['name'] == 'core_172_K2')[0][0]]['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_176_f1')[0][0]]['SIMBAD_ID'] = "NAME Sgr B2 HII F1"
+cont_tbl[np.where(cont_tbl['name'] == 'core_176_f1')[0][0]]['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_265_H')[0][0]]['SIMBAD_ID'] = "NAME Sgr B2 HII H"
+cont_tbl[np.where(cont_tbl['name'] == 'core_265_H')[0][0]]['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_245_A2')[0][0]]['SIMBAD_ID'] = "NAME Sgr B2 HII A2"
+cont_tbl[np.where(cont_tbl['name'] == 'core_245_A2')[0][0]]['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_182_Y')[0][0]]['SIMBAD_ID'] = "NAME Sgr B2 HII Y"
+cont_tbl[np.where(cont_tbl['name'] == 'core_182_Y')[0][0]]['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_241.30_f10')[0][0]]['SIMBAD_ID'] = "[GCD95] F10.30"
+cont_tbl[np.where(cont_tbl['name'] == 'core_241.30_f10')[0][0]]['SIMBAD_OTYPE'] = "HII"
+cont_tbl[np.where(cont_tbl['name'] == 'core_242.318_f10')[0][0]]['SIMBAD_ID'] = "[GCD95] F10.318"
+cont_tbl[np.where(cont_tbl['name'] == 'core_242.318_f10')[0][0]]['SIMBAD_OTYPE'] = "HII"
+
+assert cont_tbl[cont_tbl['name'] == 'core_176_f1']['SIMBAD_OTYPE'] == "HII"
 
 # query Methanol Multibeam Catalog (Caswell 2010: 2010MNRAS.404.1029C) for each source
 caswell_maser_results = Vizier.query_region(sgrb2_coords.fk5, radius=2*u.arcsec, catalog='VIII/96/catalog')['VIII/96/catalog']

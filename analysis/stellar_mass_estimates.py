@@ -199,6 +199,7 @@ classification = Column(name='Classification',
                               .format(('S' if row['color'] == 'green' else 'W'),
                                       ("\_" if row['Muno_xray_ID'] == '-' else "X"),
                                       ("\_" if row['Caswell_Name'] == '-' else "M"),
+                                      # would be nice... ("\_" if row['HII_name'] == '-' else "H"),
                                       str(row['SIMBAD_OTYPE']))
                               for row in core_phot_tbl])
 core_phot_tbl.add_column(classification)
