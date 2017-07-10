@@ -104,7 +104,8 @@ zoomregions = {'SouthOfSouth':
                                                  unit=(u.h, u.deg),
                                                  frame='fk5'),
                 'inregion': 'MandN',
-                'bbox':[-0.43,0.45],
+                'bbox': [-0.25,0.45],
+                #'bbox':[-0.024,0.425],
                 'loc': 2,
                 'l1':1,
                 'l2':4,
@@ -140,10 +141,10 @@ zoomregions = {'SouthOfSouth':
                                                  unit=(u.h, u.deg),
                                                  frame='fk5'),
                 'inregion': 'MandN',
-                'bbox':[-0.024,0.425],
+                'bbox':[-0.43,0.425],
                 'loc': 2,
-                'l1':2,
-                'l2':3,
+                'l1':1,
+                'l2':4,
                 'min': -1,
                 'max': 300,
                 'zoom': 2.25,
@@ -153,10 +154,16 @@ zoomregions = {'SouthOfSouth':
 zoomregions_order = ['M', 'N', 'M_inner', 'SouthOfSouth', 'MidDS', 'LowerDS']
 
 
+filenames = {'continuum': contfilename,
+             '1.3cm': '/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000.fits',
+            }
+
+
 for regionname in ('MandN', 'DeepSouth', ):
 
     vmax_hi = defaultdict(lambda: 0.25*1e3)
     vmax_hi['continuum'] = 0.01*1e3
+    vmax_hi['1.3cm'] = 0.02*1e3
     vmin_hi = defaultdict(lambda: -0.0001*1e3)
     vmin_hi['continuum'] = -0.0005*1e3
     vmax_lo = defaultdict(lambda: 0.1*1e3)
@@ -164,21 +171,28 @@ for regionname in ('MandN', 'DeepSouth', ):
     vmin_lo = defaultdict(lambda: -0.001*1e3)
     vmin_lo['continuum'] = -0.0002*1e3
 
-    if regionname == 'DeepSouth':
-        # Deep South
-        bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:26:02.565", unit=(u.h, u.deg), frame='fk5')
-        topright = coordinates.SkyCoord("17:47:17.666", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
-        scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:45.0", unit=(u.h, u.deg), frame='fk5')
-    elif regionname == 'MandN':
-        bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
-        topright = coordinates.SkyCoord("17:47:14.666", "-28:21:04.980", unit=(u.h, u.deg), frame='fk5')
-        scalebarpos = coordinates.SkyCoord("17:47:17.0", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
-    else:
-        raise Exception
+    for line in ("continuum", "1.3cm"):#"HC3N",):
 
-    for line in ("continuum",):#"HC3N",):
-        if line == 'continuum':
-            hdu_line = fits.open(contfilename)[0]
+
+        if regionname == 'DeepSouth':
+            # Deep South
+            bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:26:02.565", unit=(u.h, u.deg), frame='fk5')
+            topright = coordinates.SkyCoord("17:47:17.666", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
+            scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:45.0", unit=(u.h, u.deg), frame='fk5')
+        elif regionname == 'MandN':
+            bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
+            #if line == '1.3cm':
+            #    topright = coordinates.SkyCoord("17:47:16.25", "-28:21:36", unit=(u.h, u.deg), frame='fk5')
+            #    scalebarpos = coordinates.SkyCoord("17:47:18.0", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
+            #else:
+            topright = coordinates.SkyCoord("17:47:14.666", "-28:21:04.980", unit=(u.h, u.deg), frame='fk5')
+            scalebarpos = coordinates.SkyCoord("17:47:17.0", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
+        else:
+            raise Exception
+
+
+        if line in filenames:
+            hdu_line = fits.open(filenames[line])[0]
         else:
             hdu_line = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_max_medsub.fits'.format(line)))[0]
         mywcs = wcs.WCS(hdu_line.header).celestial

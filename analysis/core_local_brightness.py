@@ -258,13 +258,15 @@ def plotit():
         pl.plot(sorted_col, cum_mass, label=names[imname])
         pl.legend(loc='best')
         pl.xlim(1e21,2e25)
-        pl.loglog()
+        pl.gca().set_xscale('log')
+        pl.gca().set_yscale('log')
 
         pl.figure(4)
         pl.plot(sorted_col-5e22*u.cm**-2, cum_mass-(5e22*u.cm**-2*pixarea_cm2*2.8*u.Da).to(u.M_sun, u.dimensionless_angles()), label=names[imname])
         pl.legend(loc='best')
         pl.xlim(1e21,2e25)
-        pl.loglog()
+        pl.gca().set_xscale('log')
+        pl.gca().set_yscale('log')
 
 
     pl.figure(1)
