@@ -104,7 +104,7 @@ ax1.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=22)
 ax1.set_ylabel("$N(cores)$", fontsize=22)
 pl.legend(loc='best', fontsize=20)
 
-fig1.savefig(paths.fpath('core_peak_intensity_histogram_withHOPS.png'),
+fig1.savefig(paths.fpath('core_peak_intensity_histogram_withHOPS.pdf'),
              bbox_inches='tight')
 
 # Signal-to-noise plot
