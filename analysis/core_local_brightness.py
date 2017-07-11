@@ -103,14 +103,18 @@ col = files['HerschelColumn36']['file'].data
 col_conv = convolve_fft(col, Gaussian2DKernel(5), nan_treatment='interpolate',
                         normalize_kernel=True)
 files['HerschelColumn36']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
-#files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
+if np.nanmax(col) > 1e22:
+    raise ValueError("The Herschel column file being used appears inconsistent with this code.")
+files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
 files['HerschelColumn36']['bunit'] = u.cm**-2
 
 col = files['HerschelColumn25']['file'].data
 col_conv = convolve_fft(col, Gaussian2DKernel(5), nan_treatment='interpolate',
                         normalize_kernel=True)
 files['HerschelColumn25']['file'].data[np.isnan(col)] = col_conv[np.isnan(col)]
-#files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
+if np.nanmax(col) > 1e22:
+    raise ValueError("The Herschel column file being used appears inconsistent with this code.")
+files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
 files['HerschelColumn25']['bunit'] = u.cm**-2
 
 
@@ -170,9 +174,13 @@ for imname in brick_files:
     ww = wcs.WCS(brick_files[imname]['file'].header)
     brick_files[imname]['wcs'] = ww
 
-#brick_files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
+brick_files['HerschelColumn25']['file'].data *= cara_higal_fit_scaling
+if np.nanmax(brick_files['HerschelColumn25']['file'].data) > 1e30:
+    raise ValueError("Inconsistent column density")
 brick_files['HerschelColumn25']['bunit'] = u.cm**-2
-#brick_files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
+brick_files['HerschelColumn36']['file'].data *= cara_higal_fit_scaling
+if np.nanmax(brick_files['HerschelColumn36']['file'].data) > 1e30:
+    raise ValueError("Inconsistent column density")
 brick_files['HerschelColumn36']['bunit'] = u.cm**-2
 
 
@@ -262,6 +270,7 @@ def plotit():
         pl.gca().set_yscale('log')
 
         pl.figure(4)
+        assert cum_mass.min() > 0.1*u.M_sun
         pl.plot(sorted_col-5e22*u.cm**-2, cum_mass-(5e22*u.cm**-2*pixarea_cm2*2.8*u.Da).to(u.M_sun, u.dimensionless_angles()), label=names[imname])
         pl.legend(loc='best')
         pl.xlim(1e21,2e25)
