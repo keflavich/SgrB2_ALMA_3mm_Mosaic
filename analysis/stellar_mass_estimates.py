@@ -114,7 +114,7 @@ tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
 for col in tbl.colnames:
     if 'M' in col:
         tbl[col].unit = u.Msun
-tbl['SFR'].unit = u.Msun/u.kyr
+tbl['SFR'].unit = u.Msun/u.Myr
 
 cluster_column = np.array(['--']*len(core_phot_tbl))
 

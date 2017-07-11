@@ -93,3 +93,5 @@ pl.draw()
 
 pl.savefig(paths.fpath("column_density_distribution_with_and_without_SF.png"),
            bbox_inches='tight')
+pl.savefig(paths.fpath("column_density_distribution_with_and_without_SF.pdf"),
+           bbox_inches='tight')
