@@ -119,7 +119,7 @@ fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.pdf"), 
 nn = 11
 nn11_msunpersqpc = ((nn-1) * mbar / (np.pi*nn11_grid_pc)**2).to(u.M_sun/u.pc**2)
 
-fig2 = pl.figure(2)
+fig2 = pl.figure(2, figsize=(10,10))
 fig2.clf()
 ax2 = fig2.gca()
 

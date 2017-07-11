@@ -40,8 +40,8 @@ files = {"SHARC": {'wavelength': 350*u.um, 'bmarea':9.55e-10*u.sr, 'bunit':u.Jy,
          "Herschel350": {'wavelength': 350*u.um, 'bmarea':8.43e-9*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_pmw_deglitch_hh_gal_zoom.fits',},
          "Herschel250": {'wavelength': 250*u.um, 'bmarea':4.30*u.sr, 'bunit':u.MJy/u.sr, 'filename':'igls_l000_psw_deglitch_hh_gal_zoom.fits',},
          "BGPS": {'wavelength': 1100*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.Jy, 'filename':'v2.1_ds2_l001_13pca_map20.fits',},
-         "HerschelColumn25": {'wavelength': 0*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':cara_higal_fit_scaling*u.cm**-2, 'filename':'gcmosaic_column_conv25.fits',},
-         "HerschelColumn36": {'wavelength': 0*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':cara_higal_fit_scaling*u.cm**-2, 'filename':'gcmosaic_column_conv36.fits',},
+         "HerschelColumn25": {'wavelength': 0*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'gcmosaic_column_conv25.fits',},
+         "HerschelColumn36": {'wavelength': 0*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'gcmosaic_column_conv36.fits',},
          "Sharc20Column": {'wavelength': 350*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/sharc_col_20K.fits',},
          "Sharc50Column": {'wavelength': 350*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/sharc_col_50K.fits',},
          "Scuba20Column": {'wavelength': 450*u.um, 'bmarea':2.90e-8*u.sr, 'bunit':u.cm**-2, 'filename':'column_maps/scuba_col_20K.fits',},
@@ -420,9 +420,12 @@ def plotit():
     nn = 11
     nn11_msunpersqpc_starcentered = (nn-1) * mbar / (np.pi*nn11_pc)**2
 
-    herschelsurfdens = (u.Quantity(tbl['HerschelColumn25'], u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
+    herschelsurfdens = (u.Quantity(tbl['HerschelColumn25']).to(u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
 
-    fig7 = pl.figure(7)
+    assert herschelsurfdens.min() < 10**5*u.M_sun/u.pc**2
+    assert herschelsurfdens.max() > 10**3*u.M_sun/u.pc**2
+
+    fig7 = pl.figure(7, figsize=(10,10))
     fig7.clf()
     ax7 = fig7.gca()
     ax7.loglog(
