@@ -198,10 +198,11 @@ tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
 core_phot_tbl.add_column(Column(name='Cluster', data=cluster_column))
 
 classification = Column(name='Classification',
-                        data=["{0}{1}{2} {3}"
+                        data=["{0}{1}{2}{3} {4}"
                               .format(('S' if row['color'] == 'green' else 'W'),
                                       ("\_" if row['Muno_xray_ID'] == '-' else "X"),
                                       ("\_" if row['Caswell_Name'] == '-' else "M"),
+                                      ("\_" if np.isnan(row['McGrath_V_H2O']) else "W"),
                                       # would be nice... ("\_" if row['HII_name'] == '-' else "H"),
                                       str(row['SIMBAD_OTYPE']))
                               for row in core_phot_tbl])

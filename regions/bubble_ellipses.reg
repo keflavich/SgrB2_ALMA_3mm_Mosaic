@@ -1,0 +1,8 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+ellipse(17:47:14.451,-28:22:39.716,24.120",43.070",359.99962) # text={NorthWestBubble 70-84}
+ellipse(17:47:24.274,-28:23:40.445,23.689",27.565",359.99962) # text={EastBubble 46-72}
+ellipse(17:47:20.110,-28:25:02.024,25.340",33.233",359.99995) # text={DeepSouthBubble 48-90}
+ellipse(17:47:26.365,-28:25:09.594,44.543",62.648",346.23016) # text={SouthEastBubble 30-52}
+ellipse(17:47:20.193,-28:21:55.934,91.490",69.547",44.464) # text={NorthBubble 34-62}

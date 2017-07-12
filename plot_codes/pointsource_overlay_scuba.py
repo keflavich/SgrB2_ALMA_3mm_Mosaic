@@ -8,6 +8,7 @@ import matplotlib
 from astropy.io import fits
 from astropy import wcs
 from mpl_plot_templates import asinh_norm
+from overlay_common import core_phot_tbl, plotcores
 
 pl.matplotlib.rc_file('pubfiguresrc')
 
@@ -23,9 +24,6 @@ if matplotlib.__version__[0] == '1':
 elif matplotlib.__version__[0] == '2':
     markersize = 0.5
 
-core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
-cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
-                             frame='fk5')
 
 hdu = fits.open(paths.Fpath('./other/scuba_Herschel_Feathered.fits'))[0]
 mywcs = wcs.WCS(hdu.header).celestial
@@ -53,8 +51,9 @@ tr_fk5 = ax.get_transform("fk5")
 (x1,y1),(x2,y2) = (206,174),(348,333)
 ax.axis([x1,x2,y1,y2])
 
-coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5,
-                    markersize=markersize, alpha=0.5, zorder=50, )
+coredots = plotcores(ax, alpha=0.5,
+                     transform=tr_fk5,
+                     markersize=markersize, zorder=50)
 cb = pl.colorbar(mappable=im)
 cb.set_label("$S_{450 \mu m}$ [MJy sr$^{-1}$]")
 fig3.savefig(paths.fpath("cores_on_SCUBA_feathered.png"), bbox_inches='tight')

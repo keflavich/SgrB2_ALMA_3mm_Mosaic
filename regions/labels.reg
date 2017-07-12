@@ -1,0 +1,8 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+# text(17:47:18.074,-28:21:53.84) color=black text={Sgr B2 N}
+# text(17:47:26.813,-28:23:01.32) textangle=0 color=black text={Sgr B2 M}
+# text(17:47:26.613,-28:23:43.84) textangle=0 color=black text={Sgr B2 S}
+# text(17:47:30.764,-28:25:12.58) textangle=0 color=black text={Sgr B2 DS}
+# text(17:47:10.699,-28:26:51.98) textangle=0 color=black text={Sgr B1}

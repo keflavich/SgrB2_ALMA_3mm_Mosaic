@@ -214,7 +214,7 @@ def plotit():
     for ii,imname in enumerate(f for f in files if 'column' in f.lower()):
 
 
-        print(imname)
+        print("Plotting {0}".format(imname))
         data = files[imname]['file'].data
         mask = files[imname]['mask']
         brickdata = brick_files[imname]['file'].data
@@ -361,7 +361,7 @@ def plotit():
 
     pl.figure(6).clf()
     imname = 'ScubaHTemColumn'
-    print(imname)
+    print("fig6: Plotting {0}".format(imname))
     data = files[imname]['file'].data
     mask = files[imname]['mask']
     brickdata = brick_files[imname]['file'].data

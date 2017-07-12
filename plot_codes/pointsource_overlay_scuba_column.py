@@ -10,6 +10,7 @@ from astropy import wcs
 from mpl_plot_templates import asinh_norm
 from constants import distance
 from visualization import make_scalebar, hide_scalebar
+from overlay_common import core_phot_tbl, plotcores
 
 pl.matplotlib.rc_file('pubfiguresrc')
 
@@ -25,9 +26,6 @@ if matplotlib.__version__[0] == '1':
 elif matplotlib.__version__[0] == '2':
     markersize = 0.5
 
-core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
-cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
-                             frame='fk5')
 
 hdu = fits.open(paths.Fpath('column_maps/scuba_col_herscheltem.fits'))[0]
 mywcs = wcs.WCS(hdu.header).celestial
@@ -61,8 +59,9 @@ con = ax.contour(hdu.data.squeeze(),
                  linestyles=['--', '-', '-', '-', '-'],
                  linewidth=0.5, alpha=0.5)
 
-coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5,
-                    markersize=markersize, alpha=0.5, zorder=50, )
+coredots = plotcores(ax, alpha=0.5,
+                     transform=tr_fk5,
+                     markersize=markersize, zorder=50)
 cb = pl.colorbar(mappable=im)
 cb.set_label("$N(H_2)$ [cm$^{-2}$]")
 fig3.savefig(paths.fpath("cores_on_SCUBA_column.png"), bbox_inches='tight')

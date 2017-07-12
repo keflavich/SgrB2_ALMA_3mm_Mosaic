@@ -1,0 +1,14 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk4
+point(17:44:08.841,-28:23:21.80) # point=x text={M1}
+point(17:44:07.060,-28:23:33.10) # point=x text={M2}
+point(17:44:12.011,-28:23:32.80) # point=x text={M3}
+point(17:44:06.881,-28:23:55.30) # point=x text={M4}
+point(17:44:07.701,-28:23:27.70) # point=x text={M5}
+point(17:44:08.790,-28:23:21.80) # point=x text={M6}
+point(17:44:08.800,-28:23:21.80) # point=x text={HC1}
+point(17:44:09.011,-28:23:04.60) # point=x text={HC2}
+point(17:44:09.330,-28:23:34.90) # point=x text={HC3}
+point(17:44:06.701,-28:23:55.50) # point=x text={Filament_1}
+point(17:44:09.631,-28:23:37.50) # point=x text={M-AA}

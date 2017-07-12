@@ -1,0 +1,19 @@
+fk5
+point(17:47:19.99,-28:22:05.1) # text={abs1} color=blue point=box
+point(17:47:20.27,-28:22:11.1) # text={abs2} color=blue point=box
+point(17:47:20.39,-28:22:12.6) # text={abs3} color=blue point=box
+point(17:47:20.75,-28:22:12.6) # text={abs4} color=blue point=box
+point(17:47:20.03,-28:22:14.1) # text={abs5} color=blue point=box
+point(17:47:18.78,-28:22:46.1) # text={abs6} color=blue point=box
+point(17:47:19.38,-28:23:00.1) # text={abs7} color=blue point=box
+point(17:47:24.74,-28:21:43.6) # text={emi1} color=red point=circle
+point(17:47:19.28,-28:22:14.8) # text={emi2} color=red point=circle
+point(17:47:19.54,-28:22:32.6) # text={emi3} color=red point=circle
+point(17:47:20.04,-28:22:41.3) # text={emi4} color=red point=circle
+point(17:47:18.64,-28:22:54.6) # text={emi5} color=red point=circle
+point(17:47:19.87,-28:23:01.3) # text={emi6} color=red point=circle
+point(17:47:20.04,-28:23:12.8) # text={emi7} color=red point=circle
+point(17:47:20.05,-28:23:46.5) # text={emi8} color=red point=circle
+point(17:47:21.12,-28:24:18.2) # text={emi9} color=red point=circle
+point(17:47:18.65,-28:24:25.0) # text={emi10} color=red point=circle
+point(17:47:22.04,-28:24:42.6) # text={emi11} color=red point=circle

@@ -83,6 +83,37 @@ cont_tbl.add_column(Column(data=caswell_names, name='Caswell_Name'))
 cont_tbl.add_column(Column(data=caswell_velos, name='Caswell_V_CH3OH', unit=u.km/u.s))
 cont_tbl.add_column(Column(data=u.Quantity(caswell_matchdist, u.arcsec), name='Caswell_matchdistance', unit=u.arcsec))
 
+
+
+# query Methanol Multibeam Catalog (McGrath 2010: 2010MNRAS.404.1029C) for each source
+McGrath_maser_results = Vizier.query_region(sgrb2_coords.fk5, radius=2*u.arcsec, catalog='J/ApJS/155/577/tables')['J/ApJS/155/577/tables']
+McGrath_coords = coordinates.SkyCoord(stringy(McGrath_maser_results['_RA.icrs']),
+                                      stringy(McGrath_maser_results['_DE.icrs']),
+                                      frame='fk5', unit=(u.hour, u.deg))
+McGrath_matches = coordinates.match_coordinates_sky(sgrb2_coords, McGrath_coords)
+
+#McGrath_names = []
+McGrath_velos = []
+McGrath_matchdist = []
+for match,distance,_ in zip(*McGrath_matches):
+    if distance < 1*u.arcsec:
+        #McGrath_names.append(McGrath_maser_results[match]['Name'])
+        McGrath_velos.append(McGrath_maser_results[match]['VLSR'])
+        McGrath_matchdist.append(distance.to(u.arcsec))
+    else:
+        #McGrath_names.append("-")
+        McGrath_velos.append(np.nan)
+        McGrath_matchdist.append(np.nan*u.arcsec)
+
+#cont_tbl.add_column(Column(data=McGrath_names, name='McGrath_Name'))
+cont_tbl.add_column(Column(data=McGrath_velos, name='McGrath_V_H2O', unit=u.km/u.s))
+cont_tbl.add_column(Column(data=u.Quantity(McGrath_matchdist, u.arcsec), name='McGrath_matchdistance', unit=u.arcsec))
+
+
+
+
+
+
 muno_xray_results = Vizier.query_region(sgrb2_coords.fk5, radius=2*u.arcsec,
                                         catalog='J/ApJS/165/173')['J/ApJS/165/173/table2']
 muno_xray_coords = coordinates.SkyCoord(muno_xray_results['RAJ2000'],
