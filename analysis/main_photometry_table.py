@@ -56,6 +56,7 @@ for colname in ['SIMBAD_ID', 'SIMBAD_OTYPE', 'Caswell_Name', 'npix',
                 'peak_100GHz', 'sum_100GHz', 'bgmad_100GHz', 'Caswell_V_CH3OH',
                 'Caswell_matchdistance', 'Muno_xray_ID', 'Muno_xray_Counts',
                 'peak_mass_20K', 'peak_col_20K',
+                'McGrath_V_H2O', 'McGrath_matchdistance', 'nn11',
                 'Muno_xray_matchdistance',]:
     cont_tbl.remove_column(colname)
 
