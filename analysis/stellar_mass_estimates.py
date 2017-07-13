@@ -114,7 +114,8 @@ tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
 for col in tbl.colnames:
     if 'M' in col:
         tbl[col].unit = u.Msun
-tbl['SFR'].unit = u.Msun/u.Myr
+tbl['SFR'].unit = u.Msun/u.yr
+sgrb2_age_myr = 0.74
 
 cluster_column = np.array(['--']*len(core_phot_tbl))
 
@@ -156,7 +157,7 @@ for reg in clusters:
                  latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
                  schmiedeke_summary_table[sst_mask]['M∗ initial']*u.M_sun,
                  schmiedeke_summary_table[sst_mask]['M∗ all']*1e3*u.M_sun,
-                 latex_info.round_to_n(inferred_mass/0.74e3,2)*u.M_sun/u.kyr,
+                 latex_info.round_to_n(inferred_mass/sgrb2_age_myr/1e6,2)*u.M_sun/u.yr,
                 ])
 
 
