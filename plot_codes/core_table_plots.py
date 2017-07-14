@@ -101,6 +101,7 @@ fig2.savefig(paths.fpath('core_spatial_distribution.png'), bbox_inches='tight')
 
 
 # spectral index derivation and plotting
+# This is the old version using the 90GHz and 100GHz continuum maps
 
 cont_tbl = core_phot_tbl
 fluxratio = cont_tbl['peak_100GHz'] / cont_tbl['peak_90GHz']
