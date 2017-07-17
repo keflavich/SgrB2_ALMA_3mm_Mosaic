@@ -813,14 +813,18 @@ opacity and correspondingly increasing the required mass
 \msun$.  Heating that much dust to 80 K most likely requires a high-luminosity
 central heating source.
 
-To constrain the required heating source, we examine the protostellar model grid
-of \citet{Robitaille2017a}.  The models that produce $S_{3 \mathrm{mm}} > 0.5$
+To constrain the required heating source, we examine the protostellar model
+grid of \citet[][specifically, the \texttt{spubhmi} and \texttt{spubsmi}
+models]{Robitaille2017a}.  The models that produce $S_{3 \mathrm{mm}} > 0.5$
 mJy within a 5000 AU aperture uniformly have $L>10^4$ \lsun.  Such luminosities
-imply either that an intermediate-mass star has already formed and is still
+imply either that an high-mass ($M\gtrsim8$ \msun) star has already formed and is still
 surrounded by a massive envelope, or a high-mass YSO is present and accreting.
 The models of \citet{Zhang2015f}, for example, generally only exhibit $L>10^4$
 \lsun once a star has reached $M\approx10$ \msun as it continues to accrete to
-a high mass.
+a higher mass.  Similarly, pre-main-sequence stellar evolution models
+\citep[e.g.,][]{Haemmerle2013a} only reach $L>10^4$ \lsun for stars with
+final mass $M\gtrsim8$ \msun.
+
 
 
 
@@ -858,22 +862,22 @@ entire observed area), of which \nmasermatch have a clear match to within
 1\arcsec of a source in our catalog (the MMB catalog sources have a positional
 accuracy of $\approx0.4\arcsec$, but masers may have an extent up to 1\arcsec).
 These sources are clearly identified as high-mass protostars.
-The single maser that does not have an associated millimeter source is 5
-arcseconds west of Sgr B2 S and resides near some very faint and diffuse 3 mm
+The single maser that does not have an associated millimeter source is 5\arcsec
+west of Sgr B2 S and resides near some very faint and diffuse 3 mm
 emission; it is unclear why the 3 mm is so weak here, but it hints at
 incompleteness in our catalog.
 
 
 Water masers are generally associated with forming young stars.  We
 also matched our catalog with the \citet{McGrath2004a} water maser catalog,
-finding that 23 of our sources have a water maser within 1 arcsecond.
+finding that 23 of our sources have a water maser within 1\arcsec.
 Again, these sources are likely to contain protostars, but perhaps of more
 moderate mass.
 
 Some young stars exhibit X-ray emission, including some MYSOs
 \citep[e.g.,][]{Townsley2014a}, so we searched for X-ray emission from our
 sources.  \nxraymatch of the sources have X-ray counterparts in the
-\citet{Muno2009a} Chandra point source catalog within 1 \arcsec.  The
+\citet{Muno2009a} Chandra point source catalog within 1\arcsec.  The
 \citet{Muno2009a} catalog covers our entire observed area.  The X-ray
 associated sources most likely either contain protostars or young stars.
 
@@ -1367,9 +1371,12 @@ equivalents, since we do not observe stellar photospheres.
 {figures/stellar_vs_gas_column_density_gridNN11_herschel.pdf}
 {figures/stellar_vs_gas_column_density_starcentered_herschel.pdf}
 {Plots of the protostellar mass surface density vs the gas mass surface
-density.  The surface densities are computed using the 11th nearest-neighbor
-distance.  (a) shows the protostar-centric surface densities, while (b) shows
-the densities computed on a 0.25 pc grid.  The shaded regions
+density.  The stellar mass surface densities are computed using the 11th
+nearest-neighbor distance assuming that each star represents
+a mass of 95 \msun, extrapolated assuming a uniform IMF.  (a) shows the
+densities computed on a 0.25 pc grid,
+while (b) shows
+the protostar-centric surface densities.  The shaded regions
 show the extrapolations of the relations derived by \citet{Gutermuth2011a}
 for Ophiucus (blue) and Mon R2 (green); their data cut off below a mass
 surface density $\Sigma < 10^3$ \msun pc$^{-2}$. 
@@ -1378,7 +1385,10 @@ $\approx50\times$ to overlap with our data.
 The black dashed line shows the relation $\Sigma_* = 10^{-5}
 \Sigma_{gas}^{5/3}$; it is not a fit to the data.
 The thick solid red line shows a linear relation scaled
-to match the source-centered surface density.}
+to match the source-centered surface density.
+The arrows along the bottom show the effect of subtracting off a uniform
+foreground column density of $N(\hh)=5\ee{22}$ \persc (1100 \msun pc$^{-2}$).
+}
 {fig:stellarvsmasscolumn}{1}{0.5\textwidth}
 
 We do not fit a slope, as \citet{Gutermuth2011a} did, because we expect our
@@ -1391,13 +1401,35 @@ the data.
 
 %{\color{red} todo: move or summarize this in discussion/conclusion/abstract?}
 Our data are consistent with the slopes, but not the amplitude, of the
-\citet{Gutermuth2011a} results.  In order to reconcile our measurements with
-theirs, either there must be a $\approx100\times$ larger population of more
-evolved stars (Class II equivalent, age 1-10 Myr) than young forming stars
-(Class 0/I equivalent), or the Sgr B2 cloud must be at a significantly earlier
-evolutionary stage than Mon R2 and the other clouds in their sample.
-A deep infrared observation in the high-extinction regions of the cloud,
-e.g., with JWST, would readily distinguish these possibilities.
+\citet{Gutermuth2011a} results; Figure \ref{fig:stellarvsmasscolumn} shows
+that the extrapolated relation from the low-mass clouds exceeds our observations
+by at least $50\times$.  It is difficult to reconcile these measurements.
+\citet{Gutermuth2011a} were sensitive to, and included in their sample,
+an older generation of Class II sources, but they typically found a Class II / Class I
+ratio of only $\approx4\times$ \citep{Gutermuth2009a}, so the discrepancy
+cannot be exclusively due to our insensitivity to older YSOs unless the star
+formation rate of Sgr B2 was an order of magnitude higher 1-2 Myr ago, which is
+implausible given the detectability of massive stars in that age range.  The
+surface densities we measure cannot be substantially incorrect;
+even if we assume the maximum plausible foreground cloud surface density of
+$N(\hh)=5\ee{22}$ \persc, the measured gas surface densities only shift by a
+small fraction (at most $50\%$, but typically $<10\%$ for the star-centered
+measurements).  A possible explanation is that each of the detected
+sources in our sample is a high-number multiple system, such that each 3 mm represents
+$\approx5000$ \msun instead of $\approx100$ \msun.  The multiplicity of the 
+Orion Source I system suggests this interpretation is qualitatively plausible,
+but the factor of 50 strains credibility.  Another possibility is that each
+source we detect has a higher minimum mass than we have assumed, $M\gg8 \msun$,
+but again the required threshold is absurd, requiring each star to be $>100$ \msun
+to match the local cloud extrapolation.
+
+% In order to reconcile our measurements with
+% theirs, either there must be a $\approx100\times$ larger population of more
+% evolved stars (Class II equivalent, age 1-10 Myr) than young forming stars
+% (Class 0/I equivalent), or the Sgr B2 cloud must be at a significantly earlier
+% evolutionary stage than Mon R2 and the other clouds in their sample.
+% A deep infrared observation in the high-extinction regions of the cloud,
+% e.g., with JWST, would readily distinguish these possibilities.
 
 
 

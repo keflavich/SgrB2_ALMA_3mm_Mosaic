@@ -39,6 +39,7 @@ over8mean = (x*y).sum()/y.sum()
 nsources = len(core_phot_tbl)
 
 print("Mass fraction M>8 = {0}".format(over8fraction))
+print("Mean mass Mbar(M>8) = {0}".format(over8mean))
 print("Mass of observed sources, assuming all are 8 msun = {0}".format(nsources*8))
 print("Total Mass estimate if all sources are 8 msun = {0}".format(nsources*8/over8fraction))
 print("Total Mass estimate if Mbar={1} = {0}".format(nsources*over8mean/over8fraction, over8mean))
@@ -120,7 +121,9 @@ sgrb2_age_myr = 0.74
 cluster_column = np.array(['--']*len(core_phot_tbl))
 
 print("Mass fraction M>20 = {0}".format(over20fraction))
+print("Mean mass M>20 = {0}".format(over20mean))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
+print("Mean mass 8<M<20 = {0}".format(over8lt20mean))
 for reg in clusters:
     mask = reg.contains(core_coords, arbitrary_wcs)
     nhii = (hii & mask).sum()
@@ -211,6 +214,20 @@ core_phot_tbl.add_column(classification)
 
 core_phot_tbl.write(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipac"),
                     format='ascii.ipac', overwrite=True)
+
+# cutoff analysis...
+
+for cutoff in np.linspace(8,70,10):
+    x = np.linspace(cutoff,mmax,50000)
+    y = kroupa(x)
+    over20mean = (x*y).sum()/y.sum()
+    over20fraction = (kroupa.m_integrate(cutoff, mmax)[0] /
+                      kroupa.m_integrate(kroupa.mmin, mmax)[0])
+    print("Mass fraction M>{1} = {0}".format(over20fraction, cutoff))
+    print("Mean mass M>{1} = {0}".format(over20mean, cutoff))
+    print("Represented mass M>{1} = {0}".format(over20mean/over20fraction, cutoff))
+
+
 
 """
 Result as of 3/24/2017:

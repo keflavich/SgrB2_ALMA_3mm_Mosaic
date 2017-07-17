@@ -11,7 +11,7 @@ from astropy.convolution import convolve_fft,Gaussian2DKernel
 import reproject
 import pyregion
 
-from constants import distance, mbar
+from constants import distance, mass_represented_by_a_source
 
 import paths
 
@@ -418,7 +418,7 @@ def plotit():
 
     nn11_pc = (u.Quantity(tbl['nn11'], u.arcsec) * distance).to(u.pc, u.dimensionless_angles())
     nn = 11
-    nn11_msunpersqpc_starcentered = (nn-1) * mbar / (np.pi*nn11_pc)**2
+    nn11_msunpersqpc_starcentered = (nn-1) * mass_represented_by_a_source / (np.pi*nn11_pc)**2
 
     herschelsurfdens = (u.Quantity(tbl['HerschelColumn25']).to(u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
 
@@ -450,6 +450,14 @@ def plotit():
     ax7.set_ylabel("Source-centered NN11 Surface Density\n[M$_\odot$ pc$^{-2}$]")
     ax7.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
     ax7.axis(lims)
+
+    # Arrows showing the shift if you subtract off the "most aggressive plausible"
+    # uniform foreground value
+    bg_5e22 = (5e22*u.cm**-2*2.8*u.Da).to(u.M_sun/u.pc**2)
+    ax7.arrow(3e3, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e3-bg_5e22.value), color='k')
+    ax7.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
+    ax7.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
+
     ax7.axis([1e3,1e5,1e0,1e5])
     ax7.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.png"), bbox_inches='tight')
@@ -483,6 +491,14 @@ def plotit():
     ax8.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
     ax8.set_ylabel("Source-centered NN11 Surface Density\n[M$_\odot$ pc$^{-2}$]")
     ax8.set_xlabel("SCUBA-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+
+    # arrows showing the shift if you subtract off the "most aggressive plausible"
+    # uniform foreground value
+    bg_5e22 = (5e22*u.cm**-2*2.8*u.Da).to(u.M_sun/u.pc**2)
+    ax8.arrow(3e3, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e3-bg_5e22.value), color='k')
+    ax8.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
+    ax8.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
+
     ax8.axis(lims)
     ax8.axis([1e3,1e5,1e0,1e5])
     fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba.png"), bbox_inches='tight')

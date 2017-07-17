@@ -11,11 +11,19 @@ from astropy.convolution import convolve_fft,Gaussian2DKernel
 import reproject
 import pyregion
 
-from constants import distance, mbar
+from constants import distance, mass_represented_by_a_source
 import pylab as pl
 
 import paths
 
+import pylab as pl
+pl.rcParams['figure.figsize'] = (12,8)
+pl.rcParams['figure.dpi'] = 75
+pl.rcParams['savefig.dpi'] = 150
+pl.rcParams['axes.titlesize']= 40
+pl.rcParams['axes.labelsize']= 24
+pl.rcParams['xtick.labelsize']= 20
+pl.rcParams['ytick.labelsize']= 20
 
 # define a grid with 1 pc pixels covering the observed area
 center = coordinates.SkyCoord('17:47:19.335 -28:23:31.993', frame='fk5', unit=(u.hour, u.deg))
@@ -80,7 +88,7 @@ fig1.clf()
 ax1 = fig1.gca()
 
 ok = np.isfinite(herschel25reproj) & (gridded_stars > 0)
-gridded_star_massdensity = (gridded_stars * mbar / (cell_size**2)).to(u.M_sun/u.pc**2)
+gridded_star_massdensity = (gridded_stars * mass_represented_by_a_source / (cell_size**2)).to(u.M_sun/u.pc**2)
 gas_massdensity25 = (herschel25reproj * 1e22*u.cm**-2 * 2.8*u.Da).to(u.M_sun/u.pc**2)
 ax1.loglog(gas_massdensity25[ok], gridded_star_massdensity[ok], 'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
 
@@ -109,15 +117,15 @@ ax1.fill_between([0.1, 1e5],
                  label='Ophiucus')
 ax1.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
 
-ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]")
-ax1.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]", fontsize=24)
+ax1.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]", fontsize=24)
 ax1.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
 ax1.axis([1e3,1e5,1e0,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.pdf"), bbox_inches='tight')
 
 nn = 11
-nn11_msunpersqpc = ((nn-1) * mbar / (np.pi*nn11_grid_pc)**2).to(u.M_sun/u.pc**2)
+nn11_msunpersqpc = ((nn-1) * mass_represented_by_a_source / (np.pi*nn11_grid_pc)**2).to(u.M_sun/u.pc**2)
 
 fig2 = pl.figure(2, figsize=(10,10))
 fig2.clf()
@@ -142,9 +150,24 @@ ax2.fill_between([0.1, 1e5],
 ax2.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
 ax2.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
 
-ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]")
-ax2.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]", fontsize=24)
+ax2.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]", fontsize=24)
 ax2.axis(lims)
+
+# Arrows showing the shift if you subtract off the "most aggressive plausible"
+# uniform foreground value
+bg_5e22 = (5e22*u.cm**-2*2.8*u.Da).to(u.M_sun/u.pc**2)
+ax2.arrow(3e3, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e3-bg_5e22.value), color='k')
+ax2.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
+ax2.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
+#ax2.arrow(3e5, 1.1, -(3e5-bg_5e22.value), 0, head_width=6, shape='left')
 ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.pdf"), bbox_inches='tight')
+
+
+total_mass = np.nansum(cell_size**2 * gas_massdensity25)
+total_stellar_mass = len(cont_tbl) * mass_represented_by_a_source
+
+print("Total SFE = {0} / {1} = {2}".format(total_stellar_mass, total_mass,
+                                           total_stellar_mass/total_mass))

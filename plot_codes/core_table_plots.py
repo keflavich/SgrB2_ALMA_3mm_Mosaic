@@ -5,6 +5,7 @@ from astropy import units as u
 from astropy import coordinates
 import masscalc
 import pylab as pl
+from constants import distance
 pl.matplotlib.rc_file('pubfiguresrc')
 
 cont_tbl = core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"), format='ascii.ipac')
@@ -250,6 +251,21 @@ pl.xlabel("CASA Alpha")
 pl.ylabel("90-100 GHz spectral index")
 pl.axis([-2,4,-2,4])
 pl.savefig(paths.fpath("compare_spindx_measurements.png"), bbox_inches='tight')
+
+fig8 = pl.figure(8)
+fig8.clf()
+ax = fig8.gca()
+sgrb2_coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'],
+                                    unit=(u.deg, u.deg), frame='fk5',)
+nn2 = coordinates.match_coordinates_sky(sgrb2_coords, sgrb2_coords, nthneighbor=2)
+ax.hist((u.Quantity(cont_tbl['nn11'], u.deg)*distance).to(u.pc, u.dimensionless_angles()),
+        bins=np.linspace(0, 1, 21),
+       )
+ax.hist((u.Quantity(nn2[1], u.deg)*distance).to(u.pc, u.dimensionless_angles()),
+        bins=np.linspace(0,1,21),
+        edgecolor='r',
+        histtype='step',)
+
 
 pl.draw()
 pl.show()

@@ -5,4 +5,4 @@ distance = 8.4*u.kpc # CMZ distance
 frequency = 95*u.GHz # TODO: make this more accurate
 
 # from stellar_mass_estimates
-mbar = 21.8*u.M_sun / 0.2277
+mass_represented_by_a_source = 21.8*u.M_sun / 0.2277
