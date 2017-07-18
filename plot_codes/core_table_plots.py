@@ -60,9 +60,12 @@ h,l,p = ax1.hist([(core_phot_tbl['peak']/core_phot_tbl['bgmad'])[highconf],
                  log=False, bins=np.logspace(0,2.5), histtype='barstacked')
 #ho,lo,po = ax1.hist((core_phot_tbl['peak']/core_phot_tbl['bgmad'])[core_phot_tbl['color']=='orange'],
 #                    log=False, bins=np.logspace(0,2.5))
+ax1.vlines(3,0,25,linestyle='-', color='k', label='3')
+ax1.vlines(5,0,25,linestyle='--', color='r', label='5')
+ax1.vlines(7,0,25,linestyle=':', color='b', label='7')
 ax1.set_xscale('log')
 #ax1.set_xlim(l[:-1][h>0].min()/1.1, l[1:][h>0].max()*1.1)
-#ax1.set_ylim(0.6, 15)
+ax1.set_ylim(0, 25)
 ax1.set_xlabel("S/N")
 ax1.set_ylabel("$N(cores)$")
 

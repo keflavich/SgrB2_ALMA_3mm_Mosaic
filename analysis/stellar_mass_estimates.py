@@ -217,7 +217,7 @@ core_phot_tbl.write(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipa
 
 # cutoff analysis...
 
-for cutoff in np.linspace(8,70,10):
+for cutoff in np.linspace(8,100,10):
     x = np.linspace(cutoff,mmax,50000)
     y = kroupa(x)
     over20mean = (x*y).sum()/y.sum()

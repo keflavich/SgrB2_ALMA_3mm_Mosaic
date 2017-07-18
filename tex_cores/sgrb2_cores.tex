@@ -236,7 +236,7 @@ primary beam ($\sim0.5$\arcmin) of Sgr B2M is only 5300 (noise $\sim0.3$
 mJy/beam, 0.16 K).  Because of the dynamic range limitations and an empirical
 determination that clean did not converge if allowed to go too deep, we cleaned
 to a threshold of 0.1 mJy/beam over all pixels with $S_\nu > 2.5$ mJy / beam
-as determined from a previous iteration.
+as determined from a previous iteration of \texttt{clean}.
 The final image used for most of the analysis in this paper was imaged with 
 Briggs robust parameter 0.5, achieving a beam size $0.54\arcsec\times0.46\arcsec$.
 % We performed this same
@@ -306,12 +306,14 @@ available via dataverse or some other service prior to submission.}
 \label{sec:colmaps}
 We use archival data to create column density maps at a coarser
 resolution than the ALMA data, since the ALMA data are not sensitive
-enough to make direct colum density measurements.   We use Herschel Hi-Gal
+enough to make direct column density measurements.   We use Herschel Hi-Gal
 data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby et al,
 in prep).  These fits were performed at 25\arcsec resolution, using the 70, 160,
 250, and 350 \um data and excluding the 500 \um channel.  The estimated 
 uncertainty is $\sim25\%$, with an upper limit on the systematic uncertainty
-of a factor of two (Batterby et al, in prep).
+of a factor of two (Batterby et al, in prep).  To obtain column density maps
+with greater resolution, we combine the Herschel data with SHARC 450 \um and
+SCUBA 350 \um images.
 
 
 The CSO SHARC data were reported in \citet{Bally2010a} and have a nominal
@@ -330,20 +332,24 @@ from space and calibrated to an absolute scale using Planck data
 The JCMT SCUBA 450 \um data were reported in \citet{Pierce-Price2000a} and
 \citet{di-Francesco2008a} with a resolution of 8\arcsec.  We found that the
 SCUBA data had a flux scale significantly discrepant from the Herschel-SPIRE
-500 \um data, even accounting for the central wavelength difference.  We had to
-scale the SCUBA data up by a factor $\approx3.0$ to make the data agree with
-the Herschel-SPIRE images on the angular scales they are both hypothetically
-sensitive to.  While such a large flux calibration error seems implausible, the
-measured FWHM toward Sgr B2 N is approximately 14\arcsec, which means the beam
-area is $\approx3\times$ larger than the theoretical size.  We attempted to fit
-several other isolated sources in the large SCUBA map, and the smallest FWHM we
-measured was $\approx10.5$\arcsec.  Between the larger beam area, flux
+500 \um data on 30-90\arcsec scales, even accounting for the central wavelength
+difference.  We had to
+scale the SCUBA data up by a factor $\approx3$ to make the data agree with
+the Herschel-SPIRE images on these scales.  While such a large flux calibration
+error seems implausible, it is plausible if the beam size of the ground-based data
+is larger than expected.  To assess this possibility, we fit 2D Gaussians to
+several sources in the SCUBA CMZ maps, measuring a FWHM toward Sgr B2 N of
+approximately 14\arcsec, which means the beam area is $\approx3\times$ larger
+in area than the theoretical size.  Among several other sources fit in the
+SCUBA map,  the smallest FWHM measured was $\approx10.5$\arcsec.  Between the
+larger beam area, flux
 calibration errors \citep[quoted at 20\percent in][]{Pierce-Price2000a}, and
 the dust emissivity correction (35-50\percent for $\beta=3-4$), this large flux
 scaling factor is plausible. This large correction factor is consistent with
 the large error beam found by \citet{di-Francesco2008a}, with effective FWHM
 $\approx17.3$\arcsec, since they used additional smoothing when creating their
-maps.
+maps.  As with the SHARC data above, we trust the space-based calibration
+over the ground-based.
 
 
 To obtain higher resolution column density maps, we used the combined
@@ -356,7 +362,8 @@ and 50 K), and another using the temperature measured with Herschel
 interpolated onto the higher-resolution SCUBA and SHARC grids.  Because of the
 interpolation and fixed temperature assumptions, the column maps are not very
 accurate and should not be used for systematic statistical analysis of the
-column density distribution (i.e., PDF analysis) without careful attention to
+column density distribution (i.e., PDF shape analysis) without careful
+attention to
 the large implied
 uncertainties.  However, these higher-resolution data are used in this paper
 to provide the best estimates of the local column density around our sample
@@ -377,8 +384,8 @@ observed field for several reasons:
         emission.  These are clumpy and have local peaks that would dominate
         the identified source population using most source-finding algorithms.
     \item There are substantial imaging artifacts produced by the extremely
-        bright emission sources in Sgr B2 M ($S_{3 mm,max} \approx 1.6$ Jy) and
-        Sgr B2 N ($S_{3 mm,max} \approx 0.3$ Jy) that make automated source
+        bright emission sources in Sgr B2 M ($S_{3 \textrm{mm,max}} \approx 1.6$ Jy) and
+        Sgr B2 N ($S_{3 \textrm{mm,max}} \approx 0.3$ Jy) that make automated source
         identification particularly challenging in the most source-dense
         regions.  These are `sidelobes' from the bright sources that cannot be
         entirely removed.
@@ -392,16 +399,22 @@ All of these features are evident in Figures \ref{fig:continuumMandN} and
 \ref{fig:continuumDS}. 
 
 Because the noise varies significantly across the map (it is higher near Sgr B2
-M), a uniform selection criterion is not possible.  We therefore include two
-levels of source identification, `high confidence' sources, which are selected
-conservatively in regions of low-background, and `low-confidence' sources that
-are somewhat lower signal-to-noise and are often in regions with higher
-background (labeled `conservative' and `optimistic', respectively, in Figure
-\ref{fig:fluxhist} and \ref{fig:alphahist}); the difference between the criteria
-is subjective.  Both of these selection criteria
-are significantly more conservative than a local $5-\sigma$ threshold.
-We measure the local noise for each source by taking the median absolute
-deviation in an annulus 0.5 to 1.5\arcsec around the source center.
+M), and because there is extended emission, a uniform selection criterion is
+not possible.  We therefore include two levels of source identification, `high
+confidence' sources, which are selected conservatively in regions of
+low-background, and `low-confidence' sources that are somewhat lower
+signal-to-noise and are often in regions with higher background (labeled
+`conservative' and `optimistic', respectively, in Figure \ref{fig:fluxhist} and
+\ref{fig:alphahist}); the difference between the criteria is subjective.  
+We measure the local noise for each source by taking the
+median absolute deviation in an annulus 0.5 to 1.5\arcsec around the source
+center; these noise measurements are reported in Table \ref{tab:photometry}.
+
+Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
+inspected.  Peaks that were part of extended structures but not significantly
+different from them (e.g., a 5-$\sigma$ peak sitting on a 4-$\sigma$ extended
+structure) were excluded.  We excluded sources with extents $r>1\arcsec$, i.e.,
+extended \hii regions.
 
 % %TODO: check
 % All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
@@ -418,12 +431,6 @@ fainter sources difficult to detect, as described in Section
 including \hii regions and dust filaments, which likely obscure compact
 sources.
 
-
-Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
-inspected.  Peaks that were part of extended structures but not significantly
-different from them (e.g., a 5-$\sigma$ peak sitting on a 4-$\sigma$ extended
-structure) were excluded.  We excluded sources with extents $r>1\arcsec$, i.e.,
-extended \hii regions.
 
 % The majority of the sources are unresolved.  Some of these sit within regions
 % of extended emission.  A small handful were moderately resolved, including some
@@ -465,45 +472,114 @@ optical depths, $\alpha=2$ for any optically thick thermal source,
 and $\alpha>2$ usually indicates optically thin dust emission.  These indices
 will be discussed further in the next Section.
 
+\subsection{Catalog Cross-Matching}
+\label{sec:crossmatch}
+We cross-matched our source catalog with catalogs of \ammonia sources, \hii
+regions, X-ray sources, Spitzer sources, and methanol and water masers.
+Associations with these types of sources can be used to classify the sources.
+
+We classified sources as \hii regions if there is a corresponding 0.7 or 1.3 cm
+source from one of the previous VLA surveys
+\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,de-Pree2015a} within one ALMA
+beam (0.5\arcsec).  \nhii of our sources are classified as \hii regions; these
+all have $S_{3 \textrm{mm}} > 9$ mJy.  The
+majority of these are unresolved, but we have included \hii regions with radii
+up to $\approx1\arcsec$ in our catalog.  Optically thick \hii regions (like any
+blackbody) have a spectral index $\alpha=2$.  Optically thin \hii regions have
+a nearly flat spectral index, $\alpha=-0.1$ \citep{Condon2007a}.   The observed
+sources with \hii region counterparts have spectral indices consistent with the
+theoretical expectation for optically thin \hii regions in Figure
+\ref{fig:alphahist}.  The existing VLA data do not cover the entire area of our
+observations, so we only have a lower limit on the number of \hii regions in
+our sample; the sources in Sgr B2 DS have not yet been observed in the radio at
+high resolution.  Sources matched with \hii regions evidently contain high-mass
+(most likely $M\gtrsim20$ \msun, see Section \ref{sec:theyarehiiregions} below)
+young stars.
+%Several sources (\nhii) in our catalog match known \hii regions from
+%\citet{Gaume1995a} to within 0.5\arcsec, most of which are associated with the
+%brightest sources in our sample; these all have $S_{3 \textrm{mm}} > 9$ mJy.
+%The \citet{Gaume1995a} catalog does not cover the full observed area, so the
+%\hii region source association is incomplete.  These sources evidently contain
+%high-mass young stars, but they are not `protostars'.
+
+
+\citet{Martin-Pintado1999a} observed part of Sgr B2 DS and M in \ammonia with
+the VLA.  They identified three ``hot cores'' based on \ammonia 4-4 detections.
+Only their first source HC1 has an associated 3 mm continuum source, suggesting
+that HC2 and HC3 are not genuine hot cores but are some other variant of
+locally heated (perhaps shock-heated) gas.  It is unlikely that a hot core
+could exist without a detectable central heating engine.  However, the
+association between HC1 and our source 43 suggests that it is a young stellar
+object with a massive envelope.  Of the 6 \ammonia 3-3 maser sources identified
+by \citet{Martin-Pintado1999a}, three are in regions with high 3 mm source
+density but lack a clear one-to-one source association, one is coincident with
+an \hii region not in our catalog, and two have no obvious associations; the
+\ammonia 3-3 masers therefore appear not to be unambiguous tracers of star
+formation in this environment, consistent with the conclusions of
+\citet{Mills2015a}.  
+
+
+Class II methanol masers are exclusively associated with sites of high-mass
+star formation.  The \citet{Caswell2010a} Methanol Multibeam (MMB) Survey
+identified 11 sources in our observed field of view (their survey covers our
+entire observed area), of which \nmasermatch have a clear match to within
+1\arcsec of a source in our catalog (the MMB catalog sources have a positional
+accuracy of $\approx0.4\arcsec$, but masers may have an extent up to 1\arcsec).
+These sources are clearly identified as high-mass protostars.
+The single maser that does not have an associated millimeter source is 5\arcsec
+west of Sgr B2 S and resides near some very faint and diffuse 3 mm
+emission; it is unclear why the 3 mm is so weak here, but it hints at
+incompleteness in our catalog.
+
+
+Water masers are generally associated with forming young stars.  We
+also matched our catalog with the \citet{McGrath2004a} water maser catalog,
+finding that 23 of our sources have a water maser within 1\arcsec.
+Again, these sources are likely to contain protostars, but perhaps of more
+moderate mass.
+
+Some young stars exhibit X-ray emission, including some MYSOs
+\citep[e.g.,][]{Townsley2014a}, so we searched for X-ray emission from our
+sources.  \nxraymatch of the sources have X-ray counterparts in the
+\citet{Muno2009a} Chandra point source catalog within 1\arcsec.  The
+\citet{Muno2009a} catalog covers our entire observed area.  The X-ray
+associated sources most likely either contain protostars or young stars.
+
+We searched the \citet{Yusef-Zadeh2009a} catalogs of 4.5 \um excess sources and
+YSO candidates and found only one source association, though there are 5 and
+14, respectively, of these sources in our field of view.  Two of the 4.5 \um
+excess sources and one of the YSO candidates are associated with extended \hii
+regions; the single association is of a 4.5 \um source with the central region
+of Sgr B2 M. By-eye comparison of the Spitzer maps and the ALMA images suggests
+that the lack of associations is at least in part because of the high
+extinction in the regions containing the 3 mm cores; there are overall fewer
+Spitzer sources in these parts of the maps.
+
+Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz \methanol
+masers and quasithermal sources for associations, finding no matches with any
+of our sources.  This methanol line apparently does not trace star formation.
+
 
 \subsection{Source Classification}
 \label{sec:classification}
 For the majority of the detected sources, we have only a continuum detection at
 3 mm.    In this section, we employ a variety of arguments to classify the
-sample of new sources.  For the majority of the detected sources, we have no
-detections at other band to assist with the classification, so we discuss what
-types of objects they could be given their 3 mm continuum detections.
-Plausible emission mechanisms include free-free and thermal dust emission,
-so we explore whether the sources could be different classes free-free sources
-in subsections \ref{sec:alt1}, \ref{sec:alt2}, and \ref{sec:theyarehiiregions}.
-We conclude that they are primarily dusty sources in subsection
-\ref{sec:theyareprotostars}.
+sample of new sources.  Most of our sources have no match in other catalogs
+(see Section \ref{sec:crossmatch}), so we discuss what types of objects they
+could be given their 3 mm continuum detections.  Plausible emission mechanisms
+include free-free and thermal dust emission, so we explore whether the sources
+could be different classes of free-free sources in subsections \ref{sec:alt1},
+\ref{sec:alt2}, and \ref{sec:theyarehiiregions}.  We conclude that they are
+primarily dusty sources in subsection \ref{sec:theyareprotostars}.
 
 We visually inspected the spectra extracted from the full line cubes, and no
 lines are detected peaking toward the majority of the sources (most sources
-have emission in some lines, but this emission is clearly extended and not
-associated with the compact source).  Given the relatively poor line
-sensitivity (RMS $\approx 6$ K), the dearth of detections is not very surprising.
-We therefore cannot use spectral lines to classify most sources.
+have emission in some lines (e.g., \cyanoacetylene), but this emission is
+clearly extended and not associated with the compact source).  Given the
+relatively poor line sensitivity (RMS $\approx 6$ K), the dearth of detections
+is not very surprising.  We therefore cannot use spectral lines to classify
+most sources.
 
-A subset of the detected sources have detections at other bands and can be
-classified based on previous literature work, especially those associated with
-\hii regions detected at 0.7 and 1.3 cm
-\citep{Gaume1995a,Mehringer1995b,de-Pree1996a,de-Pree2015a}.  We classified
-sources as \hii regions if there is a corresponding 0.7
-or 1.3 cm source from one of the previous VLA surveys within one ALMA beam
-(0.5\arcsec).  \nhii of our sources are classified as \hii regions.  The
-majority of these are unresolved, but we have included \hii
-regions with radii up to $\approx1\arcsec$ in our catalog.
-Optically thick \hii regions (like any blackbody) have a spectral index $\alpha=2$.
-Optically thin \hii regions have a nearly flat spectral index, $\alpha=-0.1$
-\citep{Condon2007a}.   The observed sources with \hii region counterparts have
-spectral indices consistent with the theoretical expectation for optically thin
-\hii regions in Figure \ref{fig:alphahist}.
-The existing VLA data do not cover the entire area of our observations, so
-we only have a lower limit on the number of \hii regions in our sample; the
-sources in Sgr B2 DS have not yet been observed in the radio at high
-resolution.
 
 % core_flux_distributions
 %\FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
@@ -521,20 +597,22 @@ highest bin.
 }
 {fig:fluxhist}{1}{0.5\textwidth}
 
-We note some properties of dust at 3 mm.   At \dsgrb, a 1 mJy source
-corresponds to an optically thin gas mass\footnote{We assume a gas-to-dust
-ratio of 100 throughout this work.} of $M(40\mathrm{K})=18$ \msun or
-$M(20\mathrm{K})=38$ \msun assuming a dust opacity index $\beta=1.75$
-($\alpha=3.75$ on the Rayleigh-Jeans tail) to extrapolate the
-\citet[][MRN with thin ice mantles anchored at 1mm]{Ossenkopf1994a} opacity to
-$\kappa_{3.1 \mathrm{mm}}=0.0018$ cm$^2$ g$^{-1}$ (per
-gram of gas).  Our dust-only (i.e., excluding free-free emission) 5-$\sigma$
-sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5 mJy) to
-$M>94$ \msun (2.5 mJy) across the map.  If we were to assume that these are all
-cold, dusty sources, as is typically (and reasonably) assumed for local clouds,
-they would be extremely massive and dense, with the lowest measurable density
-being $n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in an
-$r=0.2$\arcsec$=1700$ AU radius sphere).  Such extreme objects are possible,
+To aid in our classification, we note some properties of dust at 3 mm.  The
+simplest assumption is that all sources we have detected that were not detected
+at longer wavelengths are pure dust emission sources at a constant temperature.
+At \dsgrb, a 1 mJy source corresponds to an optically thin gas mass\footnote{We
+assume a gas-to-dust ratio of 100 throughout this work.} of
+$M(40\mathrm{K})=18$ \msun or $M(20\mathrm{K})=38$ \msun assuming a dust
+opacity index $\beta=1.75$ ($\alpha=3.75$ on the Rayleigh-Jeans tail) to
+extrapolate the \citet[][MRN with thin ice mantles anchored at
+1mm]{Ossenkopf1994a} opacity to $\kappa_{3.1 \mathrm{mm}}=0.0018$ cm$^2$
+g$^{-1}$ (per gram of gas).  Our dust-only (i.e., excluding free-free emission)
+5-$\sigma$ sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5
+mJy) to $M>94$ \msun (2.5 mJy) across the map.  If we were to assume that these
+are all cold, dusty sources, as is typically (and reasonably) assumed for local
+clouds, they would be extremely massive and dense, with the lowest measurable
+density being $n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in
+an $r=0.2$\arcsec$=1700$ AU radius sphere).  Such extreme objects are possible,
 but since we have detected $>100$ of these sources, we evaluate other
 possibilities.
 
@@ -565,7 +643,7 @@ so their beam size is the same physical scale as ours.  If the free-free
 emission is thin ($\alpha=-0.1$), the brightness in our data would be $S_{95 GHz} =
 (95/8.5)^{-0.1} S_{8.5 GHz} = 0.79 S_{8.5 GHz} \approx 1.2$ mJy/beam.  These
 frEGGs would be detectable in our data.  Comparison to radio observations
-at a comparable resolution will be needed to rule out the externally ionized
+at a similar resolution will be needed to rule out the externally ionized
 globule hypothesis for the resolved regions within our sample, but the unresolved
 sources are unlikely to be frEGGs.
 
@@ -586,25 +664,28 @@ around $\alpha=3.5$, which is  consistent with dust emission.
 {fig:alphahist}{1}{0.5\textwidth}
 
 If the detected sources were either EGGs or cometary clouds, we would expect
-them to be located within diffuse \hii regions.  Many of the sources are near \hii
-regions, as seen in Figure \ref{fig:coreson20cmandhc3n}a.  However, they are
-nearly all associated with a ridge of molecular (\cyanoacetylene) emission (Figure
+them to be located within diffuse \hii regions, since that is where all other
+sources of this type are seen, and since an external ionizing agent is needed
+to illuminate them.  Many of the sources are near \hii regions, as seen in
+Figure \ref{fig:coreson20cmandhc3n}a, but not within them.  The sources are
+nearly all associated with a ridge of molecular (\cyanoacetylene) emission
+(Figure
 \ref{fig:coreson20cmandhc3n}b).  If they are deeply embedded within the
 molecular material, they cannot be externally ionized.  
-%The current data do not provide enough information on the
-%geometry of the clouds to rule out the possibility that the point sources are
-%just illuminated cloud edges, but 
+%The current data do not provide enough information on the geometry of the
+%clouds to rule out the possibility that the point sources are just illuminated
+%cloud edges, but 
 The fact that the ionized gas is brightest nearby, rather than directly on top
 of, the \cyanoacetylene suggests that the \cyanoacetylene traces a full
-molecular cloud rather than a thin PDR-like layer, which would be required
-if these sources are cometary clouds.  The association with dense molecular
-gas implies that the sources are not externally ionized objects.
+molecular cloud rather than a thin PDR-like layer, which would be required if
+these sources are cometary clouds.  The association with dense molecular gas
+implies that the sources are not externally ionized objects.
 
 A final point against the externally ionized hypothesis is the observed
 spectral indices shown in Figure \ref{fig:alphahist}.  We measured spectral
-indices for \nalphas sources, of which \ngttwo have $\alpha>2$.  These sources are
-inconsistent with free-free emission and are at least reasonably consistent
-with dust emission.
+indices for \nalphas sources, of which \ngttwo have $\alpha>2$.  These \ngttwo
+sources are inconsistent with free-free emission and are at least reasonably
+consistent with dust emission.
 %Of the 20 that are consistent with free-free emission, 11
 %are known \hii regions, hinting that our sample is dominated by dusty objects,
 %not externally ionized objects.
@@ -681,18 +762,19 @@ ignite compact \hii regions when they fly through molecular material.  See
 properties.  The main problem with this scenario is the spatial distribution of
 the observed sources.  While most of the continuum sources are associated with
 dense gas and dust ridges, not all of the high-column molecular gas regions
-have such sources in them (i.e., the left and right sides of the image in
+have such sources in them (i.e., 
 Figure \ref{fig:coreson20cmandhc3n}b, where molecular material is seen with no
-associated millimeter sources).  If there is a free-floating population of OB
+associated millimeter sources outside of the north/south \cyanoacetylene
+ridge).  If there is a free-floating population of OB
 stars responsible for the 3 mm compact source population, if we assume the
 spatial distribution of the stars is uniform, the distribution of \hii regions
 surrounding them should match that of the gas (since we are assuming the gas and
 stars are moving independently).  Also, there is no such population of sources
-seen outside of the dense gas in the infrared,
+seen \emph{outside} of the dense gas in the infrared,
 %\citep[TODO: Who has done
 %infrared studies of Sgr B2?  You can infer what I have stated `by inspection'
 %of 2MASS, but it would be more straightforward to quote someone else][]{},
-which again we should expect if there is a uniformly distributed stellar
+which again we should expect if there is a uniformly distributed massive stellar
 population.  Finally, the spectral indices discussed above (Figure
 \ref{fig:alphahist}) suggest the previously-unidentified sources are dust
 emission sources, not
@@ -708,25 +790,28 @@ We know from previous observations
 \citep[e.g.,][]{Mehringer1995b,de-Pree1996a,de-Pree2015a} that there is a
 substantial population of \hii regions in the Sgr B2 clusters.  The \nhii
 sources associated with these previously-identified \hii regions are among the
-brightest in our catalog.  We address here whether the remaining primarily
-fainter sources could also be \hii regions.
+brightest in our catalog.  We address here whether the remaining  sources,
+which are mostly fainter, could also be \hii regions.
 
 For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
 flux density is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers
 source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
 as long as the source is optically thin.   We rearrange \citet{Condon2007a}
-equations 4.60 and 4.61:
+equations 4.60 and 4.61 to get the expected flux density as a function of
+temperature, emission measure, and frequency:
 \begin{eqnarray}
 S_{\nu}(Q_{lyc})  &=& 4.67 \left[1-\exp\left(c_* T_* \nu_* EM_* \right) \right] \nonumber \\
 \nu_* &=& \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \nonumber \\
 T_* &=& \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \nonumber \\
 c_* &=& -3.28\times10^{-7} \nonumber \\
-EM_* &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_b} \nonumber \\
+EM_* &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_B} \nonumber \\
 \end{eqnarray}
-where $\alpha_b=2\ee{-13}$ cm$^3$ s$^{-1}$, $Q_{lyc}$ is the count rate
-of ionizing photons in $s^{-1}$, and $R$ is the \hii region radius.
-The constant $c_*$ was computed by \citet{Mezger1967a} and is never
-incorrect by more than $\approx25\%$.
+where the case-B recombination coefficient $\alpha_B=2\ee{-13}$ cm$^3$
+s$^{-1}$, $Q_{lyc}$ is the count rate of ionizing photons in $s^{-1}$, and $R$
+is the \hii region radius.  The constant $c_*$ was computed by
+\citet{Mezger1967a} as an approximation to the optical depth prefactor in the
+full radiative transfer equation and is never incorrect by more than
+$\approx25\%$.
 
 An extremely compact \hii region,
 e.g., one with $R<100$ AU and corresponding density $n>10^6$ \percc, would be
@@ -737,16 +822,20 @@ $Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would be $\sim0.5$ mJy.
 
 Figure \ref{fig:hiibrightness} shows the predicted brightness for various \hii
 regions produced by OB stars and the density required for those \hii regions
-to be the specified size.  In
-order for the detected sources to be O-star-driven \hii regions, with $10^{47}
-< Q_{lyc} < 10^{50}$ \pers, they must be optically thick and therefore
-extremely compact and dense.  There is a narrow range of late O/early B stars,
+to be the specified size.  There is a narrow range of late O/early B stars,
 $10^{46} < Q_{lyc} < 10^{47}$ \pers, that could be embedded in compact \hii
 regions of almost any size and produce the observed range of flux densities.
+In order for the detected sources to be O-star-driven \hii regions, with $10^{47}
+< Q_{lyc} < 10^{50}$ \pers, they must be optically thick and therefore
+extremely compact and dense.  
 Anything fainter, later than $\sim$B0 ($Q_{lyc}<10^{46}$ \pers), would be
 incapable of producing the observed flux densities.
-Any brighter stars would have to be embedded in dust that, at 40 K, would
-outshine the \hii region; more likely, such sources would have much hotter dust
+Such bright stars would have to be embedded in dust that, at 40 K, would
+outshine the \hii region.  Figure \ref{fig:hiibrightness}b shows that the
+highest-luminosity stars would have to be embedded in $n>10^8$ \percc gas to be
+small enough to produce an \hii region with $S_{3 \textrm{mm}}<1$ mJy, which means the
+dust - even if it were cold - would dominate the free-free emission.
+More likely, such sources would have much hotter dust
 and therefore would be much brighter (and more extended) than our observations
 allow.
 
@@ -757,8 +846,10 @@ distribution cuts off near our sensitivity limit, which implies that the steep
 spectrum should continue to lower luminosities, and therefore there are many
 more sources below our detection threshold than above.  This argument is pure
 extrapolation, and therefore could easily be wrong, but if there is a large
-population of sources below $<0.5 mJy$, they are too faint to be \hii regions
-(Figure \ref{fig:hiibrightness}a).
+population of sources below $<0.5$ mJy, they are certainly too faint to be \hii
+regions (Figure \ref{fig:hiibrightness}a).  Again, assuming the luminosity
+distribution is continuous, that implies that we have not detected \hii
+regions.
 
 This restrictive parameter space, combined with a steep luminosity function, is
 evidence against the population being dominated by \hii regions.  The spectral
@@ -819,8 +910,8 @@ we should be concerned about the assumed opacity, since ices
 will begin to evaporate  \citep[e.g.,][]{Bergin1995a}, reducing the 3 mm
 opacity and correspondingly increasing the required mass
 \citep{Ossenkopf1994a}.  }, our detection limit is only $M(80\mathrm{K}) = 4
-\msun$.  Heating that much dust to 80 K most likely requires a high-luminosity
-central heating source.
+\msun$.  Heating that much dust well above the cloud average requires a
+high-luminosity central heating source.
 
 To constrain the required heating source, we examine the protostellar model
 grid of \citet[][specifically, the \texttt{spubhmi} and \texttt{spubsmi}
@@ -836,73 +927,6 @@ final mass $M\gtrsim8$ \msun.
 
 
 
-
-\emph{Catalog cross-matching:}
-We cross-matched our source catalog with catalogs of \ammonia sources, \hii
-regions, X-ray sources, Spitzer sources, and methanol and water masers.
-Associations with these types of sources can be used to classify the sources.
-
-\citet{Martin-Pintado1999a} observed part of Sgr B2 DS and M in \ammonia with
-the VLA.  They identified three ``hot cores'' based on \ammonia 4-4 detections.
-Only their first source HC1 has an associated 3 mm continuum source, suggesting
-that HC2 and HC3 are not genuine hot cores but are some other variant of
-locally heated (perhaps shock-heated) gas.  It is unlikely that a hot core
-could exist without a detectable central heating engine.  However, the
-association between HC1 and our source 43 suggests that it is a young stellar
-object with a massive envelope.  Of the 6 \ammonia 3-3 maser sources identified
-by \citet{Martin-Pintado1999a}, three are in regions with high 3 mm source
-density but lack a clear one-to-one source association, one is coincident with
-an \hii region not in our catalog, and two have no obvious associations; the
-\ammonia 3-3 masers therefore appear not to be unambiguous tracers of star
-formation in this environment, consistent with the conclusions of
-\citet{Mills2015a}.  
-
-Several sources (\nhii) in our catalog match known \hii regions from
-\citet{Gaume1995a} to within 0.5\arcsec, most of which are associated with the
-brightest sources in our sample; these all have $S_{3 \textrm{mm}} > 9$ mJy.
-The \citet{Gaume1995a} catalog does not cover the full observed area, so the
-\hii region source association is incomplete.  These sources evidently contain
-high-mass young stars, but they are not `protostars'.
-
-Class II methanol masers are exclusively associated with sites of high-mass
-star formation.  The \citet{Caswell2010a} Methanol Multibeam (MMB) Survey
-identified 11 sources in our observed field of view (their survey covers our
-entire observed area), of which \nmasermatch have a clear match to within
-1\arcsec of a source in our catalog (the MMB catalog sources have a positional
-accuracy of $\approx0.4\arcsec$, but masers may have an extent up to 1\arcsec).
-These sources are clearly identified as high-mass protostars.
-The single maser that does not have an associated millimeter source is 5\arcsec
-west of Sgr B2 S and resides near some very faint and diffuse 3 mm
-emission; it is unclear why the 3 mm is so weak here, but it hints at
-incompleteness in our catalog.
-
-
-Water masers are generally associated with forming young stars.  We
-also matched our catalog with the \citet{McGrath2004a} water maser catalog,
-finding that 23 of our sources have a water maser within 1\arcsec.
-Again, these sources are likely to contain protostars, but perhaps of more
-moderate mass.
-
-Some young stars exhibit X-ray emission, including some MYSOs
-\citep[e.g.,][]{Townsley2014a}, so we searched for X-ray emission from our
-sources.  \nxraymatch of the sources have X-ray counterparts in the
-\citet{Muno2009a} Chandra point source catalog within 1\arcsec.  The
-\citet{Muno2009a} catalog covers our entire observed area.  The X-ray
-associated sources most likely either contain protostars or young stars.
-
-We searched the \citet{Yusef-Zadeh2009a} catalogs of 4.5 \um excess sources and
-YSO candidates and found only one source association, though there are 5 and
-14, respectively, of these sources in our field of view.  Two of the 4.5 \um
-excess sources and one of the YSO candidates are associated with extended \hii
-regions; the single association is of a 4.5 \um source with the central region
-of Sgr B2 M. By-eye comparison of the Spitzer maps and the ALMA images suggests
-that the lack of associations is at least in part because of the high
-extinction in the regions containing the 3 mm cores; there are overall fewer
-Spitzer sources in these parts of the maps.
-
-Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz \methanol
-masers and quasithermal sources for associations, finding no matches with any
-of our sources.  This methanol line apparently does not trace star formation.
 
 \emph{Comparison to similar data:}
 We compare our detected sample to that of the Herschel Orion Protostar Survey
