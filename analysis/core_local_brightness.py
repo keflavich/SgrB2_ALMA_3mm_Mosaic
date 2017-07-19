@@ -434,19 +434,23 @@ def plotit():
                'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
     lims = ax7.axis()
     ax7.loglog([1e3,1e6], [1e0, 1e5], 'k--')
+    monr2_lowerline =np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
     ax7.fill_between([0.1, 1e5],
-                     np.array([0.1, 1e5])**2.67/(100**2.67),
-                     np.array([0.1, 1e5])**2.67/(100**2.67)*10,
+                     monr2_lowerline,
+                     monr2_lowerline*10,
                      alpha=0.5,
                      color='green',
                      label='Mon R2')
+    oph_lowerline = np.array([0.1, 1e5])**1.87/(100**1.87) * 1.5
     ax7.fill_between([0.1, 1e5],
-                     np.array([0.1, 1e5])**1.87/(100**1.87),
-                     np.array([0.1, 1e5])**1.87/(100**1.87)*10,
+                     oph_lowerline,
+                     oph_lowerline*10,
                      color='blue',
                      alpha=0.5,
                      label='Ophiucus')
-    ax7.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+    #ax7.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+    oph_scalefactor = 100.
+    ax7.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
     ax7.set_ylabel("Source-centered NN11 Surface Density\n[M$_\odot$ pc$^{-2}$]")
     ax7.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
     ax7.axis(lims)

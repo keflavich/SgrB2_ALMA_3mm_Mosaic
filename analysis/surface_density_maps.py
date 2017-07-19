@@ -115,7 +115,10 @@ ax1.fill_between([0.1, 1e5],
                  color='blue',
                  alpha=0.5,
                  label='Ophiucus')
-ax1.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+ax1.plot([550,500,15],[300,30,0.4],'bo')
+ax1.plot([300,300,15],[500,54,0.22],'go')
+ax1.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5),
+         'b:', linewidth=3, alpha=0.5)
 
 ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]", fontsize=24)
 ax1.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]", fontsize=24)
@@ -123,6 +126,8 @@ ax1.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zo
 ax1.axis([1e3,1e5,1e0,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.pdf"), bbox_inches='tight')
+ax1.axis([1e0,1e5,1e-1,1e5])
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_full.png"), bbox_inches='tight')
 
 nn = 11
 nn11_msunpersqpc = ((nn-1) * mass_represented_by_a_source / (np.pi*nn11_grid_pc)**2).to(u.M_sun/u.pc**2)
@@ -135,19 +140,22 @@ ax2.loglog(gas_massdensity25.ravel().value, nn11_msunpersqpc.ravel().value, 'k.'
 lims = ax2.axis()
 ax2.loglog([1e3,1e6], [1e0, 1e5], 'k--')
 
+monr2_lowerline =np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
 ax2.fill_between([0.1, 1e5],
-                 np.array([0.1, 1e5])**2.67/(100**2.67),
-                 np.array([0.1, 1e5])**2.67/(100**2.67)*10,
+                 monr2_lowerline,
+                 monr2_lowerline*10,
                  alpha=0.5,
                  color='green',
                  label='Mon R2')
+oph_lowerline = np.array([0.1, 1e5])**1.87/(100**1.87) * 1.5
 ax2.fill_between([0.1, 1e5],
-                 np.array([0.1, 1e5])**1.87/(100**1.87),
-                 np.array([0.1, 1e5])**1.87/(100**1.87)*10,
+                 oph_lowerline,
+                 oph_lowerline*10,
                  color='blue',
                  alpha=0.5,
                  label='Ophiucus')
-ax2.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+oph_scalefactor = 100.
+ax2.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
 ax2.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
 
 ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]", fontsize=24)
@@ -165,6 +173,10 @@ ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.pdf"), bbox_inches='tight')
 
+ax2.plot([550,500,15],[300,30,0.4],'bo')
+ax2.plot([300,300,15],[500,54,0.22],'go')
+ax2.axis([1e0,1e5,1e-1,1e5])
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_full.png"), bbox_inches='tight')
 
 total_mass = np.nansum(cell_size**2 * gas_massdensity25)
 total_stellar_mass = len(cont_tbl) * mass_represented_by_a_source

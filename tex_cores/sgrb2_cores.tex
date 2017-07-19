@@ -1413,23 +1413,25 @@ power-law relations between the stellar and gas mass surface densities.
 We adopt the same approach used in \citet{Gutermuth2009a} and
 \citet{Gutermuth2011a} to compare gas and stellar mass surface densities.  We
 computed both the star-centric mass surface density using the 11th nearest
-neighbor and a gridded surface density.  We assume a mean mass per YSO of 21.8
+neighbor density and a gridded surface density.  We assume a mean mass per
+source $\bar{M}(M>8~\msun)=21.8$
 \msun, and that each such star represents 23\% of the total stellar mass (see
 Section \ref{sec:distributionsandsfr}), i.e., each 3 mm source is treated as 95
 \msun of stellar mass\footnote{In previous sections, we assigned different
 masses to different source classes, i.e., we assigned higher masses to \hii regions
-than non-\hii regions.  For methodological consistency, we assume a constant mass
+than non-\hii regions.  For consistency with \citet{Gutermuth2011a}, we assume a constant mass
 per source here, which may result in a systematic underestimation of 
 the stellar mass surface density at the highest densities (since the \hii regions
 are preferentially concentrated in clusters).}. The correlation is similar whether we use the Herschel
 column density directly or the SCUBA or SHARC-based column density maps (see
 Section \ref{sec:colmaps}).  
 
-The relation we observe is several orders of magnitude lower than that
-extrapolated from \citet{Gutermuth2011a}.  This is primarily driven by an age
-sensitivity difference; their samples consisted of Spitzer-measured YSOs,
-including Class II sources.  Our data are strictly limited to Class 0/I
-equivalents, since we do not observe stellar photospheres.
+The relation we observe (Figure \ref{fig:stellarvsmasscolumn}) is several
+orders of magnitude lower than that extrapolated from \citet{Gutermuth2011a}.
+This is primarily driven by an age sensitivity difference; their samples
+consisted of Spitzer-measured YSOs, including Class II sources.  Our data are
+strictly limited to Class 0/I equivalents, since we can only detect dusty
+envelopes and \hii regions.
 
 % core_local_brightness.py
 % surface_density_maps.py
@@ -1460,34 +1462,65 @@ foreground column density of $N(\hh)=5\ee{22}$ \persc (1100 \msun pc$^{-2}$).
 We do not fit a slope, as \citet{Gutermuth2011a} did, because we expect our
 data are affected by substantially stronger and more difficult to characterize
 errors, but note that our data are compatible with a power-law index
-$\alpha=5/3$, and therefore overall consistent with the slopes they
-derived.  Figure \ref{fig:stellarvsmasscolumn} also shows a linear relation
-between $\Sigma_*$ and $\Sigma_{gas}$ as a red line, which does not match
-the data.
+$\alpha=5/3$, and therefore overall consistent with the slopes
+\citet{Gutermuth2011a} derived.  Figure \ref{fig:stellarvsmasscolumn} also
+shows a linear relation between $\Sigma_*$ and $\Sigma_{gas}$ as a red line,
+which does not match the data.
 
 %{\color{red} todo: move or summarize this in discussion/conclusion/abstract?}
 Our data are consistent with the slopes, but not the amplitude, of the
 \citet{Gutermuth2011a} results; Figure \ref{fig:stellarvsmasscolumn} shows
 that the extrapolated relation from the low-mass clouds exceeds our observations
-by at least $50\times$.  It is difficult to reconcile these measurements.
-\citet{Gutermuth2011a} were sensitive to, and included in their sample,
-an older generation of Class II sources, but they typically found a Class II / Class I
-ratio of only $\approx4\times$ \citep{Gutermuth2009a}, so the discrepancy
-cannot be exclusively due to our insensitivity to older YSOs unless the star
-formation rate of Sgr B2 was an order of magnitude higher 1-2 Myr ago, which is
-implausible given the detectability of massive stars in that age range.  The
-surface densities we measure cannot be substantially incorrect;
-even if we assume the maximum plausible foreground cloud surface density of
-$N(\hh)=5\ee{22}$ \persc, the measured gas surface densities only shift by a
-small fraction (at most $50\%$, but typically $<10\%$ for the star-centered
-measurements).  A possible explanation is that each of the detected
-sources in our sample is a high-number multiple system, such that each 3 mm represents
-$\approx5000$ \msun instead of $\approx100$ \msun.  The multiplicity of the 
-Orion Source I system suggests this interpretation is qualitatively plausible,
-but the factor of 50 strains credibility.  Another possibility is that each
-source we detect has a higher minimum mass than we have assumed, $M\gg8 \msun$,
-but again the required threshold is absurd, requiring each star to be $>100$ \msun
-to match the local cloud extrapolation.
+by at least $100\times$ (Ophiucus) or closer to $10^3\times$ (Mon R2).  It is
+difficult to reconcile these measurements.  We explore several explanations:
+
+\begin{itemize}
+    \item \emph{Could we be missing an older generation?}
+        \citet{Gutermuth2011a} were sensitive to, and included in their sample,
+        an older generation of Class II sources, which we cannot detect.
+        However, they typically found a Class II / Class I ratio of only
+        $\approx4\times$ \citep{Gutermuth2009a}, so the discrepancy cannot be
+        exclusively due to our insensitivity to older YSOs unless the star
+        formation rate within Sgr B2 was an order of magnitude higher 1-5 Myr
+        ago.  Such an enhanced SFR is implausible since such a large population
+        of massive stars would still be alive and very easily detectable in our
+        survey and previous VLA surveys.
+
+    \item \emph{Could we be overestimating the gas mass?}
+        The surface densities we measure cannot be substantially incorrect.
+        Even if we assume the maximum plausible foreground cloud surface
+        density of $N(\hh)=5\ee{22}$ \persc, the measured gas surface densities
+        only shift by a small fraction (at most $50\%$, but typically $<10\%$
+        for the star-centered measurements; see the arrows in Figure
+        \ref{fig:stellarvsmasscolumn}).
+
+    \item \emph{Could there be high multiplicity in our sample?} 
+        A possible explanation is that each of the detected sources in our
+        sample is a high-number multiple system, such that each 3 mm source
+        represents $\approx5000$ \msun instead of $\approx100$ \msun.  The
+        multiplicity of the Orion Source I system suggests this interpretation
+        is qualitatively plausible, but the factor of 50 required to match the
+        \citet{Gutermuth2011a} extrapolation strains credibility.
+
+    \item \emph{Could the sources be much more massive than we have inferred?}
+        Another possibility is that each source we detect has a higher minimum
+        mass than we have assumed, $M\gg8 \msun$, but again the required
+        threshold is absurd, requiring each star to be $>100$ \msun to match
+        the local cloud extrapolation.
+
+    \item \emph{Could our sample be incomplete?}
+        If our sample were incomplete by a factor of 100-1000, our results
+        would match those extrapolated from Gutermuth et al.  While Section
+        \ref{sec:contsources} concedes that the catalog may be incomplete, it
+        is unlikely we are $<1\%$ complete, and the catalog is almost certainly
+        complete to $>90\%$ for very massive and luminous sources ($L>10^5$
+        \lsun, see Section \ref{sec:theyareprotostars}).  Additionally, if
+        we were to include a factor of $100-1000\times$ more stellar mass, the 
+        implied total stellar mass would be absurd, reaching $10^6-10^7$ \msun,
+        exceeding the cloud mass.
+
+
+\end{itemize}
 
 % In order to reconcile our measurements with
 % theirs, either there must be a $\approx100\times$ larger population of more
@@ -1505,15 +1538,15 @@ We have reported the detection of a large number of point sources and inferred
 that they are most likely all high-mass protostars.  These sources universally
 reside in gas above $N(\hh)\gtrsim2\ee{23}$ \persc and are distributed along.
 
-\subsection{Thresholds}
-The column density threshold of $N(\hh)\gtrsim2\ee{23}$ \persc appears
-to be a necessary, but not sufficient, condition for high-mass star formation.  
-Above $N(\hh)>10^{24}$ \persc on scales of $\sim0.5$ pc, gas is more likely to
-have formed a high-mass star than not.
-
-{\color{red}
-TODO: expand
-}
+% \subsection{Thresholds}
+% The column density threshold of $N(\hh)\gtrsim2\ee{23}$ \persc appears
+% to be a necessary, but not sufficient, condition for high-mass star formation.  
+% Above $N(\hh)>10^{24}$ \persc on scales of $\sim0.5$ pc, gas is more likely to
+% have formed a high-mass star than not.
+% 
+% {\color{red}
+% TODO: expand
+% }
 
 % In this section, we discuss
 % the implications of this apparent threshold for high-mass star formation in the
@@ -1548,9 +1581,8 @@ that shows no signs of ongoing star formation.}
 \label{sec:whatdrives}
 We have shown that, in addition to the known forming massive clusters,
 star formation is ongoing in an extended and elongated region to the north
-and south.  Excluding the clusters, most of the newly discovered sources
-trace out long and linear features.  Why are the sources aligned?
-Was star formation in Sgr B2 triggered by a single event?
+and south.  Why are the sources aligned?  Was star formation in Sgr B2
+triggered by a single event?
 
 There are a few different possible triggers that have been considered in the
 literature: pericenter passage \citep{Longmore2013a,Kruijssen2015a},
@@ -1652,7 +1684,7 @@ contains fewer total sources than DS, and these sources may trace the edge of
 an expanding bubble previously noted by \citet{de-Vicente1997a}.  However,
 unlike in DS, the sources are not well-correlated with the \cyanoacetylene
 emission peaks, suggesting that the present bubble expansion is halting rather
-than driving star formation.
+than driving star formation in Sgr B2 N.
 
 There are other regions within our map that have morphology suggestive of
 expanding bubbles, but they cannot be definitively identified as bubbles.  In
