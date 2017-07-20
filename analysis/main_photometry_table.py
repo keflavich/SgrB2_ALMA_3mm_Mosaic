@@ -96,6 +96,9 @@ latexdict['tablefoot'] = ("}\par\n"
                           "there was no match.  Finally, we include the SIMBAD "
                           "\\citep{Wenger2000a} "
                           "source object type classification if one was found."
+                          "  The full electronic version of this table is available at "
+                          "\\url{https://github.com/keflavich/SgrB2_ALMA_3mm_Mosaic/blob/master/tables/continuum_photometry_withSIMBAD_andclusters.ipac} "
+                          "and will be made available via the journal at the time of publication."
                          )
 
 cont_tbl.sort('$S_{\\nu,max}$')

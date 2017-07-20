@@ -1587,7 +1587,7 @@ local clouds does not match Sgr B2.  We evalute several possibilities here:
     \item \emph{Is the stellar IMF spatially nonuniform?}
         Our stellar mass surface density measurements are predicated on the
         assumption that each MYSO represents a fully-sampled initial mass
-        function with the same location.  If there is any spatial non-uniformity
+        function at the same location.  If there is any spatial non-uniformity
         in the IMF, e.g., if massive stars preferentially form at the bottoms
         of large potential wells (``primordial mass segregation''), the massive
         stars will have a different spatial distribution than the low-mass
@@ -1595,7 +1595,7 @@ local clouds does not match Sgr B2.  We evalute several possibilities here:
         density at the highest gas surface densities and a lower measured
         stellar surface density at the lowest gas surface densities, i.e., it
         would result in a steeper slope in Figure
-        \ref{fig:stellarmassvscolumn}.  Therefore, unless there is inverse mass
+        \ref{fig:stellarvsmasscolumn}.  Therefore, unless there is inverse mass
         segregation, a spatially nonuniform IMF cannot explain our
         observations.
 
@@ -1613,8 +1613,15 @@ local clouds does not match Sgr B2.  We evalute several possibilities here:
 
     \item \emph{Is the star formation efficiency lower at a fixed surface
         density in the Galactic center?}
-        The overall star formation rate in the Galactic center is lower
-        than expected given predictions from local clouds.
+        The overall star formation rate in the Galactic center is lower than
+        expected given predictions from local clouds.  Changing the
+        normalization of the star formation law, i.e., reducing the prefactor
+        $c=0.3$ to $c=0.01$, where $c$ is the fraction of gas in a core that
+        makes it onto a star (the local efficiency), would allow our results to
+        be consistent.  However, there is no evidence for any difference in the
+        star formation process in the Galactic center once a core has formed;
+        most evidence currently points to inefficient \emph{core} formation in
+        the CMZ.
 
 \end{itemize}
 }
@@ -1930,7 +1937,7 @@ clusters but is instead part of the extended burst.
 Using Herschel, SCUBA, and SHARC data, we have inferred a threshold for
 high-mass star formation analogous to that inferred in local clouds by
 \citet{Lada2010a}.  We find that there are no high-mass protostars in gas below
-$N(\hh)<10^{23}$ \persc, at a resolution of $\approx10\arcsec=0.4$ pc, and half
+$N(\hh)<10^{23}$ \persc at a resolution of $\approx10\arcsec=0.4$ pc, and half
 of the detected sources are found above $N(\hh)>10^{24}$ \persc.  These
 measurements imply either the existence of a higher threshold for high-mass
 star formation than for low-mass, as predicted by several theories, or a higher
@@ -1940,11 +1947,13 @@ distinguish these possibilities.
 
 Comparing the protostellar mass surface density to the gas mass surface density
 revealed a correlation compatible with the slopes observed by
-\citet{Gutermuth2011a}, but with an amplitude significantly inconsistent.  An
-$\alpha=2$ star formation law of the form advocated by \citet{Gutermuth2011a}
-cannot explain our observations, though an $\alpha=1$ law is quantitatively
-consistent with our data and an age for the Sgr B2 star formation event of
-about 0.74 Myr.
+\citet{Gutermuth2011a}, but with an amplitude significantly inconsistent with
+theirs.  A star formation law of the form $\Sigma_* \propto
+\Sigma_{gas}^\alpha$ with $\alpha=2$ favored by \citet{Gutermuth2011a} cannot
+explain our observations, though an $\alpha=1$ (linear) law is consistent with
+our data, and the $\alpha=1$ law implies an age $t\sim1$ Myr that is consistent
+with the \citet{Kruijssen2015a} dynamical model age for the Sgr B2 cloud
+$t=0.74$ Myr.
 
 
 The large detected population of high-mass protostars implies a much larger
@@ -2103,7 +2112,11 @@ The data shown here are
 large angular scales
 %robust 0.5-weighted images
 combined with total power
-data by feathering the images.}
+data by feathering the images.
+The `ridge' feature  discussed in the text is most evident in the 50-55 \kms
+channel, and these images show that it is dominated by a single velocity
+component.
+}
 {fig:hc3nchannelmaps}{1}{\textwidth}
 
 \FigureTwo

@@ -38,6 +38,9 @@ if __name__ == "__main__":
         pl.loglog(sigma_gas_of_t(sigma_gas0, time),
                   gas_depletion_law(sigma_gas0, time), label=time,
                   color='k')
+        pl.loglog(sigma_gas_of_t(sigma_gas0, time, c=0.3/50),
+                  gas_depletion_law(sigma_gas0, time, c=0.3/50), label=time,
+                  color='g', alpha=0.5, zorder=-5, linewidth=2)
 
     time = np.logspace(-2,1)*u.Myr
     for sigma_gas_ii in (10,100,1000,1e4)*u.Msun/u.pc**2:
