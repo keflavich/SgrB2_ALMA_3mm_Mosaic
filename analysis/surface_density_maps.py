@@ -14,6 +14,8 @@ import pyregion
 from constants import distance, mass_represented_by_a_source
 import pylab as pl
 
+from gutermuth2011_law import gas_depletion_law
+
 import paths
 
 import pylab as pl
@@ -62,15 +64,18 @@ cont_tbl = Table.read(paths.tpath('continuum_photometry.ipac'), format='ascii.ip
 sgrb2_coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'],
                                     unit=(u.deg, u.deg), frame='fk5',)
 
-gridded_stars = np.histogram2d(sgrb2_coords.ra.deg, sgrb2_coords.dec.deg, bins=[x_edges[::-1], y_edges])[0][::-1,:].T
+gridded_stars = np.histogram2d(sgrb2_coords.ra.deg, sgrb2_coords.dec.deg,
+                               bins=[x_edges[::-1], y_edges])[0][::-1,:].T
 
 hdu = fits.PrimaryHDU(data=gridded_stars, header=header)
 
 hdu.writeto(paths.Fpath('stellar_density_grid.fits'), overwrite=True)
 
-_,nn11_grid,_ = coordinates.match_coordinates_sky(grid_coords, sgrb2_coords, nthneighbor=11)
+_,nn11_grid,_ = coordinates.match_coordinates_sky(grid_coords, sgrb2_coords,
+                                                  nthneighbor=11)
 nn11_grid = nn11_grid.reshape([grid_size, grid_size])
 nn11_grid_pc = (nn11_grid * distance).to(u.pc, u.dimensionless_angles())
+
 
 
 datapath = '/Users/adam/work/sgrb2/alma/FITS/continuumdata'
@@ -80,8 +85,16 @@ herschel36 = fits.open(os.path.join(datapath, 'gcmosaic_column_conv36.fits'))
 herschel25reproj,_ = reproject.reproject_interp(herschel25, header)
 herschel36reproj,_ = reproject.reproject_interp(herschel36, header)
 
-fits.PrimaryHDU(data=herschel25reproj, header=header).writeto(paths.Fpath('other/Herschel25umcolum_regridded_match_stellar.fits'), overwrite=True)
-fits.PrimaryHDU(data=herschel36reproj, header=header).writeto(paths.Fpath('other/Herschel36umcolum_regridded_match_stellar.fits'), overwrite=True)
+gas_massdensity25 = (herschel25reproj * 1e22*u.cm**-2 * 2.8*u.Da).to(u.M_sun/u.pc**2)
+gas_massdensity36 = (herschel36reproj * 1e22*u.cm**-2 * 2.8*u.Da).to(u.M_sun/u.pc**2)
+
+header['BUNIT'] = 'Msun / pc^2'
+fits.PrimaryHDU(data=gas_massdensity25.value,
+                header=header).writeto(paths.Fpath('other/Herschel25umcolum_regridded_match_stellar.fits'),
+                                       overwrite=True)
+fits.PrimaryHDU(data=gas_massdensity36.value,
+                header=header).writeto(paths.Fpath('other/Herschel36umcolum_regridded_match_stellar.fits'),
+                                       overwrite=True)
 
 fig1 = pl.figure(1)
 fig1.clf()
@@ -89,8 +102,9 @@ ax1 = fig1.gca()
 
 ok = np.isfinite(herschel25reproj) & (gridded_stars > 0)
 gridded_star_massdensity = (gridded_stars * mass_represented_by_a_source / (cell_size**2)).to(u.M_sun/u.pc**2)
-gas_massdensity25 = (herschel25reproj * 1e22*u.cm**-2 * 2.8*u.Da).to(u.M_sun/u.pc**2)
-ax1.loglog(gas_massdensity25[ok], gridded_star_massdensity[ok], 'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
+
+ax1.loglog(gas_massdensity25[ok], gridded_star_massdensity[ok], 'k.',
+           alpha=0.7, markeredgecolor=(0,0,0,0.5))
 
 logas = (~np.isfinite(herschel25reproj)) & (gridded_stars > 0)
 ax1.plot(np.nanmax(gas_massdensity25) * np.ones(logas.sum()),
@@ -101,7 +115,8 @@ lostars = (np.isfinite(herschel25reproj)) & (gridded_stars == 0)
 ax1.plot(gas_massdensity25[lostars],
          np.nanmin(gridded_star_massdensity[ok])*0.5*np.ones(lostars.sum()),
          'v')
-ax1.loglog([1e3,1e6], [1e0, 1e5], 'k--')
+# 5/3 slope
+ax1.loglog([1e3,1e6], [3e0, 3e5], 'k--')
 
 ax1.fill_between([0.1, 1e5],
                  np.array([0.1, 1e5])**2.67/(100**2.67),
@@ -120,9 +135,20 @@ ax1.plot([300,300,15],[500,54,0.22],'go')
 ax1.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5),
          'b:', linewidth=3, alpha=0.5)
 
-ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]", fontsize=24)
-ax1.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]", fontsize=24)
-ax1.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
+sigma_gas = np.logspace(1,5) * u.M_sun / u.pc**2
+time = 0.74 * u.Myr
+ax1.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+           linewidth=3, zorder=-5, alpha=0.5)
+time = 0.1 * u.Myr
+ax1.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+           linewidth=3, zorder=-5, alpha=0.5)
+time = 0.01 * u.Myr
+ax1.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+           linewidth=3, zorder=-5, alpha=0.5)
+
+ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
+ax1.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
+ax1.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
 ax1.axis([1e3,1e5,1e0,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.pdf"), bbox_inches='tight')
@@ -130,15 +156,37 @@ ax1.axis([1e0,1e5,1e-1,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_full.png"), bbox_inches='tight')
 
 nn = 11
-nn11_msunpersqpc = ((nn-1) * mass_represented_by_a_source / (np.pi*nn11_grid_pc)**2).to(u.M_sun/u.pc**2)
+nn11_msunpersqpc = ((nn-1) * mass_represented_by_a_source /
+                    (np.pi*(nn11_grid_pc)**2)).to(u.M_sun/u.pc**2)
+
+hdu = fits.PrimaryHDU(data=nn11_msunpersqpc.value, header=header)
+hdu.writeto(paths.Fpath('nn11_stellar_massdensity_grid.fits'), overwrite=True)
 
 fig2 = pl.figure(2, figsize=(10,10))
 fig2.clf()
 ax2 = fig2.gca()
 
-ax2.loglog(gas_massdensity25.ravel().value, nn11_msunpersqpc.ravel().value, 'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
+ax2.loglog(gas_massdensity25.ravel().value,
+           nn11_msunpersqpc.ravel().value,
+           'k.', alpha=0.5, markeredgecolor=(0,0,0,0.5))
 lims = ax2.axis()
-ax2.loglog([1e3,1e6], [1e0, 1e5], 'k--')
+# 5/3 slope
+ax2.loglog([1e3,1e6], [3e0, 3e5], 'k--')
+
+# Handle lower limits
+logas = (~np.isfinite(gas_massdensity25)) & (nn11_msunpersqpc > 0)
+ax2.plot(np.nanmax(gas_massdensity25) * np.ones(logas.sum()),
+         nn11_msunpersqpc[logas],
+         markeredgecolor='k',
+         markerfacecolor='none',
+         linestyle='none',
+         marker='>')
+
+# No limits are possible here.
+# lostars = (np.isfinite(herschel25reproj)) & (nn11_msunpersqpc == 0)
+# ax2.plot(gas_massdensity25[lostars],
+#          np.nanmin(nn11_msunpersqpc[ok])*0.5*np.ones(lostars.sum()),
+#          'v')
 
 monr2_lowerline =np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
 ax2.fill_between([0.1, 1e5],
@@ -154,12 +202,24 @@ ax2.fill_between([0.1, 1e5],
                  color='blue',
                  alpha=0.5,
                  label='Ophiucus')
-oph_scalefactor = 100.
+oph_scalefactor = 50.
 ax2.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
-ax2.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
+ax2.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
 
-ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n[M$_\odot$ pc$^{-2}$]", fontsize=24)
-ax2.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]", fontsize=24)
+sigma_gas = np.logspace(1,5) * u.M_sun / u.pc**2
+time = 0.74 * u.Myr
+ax2.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+           linewidth=3, zorder=-5, alpha=0.5)
+time = 0.1 * u.Myr
+ax2.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+           linewidth=3, zorder=-5, alpha=0.5)
+time = 0.01 * u.Myr
+ax2.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+           linewidth=3, zorder=-5, alpha=0.5)
+
+ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
+ax2.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
+
 ax2.axis(lims)
 
 # Arrows showing the shift if you subtract off the "most aggressive plausible"

@@ -12,6 +12,7 @@ import reproject
 import pyregion
 
 from constants import distance, mass_represented_by_a_source
+from gutermuth2011_law import gas_depletion_law
 
 import paths
 
@@ -416,11 +417,14 @@ def plotit():
     pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.png"), bbox_inches='tight')
 
 
-    nn11_pc = (u.Quantity(tbl['nn11'], u.arcsec) * distance).to(u.pc, u.dimensionless_angles())
+    nn11_pc = (u.Quantity(tbl['nn11'], u.arcsec) * distance).to(u.pc,
+                                                                u.dimensionless_angles())
     nn = 11
-    nn11_msunpersqpc_starcentered = (nn-1) * mass_represented_by_a_source / (np.pi*nn11_pc)**2
+    nn11_msunpersqpc_starcentered = ((nn-1) * mass_represented_by_a_source /
+                                     (np.pi*(nn11_pc)**2)).to(u.M_sun/u.pc**2)
 
-    herschelsurfdens = (u.Quantity(tbl['HerschelColumn25']).to(u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
+    herschelsurfdens = (u.Quantity(tbl['HerschelColumn25']).to(u.cm**-2) *
+                        2.8*u.Da).to(u.M_sun/u.pc**2)
 
     assert herschelsurfdens.min() < 10**5*u.M_sun/u.pc**2
     assert herschelsurfdens.max() > 10**3*u.M_sun/u.pc**2
@@ -433,8 +437,9 @@ def plotit():
                nn11_msunpersqpc_starcentered,
                'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
     lims = ax7.axis()
-    ax7.loglog([1e3,1e6], [1e0, 1e5], 'k--')
-    monr2_lowerline =np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
+    # 5/3 slope
+    ax7.loglog([1e3,1e6], [3e0, 3e5], 'k--')
+    monr2_lowerline = np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
     ax7.fill_between([0.1, 1e5],
                      monr2_lowerline,
                      monr2_lowerline*10,
@@ -449,10 +454,10 @@ def plotit():
                      alpha=0.5,
                      label='Ophiucus')
     #ax7.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
-    oph_scalefactor = 100.
+    oph_scalefactor = 50.
     ax7.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
-    ax7.set_ylabel("Source-centered NN11 Surface Density\n[M$_\odot$ pc$^{-2}$]")
-    ax7.set_xlabel("Herschel-derived Surface Density [M$_\odot$ pc$^{-2}$]")
+    ax7.set_ylabel("Source-centered NN11 Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]")
+    ax7.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]")
     ax7.axis(lims)
 
     # Arrows showing the shift if you subtract off the "most aggressive plausible"
@@ -462,8 +467,23 @@ def plotit():
     ax7.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
     ax7.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
 
+    sigma_gas = np.logspace(1,5) * u.M_sun / u.pc**2
+    time = 0.74 * u.Myr
+    ax7.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+               linewidth=3, zorder=-5, alpha=0.5)
+
+    time = 0.1 * u.Myr
+    ax7.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+               linewidth=3, zorder=-5, alpha=0.5)
+
+
+    time = 0.01 * u.Myr
+    ax7.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+               linewidth=3, zorder=-5, alpha=0.5)
+
+
     ax7.axis([1e3,1e5,1e0,1e5])
-    ax7.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
+    ax7.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.png"), bbox_inches='tight')
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.pdf"), bbox_inches='tight')
 
@@ -478,22 +498,27 @@ def plotit():
                nn11_msunpersqpc_starcentered,
                'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
     lims = ax8.axis()
-    ax7.loglog([1e3,1e6], [1e0, 1e5], 'k--')
+    # 5/3 slope
+    ax8.loglog([1e3,1e6], [3e0, 3e5], 'k--')
+
+    monr2_lowerline = np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
     ax8.fill_between([0.1, 1e5],
-                     np.array([0.1, 1e5])**2.67/(100**2.67),
-                     np.array([0.1, 1e5])**2.67/(100**2.67)*10,
-                     color='green',
+                     monr2_lowerline,
+                     monr2_lowerline*10,
                      alpha=0.5,
+                     color='green',
                      label='Mon R2')
+    oph_lowerline = np.array([0.1, 1e5])**1.87/(100**1.87) * 1.5
     ax8.fill_between([0.1, 1e5],
-                     np.array([0.1, 1e5])**1.87/(100**1.87),
-                     np.array([0.1, 1e5])**1.87/(100**1.87)*10,
+                     oph_lowerline,
+                     oph_lowerline*10,
                      color='blue',
                      alpha=0.5,
                      label='Ophiucus')
-    ax8.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
-    ax8.plot([0.1, 1e5], np.array([0.1, 1e5])*1e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
-    ax8.set_ylabel("Source-centered NN11 Surface Density\n[M$_\odot$ pc$^{-2}$]")
+    #ax8.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
+    ax8.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
+    ax8.axis(lims)
+    ax8.set_ylabel("Source-centered NN11 Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]")
     ax8.set_xlabel("SCUBA-derived Surface Density [M$_\odot$ pc$^{-2}$]")
 
     # arrows showing the shift if you subtract off the "most aggressive plausible"
@@ -502,6 +527,19 @@ def plotit():
     ax8.arrow(3e3, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e3-bg_5e22.value), color='k')
     ax8.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
     ax8.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
+
+    sigma_gas = np.logspace(1,5) * u.M_sun / u.pc**2
+    time = 0.74 * u.Myr
+    ax8.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+               linewidth=3, zorder=-5, alpha=0.5)
+
+    time = 0.1 * u.Myr
+    ax8.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+               linewidth=3, zorder=-5, alpha=0.5)
+
+    time = 0.01 * u.Myr
+    ax8.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+               linewidth=3, zorder=-5, alpha=0.5)
 
     ax8.axis(lims)
     ax8.axis([1e3,1e5,1e0,1e5])

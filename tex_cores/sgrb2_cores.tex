@@ -1414,65 +1414,93 @@ We adopt the same approach used in \citet{Gutermuth2009a} and
 \citet{Gutermuth2011a} to compare gas and stellar mass surface densities.  We
 computed both the star-centric mass surface density using the 11th nearest
 neighbor density and a gridded surface density.  We assume a mean mass per
-source $\bar{M}(M>8~\msun)=21.8$
-\msun, and that each such star represents 23\% of the total stellar mass (see
-Section \ref{sec:distributionsandsfr}), i.e., each 3 mm source is treated as 95
-\msun of stellar mass\footnote{In previous sections, we assigned different
-masses to different source classes, i.e., we assigned higher masses to \hii regions
-than non-\hii regions.  For consistency with \citet{Gutermuth2011a}, we assume a constant mass
-per source here, which may result in a systematic underestimation of 
-the stellar mass surface density at the highest densities (since the \hii regions
-are preferentially concentrated in clusters).}. The correlation is similar whether we use the Herschel
-column density directly or the SCUBA or SHARC-based column density maps (see
-Section \ref{sec:colmaps}).  
+source $\bar{M}(M>8~\msun)=21.8$ \msun, and that each such star represents 23\%
+of the total stellar mass (see Section \ref{sec:distributionsandsfr}), i.e.,
+each 3 mm source is treated as 95 \msun of stellar mass\footnote{In previous
+sections, we assigned different masses to different source classes, i.e., we
+assigned higher masses to \hii regions than non-\hii regions.  For consistency
+with \citet{Gutermuth2011a}, we assume a constant mass per source here, which
+may result in a systematic underestimation of the stellar mass surface density
+at the highest densities (since the \hii regions are preferentially
+concentrated in clusters).}. The correlation is similar whether we use the
+Herschel column density directly or the SCUBA or SHARC-based column density
+maps (see Section \ref{sec:colmaps}).  
 
-The relation we observe (Figure \ref{fig:stellarvsmasscolumn}) is several
-orders of magnitude lower than that extrapolated from \citet{Gutermuth2011a}.
-This is primarily driven by an age sensitivity difference; their samples
-consisted of Spitzer-measured YSOs, including Class II sources.  Our data are
-strictly limited to Class 0/I equivalents, since we can only detect dusty
-envelopes and \hii regions.
+There are a few key differences between our data and those of
+\citet{Gutermuth2011a}.  First, our \emph{minimum} detected column density is
+$N(\hh)\approx10^{23}$ \persc, while in their sample, the \emph{maximum}
+observed was $A_V=38$, or $N(\hh)=3.8\ee{22}$ \persc.  Even if we subtract
+our upper-limit foreground estimate $N(\hh)=5\ee{22}$ from the entire
+Sgr B2 map, nearly all of the detected sources reside in regions with column
+densities well above the maximum reached in the local cloud sample.
+Second, our 3 mm source sample is sensitive to only the youngest sources, either
+the high-mass equivalent of Class 0/I sources (`hot cores' or HMYSOs), or
+deeply embedded hypercompact \hii regions.  The Spitzer sample included both
+Class I sources, with estimated ages $t\lesssim0.5$ Myr, and Class II, with
+ages $0.5 < t < 5$ Myr.  Our sample is therefore biased young.  If the
+age estimate for Sgr B2 from the dynamical models
+\citep{Longmore2013a,Kruijssen2015a} is accurate, there should be about as many
+Class II sources as Class I, given the standard ages, meaning our total mass
+estimate may be as much as a factor of 2 underestimated.
 
 % core_local_brightness.py
 % surface_density_maps.py
 \FigureTwo
 {figures/stellar_vs_gas_column_density_gridNN11_herschel.pdf}
 {figures/stellar_vs_gas_column_density_starcentered_herschel.pdf}
-{Plots of the protostellar mass surface density vs the gas mass surface
-density.  The stellar mass surface densities are computed using the 11th
+{Plots of the protostellar mass surface density vs the gas mass surface density
+as derived from Herschel SED fitting (Section \ref{sec:colmaps}).  The stellar
+mass surface densities are computed using the 11th
 nearest-neighbor distance assuming that each star represents
 a mass of 95 \msun, extrapolated assuming a uniform IMF.  (a) shows the
-densities computed on a 0.25 pc grid,
+densities computed on a 0.25 pc grid, with column density lower limits
+indicated where the Herschel data are saturated,
 while (b) shows
-the protostar-centric surface densities.  The shaded regions
+the protostar-centric surface densities; no lower limits are included in this
+figure because interpolated mass surface densities are used instead.  The
+shaded regions
 show the extrapolations of the relations derived by \citet{Gutermuth2011a}
 for Ophiucus (blue) and Mon R2 (green); their data cut off below a mass
 surface density $\Sigma < 10^3$ \msun pc$^{-2}$. 
 The blue dotted line shows the Ophiucus relation scaled down by
-$\approx50\times$ to overlap with our data.
-The black dashed line shows the relation $\Sigma_* = 10^{-5}
+$50\times$ to overlap with our data.
+The black dashed line shows the relation $\Sigma_* = 3\ee{-5}
 \Sigma_{gas}^{5/3}$; it is not a fit to the data.
 The thick solid red line shows a linear relation scaled
-to match the source-centered surface density.
-The arrows along the bottom show the effect of subtracting off a uniform
-foreground column density of $N(\hh)=5\ee{22}$ \persc (1100 \msun pc$^{-2}$).
+to approximately match the source-centered surface density.
+The thick lines show realizations of the \citet{Gutermuth2011a} star formation
+law at times 0.01, 0.1, and 0.74 Myr, from bottom to top.
+The arrows along
+the bottom show the effect of subtracting a uniform foreground column
+density of $N(\hh)=5\ee{22}$ \persc (1100 \msun pc$^{-2}$).
 }
 {fig:stellarvsmasscolumn}{1}{0.5\textwidth}
 
 We do not fit a slope, as \citet{Gutermuth2011a} did, because we expect our
 data are affected by substantially stronger and more difficult to characterize
-errors, but note that our data are compatible with a power-law index
-$\alpha=5/3$, and therefore overall consistent with the slopes
-\citet{Gutermuth2011a} derived.  Figure \ref{fig:stellarvsmasscolumn} also
-shows a linear relation between $\Sigma_*$ and $\Sigma_{gas}$ as a red line,
-which does not match the data.
+errors. Our data show a large scatter, and are plausibly compatible with a
+power-law index in the range 1-2, and therefore overall consistent with the
+steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.  Figure
+\ref{fig:stellarvsmasscolumn} shows both a linear relation between $\Sigma_*$
+and $\Sigma_{gas}$ as a red line and $\Sigma_* = \Sigma_{gas}^{5/3}$ as a black
+dashed line.  It also shows three curves from the \citet{Gutermuth2011a} star
+formation law, their Equation 7, with $k=10^{-4}$ pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$
+and $\alpha=2$.  Remarkably, even the 0.1 Myr law appears too old for our dataset.
+%The relation we observe (Figure \ref{fig:stellarvsmasscolumn}) is several
+%orders of magnitude lower than that extrapolated from \citet{Gutermuth2011a}.
+
 
 %{\color{red} todo: move or summarize this in discussion/conclusion/abstract?}
 Our data are consistent with the slopes, but not the amplitude, of the
-\citet{Gutermuth2011a} results; Figure \ref{fig:stellarvsmasscolumn} shows
+\citet{Gutermuth2011a} results. Figure \ref{fig:stellarvsmasscolumn} shows
 that the extrapolated relation from the low-mass clouds exceeds our observations
-by at least $100\times$ (Ophiucus) or closer to $10^3\times$ (Mon R2).  It is
-difficult to reconcile these measurements.  We explore several explanations:
+by at least $50\times$ (Ophiucus) or closer to $10^3\times$ (Mon R2).  The star
+formation law they used is only consistent with our data for times earlier than
+$t<0.1$ Myr.  This inconsistency is partly due to the very fast depletion time
+for this form of star formation law, which rises with gas surface density.
+
+It is difficult to reconcile these measurements.  We explore
+several explanations:
 
 \begin{itemize}
     \item \emph{Could we be missing an older generation?}
@@ -1484,7 +1512,7 @@ difficult to reconcile these measurements.  We explore several explanations:
         formation rate within Sgr B2 was an order of magnitude higher 1-5 Myr
         ago.  Such an enhanced SFR is implausible since such a large population
         of massive stars would still be alive and very easily detectable in our
-        survey and previous VLA surveys.
+        survey and previous VLA surveys. 
 
     \item \emph{Could we be overestimating the gas mass?}
         The surface densities we measure cannot be substantially incorrect.
