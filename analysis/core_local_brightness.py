@@ -12,7 +12,7 @@ import reproject
 import pyregion
 
 from constants import distance, mass_represented_by_a_source
-from gutermuth2011_law import gas_depletion_law
+from gutermuth2011_law import gas_depletion_law, sigma_gas_of_t
 
 import paths
 
@@ -438,7 +438,7 @@ def plotit():
                'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
     lims = ax7.axis()
     # 5/3 slope
-    ax7.loglog([1e3,1e6], [3e0, 3e5], 'k--')
+    #ax7.loglog([1e3,1e6], [3e0, 3e5], 'k--')
     monr2_lowerline = np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
     ax7.fill_between([0.1, 1e5],
                      monr2_lowerline,
@@ -467,23 +467,28 @@ def plotit():
     ax7.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
     ax7.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
 
-    sigma_gas = np.logspace(1,5) * u.M_sun / u.pc**2
+    sigma_gas = np.logspace(1,6) * u.M_sun / u.pc**2
     time = 0.74 * u.Myr
-    ax7.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+    ax7.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
                linewidth=3, zorder=-5, alpha=0.5)
 
     time = 0.1 * u.Myr
-    ax7.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+    ax7.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
                linewidth=3, zorder=-5, alpha=0.5)
 
 
     time = 0.01 * u.Myr
-    ax7.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+    ax7.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
                linewidth=3, zorder=-5, alpha=0.5)
+
+    for time in (0.01, 0.1, 0.74)*u.Myr:
+        ax7.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
+                   gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
+                   color='r', linewidth=3, alpha=0.5, zorder=-10,)
 
 
     ax7.axis([1e3,1e5,1e0,1e5])
-    ax7.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
+    #ax7.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.png"), bbox_inches='tight')
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.pdf"), bbox_inches='tight')
 
@@ -499,7 +504,7 @@ def plotit():
                'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
     lims = ax8.axis()
     # 5/3 slope
-    ax8.loglog([1e3,1e6], [3e0, 3e5], 'k--')
+    #ax8.loglog([1e3,1e6], [3e0, 3e5], 'k--')
 
     monr2_lowerline = np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
     ax8.fill_between([0.1, 1e5],
@@ -528,18 +533,23 @@ def plotit():
     ax8.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
     ax8.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
 
-    sigma_gas = np.logspace(1,5) * u.M_sun / u.pc**2
     time = 0.74 * u.Myr
-    ax8.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+    ax8.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
                linewidth=3, zorder=-5, alpha=0.5)
 
     time = 0.1 * u.Myr
-    ax8.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+    ax8.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
                linewidth=3, zorder=-5, alpha=0.5)
 
     time = 0.01 * u.Myr
-    ax8.loglog(sigma_gas, gas_depletion_law(sigma_gas, time), label=time, color='orange',
+    ax8.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
                linewidth=3, zorder=-5, alpha=0.5)
+
+    for time in (0.01, 0.1, 0.74)*u.Myr:
+        ax7.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
+                   gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
+                   color='r', linewidth=3, alpha=0.5, zorder=-10,)
+
 
     ax8.axis(lims)
     ax8.axis([1e3,1e5,1e0,1e5])

@@ -1443,6 +1443,13 @@ age estimate for Sgr B2 from the dynamical models
 Class II sources as Class I, given the standard ages, meaning our total mass
 estimate may be as much as a factor of 2 underestimated.
 
+Despite the differences in method, the Sgr B2, Mon R2, and Ophiucus clouds have
+similar instantaneous star formation efficiencies, $\epsilon =
+M_*/(M_*+M_{gas}$.  Sgr B2 has $\epsilon=0.016-0.018$ (depending on whether the
+foreground is subtracted), Mon R2 $\epsilon=0.019$, and Ophiucus $\epsilon =
+0.04$.  
+
+
 % core_local_brightness.py
 % surface_density_maps.py
 \FigureTwo
@@ -1464,91 +1471,138 @@ for Ophiucus (blue) and Mon R2 (green); their data cut off below a mass
 surface density $\Sigma < 10^3$ \msun pc$^{-2}$. 
 The blue dotted line shows the Ophiucus relation scaled down by
 $50\times$ to overlap with our data.
-The black dashed line shows the relation $\Sigma_* = 3\ee{-5}
-\Sigma_{gas}^{5/3}$; it is not a fit to the data.
-The thick solid red line shows a linear relation scaled
-to approximately match the source-centered surface density.
-The thick lines show realizations of the \citet{Gutermuth2011a} star formation
-law at times 0.01, 0.1, and 0.74 Myr, from bottom to top.
+%The black dashed line shows the relation $\Sigma_* = 3\ee{-5}
+%\Sigma_{gas}^{5/3}$; it is not a fit to the data.
+The thick orange lines show realizations of the \citet{Gutermuth2011a} $\alpha=2$ star
+formation law at times 0.01, 0.1, and 0.74 Myr, from bottom to top.
+Similarly, the thick red lines show realizations of the $\alpha=1$ star
+formation law at the same ages.
 The arrows along
 the bottom show the effect of subtracting a uniform foreground column
 density of $N(\hh)=5\ee{22}$ \persc (1100 \msun pc$^{-2}$).
 }
 {fig:stellarvsmasscolumn}{1}{0.5\textwidth}
 
-We do not fit a slope, as \citet{Gutermuth2011a} did, because we expect our
-data are affected by substantially stronger and more difficult to characterize
-errors. Our data show a large scatter, and are plausibly compatible with a
+Figurre \ref{fig:stellarvsmasscolumn} shows the stellar mass surface density
+$\Sigma_*$ plotted against the gas mass surface density $\Sigma_{gas}$.
+Our data show a large scatter and are plausibly compatible with a
 power-law index in the range 1-2, and therefore overall consistent with the
 steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.  Figure
-\ref{fig:stellarvsmasscolumn} shows both a linear relation between $\Sigma_*$
-and $\Sigma_{gas}$ as a red line and $\Sigma_* = \Sigma_{gas}^{5/3}$ as a black
-dashed line.  It also shows three curves from the \citet{Gutermuth2011a} star
-formation law, their Equation 7, with $k=10^{-4}$ pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$
-and $\alpha=2$.  Remarkably, even the 0.1 Myr law appears too old for our dataset.
+\ref{fig:stellarvsmasscolumn}  shows in orange three curves from the
+\citet{Gutermuth2011a} $\alpha=2$ star formation law, their Equation 7, with
+$k=10^{-4}$ pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$
+and $\alpha=2$, at times $t=0.01$, 0.1, and 0.74 Myr .  Only the youngest
+curve, with age 0.01 Myr, overlaps with our data.
+The three red curves, which are essentially lines in this figure, show the $\alpha=1$
+law at the same three ages, and it achieves reasonable agreement with our data
+for the $t=0.74$ Myr line.
 %The relation we observe (Figure \ref{fig:stellarvsmasscolumn}) is several
 %orders of magnitude lower than that extrapolated from \citet{Gutermuth2011a}.
 
 
 %{\color{red} todo: move or summarize this in discussion/conclusion/abstract?}
-Our data are consistent with the slopes, but not the amplitude, of the
-\citet{Gutermuth2011a} results. Figure \ref{fig:stellarvsmasscolumn} shows
-that the extrapolated relation from the low-mass clouds exceeds our observations
-by at least $50\times$ (Ophiucus) or closer to $10^3\times$ (Mon R2).  The star
-formation law they used is only consistent with our data for times earlier than
-$t<0.1$ Myr.  This inconsistency is partly due to the very fast depletion time
-for this form of star formation law, which rises with gas surface density.
+%Our data are consistent with the slopes, but not the amplitude, of the
+%\citet{Gutermuth2011a} results. 
+Figure \ref{fig:stellarvsmasscolumn} shows that the extrapolated relation from
+the low-mass clouds exceeds our observations by at least $50\times$ (Ophiucus)
+or closer to $10^3\times$ (Mon R2).  The star formation law they used is only
+consistent with our data for times earlier than $t<0.1$ Myr.  This
+inconsistency is due to the very fast depletion time for this form of star
+formation law, which rises with gas surface density.  Indeed, the $\alpha=2$
+star formation law favored by \citet{Gutermuth2011a} is completely implausible
+for the gas surface density regime we observe, as it implies that gas with an
+initial surface density of $\Sigma_{gas}=10^4$ \msun \perspc would achieve a
+star formation efficiency $\epsilon>1$ in $t<0.1$ Myr.  The discrepancy between
+our observations and theirs indicates either that there is a systematic
+tendency to overestimate $\Sigma_*$ at high $\Sigma_{gas}$ in the Spitzer
+observations, which seems unlikely, or that there is a different star formation
+law in Sgr B2 than in local clouds.
 
-It is difficult to reconcile these measurements.  We explore
-several explanations:
-
-\begin{itemize}
-    \item \emph{Could we be missing an older generation?}
-        \citet{Gutermuth2011a} were sensitive to, and included in their sample,
-        an older generation of Class II sources, which we cannot detect.
-        However, they typically found a Class II / Class I ratio of only
-        $\approx4\times$ \citep{Gutermuth2009a}, so the discrepancy cannot be
-        exclusively due to our insensitivity to older YSOs unless the star
-        formation rate within Sgr B2 was an order of magnitude higher 1-5 Myr
-        ago.  Such an enhanced SFR is implausible since such a large population
-        of massive stars would still be alive and very easily detectable in our
-        survey and previous VLA surveys. 
-
-    \item \emph{Could we be overestimating the gas mass?}
-        The surface densities we measure cannot be substantially incorrect.
-        Even if we assume the maximum plausible foreground cloud surface
-        density of $N(\hh)=5\ee{22}$ \persc, the measured gas surface densities
-        only shift by a small fraction (at most $50\%$, but typically $<10\%$
-        for the star-centered measurements; see the arrows in Figure
-        \ref{fig:stellarvsmasscolumn}).
-
-    \item \emph{Could there be high multiplicity in our sample?} 
-        A possible explanation is that each of the detected sources in our
-        sample is a high-number multiple system, such that each 3 mm source
-        represents $\approx5000$ \msun instead of $\approx100$ \msun.  The
-        multiplicity of the Orion Source I system suggests this interpretation
-        is qualitatively plausible, but the factor of 50 required to match the
-        \citet{Gutermuth2011a} extrapolation strains credibility.
-
-    \item \emph{Could the sources be much more massive than we have inferred?}
-        Another possibility is that each source we detect has a higher minimum
-        mass than we have assumed, $M\gg8 \msun$, but again the required
-        threshold is absurd, requiring each star to be $>100$ \msun to match
-        the local cloud extrapolation.
-
-    \item \emph{Could our sample be incomplete?}
-        If our sample were incomplete by a factor of 100-1000, our results
-        would match those extrapolated from Gutermuth et al.  While Section
-        \ref{sec:contsources} concedes that the catalog may be incomplete, it
-        is unlikely we are $<1\%$ complete, and the catalog is almost certainly
-        complete to $>90\%$ for very massive and luminous sources ($L>10^5$
-        \lsun, see Section \ref{sec:theyareprotostars}).  Additionally, if
-        we were to include a factor of $100-1000\times$ more stellar mass, the 
-        implied total stellar mass would be absurd, reaching $10^6-10^7$ \msun,
-        exceeding the cloud mass.
-
-
-\end{itemize}
+% While a linear relation $\Sigma_* \propto \Sigma_{gas}$ can approximately
+% account for both local clouds and Sgr B2 as a whole, we have not yet explained
+% why the extrapolation of the observed $\Sigma_* - \Sigma_{gas}$ relation from
+% local clouds does not match Sgr B2.  We evalute several possibilities here:
+% 
+% \begin{itemize}
+%     \item resolution?
+%     \item \emph{Could we be missing an older generation?}
+%         \citet{Gutermuth2011a} were sensitive to, and included in their sample,
+%         an older generation of Class II sources, which we cannot detect.
+%         However, they typically found a Class II / Class I ratio of only
+%         $\approx4\times$ \citep{Gutermuth2009a} (and they found that this
+%         ratio \emph{decreased} at higher gas surface densities), so the
+%         discrepancy cannot be exclusively due to our insensitivity to older
+%         YSOs unless the star formation rate within Sgr B2 was an order of
+%         magnitude higher 1-5 Myr ago.  Such an enhanced SFR is implausible
+%         since such a large population of massive stars would still be alive and
+%         very easily detectable in our survey and previous VLA surveys. 
+% 
+%     \item \emph{Could we be overestimating the gas mass?}
+%         The surface densities we measure cannot be substantially incorrect.
+%         Even if we assume the maximum plausible foreground cloud surface
+%         density of $N(\hh)=5\ee{22}$ \persc, the measured gas surface densities
+%         only shift by a small fraction (at most $50\%$, but typically $<10\%$
+%         for the star-centered measurements; see the arrows in Figure
+%         \ref{fig:stellarvsmasscolumn}).
+% 
+%     \item \emph{Could there be high multiplicity in our sample?} 
+%         A possible explanation is that each of the detected sources in our
+%         sample is a high-number multiple system, such that each 3 mm source
+%         represents $\approx5000$ \msun instead of $\approx100$ \msun.  The
+%         multiplicity of the Orion Source I system suggests this interpretation
+%         is qualitatively plausible, but the factor of 50 required to match the
+%         \citet{Gutermuth2011a} extrapolation strains credibility.
+% 
+%     \item \emph{Could the sources be much more massive than we have inferred?}
+%         Another possibility is that each source we detect has a higher minimum
+%         mass than we have assumed, $M\gg8 \msun$, but again the required
+%         threshold is absurd, requiring each star to be $>100$ \msun to match
+%         the local cloud extrapolation.
+% 
+%     \item \emph{Could our sample be incomplete?}
+%         If our sample were incomplete by a factor of 100-1000, our results
+%         would match those extrapolated from Gutermuth et al.  While Section
+%         \ref{sec:contsources} concedes that the catalog may be incomplete, it
+%         is unlikely we are $<1\%$ complete, and the catalog is almost certainly
+%         complete to $>90\%$ for very massive and luminous sources ($L>10^5$
+%         \lsun, see Section \ref{sec:theyareprotostars}).  Additionally, if
+%         we were to include a factor of $100-1000\times$ more stellar mass, the 
+%         implied total stellar mass would be absurd, reaching $10^6-10^7$ \msun,
+%         exceeding the cloud mass.
+% 
+%     \item \emph{Is the stellar IMF spatially nonuniform?}
+%         Our stellar mass surface density measurements are predicated on the
+%         assumption that each MYSO represents a fully-sampled initial mass
+%         function with the same location.  If there is any spatial non-uniformity
+%         in the IMF, e.g., if massive stars preferentially form at the bottoms
+%         of large potential wells (``primordial mass segregation''), the massive
+%         stars will have a different spatial distribution than the low-mass
+%         stars.  This effect would result in a higher measured stellar surface
+%         density at the highest gas surface densities and a lower measured
+%         stellar surface density at the lowest gas surface densities, i.e., it
+%         would result in a steeper slope in Figure
+%         \ref{fig:stellarmassvscolumn}.  Therefore, unless there is inverse mass
+%         segregation, a spatially nonuniform IMF cannot explain our
+%         observations.
+% 
+%     \item \emph{Is the stellar IMF temporally nonuniform?}
+%         If high-mass stars form first, we would overestimate the stellar mass
+%         surface density.  However, if low-mass stars form first, we could
+%         underestimate the stellar mass surface density.  Given our survey's
+%         insensitivity to low-mass YSOs, the stellar mass surface density could
+%         be over an order of magnitude higher if it consists only of low-mass
+%         protostars.  Such a dramatic time sequencing effect in star formation
+%         would have profound implications for star formation studies, implying
+%         that any or all clouds currently forming low-mass stars may eventually
+%         form higher-mass stars, so testing this possibility with
+%         high-sensitivity observations should be a priority.
+% 
+%     \item \emph{Is the star formation efficiency lower at a fixed surface
+%         density in the Galactic center?}
+%         The overall star formation rate in the Galactic center is lower
+%         than expected given predictions from local clouds.
+% 
+% \end{itemize}
 
 % In order to reconcile our measurements with
 % theirs, either there must be a $\approx100\times$ larger population of more
