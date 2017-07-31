@@ -141,7 +141,8 @@ formation rate within the dense molecular gas of the CMZ.
 
 We adopt a distance to Sgr B2 $D_{\mathrm{Sgr B2}}=\dsgrb$, which is consistent
 with Sgr B2 being located in the CMZ dust ridge.  While \citet{Reid2009a}
-measure a closer distance of $7.9\pm0.8$ kpc, we use a value closer to the
+measure a closer distance of $7.9\pm0.8$ kpc, and \citet{Boehle2016a}
+measure a distance to Sgr A$^*$ $7.86\pm0.14$ kpc, we use a value closer to the
 IAU-recommended Galactic Center distance of 8.5 kpc, accounting for the
 distance difference of $\approx100$ pc measured by
 \citet{Reid2009a}\footnote{\citet{Reid2014a} also conclude that the distance to
@@ -175,7 +176,7 @@ archival VLA 1.3 cm continuum data (Appendix \ref{sec:onept3cm}).
 {Images of the ALMA 3 mm continuum in the Sgr B2 M and N region.  The right
 figure additionally includes markers at the position of each identified
 continuum pointlike source: red dots are `conservative', high-confidence
-sources, orange dots are `optimistic', low-confidence sources, cyan are \hii
+sources, orange squares are `optimistic', low-confidence sources, cyan are \hii
 regions, magenta +'s are \methanol masers, blue +'s are \water masers, and
 green X's are X-ray sources.  The massive
 protocluster Sgr B2 M is the collection of \hii regions and compact sources in
@@ -264,6 +265,7 @@ Briggs robust parameter 0.5, achieving a beam size $0.54\arcsec\times0.46\arcsec
 % compact sources.
 
 
+% pointsource_overlay_inset.py
 \Figure{figures/cores_on_continuum_peak_MandN_zoomin.pdf}
 {A close-in look at the Sgr B2 M and N region.  Multiple insets show identified
 sources in some of the richer sub-regions.  The points are colored as in Figure
@@ -294,6 +296,7 @@ widely detected.  This line has a critical density $n_{cr}\equiv A_{ij}/C_{ij}
 \approx5\ee{5}$ \percc \citep{Green1978b}, so it would traditionally be
 considered a high-density gas tracer.
 
+% pointsource_overlay_deepsouth? (or pointsource_overlay)
 \FigureTwo
 {figures/continuum_peak_DeepSouth_saturated.pdf}
 {figures/cores_on_continuum_peak_DeepSouth_saturated.pdf}
@@ -301,7 +304,7 @@ considered a high-density gas tracer.
 The right figure additionally
 includes markers at the position of each identified continuum pointlike
 source: red dots are `conservative', high-confidence sources,
-orange dots are `optimistic', low-confidence sources,
+orange squares are `optimistic', low-confidence sources,
 cyan are \hii regions, magenta +'s are \methanol masers, blue +'s are \water
 masers, and green X's are X-ray sources.
 The \hii region Sgr B2 S is the bright source at the top of the image;
@@ -574,8 +577,9 @@ extinction in the regions containing the 3 mm cores; there are overall fewer
 Spitzer sources in these parts of the maps.
 
 Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz \methanol
-masers and quasithermal sources for associations, finding no matches with any
-of our sources.  This methanol line apparently does not trace star formation.
+maser sources for associations, finding no matches with any
+of our sources.  This methanol maser line apparently does not trace star
+formation.
 
 
 \subsection{Source Classification}
@@ -769,7 +773,7 @@ synchrotron) emission in the region \citep{Yusef-Zadeh2004a}.
 of the \cyanoacetylene J=10-9 peak intensity over the range [-200, 200] \kms.
   In both figures, red
 dots are `conservative',
-high-confidence sources, orange dots are `optimistic', low-confidence sources,
+high-confidence sources, orange squares are `optimistic', low-confidence sources,
 cyan are \hii regions, magenta +'s are \methanol masers, blue +'s are \water
 masers, and green X's are X-ray sources.
 }
@@ -1385,8 +1389,8 @@ sensitivity about $4\times$ better than ours, but a beam of 1.7\arcsec (similar
 to that shown in Figure \ref{fig:overview}; compare to Figure 2 in both
 Rathborne et al papers).  Despite the higher sensitivity of their data,
 they detected only 3 compact continuum sources.  Similarly,
-\citet{Kauffmann2013a} detected no compact continuum sources in their SMA and
-CARMA observations.  By contrast, even in our coarse resolution data, which
+\citet{Kauffmann2013a} detected only one compact continuum source in their
+(less sensitive) SMA.  By contrast, even in our coarse resolution data, which
 have a worse sensitivity (RMS $\approx 0.25$ mJy beam$^{-1}$, $10\times$ worse
 than Rathborne et al), dozens of compact sources are evident.  Our better
 resolution was critical for identifying the hundreds of sources we have
@@ -1448,7 +1452,8 @@ computed both the star-centric mass surface density using the 11th nearest
 neighbor density and a gridded surface density.  We assume a mean mass per
 source $\bar{M}(M>8~\msun)=21.8$ \msun, and that each such star represents 23\%
 of the total stellar mass (see Section \ref{sec:distributionsandsfr}), i.e.,
-each 3 mm source is treated as 95 \msun of stellar mass\footnote{In previous
+each 3 mm source is treated as a ``cluster'' containing 95 \msun of stellar
+mass\footnote{In previous
 sections, we assigned different masses to different source classes, i.e., we
 assigned higher masses to \hii regions than non-\hii regions.  For consistency
 with \citet{Gutermuth2011a}, we assume a constant mass per source here, which
@@ -1563,7 +1568,7 @@ Sgr B2 than in local clouds.
 While a linear relation $\Sigma_* \propto \Sigma_{gas}$ can approximately
 account for both local clouds and Sgr B2 as a whole, we have not yet explained
 why the extrapolation of the observed $\Sigma_* - \Sigma_{gas}$ relation from
-local clouds does not match Sgr B2.  We evalute several possibilities here:
+local clouds does not match Sgr B2.  We evaluate several possibilities here:
 
 \begin{itemize}
     \item \emph{Could we be missing an older generation?}
@@ -1585,6 +1590,13 @@ local clouds does not match Sgr B2.  We evalute several possibilities here:
         only shift by a small fraction (at most $50\%$, but typically $<10\%$
         for the star-centered measurements; see the arrows in Figure
         \ref{fig:stellarvsmasscolumn}).
+        If the dust opacity or dust-to-gas ratio were substantially wrong,
+        e.g., if the dust-to-gas ratio is 10 instead of 100, some of
+        our data would begin to overlap with the local cloud data.
+        If we have overestimated the gas mass by the required amount to
+        bring out data into agreement with the local clouds, the star
+        formation efficiency would be close to 50\% (i.e., $M_*\sim M_{gas}$),
+        which is unlikely given the many signs of youth observed.
 
     \item \emph{Could there be high multiplicity in our sample?} 
         A possible explanation is that each of the detected sources in our
@@ -1593,12 +1605,17 @@ local clouds does not match Sgr B2.  We evalute several possibilities here:
         multiplicity of the Orion Source I system suggests this interpretation
         is qualitatively plausible, but the factor of 50 required to match the
         \citet{Gutermuth2011a} extrapolation strains credibility.
+        Additionally, the luminosity constraints from our observed data
+        rule this possibility out unless the stellar IMF is bottom-heavy
+        (see below for more IMF discussion).
 
     \item \emph{Could the sources be much more massive than we have inferred?}
         Another possibility is that each source we detect has a higher minimum
         mass than we have assumed, $M\gg8 \msun$, but again the required
         threshold is absurd, requiring each star to be $>100$ \msun to match
-        the local cloud extrapolation.
+        the local cloud extrapolation.  Such massive stars are incompatible
+        with the observed 3 mm luminosities for any plausible dust envelope
+        or \hii region model (see Section \ref{sec:classification}).
 
     \item \emph{Could our sample be incomplete?}
         If our sample were incomplete by a factor of 100-1000, our results
@@ -1622,6 +1639,7 @@ local clouds does not match Sgr B2.  We evalute several possibilities here:
         they would have to be extremely young.  Also, the observations do not
         favor this scenario, as most of the star formation appears associated
         with a single velocity component in the \cyanoacetylene data (e.g.,
+
     \item \emph{Is the stellar IMF spatially nonuniform?}
         Our stellar mass surface density measurements are predicated on the
         assumption that each MYSO represents a fully-sampled initial mass
@@ -2106,7 +2124,7 @@ the best match between SCUBA and Herschel data was $3\times$, which is
 combine the Herschel data with the SCUBA data scaled by a range of factors from
 $0.5\times$ to $10\times$.  The changes to the high end of the histogram are
 dramatic, but the middle region containing most of the pixels (and most
-relevant to the discussion of thresholds in the paper) is hardly affected.
+relevant to the discussion of thresholds in the paper) is not substantially affected.
 Additionally, we show the cumulative distribution function of core background
 surface brightnesses (as in Figure \ref{fig:corebackgroundcdf}), showing again
 that only the high end is affected. 
@@ -2179,8 +2197,8 @@ assuming $T=40$ K, so those entries are left empty.
 \section{Additional figures showing \cyanoacetylene}
 \label{sec:hc3nfigures}
 The \cyanoacetylene line was discussed at various points in the paper.  Because
-the data are extremely rich and complex, we elected not to flood the main paper
-with figures, but we include some additional figures showing the detailed
+the data are extremely rich and complex,  we include some additional figures
+showing the detailed
 structure of the lines here.
 
 \Figure{figures/SgrB2_HC3N_channelmaps.pdf}

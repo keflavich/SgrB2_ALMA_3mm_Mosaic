@@ -38,7 +38,7 @@ if int(matplotlib.__version__[0]) >= 2:
 else:
     pl.rcParams['savefig.dpi'] = 300.
     tick_fontsize = 10
-    markersize = 8
+    markersize = 3
 
 zoomregions = {'SouthOfSouth':
                {'bottomleft': coordinates.SkyCoord("17:47:21.352",
@@ -271,7 +271,6 @@ for regionname in ('MandN', 'DeepSouth', ):
 
             coredots = plotcores(axins, alpha=1,
                                  transform=axins.get_transform('fk5'),
-                                 dot='o',
                                  markerfacecolor='none',
                                  markersize=markersize, zorder=50)
             ax.axis([x1,x2,y1,y2])

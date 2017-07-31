@@ -28,21 +28,26 @@ print("Found {0} HII regions, {1} strong sources, {2} weak sources, {3} X-ray so
               (measured&methanolmaser).sum(), (measured&watermaser).sum(),
               (measured&maser).sum()))
 
-def plotcores(ax, alpha=0.5, dot='.', show_unmeasured=False, **kwargs):
+def plotcores(ax, alpha=0.5, show_unmeasured=False,
+              markersize=None, markersize_override=False, **kwargs):
 
     all_coredots = []
-    for (mask, color, marker) in [
-                                  (measured & weak & ~hiis, 'orange', 's',),
-                                  (measured & strong & ~hiis, 'red', dot),
-                                  (measured & hiis, 'cyan', dot),
+    for (mask, color, marker, markersize_) in [
+                                  (measured & weak & ~hiis, 'orange', 's', None),
+                                  (measured & strong & ~hiis, 'red', 'o', None),
+                                  (measured & hiis, 'cyan', 'o', None),
                                   #(hiis & not_measured, 'cyan', 's'),
-                                  (measured & xray, 'green', 'x'),
-                                  (measured & methanolmaser, 'magenta', '+'),
-                                  (measured & watermaser, 'blue', '+'),
+                                  (measured & xray, 'green', 'x', None),
+                                  (measured & methanolmaser, 'magenta', '+', None),
+                                  (measured & watermaser, 'blue', '+', None),
     ]:
+
+        if (not markersize_override) and (markersize_ is not None):
+            markersize = markersize_
 
         coredots, = ax.plot(cores.ra[mask], cores.dec[mask], linestyle='none',
                             markeredgecolor=color,
+                            markersize=markersize,
                             alpha=alpha, marker=marker, color=color, **kwargs)
         all_coredots.append(coredots)
     return all_coredots

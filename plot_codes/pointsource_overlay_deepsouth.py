@@ -34,7 +34,7 @@ if int(matplotlib.__version__[0]) >= 2:
 else:
     pl.rcParams['savefig.dpi'] = 300.
     tick_fontsize = 10
-    markersize = 8
+    markersize = 3
 
 
 for regionname in ('DeepSouth', 'MandN'):
