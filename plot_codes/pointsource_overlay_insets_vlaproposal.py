@@ -24,6 +24,7 @@ import regions
 qpointings = regions.read_ds9(paths.rpath("qband_pointings.reg"))
 kapointings = regions.read_ds9(paths.rpath("kaband_pointings.reg"))
 kpointings = regions.read_ds9(paths.rpath("kband_pointings.reg"))
+maparea = regions.read_ds9(paths.rpath("vla_mosaic_area.reg"))
 cropreg = regions.read_ds9(paths.rpath("SgrB2_1.3cm_cropregion.reg"))
 
 warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
@@ -258,7 +259,7 @@ for regionname in ('MandN', 'DeepSouth', ):
         ax.set_aspect(1)
         ax.axis([x1,x2,y1,y2])
 
-        for pp in qpointings:#+kapointings+kpointings:
+        for pp in maparea:#qpointings:#+kapointings+kpointings:
             ppp = pp.to_pixel(mywcs)
             patch = ppp.as_patch(facecolor='none', edgecolor=pp.visual['color'])
             ax.add_patch(patch)
@@ -290,10 +291,12 @@ for regionname in ('MandN', 'DeepSouth', ):
                                interpolation='nearest',
                                origin='lower', norm=asinh_norm.AsinhNorm())
 
-            #axins.contour(data_1pt3,
-            #              transform=parent_ax.get_transform(wcs_1pt3),
-            #              levels=np.logspace(np.log10(0.005), -1, 3),
-            #              colors=['r']*6)
+            axins.contour(cutout1pt3,
+                          transform=axins.get_transform(wcs_1pt3),
+                          levels=np.logspace(np.log10(0.005), -1, 3),
+                          #alpha=0.75,
+                          #zorder=10,
+                          colors=[(1,1,0,1)]*6)
 
 
             coredots = plotcores(axins, alpha=1,

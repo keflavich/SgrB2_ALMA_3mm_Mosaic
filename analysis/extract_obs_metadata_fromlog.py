@@ -34,6 +34,8 @@ def ants_to_baselines(ants):
 
 def longest_baseline(fn):
     return max(ants_to_baselines(get_ant_pos(fn)[0]).values())
+def shortest_baseline(fn):
+    return min(ants_to_baselines(get_ant_pos(fn)[0]).values())
 
 def get_date(fn):
     with open(fn, 'r') as fh:
@@ -62,18 +64,20 @@ def get_metadata_line(fn, DEBUG=False):
     start_date, end_date = get_date(fn)
     baselines = ants_to_baselines(ants)
     longestbl = max(baselines.values())
+    shortestbl = min(baselines.values())
     integrationtime = get_total_time(fn)
 
     if start_date != end_date:
         return None
     
-    line = "{0} & {1}m & {2} & {3} & {4}\\\\".format(start_date, int(round(float(size))),
+    line = "{0} & {1}m & {2} & {3}-{4} & {5}\\\\".format(start_date, int(round(float(size))),
                                                      int(round(float(integrationtime))),
+                                                     int(round(shortestbl)),
                                                      int(round(longestbl)),
                                                      len(ants))
     if DEBUG:
         print(line)
-    return line, (start_date, size, integrationtime, longestbl, len(ants))
+    return line, (start_date, size, integrationtime, shortestbl, longestbl, len(ants))
 
 def make_meta_tables(listobspath=os.path.join(paths.root, 'listobs'), DEBUG=False):
     listfiles=glob.glob(os.path.join(listobspath, '*.listobs'))
@@ -85,7 +89,7 @@ def make_meta_tables(listobspath=os.path.join(paths.root, 'listobs'), DEBUG=Fals
 
     dct = {}
     dct1 = {}
-    for prtline,(date, size, integrationtime, longestbl, nants) in lines:
+    for prtline,(date, size, integrationtime, shortestbl, longestbl, nants) in lines:
         if date in dct:
             if DEBUG:
                 print("old integration time for {0} = {1}".format(date, integrationtime))
@@ -94,15 +98,16 @@ def make_meta_tables(listobspath=os.path.join(paths.root, 'listobs'), DEBUG=Fals
             integrationtime = float(dct1[date][2]) + float(integrationtime)
             if DEBUG:
                 print("new integration time for {0} = {1}".format(date, integrationtime))
-            dct[date] = "{0} & {1}m & {2} & {3} & {4}\\\\".format(date,
-                                                                  int(round(float(size))),
-                                                                  int(round(float(integrationtime))),
-                                                                  int(round(longestbl)),
-                                                                  nants)
-            dct1[date] = [date,size,integrationtime,longestbl]
+            dct[date] = "{0} & {1}m & {2} & {3}-{4} & {5}\\\\".format(date,
+                                                                      int(round(float(size))),
+                                                                      int(round(float(integrationtime))),
+                                                                      int(round(shortestbl)),
+                                                                      int(round(longestbl)),
+                                                                      nants)
+            dct1[date] = [date,size,integrationtime,shortestbl,longestbl]
         else:
             dct[date] = prtline
-            dct1[date] = [date,size,integrationtime,longestbl]
+            dct1[date] = [date,size,integrationtime,shortestbl,longestbl]
 
 
     for k,v in sorted(dct.items(), key=lambda x: datetime.datetime.strptime(x[0][:11],'%d-%b-%Y')):

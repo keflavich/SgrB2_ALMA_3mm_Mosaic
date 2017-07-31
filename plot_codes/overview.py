@@ -40,7 +40,7 @@ scalebarpos = coordinates.SkyCoord("17:47:32.", "-28:26:33.0", unit=(u.h, u.deg)
 
 contfnr2 = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_try2_selfcal6_ampphase_taper1.5as_r2_mask5mJy.image.tt0.pbcor.fits')
 contfnr0 = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_try2_selfcal6_ampphase_deeper_mask1.5mJy.image.tt0.pbcor.fits')
-for contfn,name,(vmin,vmax) in [(contfnr2, "taper", (-1,50)), (contfnr0, "hires",(-1,5))]:
+for contfn,name,(vmin,vmax,truemax) in [(contfnr2, "taper", (-1,50,2000)), (contfnr0, "hires",(-1,5,200))]:
     hdu = fits.open(contfn)[0]
 
     mywcs = wcs.WCS(hdu.header).celestial
@@ -74,6 +74,10 @@ for contfn,name,(vmin,vmax) in [(contfnr2, "taper", (-1,50)), (contfnr0, "hires"
                    vmin=vmin, vmax=vmax, norm=asinh_norm.AsinhNorm(),
                    #matplotlib.colors.LogNorm(),
                   )
+    cont = ax.contour(data, transform=ax.get_transform(mywcs),
+                      colors=['w']*10,
+                      levels=np.linspace(vmax, truemax, 5),
+                     )
     tr_fk5 = ax.get_transform("fk5")
     #(x1,y1),(x2,y2) = (1200,434),(2142,1743)
     # wrong (x1,y1),(x2,y2) = tr_fk5.transform_point([bottomleft.ra.deg, bottomleft.dec.deg]),tr_fk5.transform_point([topright.ra.deg, topright.dec.deg])
