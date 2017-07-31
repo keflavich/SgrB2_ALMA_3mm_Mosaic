@@ -92,10 +92,13 @@ clusterNE = core_phot_tbl['Cluster'] == 'NE'
         #patch.set_facecolor(color)
 
 hM,l,pM = ax1.hist(core_phot_tbl['peak'][clusterM], label='Sgr B2 M',
-                   histtype='stepfilled',
-                   linewidth=2,
+                   histtype='step',
+                   linewidth=5,
+                   zorder=10,
+                   alpha=0.8,
                    edgecolor='#0066DD',
-                   facecolor=(0, 0x66/256., 0xDD/256., 0.2),
+                   facecolor='none',
+                   #facecolor=(0, 0x66/256., 0xDD/256., 0.2),
                    bins=np.logspace(-4,0.2,20),)
 hN,l,pN = ax1.hist(core_phot_tbl['peak'][clusterN], label='Sgr B2 N',
                    histtype='stepfilled',
@@ -122,7 +125,7 @@ hOther,l,p = ax1.hist(core_phot_tbl['peak'][~(clusterNE|clusterM|clusterN)],
                       zorder=5,
                       bins=np.logspace(-4,0.2,50),)
 
-for pc, hatch in zip([pM, pN, pNE, pOther], ['/','\\','+']):
+for pc, hatch in zip([pM, pN, pNE, pOther], ['','\\','+']):
     for patch in pc:
         patch.set_hatch(hatch)
         #patch.set_edgecolor('w')
@@ -146,7 +149,7 @@ pl.savefig(paths.fpath("core_peak_fluxdensity_coloredbycluster.png"), bbox_inche
 ax1 = fig1.gca()
 plf = plfit.plfit(peak_fluxdens[~hii])
 plf.plfit(discrete=False, verbose=True)
-plf.plotpdf(dohist=False, fill=True, histcolor='none', plcolor='navy')
+plf.plotpdf(dohist=False, histcolor='none', plcolor='navy')
 
 pl.setp(ax1.get_xticklabels(), rotation='horizontal')#, fontsize=10)
 pl.setp(ax1.get_yticklabels(), rotation='vertical')#, fontsize=10)
@@ -164,7 +167,7 @@ print("All Data Consistent with power-law? p={0}".format(p))
 
 plfhi = plfit.plfit(peak_fluxdens[highconf & ~hii])
 plfhi.plfit(discrete=False, verbose=True)
-plfhi.plotpdf(dohist=False, fill=True, histcolor='none', plcolor='k')
+plfhi.plotpdf(fill=True, histcolor='none', plcolor='k')
 p,ksv = plfhi.test_pl()
 print("High-confidence Consistent with power-law? p={0}".format(p))
 ax1.set_xlim(0.0003, 2)

@@ -14,7 +14,7 @@
 \begin{abstract}
 We report ALMA observations with resolution $\approx0.5$\arcsec at 3 mm  of
 the extended Sgr B2 cloud. We detect \ncores compact sources, the majority of
-which have extents smaller than 5000 AU.  By ruling out alternative
+which have diameters smaller than 5000 AU.  By ruling out alternative
 possibilities such as externally ionized
 globules, we conclude that these sources consist of a mix of \hchii regions
 and protostars, with most of the newly-detected sources being protostars.
@@ -63,10 +63,12 @@ This version produced \today\ at \currenttime\ with hash \githash.
 \section{Introduction}
 
 % overview.py
-\Figure{figures/overview_figure.pdf}
+\Figure{figures/overview_figure_taper_labeled.pdf}
 {An overview of the Sgr B2 region, with the most prominent regions labeled.
 The image shows the ALMA 3 mm observations imaged with 1.5\arcsec resolution
-to emphasize the larger scale emission features.  For a cartoon version of this
+to emphasize the larger scale emission features.  White contours
+are included at [50, 500, 1000, 1500, 2000] mJy/beam to show the flux levels
+of the saturated regions.  For a cartoon version of this
 figure, see \citet{Schmiedeke2016a} Figure 1.}
 {fig:overview}{1}{\textwidth}
 
@@ -178,8 +180,9 @@ regions, magenta +'s are \methanol masers, blue +'s are \water masers, and
 green X's are X-ray sources.  The massive
 protocluster Sgr B2 M is the collection of \hii regions and compact sources in
 the lower half of the image.  The other massive protocluster, Sgr B2 N, is in
-the center.  Imaging artifacts (sidelobes) are evident at the 1-2 mJy bm$^{-1}$
-level.  The crowded parts of the images are shown with inset zoom-in panels in
+the center.
+% Imaging artifacts (sidelobes) are evident at the 1-2 mJy bm$^{-1}$ level.
+The crowded parts of the images are shown with inset zoom-in panels in
 Figure \ref{fig:MandNzooms}.
 }
 {fig:continuumMandN}{1}{0.5\textwidth}
@@ -428,8 +431,8 @@ center; these noise measurements are reported in Table \ref{tab:photometry}.
 Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
 inspected.  Peaks that were part of extended structures but not significantly
 different from them (e.g., a 5-$\sigma$ peak sitting on a 4-$\sigma$ extended
-structure) were excluded.  We excluded sources with extents $r>1\arcsec$, i.e.,
-extended \hii regions.
+structure) were excluded.  We excluded sources with extents $r>1\arcsec$
+($r>0.04$ pc), i.e., extended \hii regions.
 
 % %TODO: check
 % All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
@@ -528,7 +531,7 @@ object with a massive envelope.  Of the 6 \ammonia (3,3) maser sources identifie
 by \citet{Martin-Pintado1999a}, three are in regions with high 3 mm source
 density but lack a clear one-to-one source association, one is coincident with
 an \hii region not in our catalog, and two have no obvious associations; the
-\ammonia (3,3) masers therefore appear not to be unambiguous tracers of star
+\ammonia (3,3) masers therefore do not appear to be unambiguous tracers of star
 formation in this environment, consistent with the conclusions of
 \citet{Mills2015a}.  
 
@@ -583,9 +586,11 @@ sample of new sources.  Most of our sources have no match in other catalogs
 (see Section \ref{sec:crossmatch}), so we discuss what types of objects they
 could be given their 3 mm continuum detections.  Plausible emission mechanisms
 include free-free and thermal dust emission, so we explore whether the sources
-could be different classes of free-free sources in subsections \ref{sec:alt1},
-\ref{sec:alt2}, and \ref{sec:theyarehiiregions}.  We conclude that they are
-primarily dusty sources in subsection \ref{sec:theyareprotostars}.
+could be different classes of free-free sources: externally ionized
+globules (\S \ref{sec:alt1}), \hii regions from an extended population of
+OB stars (\S \ref{sec:alt2}), or \hii regions around young massive stars (\S
+\ref{sec:theyarehiiregions}).  We conclude that they are
+primarily dusty sources (\S \ref{sec:theyareprotostars}).
 
 We visually inspected the spectra extracted from the full line cubes, and no
 lines are detected peaking toward the majority of the sources (most sources
@@ -1606,6 +1611,17 @@ local clouds does not match Sgr B2.  We evalute several possibilities here:
         implied total stellar mass would be absurd, reaching $10^6-10^7$ \msun,
         exceeding the cloud mass.
 
+    \item \emph{Could Sgr B2 consist of several Mon R2-like clouds stacked
+        along the line of sight?}
+        If there were $\sim50-100$ clouds of the same physical scale and
+        surface density stacked along the line of sight, the data in Figure
+        \ref{fig:stellarvsmasscolumn} would shift left, providing a possible
+        explanation of the difference.  However, besides the extreme
+        unlikeliness of having so many clouds along the line of sight, this
+        explanation would require that the majority are non-star-forming, i.e.,
+        they would have to be extremely young.  Also, the observations do not
+        favor this scenario, as most of the star formation appears associated
+        with a single velocity component in the \cyanoacetylene data (e.g.,
     \item \emph{Is the stellar IMF spatially nonuniform?}
         Our stellar mass surface density measurements are predicated on the
         assumption that each MYSO represents a fully-sampled initial mass
@@ -1669,7 +1685,9 @@ local clouds does not match Sgr B2.  We evalute several possibilities here:
 
 \end{itemize}
 
-None of the above items provide a convincing explanation for the mismatch.
+Of the items above, only the final, which suggests that a surface-density-based
+star formation law is inviable, satisfactorily explains the discrepancy between
+our data and the extrapolation from \citet{Gutermuth2011a}.
 
 % In order to reconcile our measurements with
 % theirs, either there must be a $\approx100\times$ larger population of more
@@ -2001,6 +2019,13 @@ explain our observations, though an $\alpha=1$ (linear) relation is consistent
 with our data, and the $\alpha=1$ relation implies an age $t\sim1$ Myr that is
 consistent with the \citet{Kruijssen2015a} dynamical model age for the Sgr B2
 cloud $t=0.74$ Myr.
+
+The extrapolation of the surface density relations from local clouds
+in \citet{Gutermuth2011a} does not agree with our data.  We explored
+a wide variety of possible explanations for the difference, and concluded
+that the most likely is that a surface density relation is incapable
+of explaining both local and CMZ clouds.  Instead, a volume-density
+based model may be viable.
 
 
 The large detected population of high-mass protostars implies a much larger

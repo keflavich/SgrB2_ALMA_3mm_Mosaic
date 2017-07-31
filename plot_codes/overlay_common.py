@@ -32,7 +32,7 @@ def plotcores(ax, alpha=0.5, dot='.', show_unmeasured=False, **kwargs):
 
     all_coredots = []
     for (mask, color, marker) in [
-                                  (measured & weak & ~hiis, 'orange', dot,),
+                                  (measured & weak & ~hiis, 'orange', 's',),
                                   (measured & strong & ~hiis, 'red', dot),
                                   (measured & hiis, 'cyan', dot),
                                   #(hiis & not_measured, 'cyan', 's'),
