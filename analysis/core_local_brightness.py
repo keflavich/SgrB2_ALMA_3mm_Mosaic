@@ -453,6 +453,15 @@ def plotit():
                      color='blue',
                      alpha=0.5,
                      label='Ophiucus')
+
+    ax7.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
+             fontsize=18,
+             verticalalignment='bottom', horizontalalignment='center')
+    ax7.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+             fontsize=18,
+             verticalalignment='bottom', horizontalalignment='center')
+
+
     #ax7.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
     oph_scalefactor = 50.
     ax7.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
@@ -545,8 +554,16 @@ def plotit():
     ax8.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
                linewidth=3, zorder=-5, alpha=0.5)
 
+    ax8.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
+             fontsize=18,
+             verticalalignment='bottom', horizontalalignment='center')
+    ax8.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+             fontsize=18,
+             verticalalignment='bottom', horizontalalignment='center')
+
+
     for time in (0.01, 0.1, 0.74)*u.Myr:
-        ax7.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
+        ax8.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
                    gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
                    color='r', linewidth=3, alpha=0.5, zorder=-10,)
 

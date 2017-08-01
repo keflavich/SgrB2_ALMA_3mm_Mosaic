@@ -232,6 +232,13 @@ for time in (0.01, 0.1, 0.74)*u.Myr:
 ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
 ax2.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
 
+ax2.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
+         fontsize=18,
+         verticalalignment='bottom', horizontalalignment='center')
+ax2.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+         fontsize=18,
+         verticalalignment='bottom', horizontalalignment='center')
+
 ax2.axis(lims)
 
 # Arrows showing the shift if you subtract off the "most aggressive plausible"
