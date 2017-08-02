@@ -204,3 +204,25 @@ with open(paths.rpath("muno_xrays_matches.reg"),'w') as fh:
         fh.write("point({0},{1}) # point=cross color=red text={{{2}}}\n"
                  .format(stringy(row['RAJ2000']).replace(" ",":"),
                          stringy(row['DEJ2000']).replace(" ",":"), row['ALMA_ID']))
+
+
+# full catalog version
+muno_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.305', '-28:23:33.589',
+                                                         frame='fk5', unit=(u.hour, u.deg)),
+                                    width=7.5*u.arcmin, height=7.5*u.arcmin,
+                                    catalog='J/ApJS/181/110')['J/ApJS/181/110/catalog']
+#                                    catalog='J/ApJS/165/173/table2')['J/ApJS/165/173/table2']
+muno_in_field_coords = coordinates.SkyCoord(muno_in_field['RAJ2000'], muno_in_field['DEJ2000'], frame='fk5', unit=(u.deg, u.deg))
+muno_in_field_matches = coordinates.match_coordinates_sky(muno_in_field_coords, sgrb2_coords)
+sgrb2_ids = []
+sgrb2_dists = []
+for match,distance,_ in zip(*muno_in_field_matches):
+    if distance < 2*u.arcsec:
+        sgrb2_ids.append(cont_tbl[match]['name'])
+        sgrb2_dists.append(distance.to(u.arcsec))
+    else:
+        sgrb2_ids.append("-")
+        sgrb2_dists.append(np.nan*u.arcsec)
+muno_in_field.add_column(Column(data=sgrb2_ids, name='ALMA_ID'))
+muno_in_field.add_column(Column(data=u.Quantity(sgrb2_dists,u.arcsec), name='ALMA_dist', unit=u.arcsec))
+

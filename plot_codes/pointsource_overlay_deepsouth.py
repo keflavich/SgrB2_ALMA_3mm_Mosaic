@@ -53,10 +53,12 @@ for regionname in ('DeepSouth', 'MandN'):
         bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:26:02.565", unit=(u.h, u.deg), frame='fk5')
         topright = coordinates.SkyCoord("17:47:17.666", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
         scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:45.0", unit=(u.h, u.deg), frame='fk5')
+        legloc='lower right'
     elif regionname == 'MandN':
         bottomleft = coordinates.SkyCoord("17:47:24.199", "-28:23:30.722", unit=(u.h, u.deg), frame='fk5')
         topright = coordinates.SkyCoord("17:47:14.666", "-28:21:04.980", unit=(u.h, u.deg), frame='fk5')
         scalebarpos = coordinates.SkyCoord("17:47:23.7", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
+        legloc='upper right'
     else:
         raise Exception
 
@@ -125,6 +127,11 @@ for regionname in ('DeepSouth', 'MandN'):
         ax.axis([x1,x2,y1,y2])
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}.png".format(line,regionname)), bbox_inches='tight')
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}.pdf".format(line,regionname)), bbox_inches='tight')
+        leg = ax.legend(loc=legloc, fontsize=8)
+        assert leg is not None
+        leg.set_zorder(100)
+        fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_legend.png".format(line,regionname)), bbox_inches='tight')
+        fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_legend.pdf".format(line,regionname)), bbox_inches='tight')
 
         im.set_visible(False)
 
@@ -136,8 +143,13 @@ for regionname in ('DeepSouth', 'MandN'):
         fig3.canvas.draw()
 
         ax.axis([x1,x2,y1,y2])
+        fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_saturated_legend.png".format(line,regionname)), bbox_inches='tight')
+        fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_saturated_legend.pdf".format(line,regionname)), bbox_inches='tight')
+
+        leg.set_visible(False)
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_saturated.png".format(line,regionname)), bbox_inches='tight')
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_saturated.pdf".format(line,regionname)), bbox_inches='tight')
+
 
         #coredots.set_visible(False)
         for cd in coredots:

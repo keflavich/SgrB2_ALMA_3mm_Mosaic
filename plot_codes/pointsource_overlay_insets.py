@@ -161,6 +161,9 @@ filenames = {'continuum': contfilename,
 
 for regionname in ('MandN', 'DeepSouth', ):
 
+    legloc = 'upper right' if regionname == 'MandN' else 'upper left'
+    leg_bbox = [0.5, -0.10] if regionname == 'DeepSouth' else (1,1)
+
     vmax_hi = defaultdict(lambda: 0.25*1e3)
     vmax_hi['continuum'] = 0.01*1e3
     vmax_hi['1.3cm'] = 0.02*1e3
@@ -305,5 +308,18 @@ for regionname in ('MandN', 'DeepSouth', ):
                                  .format(line,regionname)),
                      bbox_inches='tight')
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_zoomin.pdf"
+                                 .format(line,regionname)),
+                     bbox_inches='tight')
+
+        leg = ax.legend(handles=coredots, labels=[cd.get_label() for cd in
+                                                  coredots],
+                        bbox_to_anchor=leg_bbox,
+                        loc=legloc,
+                        fontsize=8)
+
+        fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_zoomin_legend.png"
+                                 .format(line,regionname)),
+                     bbox_inches='tight')
+        fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_zoomin_legend.pdf"
                                  .format(line,regionname)),
                      bbox_inches='tight')

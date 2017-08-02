@@ -32,14 +32,14 @@ def plotcores(ax, alpha=0.5, show_unmeasured=False,
               markersize=None, markersize_override=False, **kwargs):
 
     all_coredots = []
-    for (mask, color, marker, markersize_) in [
-                                  (measured & weak & ~hiis, 'orange', 's', None),
-                                  (measured & strong & ~hiis, 'red', 'o', None),
-                                  (measured & hiis, 'cyan', 'o', None),
+    for (mask, color, marker, markersize_, label) in [
+                                  (measured & weak & ~hiis, 'orange', 's', None, "Optimistic"),
+                                  (measured & strong & ~hiis, 'red', 'o', None, "Conservative"),
+                                  (measured & hiis, 'cyan', 'o', None, "HII Regions"),
                                   #(hiis & not_measured, 'cyan', 's'),
-                                  (measured & xray, 'green', 'x', None),
-                                  (measured & methanolmaser, 'magenta', '+', None),
-                                  (measured & watermaser, 'blue', '+', None),
+                                  (measured & xray, 'green', 'x', None, "X-Ray Sources"),
+                                  (measured & methanolmaser, 'magenta', '+', None, "CH$_3$OH Masers"),
+                                  (measured & watermaser, 'blue', '+', None, "H$_2$O Masers"),
     ]:
 
         if (not markersize_override) and (markersize_ is not None):
@@ -47,6 +47,7 @@ def plotcores(ax, alpha=0.5, show_unmeasured=False,
 
         coredots, = ax.plot(cores.ra[mask], cores.dec[mask], linestyle='none',
                             markeredgecolor=color,
+                            label=label,
                             markersize=markersize,
                             alpha=alpha, marker=marker, color=color, **kwargs)
         all_coredots.append(coredots)
