@@ -78,9 +78,8 @@ nn11_grid_pc = (nn11_grid * distance).to(u.pc, u.dimensionless_angles())
 
 
 
-datapath = '/Users/adam/work/sgrb2/alma/FITS/continuumdata'
-herschel25 = fits.open(os.path.join(datapath, 'gcmosaic_column_conv25.fits'))
-herschel36 = fits.open(os.path.join(datapath, 'gcmosaic_column_conv36.fits'))
+herschel25 = fits.open(paths.cpath('gcmosaic_column_conv25.fits'))
+herschel36 = fits.open(paths.cpath('gcmosaic_column_conv36.fits'))
 
 herschel25reproj,_ = reproject.reproject_interp(herschel25, header)
 herschel36reproj,_ = reproject.reproject_interp(herschel36, header)

@@ -52,6 +52,9 @@ pl.savefig(paths.fpath("SHARC_SCUBA_temperature_map_experiment.png"))
 # not used (and if it is, it needs to be syned with combine_sharc)
 # sharc_beam = radio_beam.Beam(11.5*u.arcsec)
 
+scuba_hdr['BUNIT'] = ('cm^-2', 'N(H2), column density of H2')
+#sharc_hdr['BUNIT'] = ('cm^-2', 'N(H2), column density of H2')
+
 colmap_sharc_20 = dust_emissivity.dust.colofsnu(frequencies[0],
                                                 imagecube[0,:,:],
                                                 temperature=20*u.K,
