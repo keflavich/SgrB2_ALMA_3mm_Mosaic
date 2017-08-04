@@ -63,7 +63,7 @@ def do_everything():
     pdfresult = subprocess.call(pdfcmd)
     assert pdfresult == 0
 
-    if not os.system('bibexport'):
+    if not os.system('bibexport')==0:
         print("bibexport is not installed.")
     else:
         assert os.system('bibexport -o extracted.bib sgrb2_cores.aux') == 0
