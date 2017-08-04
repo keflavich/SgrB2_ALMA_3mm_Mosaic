@@ -4,6 +4,7 @@ import shutil
 import glob
 import argparse
 import os
+import update_bibentries
 
 assert os.path.exists('bibdesk.bib')
 
@@ -46,6 +47,10 @@ def do_everything():
             aa.write('\documentclass{aa}\n')
             aa.write(preface)
 
+    with open('solobib.tex','w') as fh:
+        fh.write("\\bibliographystyle{aasjournal}\n")
+        fh.write("\\bibliography{bibdesk}")
+
     pdfcmd = [PDFLATEX] + pdflatex_args + [args.infile]
     bibcmd = [BIBTEX, args.infile.replace(".tex","")]
 
@@ -57,6 +62,19 @@ def do_everything():
     print("Executing PDF command a second time: {0}".format(pdfcmd))
     pdfresult = subprocess.call(pdfcmd)
     assert pdfresult == 0
+
+    assert os.system('bibexport -o extracted.bib sgrb2_cores.aux') == 0
+    
+    try:
+        update_bibentries.update_bibentries()
+    except ImportError:
+        print("Could not update bibliography entries because of import error")
+
+    with open('solobib.tex','w') as fh:
+        fh.write("\\bibliographystyle{aasjournal}\n")
+        fh.write("\\bibliography{extracted}")
+
+
     print("Executing bibtex command a second time: {0}".format(bibcmd))
     bibresult = subprocess.call(bibcmd)
     assert bibresult == 0
