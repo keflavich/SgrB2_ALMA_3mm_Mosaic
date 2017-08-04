@@ -63,14 +63,17 @@ def do_everything():
     pdfresult = subprocess.call(pdfcmd)
     assert pdfresult == 0
 
-    assert os.system('bibexport -o extracted.bib sgrb2_cores.aux') == 0
-    print("bibexport created extracted.bib")
-    
-    try:
-        update_bibentries.update_bibentries()
-        print("Successfully updated bibentries")
-    except ImportError:
-        print("Could not update bibliography entries because of import error")
+    if not os.system('bibexport'):
+        print("bibexport is not installed.")
+    else:
+        assert os.system('bibexport -o extracted.bib sgrb2_cores.aux') == 0
+        print("bibexport created extracted.bib")
+        
+        try:
+            update_bibentries.update_bibentries()
+            print("Successfully updated bibentries")
+        except ImportError:
+            print("Could not update bibliography entries because of import error")
 
     with open('solobib.tex','w') as fh:
         fh.write("\\bibliographystyle{aasjournal}\n")
