@@ -50,6 +50,9 @@ pl.violinplot([herschel25mass[np.isfinite(herschel25mass) & (herschel25mass>0) &
               positions=([25,36,10]*u.arcsec*distance).to(u.pc, u.dimensionless_angles()).value)
 pl.plot([0.1,2], np.array([0.1, 2])**1.33 * 870, 'k-')
 pl.gca().set_yscale('log')
+pl.xlabel("Size Scale (pc)")
+pl.ylabel("Mass (M$_\odot$)")
+pl.savefig(paths.fpath("kauffmann_threshold_violins.png"))
 
 
 pl.figure(2).clf()
@@ -57,3 +60,4 @@ pl.imshow(scuba_mass.value, interpolation='nearest', origin='lower',
           cmap='gray', norm=pl.matplotlib.colors.LogNorm())
 pl.contour(scuba_mass.value, levels=[870*scuba_beam_pc.to(u.pc).value**1.33], colors=['b'])
 pl.contour(mask_scuba, levels=[0.5], colors=['r'])
+pl.savefig(paths.fpath("kauffmann_threshold_contours_on_scubamass.png"))
