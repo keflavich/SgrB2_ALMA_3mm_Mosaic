@@ -64,15 +64,18 @@ def do_everything():
     assert pdfresult == 0
 
     assert os.system('bibexport -o extracted.bib sgrb2_cores.aux') == 0
+    print("bibexport created extracted.bib")
     
     try:
         update_bibentries.update_bibentries()
+        print("Successfully updated bibentries")
     except ImportError:
         print("Could not update bibliography entries because of import error")
 
     with open('solobib.tex','w') as fh:
         fh.write("\\bibliographystyle{aasjournal}\n")
         fh.write("\\bibliography{extracted}")
+    print("Created solobib.tex")
 
 
     print("Executing bibtex command a second time: {0}".format(bibcmd))
