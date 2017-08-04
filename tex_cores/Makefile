@@ -15,6 +15,7 @@ all: gitstuff.tex ncores.tex sgrb2_cores
 .PHONY: sgrb2_cores
 sgrb2_cores: 
 	echo "texpath: ${texpath}"
+	python make_apjform.py
 	python make.py --texpath=${texpath}
 	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=sgrb2_cores_compressed.pdf sgrb2_cores.pdf
 
