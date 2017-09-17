@@ -1,5 +1,11 @@
 import os
-root = '/Users/adam/work/sgrb2/SgrB2_ALMA_3mm_Mosaic'
+import socket
+
+if 'nmpost' in socket.gethostname():
+    root = '/lustre/aginsbur/sgrb2/2013.1.00269.S/SgrB2_ALMA_3mm_Mosaic/'
+else:
+    root = '/Users/adam/work/sgrb2/SgrB2_ALMA_3mm_Mosaic'
+
 data = 'data/'
 spectra = os.path.join(data, 'spectra/')
 regions = 'regions/'

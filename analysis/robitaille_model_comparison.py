@@ -7,9 +7,7 @@ from astropy.table import Table, Column
 from astropy import units as u
 from astropy import coordinates
 import masscalc
-import pylab as pl
 from constants import distance
-pl.matplotlib.rc_file('pubfiguresrc')
 
 cont_tbl = core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"),
                                       format='ascii.ipac')
