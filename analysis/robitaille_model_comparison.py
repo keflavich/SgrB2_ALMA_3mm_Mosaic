@@ -38,7 +38,7 @@ for modeltype in models:
     for row in cont_tbl:
 
         flux = row['peak']
-        minflux,maxflux = flux*(1-minimum_error), flux*(1+minimum_error)
+        minflux,maxflux = (flux*(1-minimum_error), flux*(1+minimum_error))*u.Jy
 
         valid = (flux_sgrb2 > minflux) & (flux_sgrb2 < maxflux)
 
