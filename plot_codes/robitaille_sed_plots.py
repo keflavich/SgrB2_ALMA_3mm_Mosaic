@@ -36,3 +36,6 @@ pl.hist(luminosities_H[flux_sgrb2_H>0.5*u.mJy], bins=np.logspace(3,6,31))
 pl.hist(luminosities_S[flux_sgrb2_S>0.5*u.mJy], bins=np.logspace(3,6,31))
 pl.semilogx()
 pl.savefig("Robitaille_Models_flux_histograms.pdf")
+
+pl.hist(luminosities_H[(flux_sgrb2_H>0.5*u.mJy) & (flux_sgrb2_H<1.0*u.mJy)], bins=np.logspace(3,6,31))
+pl.hist(luminosities_S[(flux_sgrb2_S>0.5*u.mJy) & (flux_sgrb2_S<1.0*u.mJy)], bins=np.logspace(3,6,31))
