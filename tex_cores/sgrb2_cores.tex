@@ -26,7 +26,8 @@ spatial distribution of these
 sources, which are spread over a $\sim12\times3$ pc region, demonstrates that
 Sgr B2 is experiencing an extended star
 formation event, not just an isolated `starburst' within the protocluster
-regions Main (M), North (N), and South (S).
+(compact dust clumps that are likely to form stellar clusters) regions Main
+(M), North (N), and South (S).
 Using this new sample, we examine star formation thresholds and surface
 density relations in Sgr B2.
 While all of the detected
@@ -74,7 +75,7 @@ figure, see \citet{Schmiedeke2016a} Figure 1.}
 
 The Central Molecular Zone (CMZ) of our Galaxy appears to be overall deficient
 in star formation relative to the gas mass it contains
-\citep{Beuther2012a,Immer2012a,Longmore2013a,
+\citep{Guesten1983b,Morris1996a,Beuther2012a,Immer2012a,Longmore2013a,
 Kauffmann2017c,Kauffmann2017b,Barnes2017b}.  This deficiency
 suggests that star formation laws, i.e., the empirical relations between
 the star formation rate and gas surface density, are not universal.  The gas
@@ -120,7 +121,8 @@ contain only a small number of high-mass cores, protostars, and small \hii
 regions.
 
 Most observations of the Sgr B2 cloud focus on the ``hot cores'' Sgr B2 N and
-M, which are high-mass protoclusters.  The extended cloud has been the subject
+M, which are high-mass protoclusters (they are likely to form clusters with
+$M\gtrsim10^4$ \msun).  The extended cloud has been the subject
 of some studies in gas tracers, but it has never been observed at high
 ($\lesssim10\arcsec$) resolution in the far infrared or millimeter regime.
 Radio observations at $\nu<25$ GHz have revealed extended \ammonia and several
@@ -247,14 +249,20 @@ multi-frequency synthesis with two Taylor terms \citep{Rau2011a}, to yield a sub
 improved image (see Appendix \ref{sec:selfcal}).  The total dynamic range,
 measured as the peak brightness in
 Sgr B2 to the RMS noise in a signal-free region of the combined 7m+12m image,
-is 18000 (noise $\sim0.09$ mJy/beam, 0.05 K), while the dynamic range within one
-primary beam ($\sim0.5$\arcmin) of Sgr B2 M is only 5300 (noise $\sim0.3$
+is 18000 (average RMS error $0.09$ mJy/beam, 0.05 K), while the dynamic range within one
+primary beam ($0.5$\arcmin) of Sgr B2 M is only 5300 (average RMS error $0.3$
 mJy/beam, 0.16 K).  Because of the dynamic range limitations and an empirical
 determination that clean did not converge if allowed to go too deep, we cleaned
 to a threshold of 0.1 mJy/beam over all pixels with $S_\nu > 2.5$ mJy / beam
 as determined from a previous iteration of \texttt{tclean}.
 The final image used for most of the analysis in this paper was imaged with 
 Briggs robust parameter 0.5, achieving a beam size $0.54\arcsec\times0.46\arcsec$.
+Using the same visibility data, we also produce an image with robust parameter
+-1, beam size $0.37\arcsec\times0.32\arcsec$, and average RMS 0.24 mJy/beam or
+0.27 K, and another tapered to exclude the short baselines imaged with robust
+parameter 2 that achieved a beam size $2.35\arcsec\times1.99\arcsec$ with
+average RMS 0.78 mJy/beam or 0.022 K.  All three images are distributed with
+the paper, but the main focus of the paper is on the robust 0.5 data.
 % We performed this same
 % process for both the longest-baseline data only (resolution $\sim0.5\arcsec$,
 % largest angular scale theoretically 15\arcsec\ [the shortest baseline] but more
@@ -290,11 +298,13 @@ the only location in which an error $>5\%$ on the median-estimated continuum is
 expected
 is the Sgr B2 North core \citep[][Sanchez-Monge et al. 2017,
 submitted]{Sanchez-Monge2017a}.
-While many lines were included in the spectral setup, only \cyanoacetylene
-J=10-9 is discussed here; of the included lines, it is the brightest and most
-widely detected.  This line has a critical density $n_{cr}\equiv A_{ij}/C_{ij}
-\approx5\ee{5}$ \percc \citep{Green1978b}, so it would traditionally be
-considered a high-density gas tracer.
+While many lines were included in the spectral setup\footnote{Other lines
+targeted include CH$_3$CN 5-4, HCN 1-0, HNC 1-0, HCO+ 1-0, H41$\alpha$, and
+H$_2$CS $3_{0,3}-2_{0,2}$.} only \cyanoacetylene J=10-9 is discussed here; of
+the included lines, it is the brightest and most widely detected.  This line
+has a critical density $n_{cr}\equiv A_{ij}/C_{ij} \approx5\ee{5}$ \percc
+\citep{Green1978b}, so it would traditionally be considered a high-density gas
+tracer.
 
 % pointsource_overlay_deepsouth? (or pointsource_overlay)
 \FigureTwo
@@ -327,28 +337,31 @@ different resolutions.
 \label{sec:colmaps}
 We use archival data to create column density maps at a coarser
 resolution than the ALMA data, since the ALMA data are not sensitive
-enough to make direct column density measurements.   We use Herschel Hi-Gal
-data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby et al,
-in prep).  These fits were performed at 25\arcsec resolution, using the 70, 160,
-250, and 350 \um data and excluding the 500 \um channel.  The estimated 
-uncertainty is $\sim25\%$, with an upper limit on the systematic uncertainty
-of a factor of two (Battersby et al, in prep).  To obtain column density maps
-with greater resolution, we combine the Herschel data with SHARC 450 \um and
+enough to make direct column density measurements and because they
+may be contaminated by other (non-dust) emission mechanisms.   We use Herschel
+Hi-Gal data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby
+et al, in prep).  These fits were performed at 25\arcsec resolution, using the
+70, 160, 250, and 350 \um data and excluding the 500 \um channel.  The
+estimated fit uncertainty in the column density is $25\%$, with an upper limit
+on the systematic uncertainty of a factor of two (Battersby et al, in prep).
+To obtain column density maps with greater resolution, we combine the Herschel
+data with SHARC 450 \um and
 SCUBA 350 \um images.
 
 
 The CSO SHARC data were reported in \citet{Bally2010a} and have a nominal
-resolution of 9\arcsec at 350 \um, however, at this resolution,
-the SHARC data display a much higher surface brightness than the Herschel
-data on the same angular scale.  An assumed resolution of 11.5\arcsec gives a
-better surface brightness match and is consistent with the measured scale of
-Sgr B2 N in the image.  This calibration difference is likely to have been a
+resolution of 9\arcsec at 350 \um, however, at this resolution, the SHARC data
+display a much higher surface brightness than the Herschel data on the same
+angular scale.  An assumed resolution of 11.5\arcsec gives a better surface
+brightness match and is consistent with the measured scale of Sgr B2 N in the
+image.  This calibration difference is likely to have been produced by a
 combination of blurring by pointing errors, surface imperfections, and the
-gridding process, which all increase the effective beam size, and flux
-calibration errors.  In any case, the Herschel data
-provide the most trustworthy absolute calibration scale, since they were taken
-from space and calibrated to an absolute scale using Planck data
-\citep{Bendo2013a,Bertincourt2016a}.
+gridding process, all of which increase the effective beam size, and flux
+calibration errors.  In any case, the Herschel data provide the most
+trustworthy absolute calibration scale, since they were taken from space and
+calibrated to an absolute scale using Planck data
+\citep{Bendo2013a,Bertincourt2016a}, so we assume the Herschel calibration is
+correct when combining the data.
 
 The JCMT SCUBA 450 \um data were reported in \citet{Pierce-Price2000a} and
 \citet{di-Francesco2008a} with a resolution of 8\arcsec.  We found that the
@@ -357,15 +370,16 @@ SCUBA data had a flux scale significantly discrepant from the Herschel-SPIRE
 difference.  We had to
 scale the SCUBA data up by a factor $\approx3$ to make the data agree with
 the Herschel-SPIRE images on these scales.  While such a large flux calibration
-error seems implausible, it is plausible if the beam size of the ground-based data
+error seems implausible, it can occur if the beam size of the ground-based data
 is larger than expected.  To assess this possibility, we fit 2D Gaussians to
 several sources in the SCUBA CMZ maps, measuring a FWHM toward Sgr B2 N of
-approximately 14\arcsec, which means the beam area is $\approx3\times$ larger
-in area than the theoretical size.  Among several other sources fit in the
-SCUBA map,  the smallest FWHM measured was $\approx10.5$\arcsec.  Between the
+approximately 14\arcsec, which means the observed beam area is about three times larger
+in area than theoretically expected.  Among several other sources fit in the
+SCUBA map, the smallest FWHM measured was $\approx10.5$\arcsec.  Between the
 larger beam area, flux
 calibration errors \citep[quoted at 20\percent in][]{Pierce-Price2000a}, and
-the dust emissivity correction (35-50\percent for $\beta=3-4$), this large flux
+the dust emissivity correction (35-50\percent for dust index $\beta=1-2$, where
+$\beta=\alpha-2$), this large flux
 scaling factor is plausible. This large correction factor is consistent with
 the large error beam found by \citet{di-Francesco2008a}, with effective FWHM
 $\approx17.3$\arcsec, since they used additional smoothing when creating their
@@ -373,24 +387,28 @@ maps.  As with the SHARC data above, we trust the space-based calibration
 over the ground-based.
 
 
-To obtain higher resolution column density maps, we used the combined
-Herschel-SPIRE+SHARC and Herschel-SPIRE+SCUBA maps.
+We combined the Herschel data with the SHARC and SCUBA data to create
+higher-resolution maps at 350 \um (Herschel-SPIRE+SHARC) and 450 \um
+(Herschel-SPIRE+SCUBA).  The data combination process is discussed detail in
+Appendix \ref{sec:singledishcomb}, but in brief, we used a `feathering'
+technique \citep[e.g.,][]{Stanimirovic2002a,Cotton2017a} to combine the images
+in the Fourier domain.
+
 %We combined the SHARC and SCUBA data with Herschel SPIRE 350 and 500 \um
 %images \citep{Molinari2010a}, respectively.   
-We created several column density maps, some assuming arbitrary constant
-temperatures equal to the minimum and maximum expected dust temperatures (20
-and 50 K), and another using the temperature measured with Herschel
-interpolated onto the higher-resolution SCUBA and SHARC grids.  Because of the
-interpolation and fixed temperature assumptions, the column maps are not very
-accurate and should not be used for systematic statistical analysis of the
-column density distribution (i.e., PDF shape analysis) without careful
-attention to
-the large implied
-uncertainties.  However, these higher-resolution data are used in this paper
-to provide the best estimates of the local column density around our sample
-of compact millimeter continuum sources.
-The data combination is discussed in more detail in Appendix
-\ref{sec:singledishcomb}.
+
+Using these higher-resolution maps, we created several column density maps
+using different assumptions about the dust temperature.  For simplicity, we
+produced maps assuming arbitrary constant temperatures equal to the minimum and
+maximum expected dust temperatures (20 and 50 K). We produced additional maps
+using the temperature measured with Herschel interpolated onto the
+higher-resolution SCUBA and SHARC grids.  Because of the interpolation and
+fixed temperature assumptions, the column maps are not very accurate and should
+not be used for systematic statistical analysis of the column density
+distribution (i.e., PDF shape analysis) without careful attention to the large
+implied uncertainties.  However, these higher-resolution data are used in this
+paper to provide the best estimates of the local column density around our
+sample of compact millimeter continuum sources.
 
 \section{Analysis}
 \label{sec:analysis}
@@ -427,21 +445,30 @@ All of these features are evident in Figures \ref{fig:continuumMandN} and
 
 Because the noise varies significantly across the map (it is higher near Sgr B2
 M), and because there is extended emission, a uniform selection criterion is
-not possible.  We therefore include two levels of source identification, `high
-confidence' sources, which are selected conservatively in regions of
+not possible.  We therefore include two levels of source identification, `high-
+confidence' sources, which are peaks clearly above the noise in regions of
 low-background, and `low-confidence' sources that are somewhat lower
-signal-to-noise and are often in regions with higher background (labeled
-`conservative' and `optimistic', respectively, in Figure \ref{fig:fluxhist} and
-\ref{fig:alphahist}); the difference between the criteria is subjective.  
-We measure the local noise for each source by taking the
-median absolute deviation in an annulus 0.5 to 1.5\arcsec around the source
-center; these noise measurements are reported in Table \ref{tab:photometry}.
+signal-to-noise  and are often in regions with
+higher background in which the noise estimate may be inaccurate.  
+The difference between the high- and low- confidence
+sources is subjective, since it is based in part on a by-eye assessment of
+how much the local noise is affected by resolved-out structure.  
+Part of the by-eye assessment involved blinking between the three images described
+in \S \ref{sec:observations} with different resolution; if a structure looked
+point-like in the highest-resolution image, but turned out to be part of a more
+extended structure in the lowest-resolution (and highest-sensitivity) image,
+we marked it as `low-confidence'.
 
-Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
-inspected.  Peaks that were part of extended structures but not significantly
-different from them (e.g., a 5-$\sigma$ peak sitting on a 4-$\sigma$ extended
-structure) were excluded.  We excluded sources with extents $r>1\arcsec$
-($r>0.04$ pc), i.e., extended \hii regions.
+Outside of the dense clusters, every peak that is higher than five times the
+lowest measured RMS noise value was visually inspected.  Peaks that were part
+of extended structures but not significantly different from them (e.g., a
+5-$\sigma$ peak sitting on a 4-$\sigma$ extended structure) were excluded.  We
+excluded sources with radial extents $r>1\arcsec$ ($r>0.04$ pc), i.e., extended
+\hii regions.
+
+We measure the local noise for each source by taking the median absolute
+deviation in an annulus 0.5 to 1.5\arcsec around the source center; these noise
+measurements are reported in Table \ref{tab:photometry}.
 
 % %TODO: check
 % All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
@@ -471,17 +498,20 @@ This measurement is over a narrow frequency range ($\approx90-100$ GHz).
 maps, and we used the $\alpha$ value at the position of peak intensity for each
 source.  We include in the analysis only those sources with $|\alpha| > 5
 \sigma(\alpha)$ or $\sigma(\alpha) < 0.1$; the latter include sources with
-$\alpha\sim0$ measured at relatively high precision.  \nalphas sources met these
+$\alpha\sim0$ measured at relatively high precision.  We exclude the lower-precision
+measurements of $\alpha$ because they are not useful for identifying the emission
+mechanism.  \nalphas sources met these
 criteria. Several of the brightest sources did not have significant
 measurements of $\alpha$ because they are in the immediate neighborhood of Sgr
 B2 M or N and therefore have significantly higher background and noise,
-preventing a clear measurement.  To check the calibration of the spectral index
-measurement, we imaged one of our calibrators, J1752-2956, and obtained a
-spectral index $\alpha=-0.62\pm0.14$, consistent with the expected
-$\alpha\approx-0.7$ for an optically thin synchrotron source
-\citep[e.g.,][]{Condon2007a}.  We also note that the \emph{relative} spectral
-index measurements in our catalog should be accurate, since all sources come
-from the same map with identical calibration.
+preventing a clear measurement.
+
+To check the calibration of the spectral index measurement, we imaged one of
+our calibrators, J1752-2956, and obtained a spectral index
+$\alpha=-0.62\pm0.14$, consistent with the expected $\alpha\approx-0.7$ for an
+optically thin synchrotron source \citep[e.g.,][]{Condon2007a}.  We also note
+that the \emph{relative} spectral index measurements in our catalog should be
+accurate, since all sources come from the same map with identical calibration.
 
 \Figure{figures/cores_on_continuum_peak_DeepSouth_zoomin_legend.pdf}
 {A close-in look at the Sgr B2 DS region.  Multiple insets show identified sources
@@ -511,7 +541,7 @@ source from one of the previous VLA surveys
 beam (0.5\arcsec).  \nhii of our sources are classified as \hii regions; these
 all have $S_{3 \textrm{mm}} > 9$ mJy.  The
 majority of these are unresolved, but we have included \hii regions with radii
-up to $\approx1\arcsec$ in our catalog.  Optically thick \hii regions (like any
+up to $r\leq1\arcsec$ in our catalog.  Optically thick \hii regions (like any
 blackbody) have a spectral index $\alpha=2$.  Optically thin \hii regions have
 a nearly flat spectral index, $\alpha=-0.1$ \citep{Condon2007a}.   The observed
 sources with \hii region counterparts have spectral indices consistent with the
@@ -563,7 +593,11 @@ Water masers are generally associated with forming young stars.  We
 also matched our catalog with the \citet{McGrath2004a} water maser catalog,
 finding that 23 of our sources have a water maser within 1\arcsec.
 Again, these sources are likely to contain protostars, but not necessarily
-MYSOs based on their \water maser detections alone.
+MYSOs based on their \water maser detections alone.  There are 14 masers
+from their catalog that do not have associated sources in our catalog, though
+not all of these maser spots are spatially distinct; most of these unassociated
+masers are seen outside of Sgr B2 N and Sgr B2 S and may be associated with
+outflows.
 
 Some young stars exhibit X-ray emission, including some MYSOs
 \citep[e.g.,][]{Townsley2014a}, so we searched for X-ray emission from our
@@ -582,10 +616,10 @@ that the lack of associations is at least in part because of the high
 extinction in the regions containing the 3 mm cores; there are overall fewer
 Spitzer sources in these parts of the maps.
 
-Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz Class I \methanol
-maser sources for associations, finding no matches with any
-of our sources.  This methanol maser line apparently does not trace star
-formation.
+Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz Class I
+\methanol maser sources for associations, finding no matches with any of our
+sources out of the 18 nonthermal \methanol emission sources they reported.
+This methanol maser line apparently does not trace star formation.
 
 
 \subsection{Source Classification}

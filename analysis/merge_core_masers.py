@@ -226,3 +226,43 @@ for match,distance,_ in zip(*muno_in_field_matches):
 muno_in_field.add_column(Column(data=sgrb2_ids, name='ALMA_ID'))
 muno_in_field.add_column(Column(data=u.Quantity(sgrb2_dists,u.arcsec), name='ALMA_dist', unit=u.arcsec))
 
+
+
+
+mcgrath_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.305', '-28:23:33.589', frame='fk5', unit=(u.hour, u.deg)),
+                                       width=7.5*u.arcmin, height=7.5*u.arcmin, catalog='J/ApJS/155/577/tables')['J/ApJS/155/577/tables']
+mcgrath_in_field_coords = coordinates.SkyCoord(stringy(mcgrath_in_field['_RA.icrs']),
+                                               stringy(mcgrath_in_field['_DE.icrs']),
+                                               frame='fk5', unit=(u.hour, u.deg))
+mcgrath_in_field_matches = coordinates.match_coordinates_sky(mcgrath_in_field_coords, sgrb2_coords)
+sgrb2_ids = []
+sgrb2_dists = []
+for match,distance,_ in zip(*mcgrath_in_field_matches):
+    if distance < 2*u.arcsec:
+        sgrb2_ids.append(cont_tbl[match]['name'])
+        sgrb2_dists.append(distance.to(u.arcsec))
+    else:
+        sgrb2_ids.append("-")
+        sgrb2_dists.append(np.nan*u.arcsec)
+mcgrath_in_field.add_column(Column(data=sgrb2_ids, name='ALMA_ID'))
+mcgrath_in_field.add_column(Column(data=u.Quantity(sgrb2_dists,u.arcsec), name='ALMA_dist', unit=u.arcsec))
+
+with open(paths.rpath("mcgrath_masers_matches.reg"),'w') as fh:
+    fh.write('fk5\n')
+    for row in mcgrath_in_field:
+        fh.write("point({0},{1}) # point=cross color={color} text={{{2}}}\n"
+                 .format(stringy(row['_RA.icrs']).replace(" ",":"),
+                         stringy(row['_DE.icrs']).replace(" ",":"), row['ALMA_ID'],
+                         color='red' if row['ALMA_ID'] == '-' else 'cyan'))
+
+
+
+
+print("Number of CH3OH masers in the field of view: {0}".format(len(caswell_in_field)))
+print("Number of CH3OH masers that have matches: {0}".format((caswell_in_field['ALMA_ID'] != '-').sum()))
+
+print("Number of X-ray sources in the field of view: {0}".format(len(muno_in_field)))
+print("Number of X-ray sources that have matches: {0}".format((muno_in_field['ALMA_ID'] != '-').sum()))
+
+print("Number of H2O masers in the field of view: {0}".format(len(mcgrath_in_field)))
+print("Number of H2O masers that have matches: {0}".format((mcgrath_in_field['ALMA_ID'] != '-').sum()))

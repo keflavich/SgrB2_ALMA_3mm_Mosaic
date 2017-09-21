@@ -32,6 +32,9 @@ for modeltype in models:
                     (4*np.pi*(pars['star.radius']*u.R_sun)**2)).to(u.L_sun)
 
     flux_sgrb2 = seds.val[:,4,6]*(1/8.4)**2
+
+    pars.add_column(Column(data=luminosities, name='Luminosity'))
+    pars.add_column(Column(data=flux_sgrb2, name='Flux3mm_8.4kpc'))
     
     allpars[modeltype] = {}
 
@@ -45,3 +48,8 @@ for modeltype in models:
         vpars = pars[valid]
 
         allpars[modeltype][row['name']] = vpars
+
+fig1 = pl.figure(1)
+ax1 = fig1.gca()
+
+samples = [np.random.choice(tbl['Luminosity']) for key,tbl in allpars['spubhmi'].items()]

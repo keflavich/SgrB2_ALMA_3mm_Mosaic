@@ -33,8 +33,8 @@ def plotcores(ax, alpha=0.5, show_unmeasured=False,
 
     all_coredots = []
     for (mask, color, marker, markersize_, label) in [
-                                  (measured & weak & ~hiis, 'orange', 's', None, "Optimistic"),
-                                  (measured & strong & ~hiis, 'red', 'o', None, "Conservative"),
+                                  (measured & weak & ~hiis, 'orange', 's', None, "Low-Confidence"),
+                                  (measured & strong & ~hiis, 'red', 'o', None, "High-Confidence"),
                                   (measured & hiis, 'cyan', 'o', None, "HII Regions"),
                                   #(hiis & not_measured, 'cyan', 's'),
                                   (measured & xray, 'green', 'x', None, "X-Ray Sources"),
