@@ -410,7 +410,7 @@ implied uncertainties.  However, these higher-resolution data are used in this
 paper to provide the best estimates of the local column density around our
 sample of compact millimeter continuum sources.
 
-\section{Analysis}
+\section{Analysis of the continuum sources}
 \label{sec:analysis}
 The analysis section includes catalog cross-matching (\S
 \ref{sec:crossmatch}), source classification (\S
@@ -529,7 +529,7 @@ optical depths, $\alpha=2$ for any optically thick thermal source,
 and $\alpha>2$ usually indicates optically thin dust emission.  These indices
 will be discussed further in the next Section.
 
-\subsection{Catalog Cross-Matching}
+\subsection{Source Classification based on Catalog Cross-Matching}
 \label{sec:crossmatch}
 We cross-matched our source catalog with catalogs of \ammonia sources, \hii
 regions, X-ray sources, Spitzer sources, and methanol and water masers.
@@ -622,7 +622,7 @@ sources out of the 18 nonthermal \methanol emission sources they reported.
 This methanol maser line apparently does not trace star formation.
 
 
-\subsection{Source Classification}
+\subsection{Nature of the Continuum Sources}
 \label{sec:classification}
 For the majority of the detected sources, we have only a continuum detection at
 3 mm.    In this section, we employ a variety of arguments to classify the
@@ -1069,7 +1069,7 @@ non-\hii region sources are massive protostars.
 
 % Bontemps+ 2010: 3.5mm flux of N63 ~ 36 mJy, -> 1 mJy @ Sgr B2
 
-\FigureOneCol{figures/Orion_SgrB2HII_side_by_side.png}
+\Figure{figures/Orion_SgrB2HII_side_by_side.png}
 {Comparison of two extended \hii regions in Sgr B2 (ALMA 3 mm continuum) to the
 M42 \citep[GBT MUSTANG 3 mm continuum;][]{Dicker2009a} nebula in Orion.
 The three panels are shown on the same physical and color scale assuming
@@ -1080,14 +1080,15 @@ on the displayed brightness scale.  The compact source to the top right of the
 M42 image is Orion Source I; the images demonstrate that Source I and the entire
 M42 nebula would be easily detected in our data.
 }
-{fig:orioncompare}{1}{0.5\textwidth}
+{fig:orioncompare}{1}{\textwidth}
 
 While we have concluded that the sources are dusty, massive protostars, the
 spectral indices we measured are somewhat surprising.  Typical dust clouds in
-the Galactic disk have dust opacity indices $\beta\sim1.5-2$
+the Galactic disk have dust opacity indices $\beta\sim1.5-2$, implying 
+a spectral index $\alpha\sim3.5-4$
 \citep{Schnee2010a,Shirley2011a,Sadavoy2016a}.  Our spectral index measurements
 are lower
-than these, with only 3 sources (out of 62 with significant $\alpha$
+than these, with only 3 sources (out of \nalphas with significant $\alpha$
 measurements) having $\beta=\alpha-2 > 1.5$ (at the
 $2\sigma$ level, up to 11 sources are consistent with $\beta=1.5$, but this is
 primarily because of their high measurement error).  A shallower $\beta$
@@ -1096,6 +1097,7 @@ are present within our sources.  Since the above arguments suggest that the
 sources are high-mass protostars, the free-free contamination and optically
 thick inner region models are both plausible.
 
+\section{Analysis and discussion of star formation in Sgr B2}
 \subsection{Source distribution functions and the star formation rate}
 \label{sec:distributionsandsfr}
 
@@ -1168,31 +1170,38 @@ for the unassociated sources.}
 
 
 We assume each source not associated with an \hii region contains or will form
-a star with mass equal to
-the average over the range 8-20 \msun assuming a \citet{Kroupa2001a} initial
+a star with mass equal to the average over the range 8-20 \msun assuming a
+\citet[][Eqn. 2]{Kroupa2001a} initial
 mass function, $\bar{M}(8-20) = 12$ \msun (in this section, we refer
 to these objects as ``cores'').  Based on the arguments in Section
 \ref{sec:theyarehiiregions}, we assume each \hii region contains a star that is
 B0 or earlier, and therefore that they each have a mass equal to the
 average $\bar{M}(>20) = 45$ \msun.  In Table
 \ref{tab:clustermassestimates}, the total counted mass estimate is shown as
-$M_{count} = N \bar{M}$.
+$M_{count} = N \bar{M}$, where $N$ is the number of stars with an assumed mass
+$\bar{M}$.
 
 We also compute the \emph{total} stellar mass (i.e., the extrapolated mass
 including low-mass stars) using the mass fractions $f(M>20)
-= 0.14$ and $f(8<M<20)=0.09$.  The total mass is then $M_{inferred} =
-M_{count}(M>20) / f(M>20) =
-M_{count}(8<M<20) / f(8<M<20)$.  The inferred masses computed from \hii region
+= 0.14$ and $f(8<M<20)=0.09$.  Assuming the masses are distributed according to
+the Kroupa IMF as above, the total mass inferred by extrapolating our
+measurements with this IMF is then 
+\begin{eqnarray}
+    M_{inferred,\hii}  & = & M_{count}(M>20) / f(M>20) \\
+    M_{inferred,cores} & = & M_{count}(8<M<20) / f(8<M<20) \\
+    M_{inferred}       & = & (M_{inferred,cores} + M_{inferred,\hii})/2 \\
+                       & = & M_{count}(M>8) / f(M>8) 
+\end{eqnarray}
+The inferred masses computed from \hii region
 counts and from core counts are shown in columns $M_{inferred,\hii}$ and
-$M_{inferred,cores}$ respectively. $M_{inferred}$ is the average of these two
+$M_{inferred,cores}$ of Table \ref{tab:clustermassestimates} respectively.
+$M_{inferred}$ is the average of these two
 estimates; it is also what would be obtained if all stars were assumed to be
-average stars with $M>8$ \msun (and no upper limit).  If our mass range
-classifications are
-correct and the mass distribution is governed by a power-law IMF, we expect
+average stars with $M>8$ \msun.  If our mass range classifications are correct
+and the mass distribution is governed by a power-law IMF, we expect
 $M_{inferred,\hii} = M_{inferred,cores}$.  In Sgr B2 N and S, the core-based
-and \hii-region based estimates agree to
-within a factor of 2, which is about as good as expected from Poisson noise in
-the counting statistics.  
+and \hii-region based estimates agree to within a factor of 2, which is about
+as good as expected from Poisson noise in the counting statistics.  
 
 Sgr B2 M contains the largest source sample, and it has a factor of nine
 discrepancy between the `core' and \HII-region based counts. The discrepancy
@@ -1222,17 +1231,26 @@ invariant IMF.
 % stellar_mass_estimates.py
 \input{cluster_mass_estimates.tex}
 
+\subsubsection{Sgr B2's star formation rate}
 Finally, we estimate the star formation rate using the above mass estimates.
 To determine the star formation rate, we need to know the age of the current
 star forming burst.  We use the dynamical model of \citet{Kruijssen2015a} to
 get an age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a}.  We divide
-the inferred stellar mass by this age; the results
-are shown in Table \ref{tab:clustermassestimates}.  This rate assumes that star
-formation was initiated at the cloud's most recent pericenter passage.  Our
-estimated total inferred SFR of the Sgr B2 cloud is 0.038 \msun \peryr, between
-one quarter and one half of the total for the CMZ
-\citep{Longmore2013a,Barnes2017b}.  Because of the large number of assumptions
-above, there is at least a factor-of-two uncertainty on this number.
+the inferred stellar mass by this age; the results are shown in Table
+\ref{tab:clustermassestimates}.    Our estimated total inferred SFR of the Sgr
+B2 cloud is 0.038 \msun \peryr, between one quarter and one half of the total
+for the CMZ \citep{Longmore2013a,Barnes2017b}.  
+
+However, there are many assumptions that go into the above calculations.  The
+computed rate assumes that star formation was initiated at the cloud's most
+recent pericenter passage following the \citet{Kruijssen2015a} orbital model,
+which is only one among many models for the CMZ dust ring.  It also assumes
+that all stars whose passage was triggered at that event are still visible as 3
+mm cores to our survey, but it is likely that the lifetime of these dusty cores
+is much shorter than 0.74 Myr \citep[for example, low-mass cores have lifetimes
+closer to 0.1 Myr][]{Evans2009a}.  While our measurements of star formation are
+likely the best to date, our estimate of the star formation rate remains
+riddled with uncertainty and should be treated skeptically.
 
 
 % While we identified \ncores sources from the continuum data, since we have only

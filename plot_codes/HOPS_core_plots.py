@@ -104,8 +104,8 @@ ax1.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=22)
 ax1.set_ylabel("$N(cores)$", fontsize=22)
 pl.legend(loc='best', fontsize=20)
 
-pl.text(5e-5, 28, 'HOPS')
-pl.text(1e-2, 12, 'Sgr B2')
+pl.text(1.5e-5, 26, 'HOPS', fontsize=22)
+pl.text(0.9e-2, 11, 'Sgr B2', fontsize=22)
 
 fig1.savefig(paths.fpath('core_peak_intensity_histogram_withHOPS.pdf'),
              bbox_inches='tight')
