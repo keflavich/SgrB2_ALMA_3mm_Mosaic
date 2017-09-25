@@ -410,6 +410,16 @@ implied uncertainties.  However, these higher-resolution data are used in this
 paper to provide the best estimates of the local column density around our
 sample of compact millimeter continuum sources.
 
+One important uncertainty in these column density maps is possible foreground
+or background contamination.  Sgr B2 is \dsgrb away from us in the direction of
+our Galaxy's center, meaning there is a potentially enormous amount of material
+unassociated with the Sgr B2 cloud along the line of sight.  This material may
+have column densities as low as 5\ee{21} \persc or as high as 5\ee{22} \persc,
+as measured from relatively blank regions in the Herschel column density map
+\citep[][and in prep]{Battersby2011a}.  The former value corresponds to the
+background at high latitudes, $b\sim0.5$, while the latter  is approximately
+the lowest seen within our field of view. 
+
 \section{Analysis of the continuum sources}
 \label{sec:analysis}
 The analysis section includes catalog cross-matching (\S
@@ -1279,8 +1289,38 @@ We therefore discuss our measurements of column density thresholds in this
 section.
 
 
+%We can therefore
+%immediately rule out the possibility that there is a universal star formation
+%column threshold, since a large fraction of the observed volume exhibits
+%no hint at all of star formation activity.
+%-What kind of stars are we sensitive to?  Are they?
+%(this is now handled above)
 
-\subsubsection{Comparison to Lada, Lombardi, and Alves 2010}
+% To directly compare our observations to the star formation thresholds reported
+% in \citet{Lada2010a}, we examined the column density associated with each
+% millimeter continuum source.  The \citet{Lada2010a} data used a variable
+% resolution for the column density measurements toward their sample, ranging from
+% 0.06-0.35 pc (equivalent to 1.5 to 9.2\arcsec at a distance of \dsgrb).  The
+% Herschel data we have available with per-pixel SED fits lack the resolution
+% needed to make a direct comparison to the Lada et al data set, but the SHARC
+% and SCUBA data have resolution approximately equivalent to that used in the
+% Orion molecular cloud in their survey (see Section \ref{sec:colmaps}).
+
+% last paragraph of sec:colmaps
+% Because the higher-resolution images from SHARC and SCUBA only cover a narrow
+% range of wavelengths
+% and cannot be used to directly measure the dust temperature, we adopt two
+% approaches to approximate the dust temperature.  First, we use two fixed
+% temperatures bracketing the observed range in the Herschel maps ($\sim20-50$ K)
+% to produce column density maps from the SCUBA and SHARC data.  Second, we
+% interpolated the Herschel-derived temperature map on to the SHARC and SCUBA
+% grids and used the SHARC and SCUBA intensities with the interpolated
+% temperature to infer the higher-resolution column density.
+
+
+
+
+\subsubsection{Comparison to the Lada, Lombardi, and Alves 2010 column density threshold}
 \label{sec:ladathreshold}
 In this section, we compare the star formation threshold in Sgr B2 to that in
 local clouds performed by \citet{Lada2010a}.  They determined that all star
@@ -1291,46 +1331,12 @@ that \emph{all pixels} in our column density maps (Section \ref{sec:colmaps},
 Battersby et al, in prep) are above this threshold by \emph{at least} a factor
 of 10.
 
-However, Sgr B2 is \dsgrb away from us in the direction of our Galaxy's
-center, meaning there is a potentially enormous amount of material unassociated
-with the Sgr B2 cloud along the line of sight.  This material may have column
-densities as low as
-5\ee{21} \persc or as high as 5\ee{22} \persc, as measured from relatively
-blank regions in the Herschel column density map \citep[][and in
-prep]{Battersby2011a}.  The
-former value corresponds to
-the background at high latitudes, $b\sim0.5$, while the latter  is
-approximately the lowest seen within our field of view. 
-%If the higher value is the 
-%correct foreground, there must be a perfect vacuum surrounding the dense gas in
-%the Sgr B2 cloud - the `hole' seen in Fig...TODO: show a hole figure.
-Even with the very aggressive foreground value of 5\ee{22} \persc subtracted,
-nearly the whole Sgr B2 cloud exists above the \citet{Lada2010a} threshold.
-%We can therefore
-%immediately rule out the possibility that there is a universal star formation
-%column threshold, since a large fraction of the observed volume exhibits
-%no hint at all of star formation activity.
-%-What kind of stars are we sensitive to?  Are they?
-%(this is now handled above)
-
-To directly compare our observations to the star formation thresholds reported
-in \citet{Lada2010a}, we examined the column density associated with each
-millimeter continuum source.  The \citet{Lada2010a} data used a variable
-resolution for the column density measurements toward their sample, ranging from
-0.06-0.35 pc (equivalent to 1.5 to 9.2\arcsec at a distance of \dsgrb).  The
-Herschel data we have available with per-pixel SED fits lack the resolution
-needed to make a direct comparison to the Lada et al data set, but the SHARC
-and SCUBA data have resolution approximately equivalent to that used in the
-Orion molecular cloud in their survey (see Section \ref{sec:colmaps}).
-
-Because the higher-resolution images only cover a narrow range of wavelengths
-and cannot be used to directly measure the dust temperature, we adopt two
-approaches to approximate the dust temperature.  First, we use a two fixed
-temperatures bracketing the observed range in the Herschel maps ($\sim20-50$ K)
-to produce column density maps from the SCUBA and SHARC data.  Second, we
-interpolated the Herschel-derived temperature map on to the SHARC and SCUBA
-grids and used the SHARC and SCUBA intensities with the interpolated
-temperature to infer the higher-resolution column density.
+\citet{Lada2010a} identified their star-formation threshold by comparing the
+cumulative column density to total YSO count across a range of clouds [CHECK]
+and identifying the point of minimum variance.  Our sample covers only one
+cloud, so we cannot perform the same analysis.  Instead, we examine the column
+density above which high-mass YSOs (`Class I'-like sources, since they have
+dust envelopes) are forming.
 
 Figure \ref{fig:corebackgroundcdf} shows the cumulative distribution function
 of the column density associated with each identified continuum source; the
@@ -1344,7 +1350,6 @@ all pixels above this threshold contain protostars or protostellar cores; the
 threshold is therefore a necessary, but not a sufficient, condition for
 high-mass star formation.
 
-
 The \citet{Lada2010a} sample used Spitzer observations of nearby clouds that
 were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
 discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
@@ -1352,6 +1357,10 @@ to stars with $M\gtrsim8$ \msun.  The apparently higher column threshold either
 means that there is a genuinely higher threshold for star formation in the CMZ
 or that there is a higher threshold for high-mass star formation that may still
 be universal.  
+
+\citet{Lada2010a} suggested that their observed column density threshold
+corresponded to a density $n\approx10^4$ \percc.....
+(what is the cloud-average density in Sgr B2?)
 
 \subsubsection{Other Thresholds}
 \label{sec:otherthresholds}
