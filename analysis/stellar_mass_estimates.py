@@ -7,10 +7,13 @@ from astropy import units as u
 import regions
 import latex_info
 
+from constants import distance
+
+import reproject
 from astropy import wcs
 from astropy.io import fits
 # workaround for new regions API
-arbitrary_wcs = wcs.WCS(fits.getheader(paths.Fpath('SgrB2_selfcal_TCTE7m_continuum_best.fits')))
+arbitrary_wcs = wcs.WCS(fits.getheader(paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits')))
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"),
                            format='ascii.ipac')
@@ -227,6 +230,45 @@ for cutoff in np.linspace(8,100,10):
     print("Mean mass M>{1} = {0}".format(over20mean, cutoff))
     print("Represented mass M>{1} = {0}".format(over20mean/over20fraction, cutoff))
 
+
+# cloud mass estimate
+datapath = '/Users/adam/work/sgrb2/alma/FITS/continuumdata'
+colfilename = datapath+'/column_maps/scuba_col_herscheltem.fits'
+
+colfile = fits.open(colfilename)[0]
+
+sgrb2contfile = fits.open(paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_selfcal5_ampphase_taylorterms_multiscale_deeper_mask2.5mJy.image.tt0.pbcor.fits'))
+mywcs = wcs.WCS(colfile.header)
+pix_area = wcs.utils.proj_plane_pixel_area(mywcs)*u.deg**2
+
+observed_region,_ = reproject.reproject_interp(sgrb2contfile, colfile.header)
+
+colmap = (u.Quantity(colfile.data, u.cm**-2)-5e22*u.cm**-2)
+
+total_mass = (colmap[np.isfinite(observed_region)] * (pix_area * distance**2).to(u.cm**2, u.dimensionless_angles()) * 2.8*u.Da).to(1e6*u.M_sun).sum()
+print("Total cloud mass: {0}".format(total_mass))
+total_mass_fgsub = ((colmap[np.isfinite(observed_region)]-5e22*u.cm**-2) * (pix_area * distance**2).to(u.cm**2, u.dimensionless_angles()) * 2.8*u.Da).to(1e6*u.M_sun).sum()
+print("Total cloud mass, 5e22 foreground subtracted: {0}".format(total_mass_fgsub))
+
+sorted_colmap = np.sort(colmap[np.isfinite(observed_region)])
+sorted_massmap = (sorted_colmap * (pix_area * distance**2).to(u.cm**2, u.dimensionless_angles()) * 2.8*u.Da).to(u.M_sun)
+massmap_cumsum = np.cumsum(sorted_massmap*(sorted_massmap>0))
+sorted_massmap_fgsub = ((sorted_colmap-5e22*u.cm**-2) * (pix_area * distance**2).to(u.cm**2, u.dimensionless_angles()) * 2.8*u.Da).to(u.M_sun)
+massmap_cumsum_fgsub = np.cumsum(sorted_massmap_fgsub*(sorted_massmap_fgsub>0))
+
+import pylab as pl
+pl.figure(1).clf()
+ax = pl.gca()
+ax.loglog(sorted_colmap, massmap_cumsum[-1]-massmap_cumsum, label='No Foreground Subtraction')
+ax.loglog(sorted_colmap-5e22*u.cm**-2, massmap_cumsum_fgsub[-1]-massmap_cumsum_fgsub, label='$N=5\\times10^{22}$ cm$^{-2}$ Foreground Subtraction')
+pl.axis([7e21,1e25,5e4,2e6])
+pl.grid()
+ax.set_yticks([1e5, 5e5, 1e6])
+ax.set_yticklabels(['$10^5$',r'$5\times10^5$','$10^6$'])
+pl.legend(loc='best')
+pl.xlabel("Column Density [N($H_2$) cm$^{-2}$]")
+pl.ylabel("Cumulative Mass at $N>N_{x}$ [M$_{\odot}$]")
+pl.savefig(paths.fpath('cumulative_mass_plot.pdf'), bbox_inches='tight')
 
 
 """

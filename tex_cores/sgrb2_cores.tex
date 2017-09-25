@@ -1258,7 +1258,7 @@ which is only one among many models for the CMZ dust ring.  It also assumes
 that all stars whose passage was triggered at that event are still visible as 3
 mm cores to our survey, but it is likely that the lifetime of these dusty cores
 is much shorter than 0.74 Myr \citep[for example, low-mass cores have lifetimes
-closer to 0.1 Myr][]{Evans2009a}.  While our measurements of star formation are
+closer to 0.1 Myr,][]{Evans2009a}.  While our measurements of star formation are
 likely the best to date, our estimate of the star formation rate remains
 riddled with uncertainty and should be treated skeptically.
 
@@ -1332,11 +1332,11 @@ Battersby et al, in prep) are above this threshold by \emph{at least} a factor
 of 10.
 
 \citet{Lada2010a} identified their star-formation threshold by comparing the
-cumulative column density to total YSO count across a range of clouds [CHECK]
-and identifying the point of minimum variance.  Our sample covers only one
-cloud, so we cannot perform the same analysis.  Instead, we examine the column
-density above which high-mass YSOs (`Class I'-like sources, since they have
-dust envelopes) are forming.
+cumulative column density to total YSO count across a range of clouds and
+identifying the point of minimum variance.  Our sample covers only one cloud,
+so we cannot perform the same analysis.  Instead, we examine the column density
+above which high-mass YSOs (`Class 0/I'-like sources, since they have dust
+envelopes) are forming.
 
 Figure \ref{fig:corebackgroundcdf} shows the cumulative distribution function
 of the column density associated with each identified continuum source; the
@@ -1344,23 +1344,70 @@ column density used is the nearest-neighbor pixel to the source in the column
 density maps.  Even using the conservative maximum temperature $T_{dust}=50$ K
 (resulting in the minimum column density), all of the sources exist at a column
 density an order of magnitude higher than the Lada threshold, and they exist
-above that threshold even if the foreground is assumed to be an extreme
-$5\ee{22}$ \persc.  While all of the sources exist above this threshold, not
-all pixels above this threshold contain protostars or protostellar cores; the
-threshold is therefore a necessary, but not a sufficient, condition for
-high-mass star formation.
-
-The \citet{Lada2010a} sample used Spitzer observations of nearby clouds that
-were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
-discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
-to stars with $M\gtrsim8$ \msun.  The apparently higher column threshold either
-means that there is a genuinely higher threshold for star formation in the CMZ
-or that there is a higher threshold for high-mass star formation that may still
-be universal.  
+above that threshold even if the foreground is assumed to be $5\ee{22}$ \persc,
+the highest plausible value considered in Section \ref{sec:colmaps}.
+While all of the sources exist above the Lada threshold, not all pixels above
+this threshold contain protostars or protostellar cores (Figure
+\ref{fig:coldistributionwithoutstarformation}).
 
 \citet{Lada2010a} suggested that their observed column density threshold
-corresponded to a density $n\approx10^4$ \percc.....
-(what is the cloud-average density in Sgr B2?)
+corresponded to a density $n\approx10^4$ \percc.  If we assume that Sgr B2
+is approximately a $2 \mathrm{pc}\times2 \mathrm{pc}\times6 \mathrm{pc}$
+box, the typical column density $N\gtrsim5\ee{23}$ \persc requires a mean
+density $n\gtrsim5\ee{4}$ \percc.  Again, effectively all of the gas
+associated with ongoing star formation is above the locally-determined threshold.
+
+To compare Sgr B2 to the Lada et al sample more globally, we can use the total
+mass above a given threshold.  Lada et al used a YSO count, NYSOs, which we can
+use to convert our observed MYSOs using the same mass they used to infer a SFR,
+$M_{median} = 0.5$ \msun.  Using their relation, $NYSO = 0.2 M_{cloud,\msun}$,
+we predict that for $M_{Sgr B2}=10^6$ \msun, $NYSO_{Sgr B2} = 2\ee{5}$.  As
+seen in Table \ref{tab:clustermassestimates}, the observed $NYSO = MYSO / (0.5
+\msun) = 5.2\ee{4}-6.6\ee{4}$, a full order of magnitude below the extrapolated
+Lada et al relation.  From the observed $NYSO$, we expect
+$M_{cloud}\approx3\ee{5}$, which corresponds to a threshold $N>10^{24}$ \persc
+(Figure \ref{fig:cumulativemass}).
+
+\FigureOneCol{figures/cumulative_mass_plot.pdf}
+{The cumulative mass above a threshold column density in the observed
+region.  The two curves show the mass inferred with and without a
+foreground of $5\ee{22}$ \persc, the highest plausible foreground column
+density, subtracted.}
+{fig:cumulativemass}{1}{0.5\textwidth}
+
+
+% The \citet{Lada2010a} sample used Spitzer observations of nearby clouds that
+% were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
+% discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
+% to stars with $M\gtrsim8$ \msun.  The apparently higher column threshold either
+% means that there is a genuinely higher threshold for star formation in the CMZ
+% or that there is a higher threshold for high-mass star formation that may still
+% be universal.  
+
+% core_local_brightness
+\FigureOneCol{figures/core_background_column_cdf.png}
+{
+%{\color{red} *Make sure the Herschel data appear in this image.*}
+Cumulative distribution functions of the background column density associated
+with each identified 3 mm continuum source.  The column densities are computed
+from a variety of maps with different resolution and assumed temperature.
+The Herschel maps use SED-fitted temperatures (Battersby et al. in prep) at
+25\arcsec resolution (excluding the 500 \um data point) and 36\arcsec resolution.
+The SHARC 350 \um and SCUBA 450 \um maps both have higher resolution ($\sim10\arcsec$)
+but no temperature information; we used an assumed $T_{dust}=20$ and $T_{dust}=50$ K
+to illustrate the range of possible background column densities (hatched
+red and blue).  The thick solid red and blue lines show the SHARC and SCUBA column
+density images using Herschel temperatures interpolated onto their grids: these
+curves are closer to the 20 K than the 50 K curve and serve as the best estimate
+column density maps.  The SHARC data fail to go to a cumulative fraction of 1
+because the central pixels around Sgr B2 M and N are saturated (the lower temperature
+assumptions result in optical depths $>1$, which cannot be converted to column
+densities using the optically thin assumption).  The vertical
+dashed line shows the $N(\hh)=5.2\ee{21}$ \persc column density threshold from
+\citet{Lada2010a}, and the vertical dotted line shows the the $N(\hh)=2\ee{23}$
+\persc \citet{Krumholz2008a} threshold for high-mass star formation.}
+{fig:corebackgroundcdf}{1}{0.5\textwidth}
+
 
 \subsubsection{Other Thresholds}
 \label{sec:otherthresholds}
@@ -1390,30 +1437,22 @@ spherical symmetry.
 % Diederik suggested Krumholz HMSF threshold, Kauffmann and Pillai threshold should
 % be examined.}
 
-% core_local_brightness
-\FigureOneCol{figures/core_background_column_cdf.png}
-{
-%{\color{red} *Make sure the Herschel data appear in this image.*}
-Cumulative
-distribution functions of the background column density associated
-with each identified 3 mm continuum source.  The column densities are computed
-from a variety of maps with different resolution and assumed temperature.
-The Herschel maps use SED-fitted temperatures (Battersby et al. in prep) at
-25\arcsec resolution (excluding the 500 \um data point) and 36\arcsec resolution.
-The SHARC 350 \um and SCUBA 450 \um maps both have higher resolution ($\sim10\arcsec$)
-but no temperature information; we used an assumed $T_{dust}=20$ and $T_{dust}=50$ K
-to illustrate the range of possible background column densities (hatched
-red and blue).  The thick solid red and blue lines show the SHARC and SCUBA column
-density images using Herschel temperatures interpolated onto their grids: these
-curves are closer to the 20 K than the 50 K curve and serve as the best estimate
-column density maps.  The SHARC data fail to go to a cumulative fraction of 1
-because the central pixels around Sgr B2 M and N are saturated (the lower temperature
-assumptions result in optical depths $>1$, which cannot be converted to column
-densities using the optically thin assumption).  The vertical
-dashed line shows the $N(\hh)=5.2\ee{21}$ \persc column density threshold from
-\citet{Lada2010a}, and the vertical dotted line shows the the $N(\hh)=2\ee{23}$
-\persc \citet{Krumholz2008a} threshold for high-mass star formation.}
-{fig:corebackgroundcdf}{1}{0.5\textwidth}
+
+
+% nonstarforming_regions.py
+\FigureOneCol{figures/column_density_distribution_with_and_without_SF_withfraction.pdf}
+{Histograms of the column density measured with the combined SCUBA and Herschel
+data using the interpolated Herschel temperatures covering only the region
+observed with ALMA.  The black histogram shows the whole observed region,
+the blue solid line shows the SCUBA pixels that do not contain an ALMA source,
+and the red thick line shows those pixels that are within one beam
+FWHM of an ALMA source.  The thin black line shows the ratio of the red histogram
+to the black histogram, i.e., it shows the fraction of pixels with associated
+protostars.  While the ALMA sources (high mass protostars and young stars)
+clearly reside in high-column gas, there is abundant high-column-density
+material that shows no signs of ongoing star formation.}
+{fig:coldistributionwithoutstarformation}{1}{0.5\textwidth}
+
 
 % TODO: find someplace to include this figure?
 % % plot_codes/pointsource_overlay_scuba_column.py
@@ -1515,6 +1554,7 @@ formation law relating the gas to the stellar surface density,
 \citet{Gutermuth2011a} concluded that star formation was best represented as
 power-law relations between the stellar and gas mass surface densities.
 
+\subsubsection{Methodological comparison to Gutermuth et al}
 We adopt the same approach used in \citet{Gutermuth2009a} and
 \citet{Gutermuth2011a} to compare gas and stellar mass surface densities.  We
 computed both the star-centric mass surface density using the 11th nearest
@@ -1550,6 +1590,33 @@ Class II sources as Class I, given the standard ages, meaning our total mass
 estimate may be as much as a factor of 2 underestimated.
 Third, as noted above, we are sensitive to only high-mass sources, so we infer
 a significant population that is not directly observed.
+
+We computed star formation relations following \citet{Gutermuth2011a} Section 4.1.
+We use their equation 7 with the spatial dependence hidden:
+\begin{equation}
+    \label{eqn:stellarsurfdens}
+    \Sigma_*(t) = c \Sigma_{gas,0} \left[1-\left(\frac{t}{t_0}+1\right)^\beta\right]
+\end{equation}
+where $\Sigma_*(t)$ is the time-dependent stellar surface density, $c$ is a
+scaling constant (assumed to be the star formation efficiency of a core and
+to have the value 0.3), $\Sigma_{gas,0}$ is the initial gas surface density,  $t_0$
+is the time when star formation begins, $\beta = 1/(1-\alpha)$, and $\alpha$ is
+the exponent in the star formation relation (i.e., $\alpha=1$ means SFR is
+linearly correlated with gas surface density).
+The initial time $t_0$ is defined by their equation 5:
+\begin{equation}
+    t_0 = \frac{1}{k(\alpha-1)} \Sigma_{gas,0}^{1-\alpha}
+\end{equation}
+where $k$ is the star formation rate coefficient.  The constant $k$ has
+different units depending on which value of $\alpha$ is adopted; for
+$\alpha=1$, $k$ is the inverse star formation timescale with units Myr$^{-1}$
+(and the surface density relation simplifies to $\Sigma_*(t) = c
+\Sigma_{gas,0}[1-e^{-kt}]$),
+while for $\alpha=2$, $k$ has units pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$.
+
+
+
+\subsubsection{Results of the comparison to Gutermuth et al}
 
 Despite the differences in method, the Sgr B2, Mon R2, and Ophiucus clouds have
 similar instantaneous star formation efficiencies (SFE), $\epsilon =
@@ -1599,30 +1666,9 @@ Our data show a large scatter and are plausibly compatible with a
 power-law index in the range 1-2, and therefore may be consistent with the
 steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.
 
-We computed star formation relations following \citet{Gutermuth2011a} Section 4.1.
-We use their equation 7 with the spatial dependence hidden:
-\begin{equation}
-    \Sigma_*(t) = c \Sigma_{gas,0} \left[1-\left(\frac{t}{t_0}+1\right)^\beta\right]
-\end{equation}
-where $\Sigma_*(t)$ is the time-dependent stellar surface density, $c$ is a
-scaling constant (assumed to be the star formation efficiency of a core and
-to have the value 0.3), $\Sigma_{gas,0}$ is the initial gas surface density,  $t_0$
-is the time when star formation begins, $\beta = 1/(1-\alpha)$, and $\alpha$ is
-the exponent in the star formation relation (i.e., $\alpha=1$ means SFR is
-linearly correlated with gas surface density).
-The initial time $t_0$ is defined by their equation 5:
-\begin{equation}
-    t_0 = \frac{1}{k(\alpha-1)} \Sigma_{gas,0}^{1-\alpha}
-\end{equation}
-where $k$ is the star formation rate coefficient.  The constant $k$ has
-different units depending on which value of $\alpha$ is adopted; for
-$\alpha=1$, $k$ is the inverse star formation timescale with units Myr$^{-1}$
-(and the surface density relation simplifies to $\Sigma_*(t) = c
-\Sigma_{gas,0}[1-e^{-kt}]$),
-while for $\alpha=2$, $k$ has units pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$.
-
 Figure \ref{fig:stellarvsmasscolumn}  shows in orange three curves from the
-\citet{Gutermuth2011a} $\alpha=2$ star formation relation, their Equation 7,
+\citet{Gutermuth2011a} $\alpha=2$ star formation relation, their Equation 7
+(our Equation \ref{eqn:stellarsurfdens}),
 with $k=10^{-4}$ pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$ and $\alpha=2$, at times
 $t=0.01$, 0.1, and 0.74 Myr.  Only the youngest curve, with age 0.01 Myr,
 overlaps with our data.  The three red curves, which are essentially lines in
@@ -1638,7 +1684,8 @@ regime we observe, as it implies that gas with an initial surface density of
 $\Sigma_{gas}=10^4$ \msun \perspc would achieve a star formation efficiency
 $\epsilon>1$ in $t<0.1$ Myr.  Our data are clearly incompatible with the
 $\alpha=2$ relation but are reasonably compatible with a linear $\alpha=1$
-relation with the same normalization used by \citet{Gutermuth2011a}.
+relation with the same normalization used by \citet{Gutermuth2011a}, i.e.,
+$k=0.1$ Myr$^{-1}$.
 %The relation we observe (Figure \ref{fig:stellarvsmasscolumn}) is several
 %orders of magnitude lower than that extrapolated from \citet{Gutermuth2011a}.
 
@@ -1654,6 +1701,8 @@ overestimate $\Sigma_*$ at high $\Sigma_{gas}$ in the Spitzer observations,
 which seems unlikely, or that there is a different star formation relation in
 Sgr B2 than in local clouds.
 
+
+\subsubsection{A critical evaluation of the discrepancies with Gutermuth et al}
 
 While a linear relation $\Sigma_* \propto \Sigma_{gas}$ can approximately
 account for both local clouds and Sgr B2 as a whole, we have not yet explained
@@ -1843,18 +1892,6 @@ elongated  feature spanning the Sgr B2 cloud.
 %which shows that the northern and western regions of the cloud are the
 %deficient zones.
 
-% nonstarforming_regions.py
-\FigureOneCol{figures/column_density_distribution_with_and_without_SF.pdf}
-{Histograms of the column density measured with the combined SCUBA and Herschel
-data using the interpolated Herschel temperatures covering only the region
-observed with ALMA.  The black histogram shows the whole observed region,
-the blue solid line shows the SCUBA pixels that do not contain an ALMA source,
-and the red thick line shows those pixels that are within one beam
-FWHM of an ALMA source.  While the ALMA sources (high mass protostars and young
-stars)
-clearly reside in high-column gas, there is abundant high-column material
-that shows no signs of ongoing star formation.}
-{fig:coldistributionwithoutstarformation}{1}{0.5\textwidth}
 
 \subsection{What drives star formation in the greater Sgr B2 complex?}
 \label{sec:whatdrives}

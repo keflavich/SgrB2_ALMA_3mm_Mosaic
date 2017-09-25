@@ -1,5 +1,6 @@
 import os
 import copy
+import warnings
 
 import numpy as np
 from astropy.io import fits
@@ -12,6 +13,8 @@ from astropy.utils.console import ProgressBar
 import reproject
 import pyregion
 import radio_beam
+
+warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
 
 from constants import distance
 
@@ -39,11 +42,11 @@ ra,dec = wcs.WCS(colfile.header).celestial.wcs_pix2world(inds, 0).T
 ra = ra.reshape(xx.shape)
 dec = dec.reshape(yy.shape)
 
-mask = np.isfinite(observed_region)
+nonstarforming_mask = np.isfinite(observed_region)
 
 for row in ProgressBar(tbl):
     source_dist = ((ra-row['RA'])**2 + (dec-row['Dec'])**2)**0.5
-    mask[source_dist < beam_rad] = False
+    nonstarforming_mask[source_dist < beam_rad] = False
 
 lo = 5e22
 hi = 3e25
@@ -58,13 +61,13 @@ H,L,P = pl.hist(colfile.data[observed_mask], bins=bins, log=True,
                 #normed=True,
                 histtype='step')
 
-H2,L2,P2 = pl.hist(colfile.data[mask], bins=bins, log=True,
+H2,L2,P2 = pl.hist(colfile.data[nonstarforming_mask], bins=bins, log=True,
                    alpha=0.5, color='b', linewidth=2,
                    zorder=10,
                    #normed=True,
                    histtype='step')
 
-H3,L3,P3 = pl.hist(colfile.data[observed_mask & ~mask], bins=bins, log=True,
+H3,L3,P3 = pl.hist(colfile.data[observed_mask & ~nonstarforming_mask], bins=bins, log=True,
                    alpha=0.5, color='r',
                    zorder=-5,
                    linewidth=3,
@@ -94,4 +97,13 @@ pl.draw()
 pl.savefig(paths.fpath("column_density_distribution_with_and_without_SF.png"),
            bbox_inches='tight')
 pl.savefig(paths.fpath("column_density_distribution_with_and_without_SF.pdf"),
+           bbox_inches='tight')
+
+ax3 = ax1.twinx()
+midpts = (L[:-1] + L[1:])/2.
+ax3.plot(midpts, H3/H, linestyle='-', color='k', linewidth=0.5, zorder=-21,)
+ax1.set_xlim(lo,hi)
+ax3.set_ylabel("Fraction of pixels with stars")
+
+pl.savefig(paths.fpath("column_density_distribution_with_and_without_SF_withfraction.pdf"),
            bbox_inches='tight')
