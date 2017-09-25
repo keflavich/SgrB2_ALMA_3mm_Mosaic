@@ -1508,7 +1508,7 @@ Section \ref{sec:thresholds}).}
 % {A peak intensity map of the \cyanoacetylene J=10-9 line over the velocity
 % range 48 to 90 \kms with ...}
 
-\section{Surface density relations: comparison to Gutermuth et al. 2011}
+\subsection{Surface density relations: comparison to Gutermuth et al. 2011}
 \label{sec:gutermuth}
 Unlike \citet{Lada2010a}, who invoke a threshold followed by a linear star
 formation law relating the gas to the stellar surface density,
@@ -1599,11 +1599,32 @@ Our data show a large scatter and are plausibly compatible with a
 power-law index in the range 1-2, and therefore may be consistent with the
 steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.
 
+We computed star formation relations following \citet{Gutermuth2011a} Section 4.1.
+We use their equation 7 with the spatial dependence hidden:
+\begin{equation}
+    \Sigma_*(t) = c \Sigma_{gas,0} \left[1-\left(\frac{t}{t_0}+1\right)^\beta\right]
+\end{equation}
+where $\Sigma_*(t)$ is the time-dependent stellar surface density, $c$ is a
+scaling constant (assumed to be the star formation efficiency of a core and
+to have the value 0.3), $\Sigma_{gas,0}$ is the initial gas surface density,  $t_0$
+is the time when star formation begins, $\beta = 1/(1-\alpha)$, and $\alpha$ is
+the exponent in the star formation relation (i.e., $\alpha=1$ means SFR is
+linearly correlated with gas surface density).
+The initial time $t_0$ is defined by their equation 5:
+\begin{equation}
+    t_0 = \frac{1}{k(\alpha-1)} \Sigma_{gas,0}^{1-\alpha}
+\end{equation}
+where $k$ is the star formation rate coefficient.  The constant $k$ has
+different units depending on which value of $\alpha$ is adopted; for
+$\alpha=1$, $k$ is the inverse star formation timescale with units Myr$^{-1}$
+(and the surface density relation simplifies to $\Sigma_*(t) = c
+\Sigma_{gas,0}[1-e^{-kt}]$),
+while for $\alpha=2$, $k$ has units pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$.
 
 Figure \ref{fig:stellarvsmasscolumn}  shows in orange three curves from the
 \citet{Gutermuth2011a} $\alpha=2$ star formation relation, their Equation 7,
 with $k=10^{-4}$ pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$ and $\alpha=2$, at times
-$t=0.01$, 0.1, and 0.74 Myr .  Only the youngest curve, with age 0.01 Myr,
+$t=0.01$, 0.1, and 0.74 Myr.  Only the youngest curve, with age 0.01 Myr,
 overlaps with our data.  The three red curves, which are essentially lines in
 this figure, show the $\alpha=1$ relation with $k=0.1$ Myr$^{-1}$ at the same
 three ages, and it achieves reasonable agreement with our data for the $t=0.74$
