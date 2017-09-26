@@ -17,8 +17,10 @@ the extended Sgr B2 cloud. We detect \ncores compact sources, the majority of
 which have diameters smaller than 5000 AU.  By ruling out alternative
 possibilities such as externally ionized
 globules, we conclude that these sources consist of a mix of \hchii regions
-and protostars, with most of the newly-detected sources being protostars.
-Based on their luminosities, most of these sources must have $M\gtrsim8$ \msun.
+and YSOs (young stellar objects), with most of the newly-detected sources being
+YSOs.
+Based on their luminosities, most of these sources must contain objects
+with stellar masses $M_*\gtrsim8$ \msun.
 %are predominantly high-mass
 %($M\gtrsim8$ \msun) protostars or centrally condensed prestellar cores.  
 The
@@ -108,7 +110,7 @@ As summarized by \citet{Barnes2017b}, most of the dust ridge clouds contain
 $<1000$ \msun of stars, or $\sim2\%$ of their mass in stars.
 The Sgr B2 N (North), M (Main), and S (South) protoclusters \citep[][Figure
 \ref{fig:overview}]{Schmiedeke2016a} are exceptional in that they  are actively
-forming star clusters and contain high-mass protostars and many compact \hii
+forming star clusters and contain high-mass YSOs (young stellar objects) and many compact \hii
 regions \citep[e.g.,][]{Higuchi2015a,Gaume1995a}; despite the active star formation,
 the overall cloud appears to be as inefficient as the other dust ridge clouds
 \citep{Barnes2017b}. 
@@ -117,7 +119,7 @@ lower level, including the 20 \kms and 50 \kms clouds
 \citep{Lu2015b,Lu2017a}, Sgr C \citep{Kendrew2013a}, and dust ridge
 Clouds C, D, and
 E \citep[Walker et al, in prep;][]{Ginsburg2015b,Barnes2017b}.  These regions
-contain only a small number of high-mass cores, protostars, and small \hii
+contain only a small number of high-mass cores, YSOs, and small \hii
 regions.
 
 Most observations of the Sgr B2 cloud focus on the ``hot cores'' Sgr B2 N and
@@ -421,12 +423,13 @@ background at high latitudes, $b\sim0.5$, while the latter  is approximately
 the lowest seen within our field of view. 
 
 \section{Analysis of the continuum sources}
-\label{sec:analysis}
-The analysis section includes catalog cross-matching (\S
-\ref{sec:crossmatch}), source classification (\S
-\ref{sec:classification}), discussion of the star formation rate and flux
-distribution (\S \ref{sec:distributionsandsfr}), and examination of star formation
-thresholds (\S \ref{sec:thresholds}) and relations (\S \ref{sec:gutermuth}). 
+{\color{red} TODO: replace this intro paragraph.}
+% \label{sec:analysis}
+% The analysis section includes catalog cross-matching (\S
+% \ref{sec:crossmatch}), source classification (\S
+% \ref{sec:classification}), discussion of the star formation rate and flux
+% distribution (\S \ref{sec:distributionsandsfr}), and examination of star formation
+% thresholds (\S \ref{sec:thresholds}) and relations (\S \ref{sec:gutermuth}). 
 
 \subsection{Continuum Source Identification}
 \label{sec:contsources}
@@ -455,26 +458,26 @@ All of these features are evident in Figures \ref{fig:continuumMandN} and
 
 Because the noise varies significantly across the map (it is higher near Sgr B2
 M), and because there is extended emission, a uniform selection criterion is
-not possible.  We therefore include two levels of source identification, `high-
-confidence' sources, which are peaks clearly above the noise in regions of
-low-background, and `low-confidence' sources that are somewhat lower
-signal-to-noise  and are often in regions with
-higher background in which the noise estimate may be inaccurate.  
-The difference between the high- and low- confidence
-sources is subjective, since it is based in part on a by-eye assessment of
-how much the local noise is affected by resolved-out structure.  
-Part of the by-eye assessment involved blinking between the three images described
-in \S \ref{sec:observations} with different resolution; if a structure looked
-point-like in the highest-resolution image, but turned out to be part of a more
-extended structure in the lowest-resolution (and highest-sensitivity) image,
-we marked it as `low-confidence'.
+not possible.  We therefore include two levels of source identification,
+`high-confidence' sources, which are peaks clearly above the noise in regions
+of low-background, and `low-confidence' sources that are somewhat lower
+signal-to-noise  and are often in regions with higher background in which the
+noise estimate may be inaccurate.  The difference between the high- and low-
+confidence sources is subjective, since it is based in part on a by-eye
+assessment of how much the local noise is affected by resolved-out structure.
+Part of the by-eye assessment involved blinking between the three images with
+different resolution described in \S \ref{sec:observations}; if a structure
+looked point-like in the highest-resolution image, but turned out to be part of
+a more extended structure in the lowest-resolution (and highest-sensitivity)
+image, we marked it as `low-confidence'.
 
 Outside of the dense clusters, every peak that is higher than five times the
 lowest measured RMS noise value was visually inspected.  Peaks that were part
 of extended structures but not significantly different from them (e.g., a
 5-$\sigma$ peak sitting on a 4-$\sigma$ extended structure) were excluded.  We
 excluded sources with radial extents $r>1\arcsec$ ($r>0.04$ pc), i.e., extended
-\hii regions.
+\hii regions (all such sources have corresponding centimeter-wavelength
+detections indicating that they are \hii regions).
 
 We measure the local noise for each source by taking the median absolute
 deviation in an annulus 0.5 to 1.5\arcsec around the source center; these noise
@@ -537,14 +540,15 @@ Generally, spectral indices $\alpha<0$ indicate nonthermal (e.g., synchrotron)
 emission, $-0.1<\alpha<2$ may correspond to free-free sources of various
 optical depths, $\alpha=2$ for any optically thick thermal source,
 and $\alpha>2$ usually indicates optically thin dust emission.  These indices
-will be discussed further in the next Section.
+will be discussed further in Section \ref{sec:classification}.
 
 \subsection{Source Classification based on Catalog Cross-Matching}
 \label{sec:crossmatch}
 We cross-matched our source catalog with catalogs of \ammonia sources, \hii
 regions, X-ray sources, Spitzer sources, and methanol and water masers.
-Associations with these types of sources can be used to classify the sources.
+%Associations with these types of sources can be used to classify the sources.
 
+\paragraph{\hii regions}
 We classified sources as \hii regions if there is a corresponding 0.7 or 1.3 cm
 source from one of the previous VLA surveys
 \citep{Gaume1995a,Mehringer1995b,De-Pree1996a,De-Pree2015a} within one ALMA
@@ -570,52 +574,58 @@ young stars.
 %high-mass young stars, but they are not `protostars'.
 
 
+\paragraph{\ammonia sources}
 \citet{Martin-Pintado1999a} observed part of Sgr B2 DS and M in \ammonia with
 the VLA.  They identified three ``hot cores'' based on \ammonia (4,4) detections.
 Only their first source HC1 has an associated 3 mm continuum source, suggesting
 that HC2 and HC3 are not genuine hot cores but are some other variant of
 locally heated (perhaps shock-heated) gas.  However, the
-association between HC1 and our source 43 suggests that it is a young stellar
-object with a massive envelope.  Of the 6 \ammonia (3,3) maser sources identified
+association between HC1 and our source 43 suggests that it is a YSO with a
+massive envelope.  Of the 6 \ammonia (3,3) maser sources identified
 by \citet{Martin-Pintado1999a}, three are in regions with high 3 mm source
 density but lack a clear one-to-one source association, one is coincident with
-an \hii region not in our catalog, and two have no obvious associations; the
+an \hii region not in our catalog, and two have no obvious associations.  The
 \ammonia (3,3) masers therefore do not appear to be unambiguous tracers of star
 formation in this environment, consistent with the conclusions of
 \citet{Mills2015a}.  
 
 
+\paragraph{6.67 GHz \methanol masers}
 Class II methanol masers are exclusively associated with sites of high-mass
 star formation.  The \citet{Caswell2010a} Methanol Multibeam (MMB) Survey
 identified 11 sources in our observed field of view (their survey covers our
 entire observed area), of which \nmasermatch have a clear match to within
 1\arcsec of a source in our catalog (the MMB catalog sources have a positional
 accuracy of $\approx0.4\arcsec$, but masers may have an extent up to 1\arcsec).
-These sources are clearly identified as high-mass protostars.
+These sources are clearly identified as high-mass YSOs.
 The single maser that does not have an associated millimeter source is 5\arcsec
 west of Sgr B2 S and resides near some very faint and diffuse 3 mm
 emission; it is unclear why the 3 mm is so weak here, but it hints that there
-are massive young stellar objects (MYSOs) with 3 mm emission below our
+are MYSOs with 3 mm emission below our
 detection limit.
 
 
+\paragraph{\water masers}
 Water masers are generally associated with forming young stars.  We
-also matched our catalog with the \citet{McGrath2004a} water maser catalog,
+matched our catalog with the \citet{McGrath2004a} water maser catalog,
 finding that 23 of our sources have a water maser within 1\arcsec.
-Again, these sources are likely to contain protostars, but not necessarily
+These sources are likely to contain YSOs, but not necessarily
 MYSOs based on their \water maser detections alone.  There are 14 masers
 from their catalog that do not have associated sources in our catalog, though
-not all of these maser spots are spatially distinct; most of these unassociated
+not all of these maser spots are spatially distinct.  Most of these unassociated
 masers are seen outside of Sgr B2 N and Sgr B2 S and may be associated with
 outflows.
 
+\paragraph{X-ray sources}
 Some young stars exhibit X-ray emission, including some MYSOs
 \citep[e.g.,][]{Townsley2014a}, so we searched for X-ray emission from our
 sources.  \nxraymatch of the sources have X-ray counterparts in the
 \citet{Muno2009a} Chandra point source catalog within 1\arcsec.  The
 \citet{Muno2009a} catalog covers our entire observed area.  The X-ray
-associated sources most likely either contain protostars or young stars.
+associated sources most likely contain YSOs.  There are 102 X-ray sources in
+the field of view that do not have associated 3 mm sources.
 
+\paragraph{Spitzer mid-infrared sources}
 We searched the \citet{Yusef-Zadeh2009a} catalogs of 4.5 \um excess sources and
 YSO candidates and found only one source association, though there are 5 and
 14, respectively, of these sources in our field of view.  Two of the 4.5 \um
@@ -626,6 +636,7 @@ that the lack of associations is at least in part because of the high
 extinction in the regions containing the 3 mm cores; there are overall fewer
 Spitzer sources in these parts of the maps.
 
+\paragraph{44 GHz \methanol masers}
 Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz Class I
 \methanol maser sources for associations, finding no matches with any of our
 sources out of the 18 nonthermal \methanol emission sources they reported.
@@ -634,26 +645,34 @@ This methanol maser line apparently does not trace star formation.
 
 \subsection{Nature of the Continuum Sources}
 \label{sec:classification}
-For the majority of the detected sources, we have only a continuum detection at
-3 mm.    In this section, we employ a variety of arguments to classify the
-sample of new sources.  Most of our sources have no match in other catalogs
-(see Section \ref{sec:crossmatch}), so we discuss what types of objects they
-could be given their 3 mm continuum detections.  Plausible emission mechanisms
+The majority of the detected sources are observed only as 3 mm continuum
+sources, with no spectral line information or detection at other wavelength.
+In this section, we employ a variety of arguments to classify the
+sample of new sources.    Plausible emission mechanisms
 include free-free and thermal dust emission, so we explore whether the sources
-could be different classes of free-free sources: externally ionized
-globules (\S \ref{sec:alt1}), \hii regions from an extended population of
-OB stars (\S \ref{sec:alt2}), or \hii regions around young massive stars (\S
-\ref{sec:theyarehiiregions}).  We conclude that they are
-primarily dusty sources (\S \ref{sec:theyareprotostars}).
+could be different classes of dust or free-free sources.
+We examine whether they are dusty prestellar cores (\S \ref{sec:alt0}),
+externally ionized globules (\S \ref{sec:alt1}), \hii regions from an extended
+population of OB stars (\S \ref{sec:alt2}), or \hii regions around young
+massive stars (\S \ref{sec:theyarehiiregions}).  Having excluded these
+possibilities, we conclude that they are primarily dusty sources with internal
+heating sources (\S \ref{sec:theyareprotostars}).
 
+\paragraph{A lack of line emission}
 We visually inspected the spectra extracted from the full line cubes, and no
 lines are detected peaking toward the majority of the sources (most sources
-have emission in some lines (e.g., \cyanoacetylene), but this emission is
+have emission in some lines, such as \cyanoacetylene 10-9, but this emission is
 clearly extended and not associated with the compact source).  Given the
 relatively poor line sensitivity (RMS $\approx 6$ K), the dearth of detections
 is not very surprising.  We therefore cannot use spectral lines to classify
 most sources.
 
+
+% We start with a few alternatives we are able to rule out: externally
+% ionized gas globules, internally ionized \hii regions from an older
+% generation of `interloper' stars, and internally ionized \hii regions
+% from a newly-formed generation of massive stars.  We then discuss
+% why these sources are most likely embedded YSOs.
 
 % core_flux_distributions
 %\FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
@@ -671,31 +690,43 @@ highest bin.
 }
 {fig:fluxhist}{1}{0.5\textwidth}
 
-To aid in our classification, we note some properties of dust at 3 mm.  The
-simplest assumption is that all sources we have detected that were not detected
-at longer wavelengths are pure dust emission sources at a constant temperature.
+\subsubsection{Alternative 0: The sources are dust-only `prestellar' cores}
+\label{sec:alt0}
+The simplest assumption is that all sources we have detected that were not
+detected at longer wavelengths are pure dust emission sources at a constant
+temperature, i.e., they are starless cores.
+
 At \dsgrb, a 1 mJy source corresponds to an optically thin gas mass\footnote{We
 assume a gas-to-dust ratio of 100 throughout this work.} of
 $M(40\mathrm{K})=18$ \msun or $M(20\mathrm{K})=38$ \msun assuming a dust
-opacity index $\beta=1.75$ ($\alpha=3.75$ on the Rayleigh-Jeans tail) to
-extrapolate the \citet[][MRN with thin ice mantles anchored at
-1mm]{Ossenkopf1994a} opacity to $\kappa_{3.1 \mathrm{mm}}=0.0018$ cm$^2$
-g$^{-1}$ (per gram of gas).  Our dust-only (i.e., excluding free-free emission)
-5-$\sigma$ sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5
-mJy) to $M>94$ \msun (2.5 mJy) across the map.  If we were to assume that these
-are all cold, dusty sources, as is typically (and reasonably) assumed for local
-clouds, they would be extremely massive and dense, with the lowest measurable
-density being $n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in
-an $r=0.2$\arcsec$=1700$ AU radius sphere, i.e., a sphere with radius equal
-to the beam $1-\sigma$ size).  Such extreme objects are possible,
-but since we have detected $>100$ of these sources, we evaluate other
-possibilities.
+opacity index $\beta=1.75$ (spectral index $\alpha=3.75$ if measured on the
+Rayleigh-Jeans tail of the spectral energy distribution) to extrapolate the
+\citet[][MRN with thin ice mantles anchored at 1mm]{Ossenkopf1994a} opacity to
+$\kappa_{3.1 \mathrm{mm}}=0.0018$ cm$^2$ g$^{-1}$ (per gram of gas).  Our
+dust-only (i.e., excluding free-free emission) 5-$\sigma$ sensitivity limit at
+20 K therefore ranges from $M>19$ \msun (0.5 mJy) to $M>94$ \msun (2.5 mJy)
+across the map.  If we were to assume that these are all cold, dusty sources,
+as is typically (and reasonably) assumed for local clouds, they would be
+extremely massive and dense, with the lowest measurable density being
+$n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in an
+$r=0.2$\arcsec$=1700$ AU radius sphere, i.e., a sphere with radius equal to the
+beam $1-\sigma$ size).
 
-We start with a few alternatives we are able to rule out: externally
-ionized gas globules, internally ionized \hii regions from an older
-generation of `interloper' stars, and internally ionized \hii regions
-from a newly-formed generation of massive stars.  We then discuss
-why these sources are most likely embedded protostars.
+Such extreme objects are technically possible, but we argue the majority are
+unlikely to fall into this class.  We have detected $>100$ of these sources,
+but only a handful of such sources have ever been claimed before
+\citep[e.g.,][]{Kong2017a}, and few of those reported are so compact
+\citep[e.g.,][]{Cyganowski2014a}.   Theoretical models of high-mass
+prestellar cores \citep{McKee2003a} suggests they are much larger and less
+concentrated than the sources we observe.
+
+At the high implied densities ($n(20 \mathrm{K})>10^8$ \percc), it is
+unlikely cores are unbound.  The high density required for our sources results
+in a very short free-fall timescale, $t_{ff}<6000$ yr.  Assuming such cores
+do exist, they most likely have a YSO phase that is substantially longer,
+during which the core would be centrally heated.  
+
+{\color{red} the logic here still feels too circular.}
 
 
 \subsubsection{Alternative 1: The sources are externally ionized gas blobs}
@@ -966,42 +997,31 @@ densities required to produce \hii regions within our observed range
 {fig:hiibrightness}{1}{18cm}
 
 
-\subsubsection{Our hypothesis: The sources are (mostly) protostellar}
+\subsubsection{Our hypothesis: The sources are (mostly) YSOs}
 \label{sec:theyareprotostars}
 After ruling out the other possibilities, we test and validate the hypothesis
-that most or all of the sources are protostellar in this section.
+that most or all of the sources contain YSOs in this section.
 
-
-\emph{General calculations:}
-As noted at the top of this section, a cold `prestellar core' at our detection
-limit would have $M(20\mathrm{K})\approx20$ \msun ($M(40\mathrm{K})\approx10$
-\msun).  At these high densities ($n(20 \mathrm{K})\gtrapprox10^8$ \percc), it
-is unlikely any such cores are unbound.  The high density required for our
-sources results in a very short free-fall timescale, $t_{ff}\lessapprox6000$
-yr, which suggests that the cores are unlikely to be prestellar cores and
-instead, even if their emission is dominated by cold dust, they contain
-protostars.  Their emission is likely dust-dominated, but is probably warmer
-than the cloud average $T_D\sim20-40$ K.  
-
-If we assume higher dust temperatures, the inferred gas mass is lower, but an
-internal heating source - i.e., a protostar - is required.  For example,
-if we assume $T_D=80$ K\footnote{At these dust temperatures,
-we should be concerned about the assumed opacity, since ices
-will begin to evaporate  \citep[e.g.,][]{Bergin1995a}, reducing the 3 mm
-opacity and correspondingly increasing the required mass
-required to produce the observed flux
+If we assume higher dust temperatures than those used in Section
+\ref{sec:alt0}, the inferred gas mass is lower, but an internal heating source
+- i.e., a protostar or young star - is required.  For example, if we assume
+$T_D=80$ K\footnote{At these dust temperatures, we should be concerned about
+the assumed opacity, since ices will begin to evaporate
+\citep[e.g.,][]{Bergin1995a}, reducing the 3 mm opacity and correspondingly
+increasing the required mass required to produce the observed flux
 \citep{Ossenkopf1994a}.  }, our detection limit is only $M(80\mathrm{K}) = 4
 \msun$.  Heating that much dust well above the cloud average requires a
 high-luminosity central heating source.
 
-To constrain the required heating source, we examine the protostellar model
-grid of \citet[][specifically, the \texttt{spubhmi} and \texttt{spubsmi}
-models]{Robitaille2017a}.  The models that produce $S_{3 \mathrm{mm}} > 0.5$
-mJy within a 5000 AU aperture uniformly have $L>10^4$ \lsun.  Such luminosities
-imply either that an high-mass ($M\gtrsim8$ \msun) star has already formed and is still
-surrounded by a massive envelope, or a high-mass YSO is present and accreting.
-The models of \citet{Zhang2015f}, for example, generally only exhibit $L>10^4$
-\lsun once a star has reached $M\approx10$ \msun as it continues to accrete to
+To constrain the required heating source, we examine the protostellar models of
+\citet[][specifically, the \texttt{spubhmi} and \texttt{spubsmi}
+models]{Robitaille2017a} and \citet{Zhang2015f}.  The Robitaille models that
+produce $S_{3 \mathrm{mm}} > 0.5$ mJy within a 5000 AU aperture uniformly have
+$L>10^4$ \lsun.  Such luminosities imply either that an high-mass ($M\gtrsim8$
+\msun) star has already formed and is still surrounded by a massive envelope,
+or a high-mass YSO is present and accreting.
+The models of \citet{Zhang2015f} generally only exhibit $L>10^4$
+\lsun once a star has reached $M\approx10$ \msun as they continue to accrete to
 a higher mass.  Similarly, pre-main-sequence stellar evolution models
 \citep[e.g.,][]{Haemmerle2013a} only reach $L>10^4$ \lsun for stars with
 final mass $M\gtrsim8$ \msun.  In the \citet{Robitaille2017a} model grid,
@@ -1069,7 +1089,7 @@ extended component would be readily detected (and resolved) in our data.
 Source I is the only known high-mass YSO in the Orion cloud, and it would
 be detectable in our survey while no other compact sources in the Orion cloud
 would be.  This comparison supports the interpretation that most of the
-non-\hii region sources are massive protostars.
+non-\hii region sources are massive YSOs.
 %it appears
 %safe to conclude that most of the detected sources that are not \hii regions
 %are MYSOs.
@@ -1092,7 +1112,7 @@ M42 nebula would be easily detected in our data.
 }
 {fig:orioncompare}{1}{\textwidth}
 
-While we have concluded that the sources are dusty, massive protostars, the
+While we have concluded that the sources are dusty, massive YSOs, the
 spectral indices we measured are somewhat surprising.  Typical dust clouds in
 the Galactic disk have dust opacity indices $\beta\sim1.5-2$, implying 
 a spectral index $\alpha\sim3.5-4$
@@ -1104,7 +1124,7 @@ $2\sigma$ level, up to 11 sources are consistent with $\beta=1.5$, but this is
 primarily because of their high measurement error).  A shallower $\beta$
 implies free-free contamination, large dust grains, or optically thick surfaces
 are present within our sources.  Since the above arguments suggest that the
-sources are high-mass protostars, the free-free contamination and optically
+sources are high-mass YSOs, the free-free contamination and optically
 thick inner region models are both plausible.
 
 \section{Analysis and discussion of star formation in Sgr B2}
@@ -1125,7 +1145,7 @@ implied total stellar masses.
 
 If we make the very simplistic, but justified (Section
 \ref{sec:theyareprotostars}), assumption that the sources we detect all contain
-protostars with $L_{bol}\gtrsim10^4$ \lsun, and in turn make the related
+YSOs with $L_{bol}\gtrsim10^4$ \lsun, and in turn make the related
 assumption that each source either currently contains or will form into an
 $M\gtrsim8 \msun$ star, we can infer the total (proto)stellar mass in the
 observed region.
@@ -1141,7 +1161,7 @@ stellar masses based on the arguments in Section \ref{sec:theyareprotostars}:
 in order to be detected, the sources must either be active OB stars
 illuminating \hii regions, very compact cores with
 $M>10$ \msun of warm dust within $R<4000$ AU, or
-at least moderately-massive protostars within warm envelopes.  Note that the
+at least moderately-massive YSOs within warm envelopes.  Note that the
 mass estimates in this section are for the resulting stars, not their
 envelopes.  The cluster affiliation for each source is reported in Table
 \ref{tab:photometry}.
@@ -1347,7 +1367,7 @@ density an order of magnitude higher than the Lada threshold, and they exist
 above that threshold even if the foreground is assumed to be $5\ee{22}$ \persc,
 the highest plausible value considered in Section \ref{sec:colmaps}.
 While all of the sources exist above the Lada threshold, not all pixels above
-this threshold contain protostars or protostellar cores (Figure
+this threshold contain YSOs or protostellar cores (Figure
 \ref{fig:coldistributionwithoutstarformation}).
 
 % stellar_mass_estimate.py
@@ -1366,36 +1386,17 @@ $n\gtrsim5\ee{4}$ \percc.  Again, effectively all of the gas associated with
 ongoing star formation is above the locally-determined threshold.
 
 To compare Sgr B2 to the Lada et al sample on a full-cloud scale, we can use
-the total mass and total YSO mass.  Lada et al used a YSO count, NYSOs, while
-we inferred a total YSO mass; we use their assumed median mass $M_{median} =
-0.5$ \msun to convert MYSOs to NYSOs.  Using their fitted relation for local,
-$NYSO = 0.2 M_{cloud,\msun}(A_K>0.8)$, we predict that for $M_{Sgr B2}=1.5\ee{6}$
-\msun (where we use the whole cloud mass because all of the cloud is at
-$A_K>0.8$), $NYSO_{Sgr B2} = 3\ee{5}$.  As seen in Table
-\ref{tab:clustermassestimates}, the observed $NYSO = MYSO / (0.5 \msun) =
-5.2\ee{4}-6.6\ee{4}$, a factor of five below the extrapolated Lada et
-al relation.  From the observed $NYSO$, we expect $M_{cloud}\approx3\ee{5}$,
-which corresponds to a threshold $N>10^{24}$ \persc (Figure
-\ref{fig:cumulativemass}).
-
-\citet{Lada2010a} also express their $NYSO(M_{cloud})$ relation as a star
-formation rate relationship, $\dot{M}_* = 4.6\ee{-8} M_{dense}$.  Using $M_{Sgr
-B2} = 1.5\ee{6}$ \msun, $\dot{M}_* = 0.069$ \msun \peryr, which is within a
-factor of two of our estimated SFR ($\dot{M}_*=0.036$ \msun \peryr, Table
-\ref{tab:clustermassestimates}).  The agreement with the Lada et al relation
-for the SFR, but simultaneous disagreement with the more directly observational
-relations, is driven by the assumed star formation timescale.  If we use
-\citet{Lada2010a} Equation 3, $\dot{M}_* = \epsilon/(\tau_{ff} f) M_{dense}$,
-with $\epsilon/f=0.018$ being the star formation efficiency per free-fall time
-and $\tau_{ff}$ the free-fall time, but we account for the shorter
-$\tau_{ff}=0.14$ Myr in Sgr B2, we obtain $\dot{M}_* = 0.20$ \msun \peryr, again
-about a factor of 5 above the observed rate.  If we assume the free-fall time
-is the relevant timescale for star formation, though, this discrepancy gets
-\emph{worse} as we increase the threshold, since the free-fall time becomes
-shorter and the star formation rate increases (since the observed number of stars
-is independent of the threshold up to $N\approx4\ee{23}$ \persc).
-This analysis highlights the problem of applying the same interpretation of the
-empirical relations to both the Galactic center and local clouds.
+the total mass and total YSO mass.  Lada et al used a YSO count, $N_{YSO}$,
+while we inferred a total YSO mass; we use their assumed median mass
+$M_{median} = 0.5$ \msun to convert $M_{YSOs}$ to $N_{YSO}$.  Using their
+fitted relation for local, $N_{YSO} = 0.2 M_{cloud,\msun}(A_K>0.8)$, we predict
+that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud mass
+because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2} = 3\ee{5}$.  As seen
+in Table \ref{tab:clustermassestimates}, the observed $N_{YSO} = MYSO / (0.5
+\msun) = 5.2\ee{4}-6.6\ee{4}$, a factor of five below the extrapolated Lada et
+al relation.  From the observed $N_{YSO,Sgr B2}$, we expect
+$M_{cloud}\approx3\ee{5}$, which corresponds to a threshold $N>10^{24}$ \persc
+(Figure \ref{fig:cumulativemass}).
 
 Any way we examine our data, it appears that a higher threshold for star
 formation is required in Sgr B2 than in local clouds.  The one remaining caveat
@@ -1430,16 +1431,37 @@ dashed line shows the $N(\hh)=5.2\ee{21}$ \persc column density threshold from
 \persc \citet{Krumholz2008a} threshold for high-mass star formation.}
 {fig:corebackgroundcdf}{1}{0.5\textwidth}
 
-\subsubsubsection{Comparison to Barnes et al 2017, Kauffmann et al 2017}
+\paragraph{Comparison to the Lada et al SFR}
+\citet{Lada2010a} also express their $N_{YSO}-M_{cloud}$ relation as a star
+formation rate relationship, $\dot{M}_* = 4.6\ee{-8} M_{dense}$.  Using $M_{Sgr
+B2} = 1.5\ee{6}$ \msun, $\dot{M}_* = 0.069$ \msun \peryr, which is within a
+factor of two of our estimated SFR ($\dot{M}_*=0.036$ \msun \peryr, Table
+\ref{tab:clustermassestimates}).  The agreement with the Lada et al relation
+for the SFR, but simultaneous disagreement with the more directly observational
+relations, is driven by the assumed star formation timescale.  If we use
+\citet{Lada2010a} Equation 3, $\dot{M}_* = (\epsilon/f) \tau_{ff}^{-1} M_{dense}$,
+with $\epsilon/f=0.018$ being the star formation efficiency per free-fall time
+and $\tau_{ff}$ the free-fall time, but we account for the shorter
+$\tau_{ff}=0.14$ Myr in Sgr B2, we obtain $\dot{M}_* = 0.20$ \msun \peryr, again
+about a factor of 5 above the observed rate.  If we assume the free-fall time
+is the relevant timescale for star formation, though, this discrepancy gets
+\emph{worse} as we increase the threshold, since the free-fall time becomes
+shorter and the star formation rate increases (since the observed number of stars
+is independent of the threshold up to $N\approx4\ee{23}$ \persc).
+This analysis highlights the problem of applying the same interpretation of the
+empirical relations to both the Galactic center and local clouds.
+
+\paragraph{Comparison to Barnes et al 2017}
 \citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the
 \citet{Lada2010a} model matches the observations.  They used a mass $M_{Sgr
 B2}=6.5\ee{5}$ \msun, which corresponds to a column density threshold
-$N(\hh)>7.5\ee{23}$ \percc.  As seen in Figure \ref{fig:cumulativemass}, their
-mass estimates are consistent with our own, and the difference of
+$N(\hh)>7.5\ee{23}$ \persc.  As seen in Figure \ref{fig:cumulativemass}, their
+mass estimate is consistent with our own, and the difference of
 interpretation comes from the tighter boundary (and higher mass threshold) they
 selected.  In other words, our data are consistent with the linear Lada et al
 law \emph{if} we use a higher column density threshold.
 
+\paragraph{Comparison to Kauffmann et al 2017}
 \citet{Kauffmann2017c} show the whole Sgr B2 cloud lies within a factor of two
 of the Lada et al relation in their Figure 1.  Their numbers for the star
 formation rate and total mass agree with ours ($M_{Sgr B2}\approx1.5\ee{6}$
@@ -1456,7 +1478,7 @@ A theoretical threshold for high-mass star formation, $\Sigma > 1$ g \persc
 ($N(\hh) > 2\ee{23}$ \persc) was developed by \citet{Krumholz2008a}.   Nearly
 all of the sources we have detected reside above this threshold (independent of
 the assumed foreground contamination), and we determined our sources are all
-likely to be massive protostars in Section \ref{sec:theyareprotostars}.
+likely to be massive YSOs in Section \ref{sec:theyareprotostars}.
 However, not all pixels with $\Sigma > 1$ g \persc are forming high-mass stars
 (Figure \ref{fig:coldistributionwithoutstarformation}).  Again, we have
 inferred the presence of a necessary but not sufficient star formation
@@ -1488,7 +1510,7 @@ the blue solid line shows the SCUBA pixels that do not contain an ALMA source,
 and the red thick line shows those pixels that are within one beam
 FWHM of an ALMA source.  The thin black line shows the ratio of the red histogram
 to the black histogram, i.e., it shows the fraction of pixels with associated
-protostars.  While the ALMA sources (high mass protostars and young stars)
+YSOs.  While the ALMA sources (high mass YSOs)
 clearly reside in high-column gas, there is abundant high-column-density
 material that shows no signs of ongoing star formation.}
 {fig:coldistributionwithoutstarformation}{1}{0.5\textwidth}
@@ -1594,7 +1616,16 @@ formation law relating the gas to the stellar surface density,
 \citet{Gutermuth2011a} concluded that star formation was best represented as
 power-law relations between the stellar and gas mass surface densities.
 
+In this section, we measure the stellar surface density (\S
+\ref{sec:gutermuthmethods}) and compare the star-gas surface density relation
+to the local clouds observed by \citet[][\S
+\ref{sec:gutermuthcomparison}]{Gutermuth2011a}, finding that the local clouds
+and Sgr B2 do not fit on a common relation.  We examine the possible reasons
+for the disagreement (\S \ref{sec:gutermuthdiscrepancy}), concluding that a
+varying threshold for star formation is the most likely explanation.
+
 \subsubsection{Methodological comparison to Gutermuth et al}
+\label{sec:gutermuthmethods}
 We adopt the same approach used in \citet{Gutermuth2009a} and
 \citet{Gutermuth2011a} to compare gas and stellar mass surface densities.  We
 computed both the star-centric mass surface density using the 11th nearest
@@ -1615,21 +1646,21 @@ maps (see Section \ref{sec:colmaps}).
 There are a few key differences between our data and those of
 \citet{Gutermuth2011a}.  First, our \emph{minimum} detected column density is
 $N(\hh)\approx10^{23}$ \persc, while in their sample, the \emph{maximum}
-observed was $A_V=38$, or $N(\hh)=3.8\ee{22}$ \persc.  Even if we subtract
-our upper-limit foreground estimate $N(\hh)=5\ee{22}$ from the entire
-Sgr B2 map, nearly all of the detected sources reside in regions with column
-densities well above the maximum reached in the local cloud sample.
-Second, our 3 mm source sample is sensitive to only the youngest sources, either
-the high-mass equivalent of Class 0/I sources (`hot cores' or HMYSOs), or
-deeply embedded hypercompact \hii regions.  The Spitzer sample included both
-Class I sources, with estimated ages $t\lesssim0.5$ Myr, and Class II sources, with
-ages $0.5 < t < 5$ Myr.  Our sample is therefore biased young.  If the
+observed was $A_V=38$, or $N(\hh)=3.8\ee{22}$ \persc.  Even if we subtract our
+upper-limit foreground estimate $N(\hh)=5\ee{22}$ \persc from the entire Sgr B2
+map, nearly all of the detected sources reside in regions with column densities
+well above the maximum reached in the local cloud sample.  Second, our 3 mm
+source sample is sensitive to only the youngest sources, either the high-mass
+equivalent of Class 0/I sources (`hot cores' or HMYSOs), or deeply embedded
+hypercompact \hii regions.  The Spitzer sample included both Class I sources,
+with estimated ages $t\lesssim0.5$ Myr, and Class II sources, with ages $0.5 <
+t < 5$ Myr.  Our sample is therefore biased young compared to theirs.  If the
 age estimate for Sgr B2 from the dynamical models
 \citep{Longmore2013a,Kruijssen2015a} is accurate, there should be about as many
 Class II sources as Class I, given the standard ages, meaning our total mass
-estimate may be as much as a factor of 2 underestimated.
-Third, as noted above, we are sensitive to only high-mass sources, so we infer
-a significant population that is not directly observed.
+estimate may be as much as a factor of 2 underestimated.  Third, as noted
+above, we are sensitive to only high-mass sources, so we infer a significant
+population that is not directly observed.
 
 We computed star formation relations following \citet{Gutermuth2011a} Section 4.1.
 We use their equation 7 with the spatial dependence hidden:
@@ -1657,15 +1688,23 @@ while for $\alpha=2$, $k$ has units pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$.
 
 
 \subsubsection{Results of the comparison to Gutermuth et al}
+\label{sec:gutermuthcomparison}
 
-Despite the differences in method, the Sgr B2, Mon R2, and Ophiucus clouds have
-similar instantaneous star formation efficiencies (SFE), $\epsilon =
-M_*/(M_*+M_{gas})$.  Sgr B2 has $\epsilon=0.016$ or $0.018$ (without and with
-the foreground subtracted), Mon R2 $\epsilon=0.019$, and Ophiucus $\epsilon
-= 0.04$.  SFEs ranging from 0.01-0.08 are observed throughout Galactic center
-clouds \citep{Barnes2017b}, so in terms of overall efficiency, these clouds
-appear similar to local low-mass clouds.
+%this paragraph is fine but it has no home
+% Despite the differences in method, the Sgr B2, Mon R2, and Ophiucus clouds have
+% similar instantaneous star formation efficiencies (SFE), $\epsilon =
+% M_*/(M_*+M_{gas})$.  Sgr B2 has $\epsilon=0.016$ or $0.018$ (without and with
+% the foreground subtracted), Mon R2 $\epsilon=0.019$, and Ophiucus $\epsilon
+% = 0.04$.  SFEs ranging from 0.01-0.08 are observed throughout Galactic center
+% clouds \citep{Barnes2017b}, so in terms of overall efficiency, these clouds
+% appear similar to local low-mass clouds.
 
+
+Figure \ref{fig:stellarvsmasscolumn} shows the stellar mass surface density
+$\Sigma_*$ plotted against the gas mass surface density $\Sigma_{gas}$.
+Our data show a large scatter and are plausibly compatible with a
+power-law index in the range 1-2, and therefore may be consistent with the
+steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.
 
 % core_local_brightness.py
 % surface_density_maps.py
@@ -1700,11 +1739,6 @@ density of $N(\hh)=5\ee{22}$ \persc (1100 \msun pc$^{-2}$).
 }
 {fig:stellarvsmasscolumn}{1}{0.5\textwidth}
 
-Figure \ref{fig:stellarvsmasscolumn} shows the stellar mass surface density
-$\Sigma_*$ plotted against the gas mass surface density $\Sigma_{gas}$.
-Our data show a large scatter and are plausibly compatible with a
-power-law index in the range 1-2, and therefore may be consistent with the
-steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.
 
 Figure \ref{fig:stellarvsmasscolumn}  shows in orange three curves from the
 \citet{Gutermuth2011a} $\alpha=2$ star formation relation, their Equation 7
@@ -1713,7 +1747,7 @@ with $k=10^{-4}$ pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$ and $\alpha=2$, at times
 $t=0.01$, 0.1, and 0.74 Myr.  Only the youngest curve, with age 0.01 Myr,
 overlaps with our data.  The three red curves, which are essentially lines in
 this figure, show the $\alpha=1$ relation with $k=0.1$ Myr$^{-1}$ at the same
-three ages, and it achieves reasonable agreement with our data for the $t=0.74$
+three ages, and they achieve reasonable agreement with our data for the $t=0.74$
 Myr line ($k=0.1$ \permyr implies the 50\% depletion time $t_{sf}=7$ Myr).  The
 $\alpha=2$ star formation relation  is only consistent with our
 data for times earlier than $t<0.1$ Myr.  This inconsistency is due to the very
@@ -1738,12 +1772,12 @@ from the low-mass clouds exceeds our observations by at least $50\times$
 (Ophiucus) or closer to $10^3\times$ (Mon R2).   The discrepancy between our
 observations and theirs indicates either that there is a systematic tendency to
 overestimate $\Sigma_*$ at high $\Sigma_{gas}$ in the Spitzer observations,
-which seems unlikely, or that there is a different star formation relation in
-Sgr B2 than in local clouds.
+which seems unlikely, or that there is a different star formation-gas surface
+density relation in Sgr B2 to that in local clouds.
 
 
 \subsubsection{A critical evaluation of the discrepancies with Gutermuth et al}
-
+\label{sec:gutermuthdiscrepancy}
 While a linear relation $\Sigma_* \propto \Sigma_{gas}$ can approximately
 account for both local clouds and Sgr B2 as a whole, we have not yet explained
 why the extrapolation of the observed $\Sigma_* - \Sigma_{gas}$ relation from
@@ -1783,7 +1817,7 @@ local clouds does not match Sgr B2.  We evaluate several possibilities here:
         represents $\approx5000$ \msun instead of $\approx100$ \msun.  The
         multiplicity of the Orion Source I system suggests this interpretation
         is qualitatively plausible, but the factor of 50 required to match the
-        \citet{Gutermuth2011a} extrapolation strains credibility.
+        extrapolation of the \citet{Gutermuth2011a} data strains credibility.
         Additionally, the luminosity constraints from our observed data
         rule this possibility out unless the stellar IMF is bottom-heavy
         (see below for more IMF discussion).
@@ -1843,7 +1877,7 @@ local clouds does not match Sgr B2.  We evaluate several possibilities here:
         underestimate the stellar mass surface density.  Given our survey's
         insensitivity to low-mass YSOs, the stellar mass surface density could
         be over an order of magnitude higher if it consists only of low-mass
-        protostars.  Such a dramatic time sequencing effect in star formation
+        YSOs.  Such a dramatic time sequencing effect in star formation
         would have profound implications for star formation studies, implying
         that any or all clouds currently forming low-mass stars may eventually
         form higher-mass stars, so testing this possibility with
@@ -1902,7 +1936,7 @@ our data and the extrapolation from \citet{Gutermuth2011a}.
 \section{Discussion}
 \label{sec:discussion}
 We have reported the detection of a large number of point sources and inferred
-that they are most likely all high-mass protostars.  These sources exclusively
+that they are most likely all high-mass YSOs.  These sources exclusively
 reside in gas above $N(\hh)\gtrsim2\ee{23}$ \persc and are distributed along an
 elongated  feature spanning the Sgr B2 cloud.
 
@@ -1961,15 +1995,16 @@ which process is dominant.
 
 \subsubsection{Pericenter Triggering}
 \label{sec:pericenter}
-Our observations are reconcilable with a star formation event triggered
-at pericenter passage.  If the entire cloud was stable prior to pericenter
+Our observations are reconcilable with a star formation event triggered at
+pericenter passage.  If the entire cloud was stable prior to pericenter
 passage, at closest approach it would have been simultaneously crushed and
 stretched by shear \citep{Kruijssen2015a}.  This event would have driven
 collapse of the whole cloud, with the densest regions collapsing fastest and
-possibly forming the clusters we observe today.  This model accounts for the
-relative ages of the extended star formation event and the clustered starbursts
-(discussed further in Section \ref{sec:clustersandextended}), but provides no
-direct explanation for the morphology of the star formation event.
+possibly forming the clusters we observe today.  As with any global collapse
+model, this model accounts for the relative ages of the extended star formation
+event and the clustered starbursts (discussed further in Section
+\ref{sec:clustersandextended}). However, this model provides no direct
+explanation for the morphology of the star formation event.
 
 \subsubsection{Cloud-cloud collision}
 \label{sec:ccc}
@@ -2035,9 +2070,9 @@ molecular material along the ridge where we observe star formation.
 \citet{Martin-Pintado1999a} identified their bubbles B and F in this region,
 and suggested that they are driven by Wolf-Rayet stellar winds, which is
 consistent with both our continuum and line observations.  However, the ridge
-of millimeter sources extends well above the apparent bubble edge, so it is
-unlikely that the entire DS ridge was driven by a single coherent expanding
-bubble.
+of millimeter sources extends well to the north of the apparent bubble edge, so
+it is unlikely that the entire DS ridge was driven by a single coherent
+expanding bubble.
 
 By contrast, the Sgr B2 North bubble, which can be seen as arcs of
 \cyanoacetylene emission in the top-left of Figure
@@ -2093,7 +2128,7 @@ less evident in this velocity-integrated view.  The important feature discussed
 in Section \ref{sec:whatdrives} is the differing column density around each of
 the bubbles.  The right figure has the cores overlaid as green dots,
 showing that the 3 mm sources closely trace the molecular gas, but not all
-dense molecular gas contains cores or protostars.}
+dense molecular gas contains cores or YSOs.}
 {fig:hc3nonscuba}{1}{0.5\textwidth}
 
 \subsection{The clusters and the extended population}
@@ -2112,20 +2147,20 @@ regions represent a later stage in protostellar evolution than the dusty
 protostellar core stage, the \hii region excess in Sgr B2 M implies that it is
 older than Sgr B2 N and the distributed protostar population.  By contrast,
 along the Sgr B2 DS ridge, there are no \hii regions, but there are $\sim100$
-high-mass protostars, which implies that these protostars began their formation
+high-mass YSOs, which implies that these YSOs began their formation
 nearly simultaneously.  Figure \ref{fig:fluxhistclusters} shows this difference
 graphically; Sgr B2 M has an overall source flux distribution marginally higher
 than Sgr B2 N but dramatically higher than the unclustered sources.
 
-The large number of probable protostars observed along an elongated ridge
+The large number of probable YSOs observed along an elongated ridge
 allows us to estimate an upper limit on their age.  Assuming all of these
 forming stars are bound to the cloud and/or central clusters, they should
 approach a spherical distribution within about one crossing time
 \citep{Efremov1998a}.  If we assume the turbulent velocity dispersion is
 $\sigma_{1D}\approx10$ \kms \citep[e.g.,][]{Henshaw2016a}, and the length of
 the DS ridge is $L\approx10$ pc, the upper limit on the formation time of the
-protostars is $L/\sigma_{1D}<1$ Myr.  Given the tight alignment of the
-protostars with the gas ridge (Figures \ref{fig:coreson20cmandhc3n} and
+YSOs is $L/\sigma_{1D}<1$ Myr.  Given the tight alignment of the
+YSOs with the gas ridge (Figures \ref{fig:coreson20cmandhc3n} and
 \ref{fig:hc3nonscuba}), it is  possible to establish a stricter upper limit.  Most
 of the sources are within $r<0.5$ pc of the `ridge', which, assuming they
 formed in the ridge, suggests an upper age limit $t<r/\sigma_{1D}=5\ee{4}$ yr.
@@ -2169,7 +2204,7 @@ dense gas.
 sources and 24 \um sources in the southern part of Sgr B2, and from these
 detections concluded that star formation had proceeded outside-in in the Sgr B2
 cloud.  Our data have revealed a much larger population of what are most likely
-younger sources (dust-dominated protostars) in this region, which is
+younger sources (dust-dominated YSOs) in this region, which is
 inconsistent with the previous interpretation.  Instead, it seems that the
 central clusters are the oldest sites of star formation.  The excess of 4.5 \um
 and 24 \um sources in DS may be because the cloud's envelope of opaque material
@@ -2181,9 +2216,9 @@ the significant ongoing star formation we report here.
 \label{sec:conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
 Sgr B2 cloud and determined that the majority are high-mass protostellar
-cores.  This survey represents the first large population of protostars
+cores.  This survey represents the first large population of YSOs
 detected in the Galactic center and represents the largest sample yet reported
-of high-mass protostars.
+of high-mass YSOs.
 
 The large population of high-mass protostellar cores indicates that an extended
 region spanning the entire Sgr B2 cloud, not just the well-known clusters N, M,
@@ -2193,11 +2228,11 @@ clusters but is instead part of the extended burst.
 
 Using Herschel, SCUBA, and SHARC data, we have inferred a threshold for
 high-mass star formation analogous to that inferred in local clouds by
-\citet{Lada2010a}.  We find that there are no high-mass protostars in gas below
+\citet{Lada2010a}.  We find that there are no high-mass YSOs in gas below
 $N(\hh)<10^{23}$ \persc at a resolution of $\approx10\arcsec=0.4$ pc, and half
 of the detected sources are found above $N(\hh)>10^{24}$ \persc.  However,
 there is abundance material above $N(\hh)>10^{23}$ \persc that has no
-associated protostars, indicating that this is a necessary, but not sufficient,
+associated YSOs, indicating that this is a necessary, but not sufficient,
 criterion for high-mass star formation.  These measurements imply either the
 existence of a higher threshold for high-mass star formation than for low-mass,
 as predicted by several theories, or a higher threshold for star formation in
@@ -2223,8 +2258,8 @@ of explaining both local and CMZ clouds.  Instead, a volume-density
 based model may be viable.
 
 
-The large detected population of high-mass protostars implies a much larger
-population of as-yet undetectable lower-mass protostars.  Future ALMA and JWST
+The large detected population of high-mass YSOs implies a much larger
+population of as-yet undetectable lower-mass YSOs.  Future ALMA and JWST
 programs to probe this population would provide the data needed to directly
 compare star formation thresholds in the most intensely star-forming cloud in
 our Galaxy to those in nearby clouds.

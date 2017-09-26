@@ -153,8 +153,8 @@ core_phot_tbl = cont_tbl
 
 # match other catalogs to ours
 
-caswell_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.305', '-28:23:33.589', frame='fk5', unit=(u.hour, u.deg)),
-                                       width=7.5*u.arcmin, height=7.5*u.arcmin, catalog='VIII/96/catalog')['VIII/96/catalog']
+caswell_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.086', '-28:23:29.267', frame='fk5', unit=(u.hour, u.deg)),
+                                       width=7.18*u.arcmin, height=7.0*u.arcmin, catalog='VIII/96/catalog')['VIII/96/catalog']
 caswell_in_field_coords = coordinates.SkyCoord(stringy(caswell_in_field['RAJ2000']),
                                                stringy(caswell_in_field['DEJ2000']),
                                                frame='fk5', unit=(u.hour, u.deg))
@@ -180,9 +180,9 @@ with open(paths.rpath("caswell_masers_matches.reg"),'w') as fh:
 
 
 
-muno_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.305', '-28:23:33.589',
+muno_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.086', '-28:23:29.267',
                                                          frame='fk5', unit=(u.hour, u.deg)),
-                                    width=7.5*u.arcmin, height=7.5*u.arcmin,
+                                    width=7.18*u.arcmin, height=7.0*u.arcmin,
                                     catalog='J/ApJS/165/173/table2')['J/ApJS/165/173/table2']
 muno_in_field_coords = coordinates.SkyCoord(muno_in_field['RAJ2000'], muno_in_field['DEJ2000'], frame='fk5', unit=(u.deg, u.deg))
 muno_in_field_matches = coordinates.match_coordinates_sky(muno_in_field_coords, sgrb2_coords)
@@ -207,9 +207,9 @@ with open(paths.rpath("muno_xrays_matches.reg"),'w') as fh:
 
 
 # full catalog version
-muno_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.305', '-28:23:33.589',
+muno_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.086', '-28:23:29.267',
                                                          frame='fk5', unit=(u.hour, u.deg)),
-                                    width=7.5*u.arcmin, height=7.5*u.arcmin,
+                                    width=7.18*u.arcmin, height=7.0*u.arcmin,
                                     catalog='J/ApJS/181/110')['J/ApJS/181/110/catalog']
 #                                    catalog='J/ApJS/165/173/table2')['J/ApJS/165/173/table2']
 muno_in_field_coords = coordinates.SkyCoord(muno_in_field['RAJ2000'], muno_in_field['DEJ2000'], frame='fk5', unit=(u.deg, u.deg))
@@ -226,11 +226,25 @@ for match,distance,_ in zip(*muno_in_field_matches):
 muno_in_field.add_column(Column(data=sgrb2_ids, name='ALMA_ID'))
 muno_in_field.add_column(Column(data=u.Quantity(sgrb2_dists,u.arcsec), name='ALMA_dist', unit=u.arcsec))
 
+with open(paths.rpath("muno_full_xrays_matches.reg"),'w') as fh:
+    fh.write('fk5\n')
+    for row in muno_in_field:
+        fh.write("point({0},{1}) # point=cross color={color} text={{{2}}}\n"
+                 .format(stringy(row['RAJ2000']).replace(" ",":"),
+                         stringy(row['DEJ2000']).replace(" ",":"), row['ALMA_ID'],
+                         color='red' if row['ALMA_ID']=='-' else 'cyan'))
 
 
 
-mcgrath_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.305', '-28:23:33.589', frame='fk5', unit=(u.hour, u.deg)),
-                                       width=7.5*u.arcmin, height=7.5*u.arcmin, catalog='J/ApJS/155/577/tables')['J/ApJS/155/577/tables']
+
+mcgrath_in_field = Vizier.query_region(coordinates.SkyCoord('17:47:19.086',
+                                                            '-28:23:29.267',
+                                                            frame='fk5',
+                                                            unit=(u.hour,
+                                                                  u.deg)),
+                                       width=7.18*u.arcmin,
+                                       height=7.0*u.arcmin,
+                                       catalog='J/ApJS/155/577/tables')['J/ApJS/155/577/tables']
 mcgrath_in_field_coords = coordinates.SkyCoord(stringy(mcgrath_in_field['_RA.icrs']),
                                                stringy(mcgrath_in_field['_DE.icrs']),
                                                frame='fk5', unit=(u.hour, u.deg))
