@@ -1,26 +1,730 @@
 \documentclass[twocolumn]{aastex61}
 \usepackage{datetime} % TODO: remove this after submission
-\input{preface}
-\input{ncores}
-\input{alpha}
-\newcommand{\dsgrb}{\ensuremath{8.4\textrm{~kpc}}\xspace}
+%\documentclass[defaultstyle,11pt]{thesis}
+%\documentclass[]{report}
+%\documentclass[]{article}
+%\usepackage{aastex_hack}
+%\usepackage{deluxetable}
+%\documentclass[preprint]{aastex}
+%\documentclass{aa}
+
+\newcommand{\titlerunning}[1]{\shorttitle{#1}}
+\newcommand{\authorrunning}[1]{\shortauthors{#1}}
+
+\newcommand*\inst[1]{\unskip\hbox{\@textsuperscript{\normalfont$#1$}}}
+
+%\newcount\aa@nbinstitutes
+%
+%\newcounter{aa@institutecnt}
+
+\newcommand*\institute[1]{
+  \begingroup
+    \let\and\relax
+    \renewcommand*\inst[1]{}%
+    \renewcommand*\thanks[1]{}%
+    \renewcommand*\email[1]{}%
+    %\let\@@protect\protect
+    %\let\protect\@unexpandable@protect
+    %\global\aa@nbinstitutes \z@
+    %\expandafter\aa@cntinstitutes\aa@institute\and\aa@nil\and
+    %\restore@protect
+  \endgroup
+  \newcommand{\institutions}{#1}
+}%
+
+\let\oldarcsec\arcsec
+\renewcommand\arcsec{\oldarcsec\xspace}%
+
+%\renewcommand{\abstract}[1]{
+%\begin{abstract}
+%    #1
+%\end{abstract}
+%}
+
+%\renewcommand\ion[2]{#1$\;${%
+%\ifx\@currsize\normalsize\small \else
+%\ifx\@currsize\small\footnotesize \else
+%\ifx\@currsize\footnotesize\scriptsize \else
+%\ifx\@currsize\scriptsize\tiny \else
+%\ifx\@currsize\large\normalsize \else
+%\ifx\@currsize\Large\large
+%\fi\fi\fi\fi\fi\fi
+%\rmfamily\@Roman{#2}}\relax}% 
+%
+%\renewcommand{ion}[2]{#1}{#2}
+
+\renewcommand{\ion}[2]{\textup{#1\,\textsc{\lowercase{#2}}}}
+
+%\newcommand{\uchii}{\ensuremath{\mathrm{\ion{UCH}{2}}}\xspace}
+%\newcommand{\UCHII}{\ensuremath{\mathrm{\ion{UCH}{2}}}\xspace}
+%\newcommand{\hchii}{\ensuremath{\mathrm{\ion{HCH}{2}}}\xspace}
+%\newcommand{\HCHII}{\ensuremath{\mathrm{\ion{HCH}{2}}}\xspace}
+%\newcommand{\hii}  {\ensuremath{\mathrm{\ion{H}{2}}}\xspace}
+ %\input{aamacros.tex}
+
+\pdfminorversion=4
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%  see documentation for information about  %%%%%%%%%%
+%%%%%%%%%%%  the options (11pt, defaultstyle, etc.)   %%%%%%%%%%
+%%%%%%%  http://www.colorado.edu/its/docs/latex/thesis/  %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%		\documentclass[typewriterstyle]{thesis}
+% 		\documentclass[modernstyle]{thesis}
+% 		\documentclass[modernstyle,11pt]{thesis}
+%	 	\documentclass[modernstyle,12pt]{thesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%    load any packages which are needed    %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{latexsym}		% to get LASY symbols
+\usepackage{graphicx}		% to insert PostScript figures
+%\usepackage{deluxetable}
+\usepackage{rotating}		% for sideways tables/figures
+\usepackage{natbib}  % Requires natbib.sty, available from http://ads.harvard.edu/pubs/bibtex/astronat/
+\usepackage{savesym}
+%\usepackage{pdflscape}
+\usepackage{amssymb}
+\usepackage{morefloats}
+%\savesymbol{singlespace}
+\savesymbol{doublespace}
+%\usepackage{wrapfig}
+%\usepackage{setspace}
+\usepackage{xspace}
+\usepackage{color}
+%\usepackage{multicol}
+\usepackage{mdframed}
+\usepackage{url}
+\usepackage{subfigure}
+%\usepackage{emulateapj}
+%\usepackage{lscape}
+\usepackage{grffile}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+%\usepackage{longtable}
+\usepackage{booktabs}
+%\usepackage[yyyymmdd,hhmmss]{datetime}
+\usepackage{fancyhdr}
+%\usepackage[colorlinks=true,citecolor=blue,linkcolor=cyan]{hyperref}
+
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage{ifpdf}
+
+
+%\usepackage{standalone}
+%\standalonetrue
+
+
+
+
+
+
+\newcommand{\paa}{Pa\ensuremath{\alpha}}
+\newcommand{\brg}{Br\ensuremath{\gamma}}
+\newcommand{\msun}{\ensuremath{M_{\odot}}\xspace}			%  Msun
+\newcommand{\mdot}{\ensuremath{\dot{M}}\xspace}
+\newcommand{\lsun}{\ensuremath{L_{\odot}}\xspace}			%  Lsun
+\newcommand{\rsun}{\ensuremath{R_{\odot}}\xspace}			%  Rsun
+\newcommand{\lbol}{\ensuremath{L_{\mathrm{bol}}\xspace}}	%  Lbol
+\newcommand{\ks}{K\ensuremath{_{\mathrm{s}}}}		%  Ks
+\newcommand{\hh}{\ensuremath{\textrm{H}_{2}}\xspace}			%  H2
+\newcommand{\dens}{\ensuremath{n(\hh) [\percc]}\xspace}
+\newcommand{\formaldehyde}{\ensuremath{\textrm{H}_2\textrm{CO}}\xspace}
+\newcommand{\formamide}{\ensuremath{\textrm{NH}_2\textrm{CHO}}\xspace}
+\newcommand{\formaldehydeIso}{\ensuremath{\textrm{H}_2~^{13}\textrm{CO}}\xspace}
+\newcommand{\methanol}{\ensuremath{\textrm{CH}_3\textrm{OH}}\xspace}
+\newcommand{\ortho}{\ensuremath{\textrm{o-H}_2\textrm{CO}}\xspace}
+\newcommand{\para}{\ensuremath{\textrm{p-H}_2\textrm{CO}}\xspace}
+\newcommand{\oneone}{\ensuremath{1_{1,0}-1_{1,1}}\xspace}
+\newcommand{\twotwo}{\ensuremath{2_{1,1}-2_{1,2}}\xspace}
+\newcommand{\threethree}{\ensuremath{3_{1,2}-3_{1,3}}\xspace}
+\newcommand{\threeohthree}{\ensuremath{3_{0,3}-2_{0,2}}\xspace}
+\newcommand{\threetwotwo}{\ensuremath{3_{2,2}-2_{2,1}}\xspace}
+\newcommand{\threetwoone}{\ensuremath{3_{2,1}-2_{2,0}}\xspace}
+\newcommand{\fourtwotwo}{\ensuremath{4_{2,2}-3_{1,2}}\xspace} % CH3OH 218.4 GHz
+\newcommand{\methylcyanide}{\ensuremath{\textrm{CH}_{3}\textrm{CN}}\xspace}
+\newcommand{\ketene}{\ensuremath{\textrm{H}_{2}\textrm{CCO}}\xspace}
+\newcommand{\ethylcyanide}{\ensuremath{\textrm{CH}_3\textrm{CH}_2\textrm{CN}}\xspace}
+\newcommand{\cyanoacetylene}{\ensuremath{\textrm{HC}_{3}\textrm{N}}\xspace}
+\newcommand{\methylformate}{\ensuremath{\textrm{CH}_{3}\textrm{OCHO}}\xspace}
+\newcommand{\dimethylether}{\ensuremath{\textrm{CH}_{3}\textrm{OCH}_{3}}\xspace}
+\newcommand{\gaucheethanol}{\ensuremath{\textrm{g-CH}_3\textrm{CH}_2\textrm{OH}}\xspace}
+\newcommand{\acetone}{\ensuremath{\left[\textrm{CH}_{3}\right]_2\textrm{CO}}\xspace}
+\newcommand{\methyleneamidogen}{\ensuremath{\textrm{H}_{2}\textrm{CN}}\xspace}
+\newcommand{\Rone}{\ensuremath{\para~S_{\nu}(\threetwoone) / S_{\nu}(\threeohthree)}\xspace}
+\newcommand{\Rtwo}{\ensuremath{\para~S_{\nu}(\threetwotwo) / S_{\nu}(\threetwoone)}\xspace}
+\newcommand{\JKaKc}{\ensuremath{J_{K_a K_c}}}
+\newcommand{\water}{H$_{2}$O\xspace}		%  H2O
+\newcommand{\feii}{\ion{Fe}{ii}\xspace}		%  FeII
+
+\newcommand{\uchii}{\ion{UCH}{ii}\xspace}
+\newcommand{\UCHII}{\ion{UCH}{ii}\xspace}
+\newcommand{\hchii}{\ion{HCH}{ii}\xspace}
+\newcommand{\HCHII}{\ion{HCH}{ii}\xspace}
+\newcommand{\hii}{\ion{H}{ii}\xspace}
+
+\newcommand{\hi}{H~{\sc i}\xspace}
+\newcommand{\Hii}{\hii}
+\newcommand{\HII}{\hii}
+\newcommand{\Xform}{\ensuremath{X_{\formaldehyde}}}
+\newcommand{\kms}{\textrm{km~s}\ensuremath{^{-1}}\xspace}	%  km s-1
+\newcommand{\nsample}{456\xspace}
+\newcommand{\CFR}{5\xspace} % nMPC / 0.25 / 2 (6 for W51 once, 8 for W51 twice) REFEDIT: With f_observed=0.3, becomes 3/2./0.3 = 5
+\newcommand{\permyr}{\ensuremath{\mathrm{Myr}^{-1}}\xspace}
+\newcommand{\pers}{\ensuremath{\mathrm{s}^{-1}}\xspace}
+\newcommand{\perspc}{\ensuremath{\mathrm{pc}^{-2}}\xspace}
+\newcommand{\tsuplim}{0.5\xspace} % upper limit on starless timescale
+\newcommand{\ncandidates}{18\xspace}
+\newcommand{\mindist}{8.7\xspace}
+\newcommand{\rcluster}{2.5\xspace}
+\newcommand{\ncomplete}{13\xspace}
+\newcommand{\middistcut}{13.0\xspace}
+\newcommand{\nMPC}{3\xspace} % only count W51 once.  W51, W49, G010
+\newcommand{\obsfrac}{30}
+\newcommand{\nMPCtot}{10\xspace} % = nmpc / obsfrac
+\newcommand{\nMPCtoterr}{6\xspace} % = sqrt(nmpc) / obsfrac
+\newcommand{\plaw}{2.1\xspace}
+\newcommand{\plawerr}{0.3\xspace}
+\newcommand{\mmin}{\ensuremath{10^4~\msun}\xspace}
+%\newcommand{\perkmspc}{\textrm{per~km~s}\ensuremath{^{-1}}\textrm{pc}\ensuremath{^{-1}}\xspace}	%  km s-1 pc-1
+\newcommand{\kmspc}{\textrm{km~s}\ensuremath{^{-1}}\textrm{pc}\ensuremath{^{-1}}\xspace}	%  km s-1 pc-1
+\newcommand{\sqcm}{cm$^{2}$\xspace}		%  cm^2
+\newcommand{\percc}{\ensuremath{\textrm{cm}^{-3}}\xspace}
+\newcommand{\perpc}{\ensuremath{\textrm{pc}^{-1}}\xspace}
+\newcommand{\persc}{\ensuremath{\textrm{cm}^{-2}}\xspace}
+\newcommand{\persr}{\ensuremath{\textrm{sr}^{-1}}\xspace}
+\newcommand{\peryr}{\ensuremath{\textrm{yr}^{-1}}\xspace}
+\newcommand{\perkmspc}{\textrm{km~s}\ensuremath{^{-1}}\textrm{pc}\ensuremath{^{-1}}\xspace}	%  km s-1 pc-1
+\newcommand{\perkms}{\textrm{per~km~s}\ensuremath{^{-1}}\xspace}	%  km s-1 
+\newcommand{\um}{\ensuremath{\mu \textrm{m}}\xspace}    % micron
+\newcommand{\microjy}{\ensuremath{\mu\textrm{Jy}}\xspace}    % micron
+\newcommand{\mum}{\um}
+\newcommand{\htwo}{\ensuremath{\textrm{H}_2}}
+\newcommand{\Htwo}{\ensuremath{\textrm{H}_2}}
+\newcommand{\HtwoO}{\ensuremath{\textrm{H}_2\textrm{O}}}
+\newcommand{\htwoo}{\ensuremath{\textrm{H}_2\textrm{O}}}
+\newcommand{\ha}{\ensuremath{\textrm{H}\alpha}}
+\newcommand{\hb}{\ensuremath{\textrm{H}\beta}}
+\newcommand{\so}{SO~\ensuremath{5_6-4_5}\xspace}
+\newcommand{\SO}{SO~\ensuremath{1_2-1_1}\xspace}
+\newcommand{\ammonia}{NH\ensuremath{_3}\xspace}
+\newcommand{\twelveco}{\ensuremath{^{12}\textrm{CO}}\xspace}
+\newcommand{\thirteenco}{\ensuremath{^{13}\textrm{CO}}\xspace}
+\newcommand{\ceighteeno}{\ensuremath{\textrm{C}^{18}\textrm{O}}\xspace}
+\def\ee#1{\ensuremath{\times10^{#1}}}
+\newcommand{\degrees}{\ensuremath{^{\circ}}}
+% can't have \degree because I'm getting a degree...
+\newcommand{\lowirac}{800}
+\newcommand{\highirac}{8000}
+\newcommand{\lowmips}{600}
+\newcommand{\highmips}{5000}
+\newcommand{\perbeam}{\ensuremath{\textrm{beam}^{-1}}\xspace}
+\newcommand{\ds}{\ensuremath{\textrm{d}s}}
+\newcommand{\dnu}{\ensuremath{\textrm{d}\nu}}
+\newcommand{\dv}{\ensuremath{\textrm{d}v}}
+\def\secref#1{Section \ref{#1}}
+\def\eqref#1{Equation \ref{#1}}
+\def\facility#1{#1}
+%\newcommand{\arcmin}{'}
+
+\newcommand{\necluster}{Sh~2-233IR~NE}
+\newcommand{\swcluster}{Sh~2-233IR~SW}
+\newcommand{\region}{IRAS 05358}
+
+\newcommand{\nwfive}{40}
+\newcommand{\nouter}{15}
+
+\newcommand{\vone}{{\rm v}1.0\xspace}
+\newcommand{\vtwo}{{\rm v}2.0\xspace}
+\newcommand\mjysr{\ensuremath{{\rm MJy~sr}^{-1}}}
+\newcommand\jybm{\ensuremath{{\rm Jy~bm}^{-1}}}
+\newcommand\nbolocat{8552\xspace}
+\newcommand\nbolocatnew{548\xspace}
+\newcommand\nbolocatnonew{8004\xspace} % = nbolocat-nbolocatnew
+%\renewcommand\arcdeg{\mbox{$^\circ$}\xspace} 
+%\renewcommand\arcmin{\mbox{$^\prime$}\xspace} 
+%\renewcommand\arcsec{\mbox{$^{\prime\prime}$}\xspace} 
+
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
+\newcommand{\okinfinal}[1]{{#1}}
+%% only needed if not aastex
+%\newcommand{\keywords}[1]{}
+%\newcommand{\email}[1]{}
+%\newcommand{\affil}[1]{}
+
+
+%aastex hack
+%\newcommand\arcdeg{\mbox{$^\circ$}}%
+%\newcommand\arcmin{\mbox{$^\prime$}\xspace}%
+%\newcommand\arcsec{\mbox{$^{\prime\prime}$}\xspace}%
+
+%\newcommand\epsscale[1]{\gdef\eps@scaling{#1}}
+%
+%\newcommand\plotone[1]{%
+% \typeout{Plotone included the file #1}
+% \centering
+% \leavevmode
+% \includegraphics[width={\eps@scaling\columnwidth}]{#1}%
+%}%
+%\newcommand\plottwo[2]{{%
+% \typeout{Plottwo included the files #1 #2}
+% \centering
+% \leavevmode
+% \columnwidth=.45\columnwidth
+% \includegraphics[width={\eps@scaling\columnwidth}]{#1}%
+% \hfil
+% \includegraphics[width={\eps@scaling\columnwidth}]{#2}%
+%}}%
+
+
+%\newcommand\farcm{\mbox{$.\mkern-4mu^\prime$}}%
+%\let\farcm\farcm
+%\newcommand\farcs{\mbox{$.\!\!^{\prime\prime}$}}%
+%\let\farcs\farcs
+%\newcommand\fp{\mbox{$.\!\!^{\scriptscriptstyle\mathrm p}$}}%
+%\newcommand\micron{\mbox{$\mu$m}}%
+%\def\farcm{%
+% \mbox{.\kern -0.7ex\raisebox{.9ex}{\scriptsize$\prime$}}%
+%}%
+%\def\farcs{%
+% \mbox{%
+%  \kern  0.13ex.%
+%  \kern -0.95ex\raisebox{.9ex}{\scriptsize$\prime\prime$}%
+%  \kern -0.1ex%
+% }%
+%}%
+
+\def\Figure#1#2#3#4#5{
+\begin{figure*}[!htp]
+\includegraphics[scale=#4,width=#5]{#1}
+\caption{#2}
+\label{#3}
+\end{figure*}
+}
+
+\def\FigureOneCol#1#2#3#4#5{
+\begin{figure}[!htp]
+\includegraphics[scale=#4,width=#5]{#1}
+\caption{#2}
+\label{#3}
+\end{figure}
+}
+
+
+\def\WrapFigure#1#2#3#4#5#6{
+\begin{wrapfigure}{#6}{0.5\textwidth}
+\includegraphics[scale=#4,width=#5]{#1}
+\caption{#2}
+\label{#3}
+\end{wrapfigure}
+}
+
+% % #1 - filename
+% % #2 - caption
+% % #3 - label
+% % #4 - epsscale
+% % #5 - R or L?
+% \def\WrapFigure#1#2#3#4#5#6{
+% \begin{wrapfigure}[#6]{#5}{0.45\textwidth}
+% %  \centercaption
+% %  \vspace{-14pt}
+%   \epsscale{#4}
+%   \includegraphics[scale=#4]{#1}
+%   \caption{#2}
+%   \label{#3}
+% \end{wrapfigure}
+% }
+
+\def\RotFigure#1#2#3#4#5{
+\begin{sidewaysfigure*}[!htp]
+\includegraphics[scale=#4,width=#5]{#1}
+\caption{#2}
+\label{#3}
+\end{sidewaysfigure*}
+}
+
+\def\FigureSVG#1#2#3#4{
+\begin{figure*}[!htp]
+    \def\svgwidth{#4}
+    \input{#1}
+    \caption{#2}
+    \label{#3}
+\end{figure*}
+}
+
+% originally intended to be included in a two-column paper
+% this is in includegraphics: ,width=3in
+% but, not for thesis
+\def\OneColFigure#1#2#3#4#5{
+\begin{figure}[!htpb]
+\epsscale{#4}
+\includegraphics[scale=#4,angle=#5]{#1}
+\caption{#2}
+\label{#3}
+\end{figure}
+}
+
+\def\SubFigure#1#2#3#4#5{
+\begin{figure*}[!htp]
+\addtocounter{figure}{-1}
+\epsscale{#4}
+\includegraphics[angle=#5]{#1}
+\caption{#2}
+\label{#3}
+\end{figure*}
+}
+
+
+\def\FigureTwo#1#2#3#4#5#6{
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=#5,width=#6]{#1} }
+\subfigure[]{ \includegraphics[scale=#5,width=#6]{#2} }
+\caption{#3}
+\label{#4}
+\end{figure*}
+}
+
+\def\FigureTwoAA#1#2#3#4#5#6{
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=#5,width=#6]{#1} }
+\subfigure[]{ \includegraphics[scale=#5,width=#6]{#2} }
+\caption{#3}
+\label{#4}
+\end{figure*}
+}
+
+\newenvironment{rotatepage}
+{}{}
+
+
+\def\RotFigureTwoAA#1#2#3#4#5#6{
+\begin{rotatepage}
+\begin{sidewaysfigure*}[!htp]
+\subfigure[]{ \includegraphics[scale=#5,width=#6]{#1} }
+\\
+\subfigure[]{ \includegraphics[scale=#5,width=#6]{#2} }
+\caption{#3}
+\label{#4}
+\end{sidewaysfigure*}
+\end{rotatepage}
+}
+
+\def\RotFigureThreeAA#1#2#3#4#5#6#7{
+\begin{rotatepage}
+\begin{sidewaysfigure*}[!htp]
+\subfigure[]{ \includegraphics[scale=#6,width=#7]{#1} }
+\\
+\subfigure[]{ \includegraphics[scale=#6,width=#7]{#2} }
+\\
+\subfigure[]{ \includegraphics[scale=#6,width=#7]{#3} }
+\caption{#4}
+\label{#5}
+\end{sidewaysfigure*}
+\end{rotatepage}
+\clearpage
+}
+
+\def\FigureThreeAA#1#2#3#4#5#6#7{
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=#6,width=#7]{#1} }
+\subfigure[]{ \includegraphics[scale=#6,width=#7]{#2} }
+\subfigure[]{ \includegraphics[scale=#6,width=#7]{#3} }
+\caption{#4}
+\label{#5}
+\end{figure*}
+}
+
+
+
+\def\SubFigureTwo#1#2#3#4#5{
+\begin{figure*}[!htp]
+\addtocounter{figure}{-1}
+\epsscale{#5}
+\plottwo{#1}{#2}
+\caption{#3}
+\label{#4}
+\end{figure*}
+}
+
+\def\FigureFour#1#2#3#4#5#6{
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[width=0.5\textwidth]{#1} }
+\subfigure[]{ \includegraphics[width=0.5\textwidth]{#2} }
+\subfigure[]{ \includegraphics[width=0.5\textwidth]{#3} }
+\subfigure[]{ \includegraphics[width=0.5\textwidth]{#4} }
+\caption{#5}
+\label{#6}
+\end{figure*}
+}
+
+\def\FigureFourPDF#1#2#3#4#5#6{
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[width=3in,type=pdf,ext=.pdf,read=.pdf]{#1} }
+\subfigure[]{ \includegraphics[width=3in,type=pdf,ext=.pdf,read=.pdf]{#2} }
+\subfigure[]{ \includegraphics[width=3in,type=pdf,ext=.pdf,read=.pdf]{#3} }
+\subfigure[]{ \includegraphics[width=3in,type=pdf,ext=.pdf,read=.pdf]{#4} }
+\caption{#5}
+\label{#6}
+\end{figure*}
+}
+
+\def\FigureThreePDF#1#2#3#4#5{
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[width=3in,type=pdf,ext=.pdf,read=.pdf]{#1} }
+\subfigure[]{ \includegraphics[width=3in,type=pdf,ext=.pdf,read=.pdf]{#2} }
+\subfigure[]{ \includegraphics[width=3in,type=pdf,ext=.pdf,read=.pdf]{#3} }
+\caption{#4}
+\label{#5}
+\end{figure*}
+}
+
+\def\Table#1#2#3#4#5{
+%\renewcommand{\thefootnote}{\alph{footnote}}
+\begin{table}
+\caption{#2}
+\label{#3}
+    \begin{tabular}{#1}
+        \hline\hline
+        #4
+        \hline
+        #5
+        \hline
+    \end{tabular}
+\end{table}
+%\renewcommand{\thefootnote}{\arabic{footnote}}
+}
+
+
+%\def\Table#1#2#3#4#5#6{
+%%\renewcommand{\thefootnote}{\alph{footnote}}
+%\begin{deluxetable}{#1}
+%\tablewidth{0pt}
+%\tabletypesize{\footnotesize}
+%\tablecaption{#2}
+%\tablehead{#3}
+%\startdata
+%\label{#4}
+%#5
+%\enddata
+%\bigskip
+%#6
+%\end{deluxetable}
+%%\renewcommand{\thefootnote}{\arabic{footnote}}
+%}
+
+%\def\tablenotetext#1#2{
+%\footnotetext[#1]{#2}
+%}
+
+% \def\LongTable#1#2#3#4#5#6#7#8{
+% % required to get tablenotemark to work: http://www2.astro.psu.edu/users/stark/research/psuthesis/longtable.html
+% \renewcommand{\thefootnote}{\alph{footnote}}
+% \begin{longtable}{#1}
+% \caption[#2]{#2}
+% \label{#4} \\
+% 
+%  \\
+% \hline 
+% #3 \\
+% \hline
+% \endfirsthead
+% 
+% \hline
+% #3 \\
+% \hline
+% \endhead
+% 
+% \hline
+% \multicolumn{#8}{r}{{Continued on next page}} \\
+% \hline
+% \endfoot
+% 
+% \hline 
+% \endlastfoot
+% #7 \\
+% 
+% #5
+% \hline
+% #6 \\
+% 
+% \end{longtable}
+% \renewcommand{\thefootnote}{\arabic{footnote}}
+% }
+
+\def\TallFigureTwo#1#2#3#4#5#6{
+\begin{figure*}[htp]
+\epsscale{#5}
+\subfigure[]{ \includegraphics[width=#6]{#1} }
+\subfigure[]{ \includegraphics[width=#6]{#2} }
+\caption{#3}
+\label{#4}
+\end{figure*}
+}
+
+ 		% file containing author's macro definitions
+%%% This file is generated by the Makefile.
+\newcommand{\githash}{95b7d78}\newcommand{\gitdate}{2017-09-26\xspace}\newcommand{\gitauthor}{Adam Ginsburg (keflavich)\xspace}  \newcommand{\ncores}{263\xspace}
+\newcommand{\nhii}{23\xspace}
+\newcommand{\nmasermatch}{10\xspace}
+\newcommand{\nxraymatch}{3\xspace}
+ \newcommand{\nalphas}{62\xspace}
+\newcommand{\ngttwo}{33\xspace}
+ \newcommand{\dsgrb}{\ensuremath{8.4\textrm{~kpc}}\xspace}
 \newcommand{\percent}{\%\xspace}
 
 \begin{document}
 \title{Distributed star formation throughout the Galactic Center cloud Sgr B2}
 \titlerunning{Sgr B2 ALMA}
 \authorrunning{Ginsburg et al}
-\input{authors}
-\begin{abstract}
+% for future reference, this is probably a better approach:
+% https://github.com/dfm/peerless/blob/af483ced97045c213650ed807c430b2f87d2c8c9/document/ms.tex#L104
+% assuming it's compatible with A&A
+%\newcommand{\nrao}{$^{1}$}
+%\newcommand{\eso}{$^{2}$}
+\newcommand{\nraojansky}{\affiliation{\it{Jansky fellow of the National Radio Astronomy Observatory, 1003 Lopezville Rd, Socorro, NM 87801 USA }}}
+\newcommand{\nrao}{\affiliation{\it{National Radio Astronomy Observatory, 1003 Lopezville Rd, Socorro, NM 87801 USA }}}
+\newcommand{\nraocv}{\affiliation{\it{National Radio Astronomy Observatory, 520 Edgemont Rd, Charlottesville, VA 22903, USA }}}
+\newcommand{\eso}{ \affiliation{\it{ European Southern Observatory, Karl-Schwarzschild-Stra{\ss}e 2, D-85748 Garching bei München, Germany } } }
+
+
+\newcommand{\radboud}{\affiliation{\it{Department of Astrophysics/IMAPP, Radboud University Nijmegen, PO Box 9010, 6500 GL Nijmegen, the Netherlands}}}
+\newcommand{\allegro}{\affiliation{\it{ALLEGRO/Leiden Observatory, Leiden University, PO Box 9513, 2300 RA Leiden, the Netherlands}}}
+\newcommand{\zah}{\affiliation{\it{Astronomisches Rechen-Institut, Zentrum f{\"u}r Astronomie der Universit{\"a}t Heidelberg, M{\"o}nchhofstra{\ss}e 12-14, 69120 Heidelberg, Germany}}}
+\newcommand{\casa}{\affiliation{\it{CASA, University of Colorado, 389-UCB, Boulder, CO 80309}} }
+\newcommand{\jodrell}{\affiliation{\it{Jodrell Bank Centre for Astrophysics, School of Physics and Astronomy, University of Manchester, Oxford Road, Manchester M13 9PL, UK}}}
+\newcommand{\morelia}{\affiliation{\it{Instituto de Radioastronom{\'i}a y Astrof{\'i}sica, UNAM, A.P. 3-72, Xangari, Morelia, 58089, Mexico}}}
+\newcommand{\sjsu}{\affiliation{\it{{San Jose State University, One Washington Square, San Jose, CA 95192}}}}
+\newcommand{\herts}{\affiliation{\it{Centre for Astrophysics Research, University of Hertfordshire, College Lane, Hatfield, AL10 9AB, UK}}}
+\newcommand{\uofa}{\affiliation{\it{Dept. of Physics, University of Alberta, Edmonton, Alberta, Canada}}}
+\newcommand{\arcetri}{\affiliation{\it{INAF-Osservatorio Astrofisico di Arcetri, Largo E. Fermi 5, I-50125, Florence, Italy } } }
+\newcommand{\exclus}{\affiliation{\it{Excellence Cluster Universe, Boltzman str. 2, D-85748 Garching bei M\"unchen, Germany } }}
+\newcommand{\ljmu}{\affiliation{\it{Astrophysics Research Institute, Liverpool John Moores University, 146 Brownlow Hill, Liverpool L3 5RF, UK }}}
+\newcommand{\koeln}{\affiliation{\it{I. Physikalisches Institut, Universi\"at zu K\"oln, Z\"ulpicher Str.\ 77, 50937 K\"oln, Germany}}}
+\newcommand{\mpia}{\affiliation{\it{Max-Planck-Institute for Astronomy, Koenigstuhl 17, 69117 Heidelberg, Germany}}}
+\newcommand{\agnesscott}{\affiliation{\it{Agnes Scott College, 141 E. College Ave., Decatur, GA 30030}}}
+\newcommand{\chile}{\affiliation{\it{Departamento de Astronom{\'i}a, Universidad de Chile, Casilla 36-D, Santiago, Chile}}}
+\newcommand{\leiden}{\affiliation{\it{Leiden Observatory, Leiden University, PO Box 9513, NL-2300 RA Leiden, the Netherlands }}}
+\newcommand{\mpe}{\affiliation{\it{Max-Planck-Institut für extraterrestrische Physik, D-85748 Garching, Germany}}}
+\newcommand{\boston}{\affiliation{\it{Boston University Astronomy Department, 725 Commonwealth Avenue, Boston, MA 02215, USA}}}
+\newcommand{\cfa}{\affiliation{\it{Harvard-Smithsonian Center for Astrophysics, 60 Garden St. Cambridge, MA 02138}}}
+\newcommand{\usf}{\affiliation{\it{University of South Florida, Physics Department, 4202 East Fowler Ave, ISA 2019 Tampa, FL 33620}}}
+\newcommand{\uconn}{\affiliation{\it{University of Connecticut, Department of Physics, 2152 Hillside Rd., Storrs, CT 06269}}}
+
+\author[0000-0001-6431-9633]{Adam Ginsburg}
+\nraojansky
+\eso
+
+%\author{
+%Adam Ginsburg{\nrao},
+%\begin{flushleft}
+%\institutions
+%\end{flushleft}
+%        }
+%
+%\institute{
+%    {\nrao}{\it{National Radio Astronomy Observatory, Socorro, NM 87801 USA\\
+%                      \email{aginsbur@nrao.edu} 
+%                      }} \\
+%    }
+%
+\correspondingauthor{Adam Ginsburg}
+\email{aginsbur@nrao.edu; adam.g.ginsburg@gmail.com}
+
+
+\author{John Bally}
+\casa
+
+\author{Ashley Barnes}
+\ljmu
+
+\author{Nate Bastian }
+\ljmu
+
+\author{Cara Battersby}
+\cfa
+\uconn
+
+\author{Henrik Beuther}
+\mpia
+
+\author{Crystal Brogan}
+\nraocv
+
+\author{Yanett Contreras}
+\leiden
+
+
+\author{Joanna Corby}
+\nraocv
+\usf
+
+\author{Jeremy Darling}
+\casa
+
+\author{Chris De~Pree}
+\agnesscott
+
+\author{Roberto Galv{\'a}n-Madrid}
+\morelia
+
+
+\author{Guido Garay}
+\chile
+
+\author{Jonathan Henshaw}
+\mpia
+
+
+\author{Todd Hunter}
+\nraocv
+
+\author{J.~M.~Diederik Kruijssen}
+\zah
+
+\author{Steven Longmore}
+\ljmu
+
+\author{Fanyi Meng}
+\koeln
+
+\author{Elisabeth A.C. Mills }
+\sjsu
+\boston
+
+\author{Juergen Ott}
+\nrao
+
+\author{Jaime Pineda}
+\mpe
+
+
+
+\author{{\'A}lvaro S{\'a}nchez-Monge}
+\koeln
+\author{Peter Schilke}
+\koeln
+\author{Anika Schmiedeke}
+\koeln
+\mpe
+
+
+
+
+
+\author{Daniel Walker}
+\ljmu
+
+\author{David Wilner}
+\cfa
+ \begin{abstract}
 We report ALMA observations with resolution $\approx0.5$\arcsec at 3 mm  of
 the extended Sgr B2 cloud. We detect \ncores compact sources, the majority of
 which have diameters smaller than 5000 AU.  By ruling out alternative
 possibilities such as externally ionized
 globules, we conclude that these sources consist of a mix of \hchii regions
-and YSOs (young stellar objects), with most of the newly-detected sources being
-YSOs.
-Based on their luminosities, most of these sources must contain objects
-with stellar masses $M_*\gtrsim8$ \msun.
+and protostars, with most of the newly-detected sources being protostars.
+Based on their luminosities, most of these sources must have $M\gtrsim8$ \msun.
 %are predominantly high-mass
 %($M\gtrsim8$ \msun) protostars or centrally condensed prestellar cores.  
 The
@@ -28,8 +732,7 @@ spatial distribution of these
 sources, which are spread over a $\sim12\times3$ pc region, demonstrates that
 Sgr B2 is experiencing an extended star
 formation event, not just an isolated `starburst' within the protocluster
-(compact dust clumps that are likely to form stellar clusters) regions Main
-(M), North (N), and South (S).
+regions Main (M), North (N), and South (S).
 Using this new sample, we examine star formation thresholds and surface
 density relations in Sgr B2.
 While all of the detected
@@ -66,18 +769,22 @@ This version produced \today\ at \currenttime\ with hash \githash.
 \section{Introduction}
 
 % overview.py
-\Figure{figures/overview_figure_taper_labeled.pdf}
-{An overview of the Sgr B2 region, with the most prominent regions labeled.
+
+\begin{figure*}[!htp]
+\includegraphics[scale=1,width=\textwidth]{figures/overview_figure_taper_labeled.pdf}
+\caption{An overview of the Sgr B2 region, with the most prominent regions labeled.
 The image shows the ALMA 3 mm observations imaged with 1.5\arcsec resolution
 to emphasize the larger scale emission features.  White contours
 are included at [50, 500, 1000, 1500, 2000] mJy/beam to show the flux levels
 of the saturated regions.  For a cartoon version of this
 figure, see \citet{Schmiedeke2016a} Figure 1.}
-{fig:overview}{1}{\textwidth}
+\label{fig:overview}
+\end{figure*}
+
 
 The Central Molecular Zone (CMZ) of our Galaxy appears to be overall deficient
 in star formation relative to the gas mass it contains
-\citep{Guesten1983b,Morris1996a,Beuther2012a,Immer2012a,Longmore2013a,
+\citep{Beuther2012a,Immer2012a,Longmore2013a,
 Kauffmann2017c,Kauffmann2017b,Barnes2017b}.  This deficiency
 suggests that star formation laws, i.e., the empirical relations between
 the star formation rate and gas surface density, are not universal.  The gas
@@ -110,7 +817,7 @@ As summarized by \citet{Barnes2017b}, most of the dust ridge clouds contain
 $<1000$ \msun of stars, or $\sim2\%$ of their mass in stars.
 The Sgr B2 N (North), M (Main), and S (South) protoclusters \citep[][Figure
 \ref{fig:overview}]{Schmiedeke2016a} are exceptional in that they  are actively
-forming star clusters and contain high-mass YSOs (young stellar objects) and many compact \hii
+forming star clusters and contain high-mass protostars and many compact \hii
 regions \citep[e.g.,][]{Higuchi2015a,Gaume1995a}; despite the active star formation,
 the overall cloud appears to be as inefficient as the other dust ridge clouds
 \citep{Barnes2017b}. 
@@ -119,12 +826,11 @@ lower level, including the 20 \kms and 50 \kms clouds
 \citep{Lu2015b,Lu2017a}, Sgr C \citep{Kendrew2013a}, and dust ridge
 Clouds C, D, and
 E \citep[Walker et al, in prep;][]{Ginsburg2015b,Barnes2017b}.  These regions
-contain only a small number of high-mass cores, YSOs, and small \hii
+contain only a small number of high-mass cores, protostars, and small \hii
 regions.
 
 Most observations of the Sgr B2 cloud focus on the ``hot cores'' Sgr B2 N and
-M, which are high-mass protoclusters (they are likely to form clusters with
-$M\gtrsim10^4$ \msun).  The extended cloud has been the subject
+M, which are high-mass protoclusters.  The extended cloud has been the subject
 of some studies in gas tracers, but it has never been observed at high
 ($\lesssim10\arcsec$) resolution in the far infrared or millimeter regime.
 Radio observations at $\nu<25$ GHz have revealed extended \ammonia and several
@@ -174,10 +880,11 @@ archival VLA 1.3 cm continuum data (Appendix \ref{sec:onept3cm}).
 
 
 % pointsource_overlay_deepsouth.py
-\FigureTwo
-{figures/continuum_peak_MandN.pdf}
-{figures/cores_on_continuum_peak_MandN.pdf}
-{Images of the ALMA 3 mm continuum in the Sgr B2 M and N region.  The right
+
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/continuum_peak_MandN.pdf} }
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/cores_on_continuum_peak_MandN.pdf} }
+\caption{Images of the ALMA 3 mm continuum in the Sgr B2 M and N region.  The right
 figure additionally includes markers at the position of each identified
 continuum pointlike source: red dots are `conservative', high-confidence
 sources, orange squares are `optimistic', low-confidence sources, cyan are \hii
@@ -186,11 +893,12 @@ green X's are X-ray sources.  The massive
 protocluster Sgr B2 M is the collection of \hii regions and compact sources in
 the lower half of the image.  The other massive protocluster, Sgr B2 N, is in
 the center.
-% Imaging artifacts (sidelobes) are evident at the 1-2 mJy bm$^{-1}$ level.
 The crowded parts of the images are shown with inset zoom-in panels in
 Figure \ref{fig:MandNzooms}.
 }
-{fig:continuumMandN}{1}{0.5\textwidth}
+\label{fig:continuumMandN}
+\end{figure*}
+
 
 \section{Observation and Data Reduction}
 \label{sec:observations}
@@ -251,20 +959,14 @@ multi-frequency synthesis with two Taylor terms \citep{Rau2011a}, to yield a sub
 improved image (see Appendix \ref{sec:selfcal}).  The total dynamic range,
 measured as the peak brightness in
 Sgr B2 to the RMS noise in a signal-free region of the combined 7m+12m image,
-is 18000 (average RMS error $0.09$ mJy/beam, 0.05 K), while the dynamic range within one
-primary beam ($0.5$\arcmin) of Sgr B2 M is only 5300 (average RMS error $0.3$
+is 18000 (noise $\sim0.09$ mJy/beam, 0.05 K), while the dynamic range within one
+primary beam ($\sim0.5$\arcmin) of Sgr B2 M is only 5300 (noise $\sim0.3$
 mJy/beam, 0.16 K).  Because of the dynamic range limitations and an empirical
 determination that clean did not converge if allowed to go too deep, we cleaned
 to a threshold of 0.1 mJy/beam over all pixels with $S_\nu > 2.5$ mJy / beam
 as determined from a previous iteration of \texttt{tclean}.
 The final image used for most of the analysis in this paper was imaged with 
 Briggs robust parameter 0.5, achieving a beam size $0.54\arcsec\times0.46\arcsec$.
-Using the same visibility data, we also produce an image with robust parameter
--1, beam size $0.37\arcsec\times0.32\arcsec$, and average RMS 0.24 mJy/beam or
-0.27 K, and another tapered to exclude the short baselines imaged with robust
-parameter 2 that achieved a beam size $2.35\arcsec\times1.99\arcsec$ with
-average RMS 0.78 mJy/beam or 0.022 K.  All three images are distributed with
-the paper, but the main focus of the paper is on the robust 0.5 data.
 % We performed this same
 % process for both the longest-baseline data only (resolution $\sim0.5\arcsec$,
 % largest angular scale theoretically 15\arcsec\ [the shortest baseline] but more
@@ -276,12 +978,16 @@ the paper, but the main focus of the paper is on the robust 0.5 data.
 
 
 % pointsource_overlay_inset.py
-\Figure{figures/cores_on_continuum_peak_MandN_zoomin_legend.pdf}
-{A close-in look at the Sgr B2 M and N region.  Multiple insets show identified
+
+\begin{figure*}[!htp]
+\includegraphics[scale=1,width=\textwidth]{figures/cores_on_continuum_peak_MandN_zoomin_legend.pdf}
+\caption{A close-in look at the Sgr B2 M and N region.  Multiple insets show identified
 sources in some of the richer sub-regions.  The points are colored as in Figure
 \ref{fig:continuumMandN}.  The background image is the ALMA 3 mm continuum.
 See also Figure \ref{fig:MandNzoomsVLA}.}
-{fig:MandNzooms}{1}{\textwidth}
+\label{fig:MandNzooms}
+\end{figure*}
+
 
 We also produced full spectral data cubes.  These were lightly
 cleaned with a maximum of 2000 iterations of cleaning to a threshold of 100
@@ -300,19 +1006,18 @@ the only location in which an error $>5\%$ on the median-estimated continuum is
 expected
 is the Sgr B2 North core \citep[][Sanchez-Monge et al. 2017,
 submitted]{Sanchez-Monge2017a}.
-While many lines were included in the spectral setup\footnote{Other lines
-targeted include CH$_3$CN 5-4, HCN 1-0, HNC 1-0, HCO+ 1-0, H41$\alpha$, and
-H$_2$CS $3_{0,3}-2_{0,2}$.} only \cyanoacetylene J=10-9 is discussed here; of
-the included lines, it is the brightest and most widely detected.  This line
-has a critical density $n_{cr}\equiv A_{ij}/C_{ij} \approx5\ee{5}$ \percc
-\citep{Green1978b}, so it would traditionally be considered a high-density gas
-tracer.
+While many lines were included in the spectral setup, only \cyanoacetylene
+J=10-9 is discussed here; of the included lines, it is the brightest and most
+widely detected.  This line has a critical density $n_{cr}\equiv A_{ij}/C_{ij}
+\approx5\ee{5}$ \percc \citep{Green1978b}, so it would traditionally be
+considered a high-density gas tracer.
 
 % pointsource_overlay_deepsouth? (or pointsource_overlay)
-\FigureTwo
-{figures/continuum_peak_DeepSouth_saturated.pdf}
-{figures/cores_on_continuum_peak_DeepSouth_saturated.pdf}
-{Images of the ALMA 3 mm continuum in the Sgr B2 Deep South (DS) region.  
+
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/continuum_peak_DeepSouth_saturated.pdf} }
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/cores_on_continuum_peak_DeepSouth_saturated.pdf} }
+\caption{Images of the ALMA 3 mm continuum in the Sgr B2 Deep South (DS) region.  
 The right figure additionally
 includes markers at the position of each identified continuum pointlike
 source: red dots are `conservative', high-confidence sources,
@@ -327,9 +1032,10 @@ the diffuse components in the southern half of the image are likely to be real.
 The crowded parts of the images are shown with inset zoom-in panels
 in Figure \ref{fig:deepsouthzooms}.
 }
-{fig:continuumDS}{1}{0.5\textwidth}
+\label{fig:continuumDS}
+\end{figure*}
 
-% http://apps.canfar.net/storage/list/AstroDataCitationDOI/CISTI.CANFAR/17.0007/data
+
 The processed data are available from \url{https://doi.org/10.11570/17.0007} in
 the form of four $\sim225$ GB data cubes for the full data sets, three
 continuum images at different resolutions, and two cubes of \cyanoacetylene at
@@ -339,31 +1045,28 @@ different resolutions.
 \label{sec:colmaps}
 We use archival data to create column density maps at a coarser
 resolution than the ALMA data, since the ALMA data are not sensitive
-enough to make direct column density measurements and because they
-may be contaminated by other (non-dust) emission mechanisms.   We use Herschel
-Hi-Gal data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby
-et al, in prep).  These fits were performed at 25\arcsec resolution, using the
-70, 160, 250, and 350 \um data and excluding the 500 \um channel.  The
-estimated fit uncertainty in the column density is $25\%$, with an upper limit
-on the systematic uncertainty of a factor of two (Battersby et al, in prep).
-To obtain column density maps with greater resolution, we combine the Herschel
-data with SHARC 450 \um and
+enough to make direct column density measurements.   We use Herschel Hi-Gal
+data \citep{Molinari2010a} to perform SED fits to each pixel (Battersby et al,
+in prep).  These fits were performed at 25\arcsec resolution, using the 70, 160,
+250, and 350 \um data and excluding the 500 \um channel.  The estimated 
+uncertainty is $\sim25\%$, with an upper limit on the systematic uncertainty
+of a factor of two (Battersby et al, in prep).  To obtain column density maps
+with greater resolution, we combine the Herschel data with SHARC 450 \um and
 SCUBA 350 \um images.
 
 
 The CSO SHARC data were reported in \citet{Bally2010a} and have a nominal
-resolution of 9\arcsec at 350 \um, however, at this resolution, the SHARC data
-display a much higher surface brightness than the Herschel data on the same
-angular scale.  An assumed resolution of 11.5\arcsec gives a better surface
-brightness match and is consistent with the measured scale of Sgr B2 N in the
-image.  This calibration difference is likely to have been produced by a
+resolution of 9\arcsec at 350 \um, however, at this resolution,
+the SHARC data display a much higher surface brightness than the Herschel
+data on the same angular scale.  An assumed resolution of 11.5\arcsec gives a
+better surface brightness match and is consistent with the measured scale of
+Sgr B2 N in the image.  This calibration difference is likely to have been a
 combination of blurring by pointing errors, surface imperfections, and the
-gridding process, all of which increase the effective beam size, and flux
-calibration errors.  In any case, the Herschel data provide the most
-trustworthy absolute calibration scale, since they were taken from space and
-calibrated to an absolute scale using Planck data
-\citep{Bendo2013a,Bertincourt2016a}, so we assume the Herschel calibration is
-correct when combining the data.
+gridding process, which all increase the effective beam size, and flux
+calibration errors.  In any case, the Herschel data
+provide the most trustworthy absolute calibration scale, since they were taken
+from space and calibrated to an absolute scale using Planck data
+\citep{Bendo2013a,Bertincourt2016a}.
 
 The JCMT SCUBA 450 \um data were reported in \citet{Pierce-Price2000a} and
 \citet{di-Francesco2008a} with a resolution of 8\arcsec.  We found that the
@@ -372,16 +1075,15 @@ SCUBA data had a flux scale significantly discrepant from the Herschel-SPIRE
 difference.  We had to
 scale the SCUBA data up by a factor $\approx3$ to make the data agree with
 the Herschel-SPIRE images on these scales.  While such a large flux calibration
-error seems implausible, it can occur if the beam size of the ground-based data
+error seems implausible, it is plausible if the beam size of the ground-based data
 is larger than expected.  To assess this possibility, we fit 2D Gaussians to
 several sources in the SCUBA CMZ maps, measuring a FWHM toward Sgr B2 N of
-approximately 14\arcsec, which means the observed beam area is about three times larger
-in area than theoretically expected.  Among several other sources fit in the
-SCUBA map, the smallest FWHM measured was $\approx10.5$\arcsec.  Between the
+approximately 14\arcsec, which means the beam area is $\approx3\times$ larger
+in area than the theoretical size.  Among several other sources fit in the
+SCUBA map,  the smallest FWHM measured was $\approx10.5$\arcsec.  Between the
 larger beam area, flux
 calibration errors \citep[quoted at 20\percent in][]{Pierce-Price2000a}, and
-the dust emissivity correction (35-50\percent for dust index $\beta=1-2$, where
-$\beta=\alpha-2$), this large flux
+the dust emissivity correction (35-50\percent for $\beta=3-4$), this large flux
 scaling factor is plausible. This large correction factor is consistent with
 the large error beam found by \citet{di-Francesco2008a}, with effective FWHM
 $\approx17.3$\arcsec, since they used additional smoothing when creating their
@@ -389,50 +1091,32 @@ maps.  As with the SHARC data above, we trust the space-based calibration
 over the ground-based.
 
 
-We combined the Herschel data with the SHARC and SCUBA data to create
-higher-resolution maps at 350 \um (Herschel-SPIRE+SHARC) and 450 \um
-(Herschel-SPIRE+SCUBA).  The data combination process is discussed detail in
-Appendix \ref{sec:singledishcomb}, but in brief, we used a `feathering'
-technique \citep[e.g.,][]{Stanimirovic2002a,Cotton2017a} to combine the images
-in the Fourier domain.
-
+To obtain higher resolution column density maps, we used the combined
+Herschel-SPIRE+SHARC and Herschel-SPIRE+SCUBA maps.
 %We combined the SHARC and SCUBA data with Herschel SPIRE 350 and 500 \um
 %images \citep{Molinari2010a}, respectively.   
+We created several column density maps, some assuming arbitrary constant
+temperatures equal to the minimum and maximum expected dust temperatures (20
+and 50 K), and another using the temperature measured with Herschel
+interpolated onto the higher-resolution SCUBA and SHARC grids.  Because of the
+interpolation and fixed temperature assumptions, the column maps are not very
+accurate and should not be used for systematic statistical analysis of the
+column density distribution (i.e., PDF shape analysis) without careful
+attention to
+the large implied
+uncertainties.  However, these higher-resolution data are used in this paper
+to provide the best estimates of the local column density around our sample
+of compact millimeter continuum sources.
+The data combination is discussed in more detail in Appendix
+\ref{sec:singledishcomb}.
 
-Using these higher-resolution maps, we created several column density maps
-using different assumptions about the dust temperature.  For simplicity, we
-produced maps assuming arbitrary constant temperatures equal to the minimum and
-maximum expected dust temperatures (20 and 50 K). We produced additional maps
-using the temperature measured with Herschel interpolated onto the
-higher-resolution SCUBA and SHARC grids.  Because of the interpolation and
-fixed temperature assumptions, the column maps are not very accurate and should
-not be used for systematic statistical analysis of the column density
-distribution (i.e., PDF shape analysis) without careful attention to the large
-implied uncertainties.  However, these higher-resolution data are used in this
-paper to provide the best estimates of the local column density around our
-sample of compact millimeter continuum sources.
-
-One important uncertainty in these column density maps is possible foreground
-or background contamination.  Sgr B2 is \dsgrb away from us in the direction of
-our Galaxy's center, meaning there is a potentially enormous amount of material
-unassociated with the Sgr B2 cloud along the line of sight.  This material may
-have column densities as low as 5\ee{21} \persc or as high as 5\ee{22} \persc,
-as measured from relatively blank regions in the Herschel column density map
-\citep[][and in prep]{Battersby2011a}.  The former value corresponds to the
-background at high latitudes, $b\sim0.5$, while the latter  is approximately
-the lowest seen within our field of view. 
-
-\section{Analysis of the continuum sources}
-In this section, we identify continuum sources (\S \ref{sec:contsources}),
-match them with other catalogs (\S \ref{sec:crossmatch}), and discuss
-their nature (\S \ref{sec:classification}).
-%{\color{red} TODO: replace this intro paragraph.}
-% \label{sec:analysis}
-% The analysis section includes catalog cross-matching (\S
-% \ref{sec:crossmatch}), source classification (\S
-% \ref{sec:classification}), discussion of the star formation rate and flux
-% distribution (\S \ref{sec:distributionsandsfr}), and examination of star formation
-% thresholds (\S \ref{sec:thresholds}) and relations (\S \ref{sec:gutermuth}). 
+\section{Analysis}
+\label{sec:analysis}
+The analysis section includes catalog cross-matching (\S
+\ref{sec:crossmatch}), source classification (\S
+\ref{sec:classification}), discussion of the star formation rate and flux
+distribution (\S \ref{sec:distributionsandsfr}), and examination of star formation
+thresholds (\S \ref{sec:thresholds}) and relations (\S \ref{sec:gutermuth}). 
 
 \subsection{Continuum Source Identification}
 \label{sec:contsources}
@@ -461,30 +1145,21 @@ All of these features are evident in Figures \ref{fig:continuumMandN} and
 
 Because the noise varies significantly across the map (it is higher near Sgr B2
 M), and because there is extended emission, a uniform selection criterion is
-not possible.  We therefore include two levels of source identification,
-`high-confidence' sources, which are peaks clearly above the noise in regions
-of low-background, and `low-confidence' sources that are somewhat lower
-signal-to-noise  and are often in regions with higher background in which the
-noise estimate may be inaccurate.  The difference between the high- and low-
-confidence sources is subjective, since it is based in part on a by-eye
-assessment of how much the local noise is affected by resolved-out structure.
-Part of the by-eye assessment involved blinking between the three images with
-different resolution described in \S \ref{sec:observations}; if a structure
-looked point-like in the highest-resolution image, but turned out to be part of
-a more extended structure in the lowest-resolution (and highest-sensitivity)
-image, we marked it as `low-confidence'.
+not possible.  We therefore include two levels of source identification, `high
+confidence' sources, which are selected conservatively in regions of
+low-background, and `low-confidence' sources that are somewhat lower
+signal-to-noise and are often in regions with higher background (labeled
+`conservative' and `optimistic', respectively, in Figure \ref{fig:fluxhist} and
+\ref{fig:alphahist}); the difference between the criteria is subjective.  
+We measure the local noise for each source by taking the
+median absolute deviation in an annulus 0.5 to 1.5\arcsec around the source
+center; these noise measurements are reported in Table \ref{tab:photometry}.
 
-Outside of the dense clusters, every peak that is higher than five times the
-lowest measured RMS noise value was visually inspected.  Peaks that were part
-of extended structures but not significantly different from them (e.g., a
-5-$\sigma$ peak sitting on a 4-$\sigma$ extended structure) were excluded.  We
-excluded sources with radial extents $r>1\arcsec$ ($r>0.04$ pc), i.e., extended
-\hii regions (all such sources have corresponding centimeter-wavelength
-detections indicating that they are \hii regions).
-
-We measure the local noise for each source by taking the median absolute
-deviation in an annulus 0.5 to 1.5\arcsec around the source center; these noise
-measurements are reported in Table \ref{tab:photometry}.
+Outside of the dense clusters, every locally 5-$\sigma$ peak was visually
+inspected.  Peaks that were part of extended structures but not significantly
+different from them (e.g., a 5-$\sigma$ peak sitting on a 4-$\sigma$ extended
+structure) were excluded.  We excluded sources with extents $r>1\arcsec$
+($r>0.04$ pc), i.e., extended \hii regions.
 
 % %TODO: check
 % All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
@@ -514,26 +1189,27 @@ This measurement is over a narrow frequency range ($\approx90-100$ GHz).
 maps, and we used the $\alpha$ value at the position of peak intensity for each
 source.  We include in the analysis only those sources with $|\alpha| > 5
 \sigma(\alpha)$ or $\sigma(\alpha) < 0.1$; the latter include sources with
-$\alpha\sim0$ measured at relatively high precision.  We exclude the lower-precision
-measurements of $\alpha$ because they are not useful for identifying the emission
-mechanism.  \nalphas sources met these
+$\alpha\sim0$ measured at relatively high precision.  \nalphas sources met these
 criteria. Several of the brightest sources did not have significant
 measurements of $\alpha$ because they are in the immediate neighborhood of Sgr
 B2 M or N and therefore have significantly higher background and noise,
-preventing a clear measurement.
+preventing a clear measurement.  To check the calibration of the spectral index
+measurement, we imaged one of our calibrators, J1752-2956, and obtained a
+spectral index $\alpha=-0.62\pm0.14$, consistent with the expected
+$\alpha\approx-0.7$ for an optically thin synchrotron source
+\citep[e.g.,][]{Condon2007a}.  We also note that the \emph{relative} spectral
+index measurements in our catalog should be accurate, since all sources come
+from the same map with identical calibration.
 
-To check the calibration of the spectral index measurement, we imaged one of
-our calibrators, J1752-2956, and obtained a spectral index
-$\alpha=-0.62\pm0.14$, consistent with the expected $\alpha\approx-0.7$ for an
-optically thin synchrotron source \citep[e.g.,][]{Condon2007a}.  We also note
-that the \emph{relative} spectral index measurements in our catalog should be
-accurate, since all sources come from the same map with identical calibration.
 
-\Figure{figures/cores_on_continuum_peak_DeepSouth_zoomin_legend.pdf}
-{A close-in look at the Sgr B2 DS region.  Multiple insets show identified sources
+\begin{figure*}[!htp]
+\includegraphics[scale=1,width=\textwidth]{figures/cores_on_continuum_peak_DeepSouth_zoomin_legend.pdf}
+\caption{A close-in look at the Sgr B2 DS region.  Multiple insets show identified sources
 in some of the richer sub-regions.  The points are colored as in Figure
 \ref{fig:continuumMandN}.  The background image is the ALMA 3 mm continuum.}
-{fig:deepsouthzooms}{1}{\textwidth}
+\label{fig:deepsouthzooms}
+\end{figure*}
+
 
 We detected \ncores compact continuum sources, and they are listed
 in Table \ref{tab:photometry}.  Their flux distribution is
@@ -543,22 +1219,21 @@ Generally, spectral indices $\alpha<0$ indicate nonthermal (e.g., synchrotron)
 emission, $-0.1<\alpha<2$ may correspond to free-free sources of various
 optical depths, $\alpha=2$ for any optically thick thermal source,
 and $\alpha>2$ usually indicates optically thin dust emission.  These indices
-will be discussed further in Section \ref{sec:classification}.
+will be discussed further in the next Section.
 
-\subsection{Source Classification based on Catalog Cross-Matching}
+\subsection{Catalog Cross-Matching}
 \label{sec:crossmatch}
 We cross-matched our source catalog with catalogs of \ammonia sources, \hii
 regions, X-ray sources, Spitzer sources, and methanol and water masers.
-%Associations with these types of sources can be used to classify the sources.
+Associations with these types of sources can be used to classify the sources.
 
-\paragraph{\hii regions}
 We classified sources as \hii regions if there is a corresponding 0.7 or 1.3 cm
 source from one of the previous VLA surveys
 \citep{Gaume1995a,Mehringer1995b,De-Pree1996a,De-Pree2015a} within one ALMA
 beam (0.5\arcsec).  \nhii of our sources are classified as \hii regions; these
 all have $S_{3 \textrm{mm}} > 9$ mJy.  The
 majority of these are unresolved, but we have included \hii regions with radii
-up to $r\leq1\arcsec$ in our catalog.  Optically thick \hii regions (like any
+up to $\approx1\arcsec$ in our catalog.  Optically thick \hii regions (like any
 blackbody) have a spectral index $\alpha=2$.  Optically thin \hii regions have
 a nearly flat spectral index, $\alpha=-0.1$ \citep{Condon2007a}.   The observed
 sources with \hii region counterparts have spectral indices consistent with the
@@ -577,58 +1252,48 @@ young stars.
 %high-mass young stars, but they are not `protostars'.
 
 
-\paragraph{\ammonia sources}
 \citet{Martin-Pintado1999a} observed part of Sgr B2 DS and M in \ammonia with
 the VLA.  They identified three ``hot cores'' based on \ammonia (4,4) detections.
 Only their first source HC1 has an associated 3 mm continuum source, suggesting
 that HC2 and HC3 are not genuine hot cores but are some other variant of
 locally heated (perhaps shock-heated) gas.  However, the
-association between HC1 and our source 43 suggests that it is a YSO with a
-massive envelope.  Of the 6 \ammonia (3,3) maser sources identified
+association between HC1 and our source 43 suggests that it is a young stellar
+object with a massive envelope.  Of the 6 \ammonia (3,3) maser sources identified
 by \citet{Martin-Pintado1999a}, three are in regions with high 3 mm source
 density but lack a clear one-to-one source association, one is coincident with
-an \hii region not in our catalog, and two have no obvious associations.  The
+an \hii region not in our catalog, and two have no obvious associations; the
 \ammonia (3,3) masers therefore do not appear to be unambiguous tracers of star
 formation in this environment, consistent with the conclusions of
 \citet{Mills2015a}.  
 
 
-\paragraph{6.67 GHz \methanol masers}
 Class II methanol masers are exclusively associated with sites of high-mass
 star formation.  The \citet{Caswell2010a} Methanol Multibeam (MMB) Survey
 identified 11 sources in our observed field of view (their survey covers our
 entire observed area), of which \nmasermatch have a clear match to within
 1\arcsec of a source in our catalog (the MMB catalog sources have a positional
 accuracy of $\approx0.4\arcsec$, but masers may have an extent up to 1\arcsec).
-These sources are clearly identified as high-mass YSOs.
+These sources are clearly identified as high-mass protostars.
 The single maser that does not have an associated millimeter source is 5\arcsec
 west of Sgr B2 S and resides near some very faint and diffuse 3 mm
 emission; it is unclear why the 3 mm is so weak here, but it hints that there
-are MYSOs with 3 mm emission below our
+are massive young stellar objects (MYSOs) with 3 mm emission below our
 detection limit.
 
 
-\paragraph{\water masers}
 Water masers are generally associated with forming young stars.  We
-matched our catalog with the \citet{McGrath2004a} water maser catalog,
+also matched our catalog with the \citet{McGrath2004a} water maser catalog,
 finding that 23 of our sources have a water maser within 1\arcsec.
-These sources are likely to contain YSOs, but not necessarily
-MYSOs based on their \water maser detections alone.  There are 14 masers
-from their catalog that do not have associated sources in our catalog, though
-not all of these maser spots are spatially distinct.  Most of these unassociated
-masers are seen outside of Sgr B2 N and Sgr B2 S and may be associated with
-outflows.
+Again, these sources are likely to contain protostars, but not necessarily
+MYSOs based on their \water maser detections alone.
 
-\paragraph{X-ray sources}
 Some young stars exhibit X-ray emission, including some MYSOs
 \citep[e.g.,][]{Townsley2014a}, so we searched for X-ray emission from our
 sources.  \nxraymatch of the sources have X-ray counterparts in the
 \citet{Muno2009a} Chandra point source catalog within 1\arcsec.  The
 \citet{Muno2009a} catalog covers our entire observed area.  The X-ray
-associated sources most likely contain YSOs.  There are 102 X-ray sources in
-the field of view that do not have associated 3 mm sources.
+associated sources most likely either contain protostars or young stars.
 
-\paragraph{Spitzer mid-infrared sources}
 We searched the \citet{Yusef-Zadeh2009a} catalogs of 4.5 \um excess sources and
 YSO candidates and found only one source association, though there are 5 and
 14, respectively, of these sources in our field of view.  Two of the 4.5 \um
@@ -639,104 +1304,77 @@ that the lack of associations is at least in part because of the high
 extinction in the regions containing the 3 mm cores; there are overall fewer
 Spitzer sources in these parts of the maps.
 
-\paragraph{44 GHz \methanol masers}
-Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz Class I
-\methanol maser sources for associations, finding no matches with any of our
-sources out of the 18 nonthermal \methanol emission sources they reported.
-This methanol maser line apparently does not trace star formation.
+Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz Class I \methanol
+maser sources for associations, finding no matches with any
+of our sources.  This methanol maser line apparently does not trace star
+formation.
 
 
-\subsection{Nature of the Continuum Sources}
+\subsection{Source Classification}
 \label{sec:classification}
-The majority of the detected sources are observed only as 3 mm continuum
-sources, with no spectral line information or detection at other wavelength.
-In this section, we employ a variety of arguments to classify the sample of new
-sources.    Plausible emission mechanisms include free-free and thermal dust
-emission, so we explore whether the sources could be different classes of dust
-or free-free sources.  We examine whether they are dusty prestellar cores (\S
-\ref{sec:alt0}), externally ionized globules (\S \ref{sec:alt1}), \hii regions
-from an extended population of OB stars (\S \ref{sec:alt2}), or \hii regions
-around young massive stars (\S \ref{sec:theyarehiiregions}).  After determining
-that the above alternatives do not readily explain the whole sample, we
-conclude that the sources are primarily dusty sources with internal heating
-sources (\S \ref{sec:theyareprotostars}).
+For the majority of the detected sources, we have only a continuum detection at
+3 mm.    In this section, we employ a variety of arguments to classify the
+sample of new sources.  Most of our sources have no match in other catalogs
+(see Section \ref{sec:crossmatch}), so we discuss what types of objects they
+could be given their 3 mm continuum detections.  Plausible emission mechanisms
+include free-free and thermal dust emission, so we explore whether the sources
+could be different classes of free-free sources: externally ionized
+globules (\S \ref{sec:alt1}), \hii regions from an extended population of
+OB stars (\S \ref{sec:alt2}), or \hii regions around young massive stars (\S
+\ref{sec:theyarehiiregions}).  We conclude that they are
+primarily dusty sources (\S \ref{sec:theyareprotostars}).
 
-\paragraph{A lack of line emission}
 We visually inspected the spectra extracted from the full line cubes, and no
 lines are detected peaking toward the majority of the sources (most sources
-have emission in some lines, such as \cyanoacetylene 10-9, but this emission is
+have emission in some lines (e.g., \cyanoacetylene), but this emission is
 clearly extended and not associated with the compact source).  Given the
 relatively poor line sensitivity (RMS $\approx 6$ K), the dearth of detections
 is not very surprising.  We therefore cannot use spectral lines to classify
 most sources.
 
 
-% We start with a few alternatives we are able to rule out: externally
-% ionized gas globules, internally ionized \hii regions from an older
-% generation of `interloper' stars, and internally ionized \hii regions
-% from a newly-formed generation of massive stars.  We then discuss
-% why these sources are most likely embedded YSOs.
-
 % core_flux_distributions
 %\FigureOneCol{figures/core_peak_fluxdensity_powerlawfit.png}
-\FigureOneCol{figures/core_peak_fluxdensity_coloredbyclass.png}
-{A histogram of the flux density (the peak intensity converted to flux density
+
+\begin{figure}[!htp]
+\includegraphics[scale=1,width=0.5\textwidth]{figures/core_peak_fluxdensity_coloredbyclass.png}
+\caption{A histogram of the flux density (the peak intensity converted to flux density
 assuming the source is unresolved) of the observed sources. 
 The histograms are stacked such that there are a total of 27 sources in the
 highest bin.
-%The two brightest
-%regions not identified as \hii regions are Sgr B2M f1 and Sgr B2N K2; in these
-%regions, it is unclear whether the free-free or dust emission dominates, and
-%these sources are not cataloged as \hii regions in online databases (Sgr B2M f1
-%is an \hii region, but the closest match in our catalog is an SMA-detected dust
-%core).
 }
-{fig:fluxhist}{1}{0.5\textwidth}
+\label{fig:fluxhist}
+\end{figure}
 
-\subsubsection{Alternative 1: The sources are dust-only `prestellar' cores}
-\label{sec:alt0}
-The simplest assumption is that all sources we have detected that were not
-detected at longer wavelengths are pure dust emission sources at a constant
-temperature, i.e., they are starless cores.
 
+To aid in our classification, we note some properties of dust at 3 mm.  The
+simplest assumption is that all sources we have detected that were not detected
+at longer wavelengths are pure dust emission sources at a constant temperature.
 At \dsgrb, a 1 mJy source corresponds to an optically thin gas mass\footnote{We
 assume a gas-to-dust ratio of 100 throughout this work.} of
 $M(40\mathrm{K})=18$ \msun or $M(20\mathrm{K})=38$ \msun assuming a dust
-opacity index $\beta=1.75$ (spectral index $\alpha=3.75$ if measured on the
-Rayleigh-Jeans tail of the spectral energy distribution) to extrapolate the
-\citet[][MRN with thin ice mantles anchored at 1mm]{Ossenkopf1994a} opacity to
-$\kappa_{3.1 \mathrm{mm}}=0.0018$ cm$^2$ g$^{-1}$ (per gram of gas).  Our
-dust-only (i.e., excluding free-free emission) 5-$\sigma$ sensitivity limit at
-20 K therefore ranges from $M>19$ \msun (0.5 mJy) to $M>94$ \msun (2.5 mJy)
-across the map.  If we were to assume that these are all cold, dusty sources,
-as is typically (and reasonably) assumed for local clouds, they would be
-extremely massive and dense, with the lowest measurable density being
-$n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in an
-$r=0.2$\arcsec$=1700$ AU radius sphere, i.e., a sphere with radius equal to the
-beam $1-\sigma$ size).
+opacity index $\beta=1.75$ ($\alpha=3.75$ on the Rayleigh-Jeans tail) to
+extrapolate the \citet[][MRN with thin ice mantles anchored at
+1mm]{Ossenkopf1994a} opacity to $\kappa_{3.1 \mathrm{mm}}=0.0018$ cm$^2$
+g$^{-1}$ (per gram of gas).  Our dust-only (i.e., excluding free-free emission)
+5-$\sigma$ sensitivity limit at 20 K therefore ranges from $M>19$ \msun (0.5
+mJy) to $M>94$ \msun (2.5 mJy) across the map.  If we were to assume that these
+are all cold, dusty sources, as is typically (and reasonably) assumed for local
+clouds, they would be extremely massive and dense, with the lowest measurable
+density being $n(20\mathrm{K}) > 1\ee{8}$ \percc (corresponding to 19 \msun in
+an $r=0.2$\arcsec$=1700$ AU radius sphere, i.e., a sphere with radius equal
+to the beam $1-\sigma$ size).  Such extreme objects are possible,
+but since we have detected $>100$ of these sources, we evaluate other
+possibilities.
 
-Such extreme objects are technically possible, but we argue the majority are
-unlikely to fall into this class.  We have detected $>100$ of these sources,
-but only a handful of such sources have ever been claimed before
-\citep[e.g.,][]{Kong2017a}, and few of those reported are so compact
-\citep[e.g.,][]{Cyganowski2014a}.   Theoretical models of high-mass
-prestellar cores \citep{McKee2003a} suggest they are much larger and less
-concentrated than the sources we observe.
-
-At the high implied densities ($n(20 \mathrm{K})>10^8$ \percc), it is unlikely
-cores are unbound; these sources have $v_{esc} > 2 \kms (M/10 \msun)^{1/2}$
-from $r=0.5\arcsec=4200$ au.  The high density required for our sources
-results in a very short free-fall timescale, $t_{ff}<3000 (n/10^8
-\percc)^{-1/2}$ yr.  Assuming such cores do exist, the timescale for them to
-form a central YSO (a central heating source) is very short.  While there are
-few constraints on the accreting lifetime of high-mass YSOs, that timescale is
-almost certainly 1-2 orders of magnitude longer.  For a given population of
-dusty sources, we would expect only of order 1-10\% of them to be starless at
-any given time.  We will revisit the characteristics of centrally heated dust
-sources in Section \ref{sec:theyareprotostars} below.
+We start with a few alternatives we are able to rule out: externally
+ionized gas globules, internally ionized \hii regions from an older
+generation of `interloper' stars, and internally ionized \hii regions
+from a newly-formed generation of massive stars.  We then discuss
+why these sources are most likely embedded protostars.
 
 
-\subsubsection{Alternative 2: The sources are externally ionized gas blobs}
+\subsubsection{Alternative 1: The sources are externally ionized gas blobs}
 \label{sec:alt1}
 One possibility is that these sources are not dust-dominated, nor pre- or
 protostellar, but are instead externally ionized, mostly neutral gas clumps
@@ -746,46 +1384,38 @@ heads of cometary clouds, externally ionized globules
 disks), and their observed emission would give little clue to their nature because
 the light source is extrinsic.
 
-The majority of the detected sources have size $<2000$ AU, i.e., they are
-unresolved\footnote{We consider a source unresolved if its radius is smaller
-than the Gaussian width of our beam, $0.2\arcsec\approx2000$ au, rather than
-the FWHM of $0.5\arcsec\approx4000$ au, since a source with the latter width
-would be measurably extended when convolved with the beam.}.  By contrast, the
-free-floating EGGs (`frEGGs') so far observed have sizes 10,000-20,000 AU
-\citep{Sahai2012a,Sahai2012b}, so they would be resolved in our observations.
-Toward the brightest frEGG in Cygnus X, \citet{Sahai2012b} measured a peak
-intensity $S_{8.5 GHz} \approx 1.5$ mJy/beam in a $\approx3\arcsec$ beam.
-Cygnus X is $6\times$ closer that the Galactic center, so their beam size is
-the same physical scale as ours.  If the free-free emission is thin
-($\alpha=-0.1$), the brightness in our data would be $S_{95 GHz} =
+The majority of the detected sources have size $<4000$ AU, i.e., they are
+unresolved.  By contrast, the free-floating EGGs (`frEGGs') so far observed have sizes
+10,000-20,000 AU \citep{Sahai2012a,Sahai2012b}, so they would be resolved in
+our observations.  Toward the brightest frEGG in Cygnus X, \citet{Sahai2012b}
+measured a peak intensity $S_{8.5 GHz} \approx 1.5$ mJy/beam in a
+$\approx3\arcsec$ beam.  Cygnus X is $6\times$ closer that the Galactic center,
+so their beam size is the same physical scale as ours.  If the free-free
+emission is thin ($\alpha=-0.1$), the brightness in our data would be $S_{95 GHz} =
 (95/8.5)^{-0.1} S_{8.5 GHz} = 0.79 S_{8.5 GHz} \approx 1.2$ mJy/beam.  These
-frEGGs would be detectable in our data.  Comparison to radio observations at a
-similar resolution will be needed to rule out the externally ionized globule
-hypothesis for the resolved regions within our sample.  Since we expect to
-resolve frEGGs, the unresolved sources in our sample are unlikely to be frEGGs.
+frEGGs would be detectable in our data.  Comparison to radio observations
+at a similar resolution will be needed to rule out the externally ionized
+globule hypothesis for the resolved regions within our sample, but the unresolved
+sources are unlikely to be frEGGs.
 
 % core_table_plots
-\FigureOneCol{figures/core_alpha_coloredbyclass.png}
-{A histogram of the spectral index $\alpha$ for those sources with a statistically
+
+\begin{figure}[!htp]
+\includegraphics[scale=1,width=0.5\textwidth]{figures/core_alpha_coloredbyclass.png}
+\caption{A histogram of the spectral index $\alpha$ for those sources with a statistically
 significant measurement.  The \hii regions cluster around $\alpha=0$, as expected
 for optically thin free-free emission, while the unclassified sources cluster
 around $\alpha=3.5$, which is  consistent with dust emission.
-%There are two particularly notable outliers: the source with a highly negative
-%spectral index, Source 167, has a statistically significant measurement but is
-%in a region of particularly high extended and diffuse background, so the
-%measurement may not be reliable.  The other unidentified source with $\alpha\sim-1$
-%is Source 80, which is very close to the \hii region Sgr B2 S, but is not detected
-%in the \citet{de-Pree1996a} 1.3 cm data; it may be an \hii region or it may
-%be contaminated by the nearby \hii region.
 }
-{fig:alphahist}{1}{0.5\textwidth}
+\label{fig:alphahist}
+\end{figure}
+
 
 If the detected sources were either EGGs or cometary clouds, we would expect
 them to be located within diffuse \hii regions, since that is where all other
 sources of this type are seen, and since an external ionizing agent is needed
-to illuminate them.  Many of the sources are near but not embedded in \hii
-regions, as seen in Figure \ref{fig:coreson20cmandhc3n}a, which shows 20 cm
-continuum emission that most likely traces ionized gas.  The sources are
+to illuminate them.  Many of the sources are near \hii regions, as seen in
+Figure \ref{fig:coreson20cmandhc3n}a, but not within them.  The sources are
 nearly all associated with a ridge of molecular (\cyanoacetylene) emission
 (Figure
 \ref{fig:coreson20cmandhc3n}b).  If they are deeply embedded within the
@@ -793,20 +1423,11 @@ molecular material, they cannot be externally ionized.
 %The current data do not provide enough information on the geometry of the
 %clouds to rule out the possibility that the point sources are just illuminated
 %cloud edges, but 
-
-The ionized gas emission (20 cm, Figure \ref{fig:coreson20cmandhc3n}a) and
-molecular gas emission (\cyanoacetylene, Figure \ref{fig:coreson20cmandhc3n}b)
-are anticorrelated.  The \cyanoacetylene emission wraps around the 20 cm
-emission, and has a significant extent beyond the edge of the 20 cm emission.
-If the \cyanoacetylene were tracing a photon-dominated region, we would expect
-the \cyanoacetylene emission to peak along the edge of the \hii region.
-Since it does not, we conclude that the \cyanoacetylene emission is tracing a
-`quiescent' molecular cloud, i.e., one that is not significantly heated by
-the adjacent \hii region.  Most of the 3 mm sources are aligned with bright
-\cyanoacetylene emission, implying that they are embedded within it.
-If they are indeed embedded in an extended molecular cloud, that cloud
-should shield them from ionizing radiation.  The sources are therefore
-mostly not externally ionized.
+The fact that the ionized gas is brightest nearby, rather than directly on top
+of, the \cyanoacetylene suggests that the \cyanoacetylene traces a full
+molecular cloud rather than a thin PDR-like layer, which would be required if
+these sources are cometary clouds.  The association with dense molecular gas
+implies that the sources are not externally ionized objects.
 
 A final point against the externally ionized hypothesis is the observed
 spectral indices shown in Figure \ref{fig:alphahist}.  We measured spectral
@@ -844,7 +1465,7 @@ consistent with dust emission.
 % corresponding to a PDR.  Such edges are seen in the Orion Bar and M16's
 % ``Pillars of Creation''.   We do not observe any such features here.
 % 
-% We know from our molecular line observations in \cyanoacetylene that most of the
+% We know from our molecular line observations in HC$_3$N that most of the
 % continuum sources lay along a molecular ridge (TODO: FIGURE), so it appears
 % most of these sources are embedded in molecular material.
 
@@ -861,14 +1482,15 @@ consistent with dust emission.
 %% pointsource_overlay
 %\FigureOneCol{figures/cores_on_HC3N_peak.png}
 %{The location of the detected continuum sources (red points) overlaid on a map
-%of the \cyanoacetylene peak intensity.  \cyanoacetylene traces moderate-density molecular gas.}
+%of the HC$_3$N peak intensity.  HC$_3$N traces moderate-density molecular gas.}
 %{fig:coresonhc3n}{1}{0.5\textwidth}
 
 % pointsource_overlay.py
-\FigureTwo
-{figures/cores_on_20cm_continuum.png}
-{figures/cores_on_HC3N_peak.png}
-{(left) The location of the detected continuum sources (red points) overlaid on a 20
+
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/cores_on_20cm_continuum.png} }
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/cores_on_HC3N_peak.png} }
+\caption{(left) The location of the detected continuum sources (red points) overlaid on a 20
 cm continuum VLA map highlighting the diffuse free-free (or possibly
 synchrotron) emission in the region \citep{Yusef-Zadeh2004a}.
 (right) Continuum sources overlaid on a map
@@ -879,9 +1501,11 @@ high-confidence sources, orange squares are `optimistic', low-confidence sources
 cyan are \hii regions, magenta +'s are \methanol masers, blue +'s are \water
 masers, and green X's are X-ray sources.
 }
-{fig:coreson20cmandhc3n}{1}{0.5\textwidth}
+\label{fig:coreson20cmandhc3n}
+\end{figure*}
 
-\subsubsection{Alternative 3: The sources are \hii regions produced by
+
+\subsubsection{Alternative 2: The sources are \hii regions produced by
 interloper ionizing stars}
 \label{sec:alt2}
 If there is a large population of older (age 1-30 Myr) massive stars, they
@@ -889,31 +1513,33 @@ could ignite compact \hii regions when they fly through molecular material.  In
 other words, each OB star that encounters dense enough gas would create a
 compact \hii region that would not have time to expand due to the star's rapid
 motion.  Such sources would be bow-shaped when viewed at higher resolution.
-See \S \ref{sec:theyarehiiregions} for calculations of stationary \hii region
+See \ref{sec:theyarehiiregions} for calculations of stationary \hii region
 properties.
 
-The main problem with this scenario is the spatial distribution of the observed
-sources.  While most of the continuum sources are associated with dense gas and
-dust ridges, not all of the high-column-density molecular gas regions have such
-sources in them (see Figure \ref{fig:coreson20cmandhc3n}b, where there is some
-molecular material that does not have associated millimeter sources,
-especially to the east and west of the main ridge).  If there is a
-free-floating population of OB stars responsible for the 3 mm compact source
-population, and if we assume the spatial distribution of the stars is uniform,
-the distribution of the resulting \hii regions should match that of the gas.
-Also, there is no such population of sources seen \emph{outside} of the dense
-gas in the infrared,
+The main problem with this scenario is the spatial distribution of
+the observed sources.  While most of the continuum sources are associated with
+dense gas and dust ridges, not all of the high-column molecular gas regions
+have such sources in them (i.e., 
+Figure \ref{fig:coreson20cmandhc3n}b, where molecular material is seen with no
+associated millimeter sources outside of the north/south \cyanoacetylene
+ridge).  If there is a free-floating population of OB
+stars responsible for the 3 mm compact source population, and if we assume the
+spatial distribution of the stars is uniform, the distribution of \hii regions
+surrounding them should match that of the gas. 
+  Also, there is no such population of sources
+seen \emph{outside} of the dense gas in the infrared,
 %\citep[TODO: Who has done
 %infrared studies of Sgr B2?  You can infer what I have stated `by inspection'
 %of 2MASS, but it would be more straightforward to quote someone else][]{},
 which again we should expect if there is a uniformly distributed massive stellar
 population.  Finally, the spectral indices discussed above (Figure
 \ref{fig:alphahist}) suggest the previously-unidentified sources are dust
-emission sources, not free-free sources.
+emission sources, not
+free-free sources.
 
 
 
-\subsubsection{Alternative 4: The sources are \hii regions produced by
+\subsubsection{Alternative 3: The sources are \hii regions produced by
 recently-formed OB stars}
 \label{sec:theyarehiiregions}
 
@@ -924,51 +1550,36 @@ sources associated with these previously-identified \hii regions are among the
 brightest in our catalog.  We address here whether the remaining  sources,
 which are mostly fainter, could also be \hii regions.
 
-To calculate the expected 3 mm flux density from an \hii region with a central
-source emitting Lyman continuum luminosity $Q_{Lyc}$, we rearrange
-\citet{Condon2007a} equations 4.60 and 4.61.  We get an equation for the
-expected brightness temperature as a function of electron temperature $T_e$,
-emission measure $EM$, and frequency $\nu$:
+For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
+flux density is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers
+source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
+as long as the source is optically thin.   We rearrange \citet{Condon2007a}
+equations 4.60 and 4.61 to get the expected flux density as a function of
+temperature, emission measure, and frequency:
 \begin{eqnarray}
-T_B &=& T_e  \left[1-\exp\left(-\tau\right) \right] \nonumber \\
-\tau &=& c_* T_* \nu_* EM_* \nonumber \\
+S_{\nu}(Q_{lyc})  &=& 4.67 \left[1-\exp\left(c_* T_* \nu_* EM_* \right) \right] \nonumber \\
 \nu_* &=& \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \nonumber \\
 T_* &=& \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \nonumber \\
 c_* &=& -3.28\times10^{-7} \nonumber \\
-EM &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_B} \nonumber \\
-EM_* &=& \frac{EM}{\mathrm{pc~cm}^{-6}} \nonumber \\
+EM_* &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_B} \nonumber \\
 \end{eqnarray}
 where the case-B recombination coefficient $\alpha_B=2\ee{-13}$ cm$^3$
-s$^{-1}$, $Q_{lyc}$ is the count rate of ionizing photons in $s^{-1}$, $\tau$
-is the optical depth of the \hii region, and $R$
-is the \hii region radius.  The emission measure $EM_*$ assumes the
-\hii region is a uniform-density Str{\"o}mgren sphere.  The constant $c_*$ was
-computed by \citet{Mezger1967a} as an approximation to the optical depth
-prefactor in the full radiative transfer equation and is never incorrect by
-more than $\approx25\%$.
-To convert the above brightness temperature into a flux density, assuming a
-FWHM=0.5\arcsec beam at 95 GHz, 1 K$ =1.85$ mJy/beam.
+s$^{-1}$, $Q_{lyc}$ is the count rate of ionizing photons in $s^{-1}$, and $R$
+is the \hii region radius.  The constant $c_*$ was computed by
+\citet{Mezger1967a} as an approximation to the optical depth prefactor in the
+full radiative transfer equation and is never incorrect by more than
+$\approx25\%$.
 
-For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
-flux density is $S_{95 \mathrm{GHz}} = 5.2$ mJy for a $Q_{lyc}=10^{47}$ \pers
-source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
-as long as the source is optically thin.
-
-An extremely compact \hii region, e.g., one with $R<100$ AU and corresponding
-density $n>10^6$ \percc, would be somewhat optically thick ($\tau\approx0.65$)
-and therefore fainter, $S_{95 \mathrm{GHz}}(R=100 \mathrm{AU}, Q_{lyc}=10^{47}
-\pers)=3.4$ mJy.  Even the most luminous O-stars could produce \hii regions as
-faint as 0.5 mJy if embedded in extremely high density gas; above
-$Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would have $S_{95 GHz}\approx0.5$
-mJy ($\tau=10$).
+An extremely compact \hii region,
+e.g., one with $R<100$ AU and corresponding density $n>10^6$ \percc, would be
+optically thick and therefore fainter, $S_{95 \mathrm{GHz}}(R=100 \mathrm{AU},
+Q_{lyc}=10^{47} \pers)=3.4$ mJy.  Even the most luminous O-stars could produce \hii
+regions as faint as 0.5 mJy if embedded in extremely high density gas; above
+$Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would be $\sim0.5$ mJy.
 
 Figure \ref{fig:hiibrightness} shows the predicted brightness for various \hii
 regions produced by OB stars and the density required for those \hii regions
-to be the specified size.  There is a narrow range of late O/early B\footnote{We use
-the tabulations of OB star properties from \citet{Vacca1996a} and
-\citet{Pecaut2013a}, via their online table
-\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt},
-to determine the relation between spectral type, luminosity, and mass.} stars,
+to be the specified size.  There is a narrow range of late O/early B stars,
 $10^{46} < Q_{lyc} < 10^{47}$ \pers, that could be embedded in compact \hii
 regions of almost any size and produce the observed range of flux densities.
 In order for the detected sources to be O-star-driven \hii regions, with $10^{47}
@@ -976,42 +1587,14 @@ In order for the detected sources to be O-star-driven \hii regions, with $10^{47
 extremely compact and dense.  
 Anything fainter, i.e., later than $\sim$B0 ($Q_{lyc}<10^{46}$ \pers), would be
 incapable of producing the observed flux densities.
-
-Since the observed objects are all extremely compact (most have $r<4000$ AU),
-if they are \hii regions, they must be embedded in dense gas (and dust) so that
-they are `ionization-bounded' (their radii are determined by the point where
-all ionizing photons are consumed).  For the most luminous sources to produce
-faint \hii regions ($S_{95 GHz} \sim 0.5-1.5$ mJy), they must reside in very
-compact \hii regions ($r<100$ AU).  Figure \ref{fig:hiibrightness}b shows that,
-if O-stars were confined to such small \hii regions, the emission would in some
-cases be dominated by the warm dust core.  Such sources would be at least twice
-as bright as predicted in Figure \ref{fig:hiibrightness}a.  In short, the
-compactness of the observed sources suggests that the majority of the 100
-\emph{faint} ($S_{95 GHz} < 1.5$ mJy) sources in our sample are probably
-not O-star \hii regions, but they may be B-star \hii regions.
-
-% number faint:
-% ((u.Quantity(tbl['peak'], u.Jy/u.beam) < 1.5*u.mJy/u.beam)).sum()
-% should be 100
-
-% number not hii:
-% ((~hii) & (u.Quantity(tbl['peak'], u.Jy/u.beam) > 1.5*u.mJy/u.beam)).sum()
-% should be 140
-% ((~hii) & (u.Quantity(tbl['peak'], u.Jy/u.beam) > 1.5*u.mJy/u.beam) & ((u.Quantity(tbl['peak'], u.Jy/u.beam) < 10*u.mJy/u.beam))).sum()
-% 119
-The 119 sources with $10 \mathrm{mJy} > S_{95 GHz} > 1.5$ mJy that were not
-previously identified as \hii regions from radio data require a specific set of
-parameters to be \hii regions.  Stars with $10^{47} < Q_{Lyc} < 5\ee{47}$
-could reside in \hii regions spanning a wide range of radii and produce
-flux densities in the observed range (Figure \ref{fig:hiibrightness}a),
-but more luminous stars would again have to be confined to very small \hii
-regions.  Small \hii regions are not impossible, but previously they have
-been observed quite rarely compared to more extended \hii regions, likely
-because their high pressures compared to their surroundings lead to rapid
-expansion.  We cannot strictly rule out that these intermediate-brightness
-sources are \hii regions, but because of the restrictive parameter space
-of radius and luminosity they must occupy, we regard this interpretation
-as unlikely to explain most of the sample.
+Such bright stars would have to be embedded in dust that, at 40 K, would
+outshine the \hii region.  Figure \ref{fig:hiibrightness}b shows that the
+highest-luminosity stars would have to be embedded in $n>10^8$ \percc gas to be
+small enough to produce an \hii region with $S_{3 \textrm{mm}}<1$ mJy, which means the
+dust - even if it were cold - would dominate the free-free emission.
+More likely, such sources would have much hotter dust
+and therefore would be much brighter (and more extended) than our observations
+allow.
 
 The luminosity function of the observed sources is apparently steep (power law
 slope $\approx-2$), assuming the flux density distribution (Figure
@@ -1022,18 +1605,20 @@ more sources below our detection threshold than above.  This argument is pure
 extrapolation,  but if there is a large population of sources below $<0.5$ mJy,
 they are certainly too faint to be \hii regions (Figure
 \ref{fig:hiibrightness}a).  Again, assuming the luminosity distribution is
-continuous, that implies that our sample is not dominated by \hii regions.
+continuous, that implies that we have not detected \hii regions.
 
-A final point against the sample being exclusively \hii regions is the observed
-spectral indices.  While some are consistent with \hii regions, with $\alpha <
-2$, some ($\ngttwo$) are steeper than $\alpha>2$ and are therefore inconsistent
-with free-free emission.
+This restrictive parameter space, combined with a steep luminosity function, is
+evidence against the population being dominated by \hii regions.  The spectral
+indices also support this conclusion, since some are steeper than $\alpha>2$
+and are therefore inconsistent with free-free emission.
 
 
 
 % HII notebook
-\Figure{figures/HII_region_brightness.png}
-{Simple models of spherical \hii regions to illustrate the observable
+
+\begin{figure*}[!htp]
+\includegraphics[scale=1,width=18cm]{figures/HII_region_brightness.png}
+\caption{Simple models of spherical \hii regions to illustrate the observable
 properties of such regions.  The \hii region size is shown by line color; the
 legend in the left plot applies to both figures.  (left) The expected
 brightness temperature (left axis) and corresponding flux density at 95 GHz
@@ -1041,51 +1626,62 @@ within a FWHM=0.5\arcsec beam (right axis) as a function of the Lyman continuum
 luminosity for a variety of source radii.  The grey filled region shows the
 range of our 5-sigma sensitivity limits,
 which vary with location from 0.25 to 0.8 K.
-The dotted and dashed horizontal lines show the flux density of a 10 \msun
-and 100 \msun isothermal dust core at $T=40$ K.
-(right) The electron density required to produce an \hii region of that radius.  The
+(right) The density required to produce an \hii region of that radius.  The
 horizontal dashed line shows the density corresponding to an unresolved dust
 source ($r<0.2\arcsec=1700$ AU) at the 5-$\sigma$ detection limit ($\approx0.5$
-mJy, or 10 \msun of dust, assuming $T=40$ K, and assuming $n_e=2
-n(\hh)$).    The dotted line shows the density corresponding to a 
-100 \msun dust core at $T=40$ K.
-%As seen in the left plot, for
-%any moderate-sized \hii region, $R>100$ AU, a high-luminosity star ($Q_{lyc} >
-%10^{47}$ \pers) would produce an \hii region brighter than the majority of our
-%sample.  The electron
-%densities required to produce \hii regions within our observed range
-%($0.5<S_{95 GHz}<10$ mJy for the newly detected sources) are fairly extreme,
-%$n_e\gtrsim10^6$ \percc, for O-stars (which have $Q_{Lyc} > 10^{48}$).
-}
-{fig:hiibrightness}{1}{18cm}
+mJy, or about 10 \msun of dust,
+assuming $T=40$ K).    Above this line, dust emission would dominate over
+free-free emission.  The dotted line shows the density required for dust
+emission to produce a 10 mJy source at $T=40$ K.
+The density has been scaled by a factor of two,
+assumine $n_e = 2 n(\hh)$.
+As seen in the left plot, for
+any moderate-sized \hii region, $R>100$ AU, a high-luminosity star ($Q_{lyc} >
+10^{47}$ \pers) would produce an \hii region brighter than the majority of our
+sample, which includes only a few sources brighter than 10 mJy.  The electron
+densities required to produce \hii regions within our observed range
+($1<S_\nu<10$ mJy) are fairly extreme, $n_e\gtrsim10^6$ \percc, for O-stars.}
+\label{fig:hiibrightness}
+\end{figure*}
 
 
-\subsubsection{Alternative 5, our hypothesis: The sources are (mostly) YSOs}
+
+\subsubsection{Our hypothesis: The sources are (mostly) protostellar}
 \label{sec:theyareprotostars}
-After determining that the other possibilities cannot explain
-the whole sample, we test and validate the hypothesis
-that most or all of the sources contain YSOs in this section.
+After ruling out the other possibilities, we test and validate the hypothesis
+that most or all of the sources are protostellar in this section.
 
-If we assume higher dust temperatures than those used in Section
-\ref{sec:alt0}, the inferred gas mass is lower, but an internal heating source
-- i.e., a protostar or young star - is required.  For example, if we assume
-$T_D=80$ K\footnote{At these dust temperatures, we should be concerned about
-the assumed opacity, since ices will begin to evaporate
-\citep[e.g.,][]{Bergin1995a}, reducing the 3 mm opacity and correspondingly
-increasing the required mass required to produce the observed flux
+
+\emph{General calculations:}
+As noted at the top of this section, a cold `prestellar core' at our detection
+limit would have $M(20\mathrm{K})\approx20$ \msun ($M(40\mathrm{K})\approx10$
+\msun).  At these high densities ($n(20 \mathrm{K})\gtrapprox10^8$ \percc), it
+is unlikely any such cores are unbound.  The high density required for our
+sources results in a very short free-fall timescale, $t_{ff}\lessapprox6000$
+yr, which suggests that the cores are unlikely to be prestellar cores and
+instead, even if their emission is dominated by cold dust, they contain
+protostars.  Their emission is likely dust-dominated, but is probably warmer
+than the cloud average $T_D\sim20-40$ K.  
+
+If we assume higher dust temperatures, the inferred gas mass is lower, but an
+internal heating source - i.e., a protostar - is required.  For example,
+if we assume $T_D=80$ K\footnote{At these dust temperatures,
+we should be concerned about the assumed opacity, since ices
+will begin to evaporate  \citep[e.g.,][]{Bergin1995a}, reducing the 3 mm
+opacity and correspondingly increasing the required mass
+required to produce the observed flux
 \citep{Ossenkopf1994a}.  }, our detection limit is only $M(80\mathrm{K}) = 4
 \msun$.  Heating that much dust well above the cloud average requires a
 high-luminosity central heating source.
 
-To constrain the required heating source, we examine the protostellar models of
-\citet[][specifically, the \texttt{spubhmi} and \texttt{spubsmi}
-models]{Robitaille2017a} and \citet{Zhang2015f}.  The Robitaille models that
-produce $S_{3 \mathrm{mm}} > 0.5$ mJy within a 5000 AU aperture uniformly have
-$L>10^4$ \lsun.  Such luminosities imply either that an high-mass ($M\gtrsim8$
-\msun) star has already formed and is still surrounded by a massive envelope,
-or a high-mass YSO is present and accreting.
-The models of \citet{Zhang2015f} generally only exhibit $L>10^4$
-\lsun once a star has reached $M\approx10$ \msun as they continue to accrete to
+To constrain the required heating source, we examine the protostellar model
+grid of \citet[][specifically, the \texttt{spubhmi} and \texttt{spubsmi}
+models]{Robitaille2017a}.  The models that produce $S_{3 \mathrm{mm}} > 0.5$
+mJy within a 5000 AU aperture uniformly have $L>10^4$ \lsun.  Such luminosities
+imply either that an high-mass ($M\gtrsim8$ \msun) star has already formed and is still
+surrounded by a massive envelope, or a high-mass YSO is present and accreting.
+The models of \citet{Zhang2015f}, for example, generally only exhibit $L>10^4$
+\lsun once a star has reached $M\approx10$ \msun as it continues to accrete to
 a higher mass.  Similarly, pre-main-sequence stellar evolution models
 \citep[e.g.,][]{Haemmerle2013a} only reach $L>10^4$ \lsun for stars with
 final mass $M\gtrsim8$ \msun.  In the \citet{Robitaille2017a} model grid,
@@ -1098,7 +1694,7 @@ limit.
 
 
 
-\paragraph{Comparison to similar data}
+\emph{Comparison to similar data:}
 We compare our detected sample to that of the Herschel Orion Protostar Survey
 \citep[HOPS;][]{Furlan2016a} in order to get a general empirical sense of what
 types of
@@ -1127,8 +1723,10 @@ much more luminous than any in the Orion sample, which is consistent with all
 of the sources in our sample being MYSOs.
 
 % HOPS_core_plots
-\FigureOneCol{figures/core_peak_intensity_histogram_withHOPS.pdf}
-{A histogram combining the detected Sgr B2 cores with predicted flux densities
+
+\begin{figure}[!htp]
+\includegraphics[scale=1,width=0.5\textwidth]{figures/core_peak_intensity_histogram_withHOPS.pdf}
+\caption{A histogram combining the detected Sgr B2 cores with predicted flux densities
 for sources at $d=\dsgrb$ and $\lambda=3$ mm
 based on the HOPS \citep{Furlan2016a} survey.  The sources are labeled by their
 infrared (2-20 \um) spectral index: Class 0 and I have positive spectral index
@@ -1136,7 +1734,9 @@ and flat spectrum sources have $-0.3 < \alpha_{IR} < 0.3$. The HOPS histogram
 shows the 870 \um data from that survey scaled to 3 mm
 assuming $\beta=1.5$ (see footnote \ref{footnote:beta}).
 Every HOPS source is well below the detection threshold for our observations.}
-{fig:hopshist}{1}{0.5\textwidth}
+\label{fig:hopshist}
+\end{figure}
+
 
 This conclusion is supported by a more direct comparison with the Orion nebula
 as observed at 3 mm with MUSTANG \citep[][Figure
@@ -1153,7 +1753,7 @@ extended component would be readily detected (and resolved) in our data.
 Source I is the only known high-mass YSO in the Orion cloud, and it would
 be detectable in our survey while no other compact sources in the Orion cloud
 would be.  This comparison supports the interpretation that most of the
-non-\hii region sources are massive YSOs.
+non-\hii region sources are massive protostars.
 %it appears
 %safe to conclude that most of the detected sources that are not \hii regions
 %are MYSOs.
@@ -1163,8 +1763,10 @@ non-\hii region sources are massive YSOs.
 
 % Bontemps+ 2010: 3.5mm flux of N63 ~ 36 mJy, -> 1 mJy @ Sgr B2
 
-\Figure{figures/Orion_SgrB2HII_side_by_side.png}
-{Comparison of two extended \hii regions in Sgr B2 (ALMA 3 mm continuum) to the
+
+\begin{figure}[!htp]
+\includegraphics[scale=1,width=0.5\textwidth]{figures/Orion_SgrB2HII_side_by_side.png}
+\caption{Comparison of two extended \hii regions in Sgr B2 (ALMA 3 mm continuum) to the
 M42 \citep[GBT MUSTANG 3 mm continuum;][]{Dicker2009a} nebula in Orion.
 The three panels are shown on the same physical and color scale assuming
 $d_{Orion} = 415$ pc and $d_{Sgr B2} = $\dsgrb and that the ALMA and MUSTANG
@@ -1174,27 +1776,24 @@ on the displayed brightness scale.  The compact source to the top right of the
 M42 image is Orion Source I; the images demonstrate that Source I and the entire
 M42 nebula would be easily detected in our data.
 }
-{fig:orioncompare}{1}{\textwidth}
+\label{fig:orioncompare}
+\end{figure}
 
-\paragraph{The spectral indices of the dusty sources}
-While we have concluded that the sources are dusty, massive YSOs, the
+
+While we have concluded that the sources are dusty, massive protostars, the
 spectral indices we measured are somewhat surprising.  Typical dust clouds in
-the Galactic disk have dust opacity indices $\beta\sim1.5-2$, implying 
-a spectral index $\alpha\sim3.5-4$
-\citep[$\beta=\alpha-2$;][]{Schnee2010a,Shirley2011a,Sadavoy2016a}.  Our spectral index measurements
+the Galactic disk have dust opacity indices $\beta\sim1.5-2$
+\citep{Schnee2010a,Shirley2011a,Sadavoy2016a}.  Our spectral index measurements
 are lower
-than these:  only 3 sources out of \nalphas with significant $\alpha$
-measurements have $\alpha > 3.5$\footnote{At the
-$2\sigma$ level, up to 11 sources are consistent with $\alpha\geq3.5$, but this is
-primarily because of their high measurement error.}, though \ngttwo of the
-sources with $\alpha$ measurements have $\alpha>2$, indicating that their
-emission is dust-dominated.  A shallower $\beta$ implies free-free
-contamination, large dust grains, or optically thick surfaces are present
-within our sources.  Since the above arguments suggest that the sources are
-high-mass YSOs, the free-free contamination and optically
+than these, with only 3 sources (out of 62 with significant $\alpha$
+measurements) having $\beta=\alpha-2 > 1.5$ (at the
+$2\sigma$ level, up to 11 sources are consistent with $\beta=1.5$, but this is
+primarily because of their high measurement error).  A shallower $\beta$
+implies free-free contamination, large dust grains, or optically thick surfaces
+are present within our sources.  Since the above arguments suggest that the
+sources are high-mass protostars, the free-free contamination and optically
 thick inner region models are both plausible.
 
-\section{Analysis and discussion of star formation in Sgr B2}
 \subsection{Source distribution functions and the star formation rate}
 \label{sec:distributionsandsfr}
 
@@ -1212,7 +1811,7 @@ implied total stellar masses.
 
 If we make the very simplistic, but justified (Section
 \ref{sec:theyareprotostars}), assumption that the sources we detect all contain
-YSOs with $L_{bol}\gtrsim10^4$ \lsun, and in turn make the related
+protostars with $L_{bol}\gtrsim10^4$ \lsun, and in turn make the related
 assumption that each source either currently contains or will form into an
 $M\gtrsim8 \msun$ star, we can infer the total (proto)stellar mass in the
 observed region.
@@ -1228,7 +1827,7 @@ stellar masses based on the arguments in Section \ref{sec:theyareprotostars}:
 in order to be detected, the sources must either be active OB stars
 illuminating \hii regions, very compact cores with
 $M>10$ \msun of warm dust within $R<4000$ AU, or
-at least moderately-massive YSOs within warm envelopes.  Note that the
+at least moderately-massive protostars within warm envelopes.  Note that the
 mass estimates in this section are for the resulting stars, not their
 envelopes.  The cluster affiliation for each source is reported in Table
 \ref{tab:photometry}.
@@ -1257,48 +1856,45 @@ identified in our survey plus those identified in previous works
 not associated with \hii regions.  The distributions of source flux densities
 associated with each cluster are shown in Figure \ref{fig:fluxhistclusters}.
 
-\FigureOneCol{figures/core_peak_fluxdensity_coloredbycluster.png}
-{Histograms showing the flux density (the peak intensity converted to flux density
+
+\begin{figure}[!htp]
+\includegraphics[scale=1,width=0.5\textwidth]{figures/core_peak_fluxdensity_coloredbycluster.png}
+\caption{Histograms showing the flux density (the peak intensity converted to flux density
 assuming the source is unresolved) of the observed sources classified by their
 cluster association.  Unlike Figure \ref{fig:fluxhist}, the histograms are
 overlapping, not stacked.  The bin widths for the clusters are wider than
 for the unassociated sources.}
-{fig:fluxhistclusters}{1}{0.5\textwidth}
+\label{fig:fluxhistclusters}
+\end{figure}
+
 
 
 We assume each source not associated with an \hii region contains or will form
-a star with mass equal to the average over the range 8-20 \msun assuming a
-\citet[][Eqn. 2]{Kroupa2001a} initial
+a star with mass equal to
+the average over the range 8-20 \msun assuming a \citet{Kroupa2001a} initial
 mass function, $\bar{M}(8-20) = 12$ \msun (in this section, we refer
 to these objects as ``cores'').  Based on the arguments in Section
 \ref{sec:theyarehiiregions}, we assume each \hii region contains a star that is
 B0 or earlier, and therefore that they each have a mass equal to the
 average $\bar{M}(>20) = 45$ \msun.  In Table
 \ref{tab:clustermassestimates}, the total counted mass estimate is shown as
-$M_{count} = N \bar{M}$, where $N$ is the number of stars with an assumed mass
-$\bar{M}$.
+$M_{count} = N \bar{M}$.
 
 We also compute the \emph{total} stellar mass (i.e., the extrapolated mass
 including low-mass stars) using the mass fractions $f(M>20)
-= 0.14$ and $f(8<M<20)=0.09$.  Assuming the masses are distributed according to
-the Kroupa IMF as above, the total mass inferred by extrapolating our
-measurements with this IMF is then 
-\begin{eqnarray}
-    M_{inferred,\hii}  & = & M_{count}(M>20) / f(M>20) \\
-    M_{inferred,cores} & = & M_{count}(8<M<20) / f(8<M<20) \\
-    M_{inferred}       & = & (M_{inferred,cores} + M_{inferred,\hii})/2 \\
-                       & = & M_{count}(M>8) / f(M>8) 
-\end{eqnarray}
-The inferred masses computed from \hii region
+= 0.14$ and $f(8<M<20)=0.09$.  The total mass is then $M_{inferred} =
+M_{count}(M>20) / f(M>20) =
+M_{count}(8<M<20) / f(8<M<20)$.  The inferred masses computed from \hii region
 counts and from core counts are shown in columns $M_{inferred,\hii}$ and
-$M_{inferred,cores}$ of Table \ref{tab:clustermassestimates} respectively.
-$M_{inferred}$ is the average of these two
+$M_{inferred,cores}$ respectively. $M_{inferred}$ is the average of these two
 estimates; it is also what would be obtained if all stars were assumed to be
-average stars with $M>8$ \msun.  If our mass range classifications are correct
-and the mass distribution is governed by a power-law IMF, we expect
+average stars with $M>8$ \msun (and no upper limit).  If our mass range
+classifications are
+correct and the mass distribution is governed by a power-law IMF, we expect
 $M_{inferred,\hii} = M_{inferred,cores}$.  In Sgr B2 N and S, the core-based
-and \hii-region based estimates agree to within a factor of 2, which is about
-as good as expected from Poisson noise in the counting statistics.  
+and \hii-region based estimates agree to
+within a factor of 2, which is about as good as expected from Poisson noise in
+the counting statistics.  
 
 Sgr B2 M contains the largest source sample, and it has a factor of nine
 discrepancy between the `core' and \HII-region based counts. The discrepancy
@@ -1326,28 +1922,36 @@ invariant IMF.
 
 % cluster mass estimates table
 % stellar_mass_estimates.py
-\input{cluster_mass_estimates.tex}
-
-\subsubsection{Sgr B2's star formation rate}
+\begin{table*}[htp]
+\centering
+\caption{Cluster Masses}
+\begin{tabular}{cccccccccc}
+\label{tab:clustermassestimates}
+Name & $N(cores)$ & $N(H\textsc{ii})$ & $M_{count}$ & $M_{inferred}$ & $M_{inferred, H\textsc{ii}}$ & $M_{inferred, cores}$ & $M_{count}^s$ & $M_{inf}^s$ & SFR \\
+ &  &  & $\mathrm{M_{\odot}}$ & $\mathrm{M_{\odot}}$ & $\mathrm{M_{\odot}}$ & $\mathrm{M_{\odot}}$ & $\mathrm{M_{\odot}}$ & $\mathrm{M_{\odot}}$ & $\mathrm{M_{\odot}\,yr^{-1}}$ \\
+\hline
+M & 17 & 47 & 2300 & 8800 & 15000 & 2300 & 1295 & 20700 & 0.012 \\
+N & 11 & 3 & 270 & 1200 & 980 & 1500 & 150 & 2400 & 0.0017 \\
+NE & 4 & 0 & 48 & 270 & 0 & 540 & 52 & 1200 & 0.00037 \\
+S & 5 & 1 & 110 & 500 & 330 & 680 & 50 & 1100 & 0.00068 \\
+Total & 240 & 57 & 5500 & 26000 & 19000 & 33000 & 1993 & 33400 & 0.035 \\
+\hline
+\end{tabular}
+\par
+$M_{count}$ is the mass of directly counted protostars, assuming each millimeter source is 12.0 \msun, or 45.5 \msun if it is also an \hii region.  $M_{inferred,cores}$ and $M_{inferred,\hii}$ are the inferred total stellar masses assuming the counted objects represent fractions of the total mass 0.09 (cores) and 0.14 (\hii regions).  $M_{inferred}$ is the average of these two.  $M_{count}^s$ and $M_{inf}^s$ are the counted and inferred masses reported in \citet{Schmiedeke2016a}.  The star formation rate is computed using $M_{inferred}$ and an age $t=0.74$ Myr, which is the time of the last pericenter passage in the \citet{Kruijssen2015a} model.  The \emph{total} column represents the total over the whole observed region.    The clusters sum to much less than the \emph{total} because the Deep South region is not included, and it dominates the overall core count.
+\end{table*}
+ 
 Finally, we estimate the star formation rate using the above mass estimates.
 To determine the star formation rate, we need to know the age of the current
 star forming burst.  We use the dynamical model of \citet{Kruijssen2015a} to
 get an age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a}.  We divide
-the inferred stellar mass by this age; the results are shown in Table
-\ref{tab:clustermassestimates}.    Our estimated total inferred SFR of the Sgr
-B2 cloud is 0.038 \msun \peryr, between one quarter and one half of the total
-for the CMZ \citep{Longmore2013a,Barnes2017b}.  
-
-However, there are many assumptions that go into the above calculations.  The
-computed rate assumes that star formation was initiated at the cloud's most
-recent pericenter passage following the \citet{Kruijssen2015a} orbital model,
-which is only one among many models for the CMZ dust ring.  It also assumes
-that all stars whose passage was triggered at that event are still visible as 3
-mm cores to our survey, but it is likely that the lifetime of these dusty cores
-is much shorter than 0.74 Myr \citep[for example, low-mass cores have lifetimes
-closer to 0.1 Myr,][]{Evans2009a}.  While our measurements of star formation are
-likely the best to date, our estimate of the star formation rate remains
-riddled with uncertainty and should be treated skeptically.
+the inferred stellar mass by this age; the results
+are shown in Table \ref{tab:clustermassestimates}.  This rate assumes that star
+formation was initiated at the cloud's most recent pericenter passage.  Our
+estimated total inferred SFR of the Sgr B2 cloud is 0.038 \msun \peryr, between
+one quarter and one half of the total for the CMZ
+\citep{Longmore2013a,Barnes2017b}.  Because of the large number of assumptions
+above, there is at least a factor-of-two uncertainty on this number.
 
 
 % While we identified \ncores sources from the continuum data, since we have only
@@ -1376,38 +1980,8 @@ We therefore discuss our measurements of column density thresholds in this
 section.
 
 
-%We can therefore
-%immediately rule out the possibility that there is a universal star formation
-%column threshold, since a large fraction of the observed volume exhibits
-%no hint at all of star formation activity.
-%-What kind of stars are we sensitive to?  Are they?
-%(this is now handled above)
 
-% To directly compare our observations to the star formation thresholds reported
-% in \citet{Lada2010a}, we examined the column density associated with each
-% millimeter continuum source.  The \citet{Lada2010a} data used a variable
-% resolution for the column density measurements toward their sample, ranging from
-% 0.06-0.35 pc (equivalent to 1.5 to 9.2\arcsec at a distance of \dsgrb).  The
-% Herschel data we have available with per-pixel SED fits lack the resolution
-% needed to make a direct comparison to the Lada et al data set, but the SHARC
-% and SCUBA data have resolution approximately equivalent to that used in the
-% Orion molecular cloud in their survey (see Section \ref{sec:colmaps}).
-
-% last paragraph of sec:colmaps
-% Because the higher-resolution images from SHARC and SCUBA only cover a narrow
-% range of wavelengths
-% and cannot be used to directly measure the dust temperature, we adopt two
-% approaches to approximate the dust temperature.  First, we use two fixed
-% temperatures bracketing the observed range in the Herschel maps ($\sim20-50$ K)
-% to produce column density maps from the SCUBA and SHARC data.  Second, we
-% interpolated the Herschel-derived temperature map on to the SHARC and SCUBA
-% grids and used the SHARC and SCUBA intensities with the interpolated
-% temperature to infer the higher-resolution column density.
-
-
-
-
-\subsubsection{Comparison to the Lada, Lombardi, and Alves 2010 column density threshold}
+\subsubsection{Comparison to Lada, Lombardi, and Alves 2010}
 \label{sec:ladathreshold}
 In this section, we compare the star formation threshold in Sgr B2 to that in
 local clouds performed by \citet{Lada2010a}.  They determined that all star
@@ -1418,12 +1992,46 @@ that \emph{all pixels} in our column density maps (Section \ref{sec:colmaps},
 Battersby et al, in prep) are above this threshold by \emph{at least} a factor
 of 10.
 
-\citet{Lada2010a} identified their star-formation threshold by comparing the
-cumulative column density to total YSO count across a range of clouds and
-identifying the point of minimum variance.  Our sample covers only one cloud,
-so we cannot perform the same analysis.  Instead, we examine the column density
-above which high-mass YSOs (`Class 0/I'-like sources, since they have dust
-envelopes) are forming.
+However, Sgr B2 is \dsgrb away from us in the direction of our Galaxy's
+center, meaning there is a potentially enormous amount of material unassociated
+with the Sgr B2 cloud along the line of sight.  This material may have column
+densities as low as
+5\ee{21} \persc or as high as 5\ee{22} \persc, as measured from relatively
+blank regions in the Herschel column density map \citep[][and in
+prep]{Battersby2011a}.  The
+former value corresponds to
+the background at high latitudes, $b\sim0.5$, while the latter  is
+approximately the lowest seen within our field of view. 
+%If the higher value is the 
+%correct foreground, there must be a perfect vacuum surrounding the dense gas in
+%the Sgr B2 cloud - the `hole' seen in Fig...TODO: show a hole figure.
+Even with the very aggressive foreground value of 5\ee{22} \persc subtracted,
+nearly the whole Sgr B2 cloud exists above the \citet{Lada2010a} threshold.
+%We can therefore
+%immediately rule out the possibility that there is a universal star formation
+%column threshold, since a large fraction of the observed volume exhibits
+%no hint at all of star formation activity.
+%-What kind of stars are we sensitive to?  Are they?
+%(this is now handled above)
+
+To directly compare our observations to the star formation thresholds reported
+in \citet{Lada2010a}, we examined the column density associated with each
+millimeter continuum source.  The \citet{Lada2010a} data used a variable
+resolution for the column density measurements toward their sample, ranging from
+0.06-0.35 pc (equivalent to 1.5 to 9.2\arcsec at a distance of \dsgrb).  The
+Herschel data we have available with per-pixel SED fits lack the resolution
+needed to make a direct comparison to the Lada et al data set, but the SHARC
+and SCUBA data have resolution approximately equivalent to that used in the
+Orion molecular cloud in their survey (see Section \ref{sec:colmaps}).
+
+Because the higher-resolution images only cover a narrow range of wavelengths
+and cannot be used to directly measure the dust temperature, we adopt two
+approaches to approximate the dust temperature.  First, we use a two fixed
+temperatures bracketing the observed range in the Herschel maps ($\sim20-50$ K)
+to produce column density maps from the SCUBA and SHARC data.  Second, we
+interpolated the Herschel-derived temperature map on to the SHARC and SCUBA
+grids and used the SHARC and SCUBA intensities with the interpolated
+temperature to infer the higher-resolution column density.
 
 Figure \ref{fig:corebackgroundcdf} shows the cumulative distribution function
 of the column density associated with each identified continuum source; the
@@ -1431,112 +2039,20 @@ column density used is the nearest-neighbor pixel to the source in the column
 density maps.  Even using the conservative maximum temperature $T_{dust}=50$ K
 (resulting in the minimum column density), all of the sources exist at a column
 density an order of magnitude higher than the Lada threshold, and they exist
-above that threshold even if the foreground is assumed to be $5\ee{22}$ \persc,
-the highest plausible value considered in Section \ref{sec:colmaps}.
-While all of the sources exist above the Lada threshold, not all pixels above
-this threshold contain YSOs or protostellar cores (Figure
-\ref{fig:coldistributionwithoutstarformation}).
+above that threshold even if the foreground is assumed to be an extreme
+$5\ee{22}$ \persc.  While all of the sources exist above this threshold, not
+all pixels above this threshold contain protostars or protostellar cores; the
+threshold is therefore a necessary, but not a sufficient, condition for
+high-mass star formation.
 
-% stellar_mass_estimate.py
-\FigureOneCol{figures/cumulative_mass_plot.pdf}
-{The cumulative mass above a threshold column density in the observed
-region.  The two curves show the mass inferred with and without a
-foreground of $5\ee{22}$ \persc, the highest plausible foreground column
-density, subtracted.}
-{fig:cumulativemass}{1}{0.5\textwidth}
 
-\citet{Lada2010a} suggested that their observed column density threshold
-corresponded to a density $n\approx10^4$ \percc.  If we assume that Sgr B2 is
-approximately a $2 \mathrm{pc}\times2 \mathrm{pc}\times6 \mathrm{pc}$ box, the
-typical column density $N\gtrsim5\ee{23}$ \persc requires a mean density
-$n\gtrsim5\ee{4}$ \percc.  Again, effectively all of the gas associated with
-ongoing star formation is above the locally-determined threshold.
-
-To compare Sgr B2 to the Lada et al sample on a full-cloud scale, we can use
-the total mass and total YSO mass.  Lada et al used a YSO count, $N_{YSO}$,
-while we inferred a total YSO mass; we use their assumed median mass
-$M_{median} = 0.5$ \msun to convert $M_{YSOs}$ to $N_{YSO}$.  Using their
-fitted relation for local, $N_{YSO} = 0.2 M_{cloud,\msun}(A_K>0.8)$, we predict
-that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud mass
-because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2} = 3\ee{5}$.  As seen
-in Table \ref{tab:clustermassestimates}, the observed $N_{YSO} = MYSO / (0.5
-\msun) = 5.2\ee{4}-6.6\ee{4}$, a factor of five below the extrapolated Lada et
-al relation.  From the observed $N_{YSO,Sgr B2}$, we expect
-$M_{cloud}\approx3\ee{5}$, which corresponds to a threshold $N>10^{24}$ \persc
-(Figure \ref{fig:cumulativemass}).
-
-Any way we examine our data, it appears that a higher threshold for star
-formation is required in Sgr B2 than in local clouds.  The one remaining caveat
-is that the Lada et al study  used Spitzer observations of nearby clouds that
+The \citet{Lada2010a} sample used Spitzer observations of nearby clouds that
 were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
 discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
-to stars with $M\gtrsim8$ \msun.  It is therefore possible that we have instead
-observed a higher threshold for high-mass star formation than for low-mass star
-formation.
-
-% core_local_brightness
-\FigureOneCol{figures/core_background_column_cdf.png}
-{
-%{\color{red} *Make sure the Herschel data appear in this image.*}
-Cumulative distribution functions of the background column density associated
-with each identified 3 mm continuum source.  The column densities are computed
-from a variety of maps with different resolution and assumed temperature.
-The Herschel maps use SED-fitted temperatures (Battersby et al. in prep) at
-25\arcsec resolution (excluding the 500 \um data point) and 36\arcsec resolution.
-The SHARC 350 \um and SCUBA 450 \um maps both have higher resolution ($\sim10\arcsec$)
-but no temperature information; we used an assumed $T_{dust}=20$ and $T_{dust}=50$ K
-to illustrate the range of possible background column densities (hatched
-red and blue).  The thick solid red and blue lines show the SHARC and SCUBA column
-density images using Herschel temperatures interpolated onto their grids: these
-curves are closer to the 20 K than the 50 K curve and serve as the best estimate
-column density maps.  The SHARC data fail to go to a cumulative fraction of 1
-because the central pixels around Sgr B2 M and N are saturated (the lower temperature
-assumptions result in optical depths $>1$, which cannot be converted to column
-densities using the optically thin assumption).  The vertical
-dashed line shows the $N(\hh)=5.2\ee{21}$ \persc column density threshold from
-\citet{Lada2010a}, and the vertical dotted line shows the the $N(\hh)=2\ee{23}$
-\persc \citet{Krumholz2008a} threshold for high-mass star formation.}
-{fig:corebackgroundcdf}{1}{0.5\textwidth}
-
-\paragraph{Comparison to the Lada et al SFR}
-\citet{Lada2010a} also express their $N_{YSO}-M_{cloud}$ relation as a star
-formation rate relationship, $\dot{M}_* = 4.6\ee{-8} M_{dense}$.  Using $M_{Sgr
-B2} = 1.5\ee{6}$ \msun, $\dot{M}_* = 0.069$ \msun \peryr, which is within a
-factor of two of our estimated SFR ($\dot{M}_*=0.036$ \msun \peryr, Table
-\ref{tab:clustermassestimates}).  The agreement with the Lada et al relation
-for the SFR, but simultaneous disagreement with the more directly observational
-relations, is driven by the assumed star formation timescale.  If we use
-\citet{Lada2010a} Equation 3, $\dot{M}_* = (\epsilon/f) \tau_{ff}^{-1} M_{dense}$,
-with $\epsilon/f=0.018$ being the star formation efficiency per free-fall time
-and $\tau_{ff}$ the free-fall time, but we account for the shorter
-$\tau_{ff}=0.14$ Myr in Sgr B2, we obtain $\dot{M}_* = 0.20$ \msun \peryr, again
-about a factor of 5 above the observed rate.  If we assume the free-fall time
-is the relevant timescale for star formation, though, this discrepancy gets
-\emph{worse} as we increase the threshold, since the free-fall time becomes
-shorter and the star formation rate increases (since the observed number of stars
-is independent of the threshold up to $N\approx4\ee{23}$ \persc).
-This analysis highlights the problem of applying the same interpretation of the
-empirical relations to both the Galactic center and local clouds.
-
-\paragraph{Comparison to Barnes et al 2017}
-\citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the
-\citet{Lada2010a} model matches the observations.  They used a mass $M_{Sgr
-B2}=6.5\ee{5}$ \msun, which corresponds to a column density threshold
-$N(\hh)>7.5\ee{23}$ \persc.  As seen in Figure \ref{fig:cumulativemass}, their
-mass estimate is consistent with our own, and the difference of
-interpretation comes from the tighter boundary (and higher mass threshold) they
-selected.  In other words, our data are consistent with the linear Lada et al
-law \emph{if} we use a higher column density threshold.
-
-\paragraph{Comparison to Kauffmann et al 2017}
-\citet{Kauffmann2017c} show the whole Sgr B2 cloud lies within a factor of two
-of the Lada et al relation in their Figure 1.  Their numbers for the star
-formation rate and total mass agree with ours ($M_{Sgr B2}\approx1.5\ee{6}$
-\msun, $\dot{M}\approx 0.035$ \msun/yr).  As discussed above, this apparent
-agreement is driven primarily by the choice of the star formation timescale.
-Using a timescale more consistent with that used by \citet{Lada2010a} to obtain
-their relationship, there is a factor of five discrepancy.
-
+to stars with $M\gtrsim8$ \msun.  The apparently higher column threshold either
+means that there is a genuinely higher threshold for star formation in the CMZ
+or that there is a higher threshold for high-mass star formation that may still
+be universal.  
 
 \subsubsection{Other Thresholds}
 \label{sec:otherthresholds}
@@ -1545,7 +2061,7 @@ A theoretical threshold for high-mass star formation, $\Sigma > 1$ g \persc
 ($N(\hh) > 2\ee{23}$ \persc) was developed by \citet{Krumholz2008a}.   Nearly
 all of the sources we have detected reside above this threshold (independent of
 the assumed foreground contamination), and we determined our sources are all
-likely to be massive YSOs in Section \ref{sec:theyareprotostars}.
+likely to be massive protostars in Section \ref{sec:theyareprotostars}.
 However, not all pixels with $\Sigma > 1$ g \persc are forming high-mass stars
 (Figure \ref{fig:coldistributionwithoutstarformation}).  Again, we have
 inferred the presence of a necessary but not sufficient star formation
@@ -1566,21 +2082,32 @@ spherical symmetry.
 % Diederik suggested Krumholz HMSF threshold, Kauffmann and Pillai threshold should
 % be examined.}
 
+% core_local_brightness
 
-
-% nonstarforming_regions.py
-\FigureOneCol{figures/column_density_distribution_with_and_without_SF_withfraction.pdf}
-{Histograms of the column density measured with the combined SCUBA and Herschel
-data using the interpolated Herschel temperatures covering only the region
-observed with ALMA.  The black histogram shows the whole observed region,
-the blue solid line shows the SCUBA pixels that do not contain an ALMA source,
-and the red thick line shows those pixels that are within one beam
-FWHM of an ALMA source.  The thin black line shows the ratio of the red histogram
-to the black histogram, i.e., it shows the fraction of pixels with associated
-YSOs.  While the ALMA sources (high mass YSOs)
-clearly reside in high-column gas, there is abundant high-column-density
-material that shows no signs of ongoing star formation.}
-{fig:coldistributionwithoutstarformation}{1}{0.5\textwidth}
+\begin{figure}[!htp]
+\includegraphics[scale=1,width=0.5\textwidth]{figures/core_background_column_cdf.png}
+\caption{
+Cumulative
+distribution functions of the background column density associated
+with each identified 3 mm continuum source.  The column densities are computed
+from a variety of maps with different resolution and assumed temperature.
+The Herschel maps use SED-fitted temperatures (Battersby et al. in prep) at
+25\arcsec resolution (excluding the 500 \um data point) and 36\arcsec resolution.
+The SHARC 350 \um and SCUBA 450 \um maps both have higher resolution ($\sim10\arcsec$)
+but no temperature information; we used an assumed $T_{dust}=20$ and $T_{dust}=50$ K
+to illustrate the range of possible background column densities (hatched
+red and blue).  The thick solid red and blue lines show the SHARC and SCUBA column
+density images using Herschel temperatures interpolated onto their grids: these
+curves are closer to the 20 K than the 50 K curve and serve as the best estimate
+column density maps.  The SHARC data fail to go to a cumulative fraction of 1
+because the central pixels around Sgr B2 M and N are saturated (the lower temperature
+assumptions result in optical depths $>1$, which cannot be converted to column
+densities using the optically thin assumption).  The vertical
+dashed line shows the $N(\hh)=5.2\ee{21}$ \persc column density threshold from
+\citet{Lada2010a}, and the vertical dotted line shows the the $N(\hh)=2\ee{23}$
+\persc \citet{Krumholz2008a} threshold for high-mass star formation.}
+\label{fig:corebackgroundcdf}
+\end{figure}
 
 
 % TODO: find someplace to include this figure?
@@ -1647,8 +2174,10 @@ hypothesis will require much deeper observations sensitive to low-mass stars
 in both regions.
 
 % core_local_brightness
-\FigureOneCol{figures/compare_brick_sgrb2_colPDF.png}
-{Histograms of the column density of G0.253+0.016 (blue) and Sgr B2 (gray)
+
+\begin{figure}[!htp]
+\includegraphics[scale=1,width=0.5\textwidth]{figures/compare_brick_sgrb2_colPDF.png}
+\caption{Histograms of the column density of G0.253+0.016 (blue) and Sgr B2 (gray)
 using the combined SCUBA 450 \um and Herschel 500 \um intensity with the
 interpolated Herschel dust temperatures.  The cumulative distribution of core
 `background' column densities in Sgr B2 is shown as a thick gray line, showing
@@ -1657,7 +2186,9 @@ reached in G0.253.  The vertical dotted line is the \citet{Krumholz2008a}
 threshold for high-mass star formation at $N(\hh)=2\ee{23}$ \persc, while
 the \citet{Lada2010a} threshold is below the minimum value plotted here (see
 Section \ref{sec:thresholds}).}
-{fig:bricksgrb2colcompare}{1}{0.5\textwidth}
+\label{fig:bricksgrb2colcompare}
+\end{figure}
+
 
 % \subsection{Cloud edge features - bubbles}
 % The most prominent feature of our catalog is the spatial distribution of the
@@ -1676,23 +2207,13 @@ Section \ref{sec:thresholds}).}
 % {A peak intensity map of the \cyanoacetylene J=10-9 line over the velocity
 % range 48 to 90 \kms with ...}
 
-\subsection{Surface density relations: comparison to Gutermuth et al. 2011}
+\section{Surface density relations: comparison to Gutermuth et al. 2011}
 \label{sec:gutermuth}
 Unlike \citet{Lada2010a}, who invoke a threshold followed by a linear star
 formation law relating the gas to the stellar surface density,
 \citet{Gutermuth2011a} concluded that star formation was best represented as
 power-law relations between the stellar and gas mass surface densities.
 
-In this section, we measure the stellar surface density (\S
-\ref{sec:gutermuthmethods}) and compare the star-gas surface density relation
-to the local clouds observed by \citet[][\S
-\ref{sec:gutermuthcomparison}]{Gutermuth2011a}, finding that the local clouds
-and Sgr B2 do not fit on a common relation.  We examine the possible reasons
-for the disagreement (\S \ref{sec:gutermuthdiscrepancy}), concluding that a
-varying threshold for star formation is the most likely explanation.
-
-\subsubsection{Methodological comparison to Gutermuth et al}
-\label{sec:gutermuthmethods}
 We adopt the same approach used in \citet{Gutermuth2009a} and
 \citet{Gutermuth2011a} to compare gas and stellar mass surface densities.  We
 computed both the star-centric mass surface density using the 11th nearest
@@ -1713,72 +2234,38 @@ maps (see Section \ref{sec:colmaps}).
 There are a few key differences between our data and those of
 \citet{Gutermuth2011a}.  First, our \emph{minimum} detected column density is
 $N(\hh)\approx10^{23}$ \persc, while in their sample, the \emph{maximum}
-observed was $A_V=38$, or $N(\hh)=3.8\ee{22}$ \persc.  Even if we subtract our
-upper-limit foreground estimate $N(\hh)=5\ee{22}$ \persc from the entire Sgr B2
-map, nearly all of the detected sources reside in regions with column densities
-well above the maximum reached in the local cloud sample.  Second, our 3 mm
-source sample is sensitive to only the youngest sources, either the high-mass
-equivalent of Class 0/I sources (`hot cores' or HMYSOs), or deeply embedded
-hypercompact \hii regions.  The Spitzer sample included both Class I sources,
-with estimated ages $t\lesssim0.5$ Myr, and Class II sources, with ages $0.5 <
-t < 5$ Myr.  Our sample is therefore biased young compared to theirs.  If the
+observed was $A_V=38$, or $N(\hh)=3.8\ee{22}$ \persc.  Even if we subtract
+our upper-limit foreground estimate $N(\hh)=5\ee{22}$ from the entire
+Sgr B2 map, nearly all of the detected sources reside in regions with column
+densities well above the maximum reached in the local cloud sample.
+Second, our 3 mm source sample is sensitive to only the youngest sources, either
+the high-mass equivalent of Class 0/I sources (`hot cores' or HMYSOs), or
+deeply embedded hypercompact \hii regions.  The Spitzer sample included both
+Class I sources, with estimated ages $t\lesssim0.5$ Myr, and Class II sources, with
+ages $0.5 < t < 5$ Myr.  Our sample is therefore biased young.  If the
 age estimate for Sgr B2 from the dynamical models
 \citep{Longmore2013a,Kruijssen2015a} is accurate, there should be about as many
 Class II sources as Class I, given the standard ages, meaning our total mass
-estimate may be as much as a factor of 2 underestimated.  Third, as noted
-above, we are sensitive to only high-mass sources, so we infer a significant
-population that is not directly observed.
+estimate may be as much as a factor of 2 underestimated.
+Third, as noted above, we are sensitive to only high-mass sources, so we infer
+a significant population that is not directly observed.
 
-We computed star formation relations following \citet{Gutermuth2011a} Section 4.1.
-We use their equation 7 with the spatial dependence hidden:
-\begin{equation}
-    \label{eqn:stellarsurfdens}
-    \Sigma_*(t) = c \Sigma_{gas,0} \left[1-\left(\frac{t}{t_0}+1\right)^\beta\right]
-\end{equation}
-where $\Sigma_*(t)$ is the time-dependent stellar surface density, $c$ is a
-scaling constant (assumed to be the star formation efficiency of a core and
-to have the value 0.3), $\Sigma_{gas,0}$ is the initial gas surface density,  $t_0$
-is the time when star formation begins, $\beta = 1/(1-\alpha)$, and $\alpha$ is
-the exponent in the star formation relation (i.e., $\alpha=1$ means SFR is
-linearly correlated with gas surface density).
-The initial time $t_0$ is defined by their equation 5:
-\begin{equation}
-    t_0 = \frac{1}{k(\alpha-1)} \Sigma_{gas,0}^{1-\alpha}
-\end{equation}
-where $k$ is the star formation rate coefficient.  The constant $k$ has
-different units depending on which value of $\alpha$ is adopted; for
-$\alpha=1$, $k$ is the inverse star formation timescale with units Myr$^{-1}$
-(and the surface density relation simplifies to $\Sigma_*(t) = c
-\Sigma_{gas,0}[1-e^{-kt}]$),
-while for $\alpha=2$, $k$ has units pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$.
+Despite the differences in method, the Sgr B2, Mon R2, and Ophiucus clouds have
+similar instantaneous star formation efficiencies (SFE), $\epsilon =
+M_*/(M_*+M_{gas})$.  Sgr B2 has $\epsilon=0.016$ or $0.018$ (without and with
+the foreground subtracted), Mon R2 $\epsilon=0.019$, and Ophiucus $\epsilon
+= 0.04$.  SFEs ranging from 0.01-0.08 are observed throughout Galactic center
+clouds \citep{Barnes2017b}, so in terms of overall efficiency, these clouds
+appear similar to local low-mass clouds.
 
-
-
-\subsubsection{Results of the comparison to Gutermuth et al}
-\label{sec:gutermuthcomparison}
-
-%this paragraph is fine but it has no home
-% Despite the differences in method, the Sgr B2, Mon R2, and Ophiucus clouds have
-% similar instantaneous star formation efficiencies (SFE), $\epsilon =
-% M_*/(M_*+M_{gas})$.  Sgr B2 has $\epsilon=0.016$ or $0.018$ (without and with
-% the foreground subtracted), Mon R2 $\epsilon=0.019$, and Ophiucus $\epsilon
-% = 0.04$.  SFEs ranging from 0.01-0.08 are observed throughout Galactic center
-% clouds \citep{Barnes2017b}, so in terms of overall efficiency, these clouds
-% appear similar to local low-mass clouds.
-
-
-Figure \ref{fig:stellarvsmasscolumn} shows the stellar mass surface density
-$\Sigma_*$ plotted against the gas mass surface density $\Sigma_{gas}$.
-Our data show a large scatter and are plausibly compatible with a
-power-law index in the range 1-2, and therefore may be consistent with the
-steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.
 
 % core_local_brightness.py
 % surface_density_maps.py
-\FigureTwo
-{figures/stellar_vs_gas_column_density_gridNN11_herschel.pdf}
-{figures/stellar_vs_gas_column_density_starcentered_herschel.pdf}
-{Plots of the protostellar mass surface density vs the gas mass surface density
+
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/stellar_vs_gas_column_density_gridNN11_herschel.pdf} }
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/stellar_vs_gas_column_density_starcentered_herschel.pdf} }
+\caption{Plots of the protostellar mass surface density vs the gas mass surface density
 as derived from Herschel SED fitting (Section \ref{sec:colmaps}).  The stellar
 mass surface densities are computed using the 11th
 nearest-neighbor distance assuming that each star represents
@@ -1794,8 +2281,6 @@ for Ophiucus (blue) and Mon R2 (green); their data cut off below a mass
 surface density $\Sigma < 10^3$ \msun pc$^{-2}$. 
 The blue dotted line shows the Ophiucus relation scaled down by
 $50\times$ to overlap with our data.
-%The black dashed line shows the relation $\Sigma_* = 3\ee{-5}
-%\Sigma_{gas}^{5/3}$; it is not a fit to the data.
 The thick orange lines show realizations of the \citet{Gutermuth2011a} $\alpha=2$ star
 formation relation at times 0.01, 0.1, and 0.74 Myr, from bottom to top.
 Similarly, the thick red lines show realizations of the $\alpha=1$ star
@@ -1804,17 +2289,24 @@ The arrows along
 the bottom show the effect of subtracting a uniform foreground column
 density of $N(\hh)=5\ee{22}$ \persc (1100 \msun pc$^{-2}$).
 }
-{fig:stellarvsmasscolumn}{1}{0.5\textwidth}
+\label{fig:stellarvsmasscolumn}
+\end{figure*}
+
+
+Figure \ref{fig:stellarvsmasscolumn} shows the stellar mass surface density
+$\Sigma_*$ plotted against the gas mass surface density $\Sigma_{gas}$.
+Our data show a large scatter and are plausibly compatible with a
+power-law index in the range 1-2, and therefore may be consistent with the
+steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.
 
 
 Figure \ref{fig:stellarvsmasscolumn}  shows in orange three curves from the
-\citet{Gutermuth2011a} $\alpha=2$ star formation relation, their Equation 7
-(our Equation \ref{eqn:stellarsurfdens}),
+\citet{Gutermuth2011a} $\alpha=2$ star formation relation, their Equation 7,
 with $k=10^{-4}$ pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$ and $\alpha=2$, at times
-$t=0.01$, 0.1, and 0.74 Myr.  Only the youngest curve, with age 0.01 Myr,
+$t=0.01$, 0.1, and 0.74 Myr .  Only the youngest curve, with age 0.01 Myr,
 overlaps with our data.  The three red curves, which are essentially lines in
 this figure, show the $\alpha=1$ relation with $k=0.1$ Myr$^{-1}$ at the same
-three ages, and they achieve reasonable agreement with our data for the $t=0.74$
+three ages, and it achieves reasonable agreement with our data for the $t=0.74$
 Myr line ($k=0.1$ \permyr implies the 50\% depletion time $t_{sf}=7$ Myr).  The
 $\alpha=2$ star formation relation  is only consistent with our
 data for times earlier than $t<0.1$ Myr.  This inconsistency is due to the very
@@ -1825,8 +2317,7 @@ regime we observe, as it implies that gas with an initial surface density of
 $\Sigma_{gas}=10^4$ \msun \perspc would achieve a star formation efficiency
 $\epsilon>1$ in $t<0.1$ Myr.  Our data are clearly incompatible with the
 $\alpha=2$ relation but are reasonably compatible with a linear $\alpha=1$
-relation with the same normalization used by \citet{Gutermuth2011a}, i.e.,
-$k=0.1$ Myr$^{-1}$.
+relation with the same normalization used by \citet{Gutermuth2011a}.
 %The relation we observe (Figure \ref{fig:stellarvsmasscolumn}) is several
 %orders of magnitude lower than that extrapolated from \citet{Gutermuth2011a}.
 
@@ -1839,12 +2330,10 @@ from the low-mass clouds exceeds our observations by at least $50\times$
 (Ophiucus) or closer to $10^3\times$ (Mon R2).   The discrepancy between our
 observations and theirs indicates either that there is a systematic tendency to
 overestimate $\Sigma_*$ at high $\Sigma_{gas}$ in the Spitzer observations,
-which seems unlikely, or that there is a different star formation-gas surface
-density relation in Sgr B2 to that in local clouds.
+which seems unlikely, or that there is a different star formation relation in
+Sgr B2 than in local clouds.
 
 
-\subsubsection{A critical evaluation of the discrepancies with Gutermuth et al}
-\label{sec:gutermuthdiscrepancy}
 While a linear relation $\Sigma_* \propto \Sigma_{gas}$ can approximately
 account for both local clouds and Sgr B2 as a whole, we have not yet explained
 why the extrapolation of the observed $\Sigma_* - \Sigma_{gas}$ relation from
@@ -1884,7 +2373,7 @@ local clouds does not match Sgr B2.  We evaluate several possibilities here:
         represents $\approx5000$ \msun instead of $\approx100$ \msun.  The
         multiplicity of the Orion Source I system suggests this interpretation
         is qualitatively plausible, but the factor of 50 required to match the
-        extrapolation of the \citet{Gutermuth2011a} data strains credibility.
+        \citet{Gutermuth2011a} extrapolation strains credibility.
         Additionally, the luminosity constraints from our observed data
         rule this possibility out unless the stellar IMF is bottom-heavy
         (see below for more IMF discussion).
@@ -1944,7 +2433,7 @@ local clouds does not match Sgr B2.  We evaluate several possibilities here:
         underestimate the stellar mass surface density.  Given our survey's
         insensitivity to low-mass YSOs, the stellar mass surface density could
         be over an order of magnitude higher if it consists only of low-mass
-        YSOs.  Such a dramatic time sequencing effect in star formation
+        protostars.  Such a dramatic time sequencing effect in star formation
         would have profound implications for star formation studies, implying
         that any or all clouds currently forming low-mass stars may eventually
         form higher-mass stars, so testing this possibility with
@@ -2003,7 +2492,7 @@ our data and the extrapolation from \citet{Gutermuth2011a}.
 \section{Discussion}
 \label{sec:discussion}
 We have reported the detection of a large number of point sources and inferred
-that they are most likely all high-mass YSOs.  These sources exclusively
+that they are most likely all high-mass protostars.  These sources exclusively
 reside in gas above $N(\hh)\gtrsim2\ee{23}$ \persc and are distributed along an
 elongated  feature spanning the Sgr B2 cloud.
 
@@ -2032,6 +2521,22 @@ elongated  feature spanning the Sgr B2 cloud.
 %star-formation regions are also evident in Figure \ref{fig:coresonscubacol},
 %which shows that the northern and western regions of the cloud are the
 %deficient zones.
+
+% nonstarforming_regions.py
+
+\begin{figure}[!htp]
+\includegraphics[scale=1,width=0.5\textwidth]{figures/column_density_distribution_with_and_without_SF.pdf}
+\caption{Histograms of the column density measured with the combined SCUBA and Herschel
+data using the interpolated Herschel temperatures covering only the region
+observed with ALMA.  The black histogram shows the whole observed region,
+the blue solid line shows the SCUBA pixels that do not contain an ALMA source,
+and the red thick line shows those pixels that are within one beam
+FWHM of an ALMA source.  While the ALMA sources (high mass protostars and young
+stars)
+clearly reside in high-column gas, there is abundant high-column material
+that shows no signs of ongoing star formation.}
+\label{fig:coldistributionwithoutstarformation}
+\end{figure}
 
 
 \subsection{What drives star formation in the greater Sgr B2 complex?}
@@ -2062,16 +2567,15 @@ which process is dominant.
 
 \subsubsection{Pericenter Triggering}
 \label{sec:pericenter}
-Our observations are reconcilable with a star formation event triggered at
-pericenter passage.  If the entire cloud was stable prior to pericenter
+Our observations are reconcilable with a star formation event triggered
+at pericenter passage.  If the entire cloud was stable prior to pericenter
 passage, at closest approach it would have been simultaneously crushed and
 stretched by shear \citep{Kruijssen2015a}.  This event would have driven
 collapse of the whole cloud, with the densest regions collapsing fastest and
-possibly forming the clusters we observe today.  As with any global collapse
-model, this model accounts for the relative ages of the extended star formation
-event and the clustered starbursts (discussed further in Section
-\ref{sec:clustersandextended}). However, this model provides no direct
-explanation for the morphology of the star formation event.
+possibly forming the clusters we observe today.  This model accounts for the
+relative ages of the extended star formation event and the clustered starbursts
+(discussed further in Section \ref{sec:clustersandextended}), but provides no
+direct explanation for the morphology of the star formation event.
 
 \subsubsection{Cloud-cloud collision}
 \label{sec:ccc}
@@ -2137,9 +2641,9 @@ molecular material along the ridge where we observe star formation.
 \citet{Martin-Pintado1999a} identified their bubbles B and F in this region,
 and suggested that they are driven by Wolf-Rayet stellar winds, which is
 consistent with both our continuum and line observations.  However, the ridge
-of millimeter sources extends well to the north of the apparent bubble edge, so
-it is unlikely that the entire DS ridge was driven by a single coherent
-expanding bubble.
+of millimeter sources extends well above the apparent bubble edge, so it is
+unlikely that the entire DS ridge was driven by a single coherent expanding
+bubble.
 
 By contrast, the Sgr B2 North bubble, which can be seen as arcs of
 \cyanoacetylene emission in the top-left of Figure
@@ -2181,22 +2685,25 @@ condition to drive star forming bursts.
 
 % contour_overlays.py
 %\FigureOneCol{figures/HC3N_contours_on_SCUBA_column.png}
-\FigureTwo
-{figures/HC3N_contours_on_SCUBA_column.png}
-{figures/HC3N_contours_on_SCUBA_column_withcores.png}
-{ALMA \cyanoacetylene peak intensity contours (red) overlaid on the derived SCUBA
+
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/HC3N_contours_on_SCUBA_column.png} }
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/HC3N_contours_on_SCUBA_column_withcores.png} }
+\caption{ALMA \cyanoacetylene peak intensity contours (red) overlaid on the derived SCUBA
 column density
-image using Herschel Hi-Gal interpolated temperatures. The \cyanoacetylene was
+image using Herschel Hi-Gal interpolated temperatures. The HC$_3$N was
 shown in grayscale in Figure \ref{fig:coreson20cmandhc3n}.
-Contours are at levels [3,7,11,15,19,23] K.  The  \cyanoacetylene bubble edges can be
+Contours are at levels [3,7,11,15,19,23] K.  The  HC$_3$N bubble edges can be
 seen surrounding cavities in the SCUBA column density map on the east side of
 the main ridge.  To the north, the \cyanoacetylene also traces bubbles, but these are
 less evident in this velocity-integrated view.  The important feature discussed
 in Section \ref{sec:whatdrives} is the differing column density around each of
 the bubbles.  The right figure has the cores overlaid as green dots,
 showing that the 3 mm sources closely trace the molecular gas, but not all
-dense molecular gas contains cores or YSOs.}
-{fig:hc3nonscuba}{1}{0.5\textwidth}
+dense molecular gas contains cores or protostars.}
+\label{fig:hc3nonscuba}
+\end{figure*}
+
 
 \subsection{The clusters and the extended population}
 \label{sec:clustersandextended}
@@ -2214,20 +2721,20 @@ regions represent a later stage in protostellar evolution than the dusty
 protostellar core stage, the \hii region excess in Sgr B2 M implies that it is
 older than Sgr B2 N and the distributed protostar population.  By contrast,
 along the Sgr B2 DS ridge, there are no \hii regions, but there are $\sim100$
-high-mass YSOs, which implies that these YSOs began their formation
+high-mass protostars, which implies that these protostars began their formation
 nearly simultaneously.  Figure \ref{fig:fluxhistclusters} shows this difference
 graphically; Sgr B2 M has an overall source flux distribution marginally higher
 than Sgr B2 N but dramatically higher than the unclustered sources.
 
-The large number of probable YSOs observed along an elongated ridge
+The large number of probable protostars observed along an elongated ridge
 allows us to estimate an upper limit on their age.  Assuming all of these
 forming stars are bound to the cloud and/or central clusters, they should
 approach a spherical distribution within about one crossing time
 \citep{Efremov1998a}.  If we assume the turbulent velocity dispersion is
 $\sigma_{1D}\approx10$ \kms \citep[e.g.,][]{Henshaw2016a}, and the length of
 the DS ridge is $L\approx10$ pc, the upper limit on the formation time of the
-YSOs is $L/\sigma_{1D}<1$ Myr.  Given the tight alignment of the
-YSOs with the gas ridge (Figures \ref{fig:coreson20cmandhc3n} and
+protostars is $L/\sigma_{1D}<1$ Myr.  Given the tight alignment of the
+protostars with the gas ridge (Figures \ref{fig:coreson20cmandhc3n} and
 \ref{fig:hc3nonscuba}), it is  possible to establish a stricter upper limit.  Most
 of the sources are within $r<0.5$ pc of the `ridge', which, assuming they
 formed in the ridge, suggests an upper age limit $t<r/\sigma_{1D}=5\ee{4}$ yr.
@@ -2271,7 +2778,7 @@ dense gas.
 sources and 24 \um sources in the southern part of Sgr B2, and from these
 detections concluded that star formation had proceeded outside-in in the Sgr B2
 cloud.  Our data have revealed a much larger population of what are most likely
-younger sources (dust-dominated YSOs) in this region, which is
+younger sources (dust-dominated protostars) in this region, which is
 inconsistent with the previous interpretation.  Instead, it seems that the
 central clusters are the oldest sites of star formation.  The excess of 4.5 \um
 and 24 \um sources in DS may be because the cloud's envelope of opaque material
@@ -2283,9 +2790,9 @@ the significant ongoing star formation we report here.
 \label{sec:conclusions}
 We have reported the detection of \ncores 3 mm point sources in the extended
 Sgr B2 cloud and determined that the majority are high-mass protostellar
-cores.  This survey represents the first large population of YSOs
+cores.  This survey represents the first large population of protostars
 detected in the Galactic center and represents the largest sample yet reported
-of high-mass YSOs.
+of high-mass protostars.
 
 The large population of high-mass protostellar cores indicates that an extended
 region spanning the entire Sgr B2 cloud, not just the well-known clusters N, M,
@@ -2295,11 +2802,11 @@ clusters but is instead part of the extended burst.
 
 Using Herschel, SCUBA, and SHARC data, we have inferred a threshold for
 high-mass star formation analogous to that inferred in local clouds by
-\citet{Lada2010a}.  We find that there are no high-mass YSOs in gas below
+\citet{Lada2010a}.  We find that there are no high-mass protostars in gas below
 $N(\hh)<10^{23}$ \persc at a resolution of $\approx10\arcsec=0.4$ pc, and half
 of the detected sources are found above $N(\hh)>10^{24}$ \persc.  However,
 there is abundance material above $N(\hh)>10^{23}$ \persc that has no
-associated YSOs, indicating that this is a necessary, but not sufficient,
+associated protostars, indicating that this is a necessary, but not sufficient,
 criterion for high-mass star formation.  These measurements imply either the
 existence of a higher threshold for high-mass star formation than for low-mass,
 as predicted by several theories, or a higher threshold for star formation in
@@ -2325,8 +2832,8 @@ of explaining both local and CMZ clouds.  Instead, a volume-density
 based model may be viable.
 
 
-The large detected population of high-mass YSOs implies a much larger
-population of as-yet undetectable lower-mass YSOs.  Future ALMA and JWST
+The large detected population of high-mass protostars implies a much larger
+population of as-yet undetectable lower-mass protostars.  Future ALMA and JWST
 programs to probe this population would provide the data needed to directly
 compare star formation thresholds in the most intensely star-forming cloud in
 our Galaxy to those in nearby clouds.
@@ -2367,8 +2874,8 @@ through grant SFB956 (subproject A6).
 
 
 
-\input{solobib}
-
+\bibliographystyle{aasjournal}
+\bibliography{extracted} 
 \appendix
 
 \section{Single Dish Combination}
@@ -2420,8 +2927,10 @@ Additionally, we show the cumulative distribution function of core background
 surface brightnesses (as in Figure \ref{fig:corebackgroundcdf}), showing again
 that only the high end is affected. 
 
-\Figure{figures/scuba_feather_scalefactor_comparison.pdf}
-{A demonstration of the effects of using different calibration factors when
+
+\begin{figure*}[!htp]
+\includegraphics[scale=1,width=\textwidth]{figures/scuba_feather_scalefactor_comparison.pdf}
+\caption{A demonstration of the effects of using different calibration factors when
 combining the SCUBA data with the Herschel data using the `feather' process.
 The numbers above each panel show the scale factor applied to the SCUBA data
 before fourier-combining it with the Herschel data.  The factor of 3 was used
@@ -2432,7 +2941,9 @@ show histograms of the images displayed in the top panels.  The dashed lines
 show the cumulative distribution of the background surface brightnesses of the
 point sources in this sample; they are similar to the distributions shown in
 Figure \ref{fig:corebackgroundcdf}.}
-{fig:feathercompare}{1}{\textwidth}
+\label{fig:feathercompare}
+\end{figure*}
+
 
 \section{Self-calibration}
 \label{sec:selfcal}
@@ -2447,8 +2958,10 @@ The effects are shown with a cutout centered on the most affected region around
 Sgr B2 M in Figure \ref{fig:selfcalprogression}.
 
 % selfcal_progression
-\Figure{figures/selfcal_progression_TCTE7m_try2_SgrB2M.pdf}
-{Progression of the self-calibration iterations.  The images show, from left to
+
+\begin{figure*}[!htp]
+\includegraphics[scale=1,width=\textwidth]{figures/selfcal_progression_TCTE7m_try2_SgrB2M.pdf}
+\caption{Progression of the self-calibration iterations.  The images show, from left to
 right, the initial image, one, two, and three iterations of phase-only self
 calibration, two iterations of phase and amplitude self-calibration,  a
 reimaging of the 5th iteration with a deeper 0.1 mJy threshold using a mask at
@@ -2456,7 +2969,9 @@ the 2.5 mJy level, and finally, a sixth iteration of phase and amplitude
 self-cal cleaned to 0.1 mJy over a region thresholded at 1.5 mJy.  All imaging
 was done using two Taylor terms and multiscale clean.  The second row shows the
 corresponding residual images.}
-{fig:selfcalprogression}{1}{\textwidth}
+\label{fig:selfcalprogression}
+\end{figure*}
+
 
 \section{Photometric Catalog}
 \label{sec:catalog}
@@ -2483,8 +2998,54 @@ assumed temperature is probably lower than the true temperature.
 For sources with $T_{B,max}>40$ K, it is not possible to measure a mass
 assuming $T=40$ K, so those entries are left empty.
 
-\input{continuum_photometry}
-
+\begin{table}[htp]
+\caption{Continuum Source IDs and photometry}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llllllllllll}
+\label{tab:photometry}
+ID & Cluster & Classification & Coordinates & $S_{\nu,max}$ & $T_{B,max}$ & $S_{\nu,tot}$ & $\sigma_{bg}$ & $\alpha$ & $E(\alpha)$ & $M_{40K}$ & $N(\hh)_{40 K}$ \\
+ &  &  &  & mJy bm$^{-1}$ & $\mathrm{K}$ & $\mathrm{mJy}$ & mJy bm$^{-1}$ &  &  & $\mathrm{M_{\odot}}$ & $\mathrm{cm^{-2}}$ \\
+\hline
+174 f3 & M & S\_\_W HII & 17:47:20.167 -28:23:04.809 & 1600 & 860 & 2400 & 46 & 0.89 & 0.002 & - & - \\
+234 f4 & M & S\_\_W HII & 17:47:20.214 -28:23:04.379 & 1100 & 570 & 900 & 23 & 0.83 & 0.001 & - & - \\
+176 f1 & M & S\_\_W HII & 17:47:20.127 -28:23:04.082 & 920 & 480 & 1400 & 30 & 1.2 & 0.006 & - & - \\
+236 f10.303 & M & S\_\_W HII & 17:47:20.106 -28:23:03.729 & 890 & 460 & 800 & 19 & 1.1 & 0.015 & - & - \\
+235 f2 & M & S\_\_W HII & 17:47:20.166 -28:23:03.714 & 820 & 430 & 670 & 33 & 1.3 & 0.002 & - & - \\
+172 K2 & N & S\_\_W HII & 17:47:19.869 -28:22:18.466 & 370 & 200 & 650 & 49 & 2.5 & 0.018 & - & - \\
+265 H & S & S\_\_W HII & 17:47:20.461 -28:23:45.404 & 360 & 190 & 580 & 3.9 & 0.65 & 0.019 & - & - \\
+175 G & M & S\_\_W HII & 17:47:20.285 -28:23:03.162 & 340 & 180 & 390 & 5.6 & 0.68 & 0.03 & - & - \\
+237 G10.44 & M & S\_\_W HII & 17:47:20.241 -28:23:03.387 & 280 & 140 & 160 & 15 & 0.69 & 0.006 & - & - \\
+178 f10.37 & M & SX\_W HII & 17:47:20.178 -28:23:06 & 200 & 100 & 270 & 18 & 1.5 & 0.039 & - & - \\
+171 K3 & N & S\_\_W HII & 17:47:19.895 -28:22:17.221 & 190 & 97 & 280 & 25 & 1.4 & 0.023 & - & - \\
+177 B & M & S\_\_\_ HII & 17:47:19.918 -28:23:03.039 & 150 & 77 & 240 & 3.9 & 0.47 & 0.011 & - & - \\
+241 f10.30 & M & S\_\_W HII & 17:47:20.106 -28:23:03.066 & 140 & 73 & 120 & 15 & 1.4 & 0.05 & - & - \\
+179 f10.38 & M & S\_\_W HII & 17:47:20.193 -28:23:06.673 & 130 & 66 & 180 & 9.3 & 1.6 & 0.013 & - & - \\
+180 E & M & S\_\_\_ HII & 17:47:20.108 -28:23:08.894 & 130 & 66 & 190 & 4 & 0.38 & 0.014 & - & - \\
+173 K1 & N & S\_\_\_ HII & 17:47:19.78 -28:22:20.743 & 92 & 48 & 150 & 4.4 & 0.58 & 0.034 & - & - \\
+170 & N & S\_\_W PartofCloud & 17:47:19.895 -28:22:13.621 & 92 & 48 & 160 & 23 & 1.7 & 0.082 & - & - \\
+252 & N & S\_\_W denseCore & 17:47:19.862 -28:22:13.168 & 82 & 43 & 160 & 15 & 1.9 & 0.078 & - & - \\
+225 f10.33b & M & SX\_W denseCore & 17:47:20.116 -28:23:06.374 & 69 & 36 & 100 & 14 & 1.9 & 0.21 & 1200 & 3.6\ee{26} \\
+264 k4 & -- & S\_\_\_ HII & 17:47:19.997 -28:22:04.648 & 65 & 34 & 140 & 3.5 & 0.57 & 0.034 & 1100 & 2.6\ee{26} \\
+96 Z10.24 & -- & S\_MW Maser & 17:47:20.039 -28:22:41.25 & 64 & 33 & 75 & 1.5 & 0.68 & 0.37 & 1100 & 2.5\ee{26} \\
+181 D & M & S\_M\_ HII & 17:47:20.051 -28:23:12.91 & 59 & 31 & 94 & 1.3 & 0.64 & 0.088 & 990 & 2\ee{26} \\
+240 f10.44b & M & S\_\_W HII & 17:47:20.252 -28:23:06.463 & 57 & 30 & 51 & 11 & 1.8 & 0.015 & 960 & 1.8\ee{26} \\
+233 f10.27b & M & S\_\_W HII & 17:47:20.077 -28:23:05.383 & 50 & 26 & 78 & 18 & 2.3 & 0.18 & 840 & 1.4\ee{26} \\
+239 & M & S\_\_W denseCore & 17:47:20.242 -28:23:07.222 & 45 & 24 & 46 & 8.6 & 2.3 & 0.091 & 760 & 1.1\ee{26} \\
+244 C & M & S\_\_\_ - & 17:47:19.981 -28:23:18.437 & 35 & 19 & 67 & 0.49 & 0.47 & 0.081 & 600 & 7.8\ee{25} \\
+242 f10.318 & M & S\_\_W HII & 17:47:20.129 -28:23:02.247 & 32 & 17 & 63 & 8.5 & 2.2 & 0.099 & 540 & 6.8\ee{25} \\
+92 I10.52 & M & S\_\_\_ HII & 17:47:20.324 -28:23:08.2 & 32 & 17 & 45 & 5.3 & 0.63 & 0.061 & 530 & 6.6\ee{25} \\
+245 A2 & -- & S\_\_\_ HII & 17:47:19.562 -28:22:55.916 & 25 & 13 & 32 & 2.1 & 0.54 & 0.025 & 410 & 4.8\ee{25} \\
+109 & N & S\_\_W - & 17:47:19.901 -28:22:15.54 & 24 & 13 & 41 & 13 & 3.6 & 0.3 & 410 & 4.7\ee{25} \\
+87 B9.99 & M & S\_\_\_ HII & 17:47:19.798 -28:23:06.942 & 23 & 12 & 37 & 1.9 & 0.89 & 0.042 & 390 & 4.4\ee{25} \\
+88 & M & S\_\_W - & 17:47:19.617 -28:23:08.26 & 23 & 12 & 34 & 2.9 & 3.1 & 0.18 & 380 & 4.3\ee{25} \\
+151 B10.06 & M & S\_M\_ HII & 17:47:19.86 -28:23:01.5 & 21 & 11 & 31 & 1.3 & 0.19 & 0.79 & 350 & 3.8\ee{25} \\
+98 & -- & S\_M\_ Maser & 17:47:19.53 -28:22:32.55 & 18 & 9.5 & 29 & 0.36 & 3.2 & 1.1 & 300 & 3.3\ee{25} \\
+\hline
+\end{tabular}
+}\par
+The Classification column consists of three letter codes as described in Section \ref{sec:classification}.  In column 1, \texttt{S} indicates a strong source, \texttt{W} indicates weak or low-confidence source. In column 2, an \texttt{X} indicates a match with the \citet{Muno2009a} Chandra X-ray source catalog, while an underscore indicates there was no match.  In column 3, \texttt{M} indicates a match with the, \citet{Caswell2010a} Methanol Multibeam Survey \methanol maser catalog, while an underscore indicates there was no match.  Finally, we include the SIMBAD \citep{Wenger2000a} source object type classification if one was found.  The full electronic version of this table is available at \url{https://github.com/keflavich/SgrB2_ALMA_3mm_Mosaic/blob/master/tables/continuum_photometry_withSIMBAD_andclusters.ipac} and will be made available via the journal at the time of publication.
+\end{table}
+ 
 \section{Additional figures showing \cyanoacetylene}
 \label{sec:hc3nfigures}
 The \cyanoacetylene line was discussed at various points in the paper.  Because
@@ -2492,25 +3053,29 @@ the data are extremely rich and complex,  we include some additional figures
 showing the detailed
 structure of the lines here.
 
-\Figure{figures/SgrB2_HC3N_channelmaps.pdf}
-{Channel maps of the \cyanoacetylene J=10-9 line.  Each panel shows the integrated
+
+\begin{figure*}[!htp]
+\includegraphics[scale=1,width=\textwidth]{figures/SgrB2_HC3N_channelmaps.pdf}
+\caption{Channel maps of the \cyanoacetylene J=10-9 line.  Each panel shows the integrated
 intensity over a 5 \kms velocity range as indicated on the figures.
 The data shown here are 
 12m+7m images made excluding the long-baseline data sets to emphasize
 large angular scales
-%robust 0.5-weighted images
 combined with total power
 data by feathering the images.
 The `ridge' feature  discussed in the text is most evident in the 50-55 \kms
 channel, and these images show that it is dominated by a single velocity
 component.
 }
-{fig:hc3nchannelmaps}{1}{\textwidth}
+\label{fig:hc3nchannelmaps}
+\end{figure*}
 
-\FigureTwo
-{figures/HC3N_peaktp.png}
-{figures/HC3N_peaktp05.png}
-{Peak intensity maps of \cyanoacetylene J=10-9.
+
+
+\begin{figure*}[!htp]
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/HC3N_peaktp.png} }
+\subfigure[]{ \includegraphics[scale=1,width=0.5\textwidth]{figures/HC3N_peaktp05.png} }
+\caption{Peak intensity maps of \cyanoacetylene J=10-9.
 The left image shows the 12m short-baseline data combined with 7m and total
 power data; by excluding the long-baseline data, the large angular scales are
 emphasized.  The right image shows the robust 0.5-weighted 12m+7m data combined
@@ -2520,7 +3085,9 @@ the lower-intensity diffuse emission is relatively hidden.  In the right image,
 the negative bowls seen near Sgr B2 M and N in this peak-intensity image
 indicate that intermediate size scales were not well-recovered.  The bright
 feature on the bottom-left of both images may be an imaging artifact.}
-{fig:hc3npeakintensity}{1}{0.5\textwidth}
+\label{fig:hc3npeakintensity}
+\end{figure*}
+
 
 \section{Additional figure showing Sgr B2 M and N}
 \label{sec:onept3cm}
@@ -2529,13 +3096,17 @@ continuum \citep{De-Pree2014a} in Figure \ref{fig:MandNzoomsVLA}.  This figure
 highlights the differences between the wavelengths and provides a visual
 verification that our classification of sources as \hii regions is reasonable.
 
-\Figure{figures/cores_on_1.3cm_peak_MandN_zoomin_legend.pdf}
-{A close-up of Sgr B2 M and N similar to Figure \ref{fig:MandNzooms}, but with
+
+\begin{figure*}[!htp]
+\includegraphics[scale=1,width=\textwidth]{figures/cores_on_1.3cm_peak_MandN_zoomin_legend.pdf}
+\caption{A close-up of Sgr B2 M and N similar to Figure \ref{fig:MandNzooms}, but with
 VLA 1.3 cm continuum \citep{De-Pree2014a} in the background instead of the ALMA 3 mm
 continuum.  Many of the features that appear in the 3 mm image do not appear
 in the 1.3 cm image and are likely to be from dust emission, but the poorer sensitivity
 of the 1.3 cm data also suggests that some of these features are simply 
 free-free emission undeteted at 1.3 cm.}
-{fig:MandNzoomsVLA}{1}{\textwidth}
+\label{fig:MandNzoomsVLA}
+\end{figure*}
+
 
 \end{document}

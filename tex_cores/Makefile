@@ -21,7 +21,8 @@ sgrb2_cores:
 
 .PHONY: diff
 diff:
-	#python2 parse_macros.py sgrb2_cores.tex sgrb2_cores_fordiff.tex
+	python parse_macros.py sgrb2_cores.tex sgrb2_cores_fordiff.tex
+	python parse_macros.py submitted.tex original_for_diff.tex
 	#python parse_macros.py sgrb2_cores_aug13.tex sgrb2_cores_aug13_fordiff.tex
 	#python2 parse_macros.py sgrb2_cores_feb16_2016_submitted.tex sgrb2_cores_feb16_2016_submitted_fordiff.tex
 	latexdiff original_for_diff.tex sgrb2_cores_fordiff.tex > diff.tex
