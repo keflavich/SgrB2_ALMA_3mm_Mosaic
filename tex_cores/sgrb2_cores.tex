@@ -1437,43 +1437,6 @@ While all of the sources exist above the Lada threshold, not all pixels above
 this threshold contain YSOs or protostellar cores (Figure
 \ref{fig:coldistributionwithoutstarformation}).
 
-% stellar_mass_estimate.py
-\FigureOneCol{figures/cumulative_mass_plot.pdf}
-{The cumulative mass above a threshold column density in the observed
-region.  The two curves show the mass inferred with and without a
-foreground of $5\ee{22}$ \persc, the highest plausible foreground column
-density, subtracted.}
-{fig:cumulativemass}{1}{0.5\textwidth}
-
-\citet{Lada2010a} suggested that their observed column density threshold
-corresponded to a density $n\approx10^4$ \percc.  If we assume that Sgr B2 is
-approximately a $2 \mathrm{pc}\times2 \mathrm{pc}\times6 \mathrm{pc}$ box, the
-typical column density $N\gtrsim5\ee{23}$ \persc requires a mean density
-$n\gtrsim5\ee{4}$ \percc.  Again, effectively all of the gas associated with
-ongoing star formation is above the locally-determined threshold.
-
-To compare Sgr B2 to the Lada et al sample on a full-cloud scale, we can use
-the total mass and total YSO mass.  Lada et al used a YSO count, $N_{YSO}$,
-while we inferred a total YSO mass; we use their assumed median mass
-$M_{median} = 0.5$ \msun to convert $M_{YSOs}$ to $N_{YSO}$.  Using their
-fitted relation for local, $N_{YSO} = 0.2 M_{cloud,\msun}(A_K>0.8)$, we predict
-that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud mass
-because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2} = 3\ee{5}$.  As seen
-in Table \ref{tab:clustermassestimates}, the observed $N_{YSO} = MYSO / (0.5
-\msun) = 5.2\ee{4}-6.6\ee{4}$, a factor of five below the extrapolated Lada et
-al relation.  From the observed $N_{YSO,Sgr B2}$, we expect
-$M_{cloud}\approx3\ee{5}$, which corresponds to a threshold $N>10^{24}$ \persc
-(Figure \ref{fig:cumulativemass}).
-
-Any way we examine our data, it appears that a higher threshold for star
-formation is required in Sgr B2 than in local clouds.  The one remaining caveat
-is that the Lada et al study  used Spitzer observations of nearby clouds that
-were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
-discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
-to stars with $M\gtrsim8$ \msun.  It is therefore possible that we have instead
-observed a higher threshold for high-mass star formation than for low-mass star
-formation.
-
 % core_local_brightness
 \FigureOneCol{figures/core_background_column_cdf.png}
 {
@@ -1484,7 +1447,7 @@ from a variety of maps with different resolution and assumed temperature.
 The Herschel maps use SED-fitted temperatures (Battersby et al. in prep) at
 25\arcsec resolution (excluding the 500 \um data point) and 36\arcsec resolution.
 The SHARC 350 \um and SCUBA 450 \um maps both have higher resolution ($\sim10\arcsec$)
-but no temperature information; we used an assumed $T_{dust}=20$ and $T_{dust}=50$ K
+but no temperature information; we used an assumed $T_{dust}=20$ K and $T_{dust}=50$ K
 to illustrate the range of possible background column densities (hatched
 red and blue).  The thick solid red and blue lines show the SHARC and SCUBA column
 density images using Herschel temperatures interpolated onto their grids: these
@@ -1498,6 +1461,53 @@ dashed line shows the $N(\hh)=5.2\ee{21}$ \persc column density threshold from
 \persc \citet{Krumholz2008a} threshold for high-mass star formation.}
 {fig:corebackgroundcdf}{1}{0.5\textwidth}
 
+\citet{Lada2010a} suggested that their observed column density threshold
+corresponded to a density $n\approx10^4$ \percc.  If we assume that Sgr B2 is
+approximately a $2 \mathrm{pc}\times2 \mathrm{pc}\times6 \mathrm{pc}$ box, the
+typical column density $N\gtrsim5\ee{23}$ \persc requires a mean density
+$n\gtrsim5\ee{4}$ \percc.  Again, effectively all of the gas associated with
+ongoing star formation is above the locally-determined threshold.
+
+To compare Sgr B2 to the Lada et al sample on a full-cloud scale, we can use
+the total cloud mass and total YSO mass.  Lada et al used a YSO count, $N_{YSO}$,
+while we inferred a total YSO mass; we use their assumed median mass
+$M_{median} = 0.5$ \msun to convert $M_{YSOs}$ to $N_{YSO}$.  Using their
+fitted relation for local clouds\footnote{In the main body of their paper, Lada
+et al included all YSOs in the clouds down to $A_K>0.1$ for their total YSO
+counts.  However, in the text they repeated their $N_{YSO}$ - $M_{cloud}$ fit
+using only stars embedded in gas with $A_K>0.5$.  They obtained a linear
+relation about 0.5$\times$ lower than that shown in their paper (C. Lada,
+private communication).  The better agreement when including only embedded
+YSOs hints that the discrepancy noted in this section could disappear if a
+complete census of Class II sources were obtained.}, $N_{YSO} = 0.2
+M_{cloud,\msun}(A_K>0.8)$, we
+predict that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud
+mass because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2} = 3\ee{5}$.  As
+seen in Table \ref{tab:clustermassestimates}, the observed $N_{YSO} = MYSO /
+(0.5 \msun) = 5.2\ee{4}-6.6\ee{4}$, a factor of five below the extrapolated
+Lada et al relation.  From the observed $N_{YSO,Sgr B2}$, we expect
+$M_{cloud}\approx3\ee{5}$, which corresponds to a threshold $N>10^{24}$ \persc
+(Figure \ref{fig:cumulativemass}).
+
+Any way we examine our data, it appears that a higher threshold for star
+formation is required in Sgr B2 than in local clouds.  The one remaining caveat
+is that the Lada et al study  used Spitzer observations of nearby clouds that
+were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
+discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
+to stars with $M\gtrsim8$ \msun.  It is therefore possible that we have instead
+observed a higher threshold for high-mass star formation than for low-mass star
+formation.
+
+
+% stellar_mass_estimate.py
+\FigureOneCol{figures/cumulative_mass_plot.pdf}
+{The cumulative mass above a threshold column density in the observed
+region.  The two curves show the mass inferred with and without a
+foreground of $5\ee{22}$ \persc, the highest plausible foreground column
+density, subtracted.}
+{fig:cumulativemass}{1}{0.5\textwidth}
+
+
 \paragraph{Comparison to the Lada et al SFR}
 \citet{Lada2010a} also express their $N_{YSO}-M_{cloud}$ relation as a star
 formation rate relationship, $\dot{M}_* = 4.6\ee{-8} M_{dense}$.  Using $M_{Sgr
@@ -1507,8 +1517,8 @@ factor of two of our estimated SFR ($\dot{M}_*=0.036$ \msun \peryr, Table
 for the SFR, but simultaneous disagreement with the more directly observational
 relations, is driven by the assumed star formation timescale.  If we use
 \citet{Lada2010a} Equation 3, $\dot{M}_* = (\epsilon/f) \tau_{ff}^{-1} M_{dense}$,
-with $\epsilon/f=0.018$ being the star formation efficiency per free-fall time
-and $\tau_{ff}$ the free-fall time, but we account for the shorter
+where $\epsilon/f=0.018$ is the star formation efficiency per free-fall time
+and $\tau_{ff}$ is the free-fall time, but we account for the shorter
 $\tau_{ff}=0.14$ Myr in Sgr B2, we obtain $\dot{M}_* = 0.20$ \msun \peryr, again
 about a factor of 5 above the observed rate.  If we assume the free-fall time
 is the relevant timescale for star formation, though, this discrepancy gets
