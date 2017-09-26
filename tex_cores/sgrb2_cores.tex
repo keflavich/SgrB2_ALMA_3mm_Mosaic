@@ -690,7 +690,7 @@ highest bin.
 }
 {fig:fluxhist}{1}{0.5\textwidth}
 
-\subsubsection{Alternative 0: The sources are dust-only `prestellar' cores}
+\subsubsection{Alternative 1: The sources are dust-only `prestellar' cores}
 \label{sec:alt0}
 The simplest assumption is that all sources we have detected that were not
 detected at longer wavelengths are pure dust emission sources at a constant
@@ -720,16 +720,20 @@ but only a handful of such sources have ever been claimed before
 prestellar cores \citep{McKee2003a} suggests they are much larger and less
 concentrated than the sources we observe.
 
-At the high implied densities ($n(20 \mathrm{K})>10^8$ \percc), it is
-unlikely cores are unbound.  The high density required for our sources results
-in a very short free-fall timescale, $t_{ff}<6000$ yr.  Assuming such cores
-do exist, they most likely have a YSO phase that is substantially longer,
-during which the core would be centrally heated.  
+At the high implied densities ($n(20 \mathrm{K})>10^8$ \percc), it is unlikely
+cores are unbound; these sources have $v_{esc} > 2 \kms (M/10 \msun)^{1/2}$
+from $r=0.5\arcsec=4200$ \au.  The high density required for our sources
+results in a very short free-fall timescale, $t_{ff}<3000 (n/10^8
+\percc)^{-1/2}$ yr.  Assuming such cores do exist, the timescale for them to
+form a central YSO (a central heating source) is very short.  While there are
+few constraints on the accreting lifetime of high-mass YSOs, that timescale is
+almost certainly 1-2 orders of magnitude longer.  For a given population of
+dusty sources, we would expect only of order 1-10\% of them to be starless at
+any given time.  We will revisit the characteristics of centrally heated dust
+sources in Section \ref{sec:theyareprotostars} below.
 
-{\color{red} the logic here still feels too circular.}
 
-
-\subsubsection{Alternative 1: The sources are externally ionized gas blobs}
+\subsubsection{Alternative 2: The sources are externally ionized gas blobs}
 \label{sec:alt1}
 One possibility is that these sources are not dust-dominated, nor pre- or
 protostellar, but are instead externally ionized, mostly neutral gas clumps
@@ -750,8 +754,9 @@ emission is thin ($\alpha=-0.1$), the brightness in our data would be $S_{95 GHz
 (95/8.5)^{-0.1} S_{8.5 GHz} = 0.79 S_{8.5 GHz} \approx 1.2$ mJy/beam.  These
 frEGGs would be detectable in our data.  Comparison to radio observations
 at a similar resolution will be needed to rule out the externally ionized
-globule hypothesis for the resolved regions within our sample, but the unresolved
-sources are unlikely to be frEGGs.
+globule hypothesis for the resolved regions within our sample.  Since we
+expect to resolve frEGGs, the unresolved sources in our sample are unlikely to
+be frEGGs.
 
 % core_table_plots
 \FigureOneCol{figures/core_alpha_coloredbyclass.png}
@@ -772,8 +777,9 @@ around $\alpha=3.5$, which is  consistent with dust emission.
 If the detected sources were either EGGs or cometary clouds, we would expect
 them to be located within diffuse \hii regions, since that is where all other
 sources of this type are seen, and since an external ionizing agent is needed
-to illuminate them.  Many of the sources are near \hii regions, as seen in
-Figure \ref{fig:coreson20cmandhc3n}a, but not within them.  The sources are
+to illuminate them.  Many of the sources are near but not embedded in \hii
+regions, as seen in Figure \ref{fig:coreson20cmandhc3n}a, which shows 20 cm
+continuum emission that most likely traces ionized gas.  The sources are
 nearly all associated with a ridge of molecular (\cyanoacetylene) emission
 (Figure
 \ref{fig:coreson20cmandhc3n}b).  If they are deeply embedded within the
@@ -781,11 +787,20 @@ molecular material, they cannot be externally ionized.
 %The current data do not provide enough information on the geometry of the
 %clouds to rule out the possibility that the point sources are just illuminated
 %cloud edges, but 
-The fact that the ionized gas is brightest nearby, rather than directly on top
-of, the \cyanoacetylene suggests that the \cyanoacetylene traces a full
-molecular cloud rather than a thin PDR-like layer, which would be required if
-these sources are cometary clouds.  The association with dense molecular gas
-implies that the sources are not externally ionized objects.
+
+The ionized gas emission (20 cm, Figure \ref{fig:coreson20cmandhc3n}a) and
+molecular gas emission (\cyanoacetylene, Figure \ref{fig:coreson20cmandhc3n}b)
+are anticorrelated.  The \cyanoacetylene emission wraps around the 20 cm
+emission, and has a significant extent beyond the edge of the 20 cm emission.
+If the \cyanoacetylene were tracing a photon-dominated region, we would expect
+the \cyanoacetylene emission to peak along the edge of the \hii region.
+Since it does not, we conclude that the \cyanoacetylene emission is tracing a
+`quiescent' molecular cloud, i.e., one that is not significantly heated by
+the adjacent \hii region.  Most of the 3 mm sources are aligned with bright
+\cyanoacetylene emission, implying that they are embedded within it.
+If they are indeed embedded in an extended molecular cloud, that cloud
+should shield them from ionizing radiation.  The sources are therefore
+mostly not externally ionized.
 
 A final point against the externally ionized hypothesis is the observed
 spectral indices shown in Figure \ref{fig:alphahist}.  We measured spectral
@@ -860,7 +875,7 @@ masers, and green X's are X-ray sources.
 }
 {fig:coreson20cmandhc3n}{1}{0.5\textwidth}
 
-\subsubsection{Alternative 2: The sources are \hii regions produced by
+\subsubsection{Alternative 3: The sources are \hii regions produced by
 interloper ionizing stars}
 \label{sec:alt2}
 If there is a large population of older (age 1-30 Myr) massive stars, they
@@ -868,33 +883,31 @@ could ignite compact \hii regions when they fly through molecular material.  In
 other words, each OB star that encounters dense enough gas would create a
 compact \hii region that would not have time to expand due to the star's rapid
 motion.  Such sources would be bow-shaped when viewed at higher resolution.
-See \ref{sec:theyarehiiregions} for calculations of stationary \hii region
+See \S \ref{sec:theyarehiiregions} for calculations of stationary \hii region
 properties.
 
-The main problem with this scenario is the spatial distribution of
-the observed sources.  While most of the continuum sources are associated with
-dense gas and dust ridges, not all of the high-column molecular gas regions
-have such sources in them (i.e., 
-Figure \ref{fig:coreson20cmandhc3n}b, where molecular material is seen with no
-associated millimeter sources outside of the north/south \cyanoacetylene
-ridge).  If there is a free-floating population of OB
-stars responsible for the 3 mm compact source population, and if we assume the
-spatial distribution of the stars is uniform, the distribution of \hii regions
-surrounding them should match that of the gas. 
-  Also, there is no such population of sources
-seen \emph{outside} of the dense gas in the infrared,
+The main problem with this scenario is the spatial distribution of the observed
+sources.  While most of the continuum sources are associated with dense gas and
+dust ridges, not all of the high-column-density molecular gas regions have such
+sources in them (see Figure \ref{fig:coreson20cmandhc3n}b, where there is some
+molecular material that does not have associated millimeter sources,
+especially to the east and west of the main ridge).  If there is a
+free-floating population of OB stars responsible for the 3 mm compact source
+population, and if we assume the spatial distribution of the stars is uniform,
+the distribution of the resulting \hii regions should match that of the gas.
+Also, there is no such population of sources seen \emph{outside} of the dense
+gas in the infrared,
 %\citep[TODO: Who has done
 %infrared studies of Sgr B2?  You can infer what I have stated `by inspection'
 %of 2MASS, but it would be more straightforward to quote someone else][]{},
 which again we should expect if there is a uniformly distributed massive stellar
 population.  Finally, the spectral indices discussed above (Figure
 \ref{fig:alphahist}) suggest the previously-unidentified sources are dust
-emission sources, not
-free-free sources.
+emission sources, not free-free sources.
 
 
 
-\subsubsection{Alternative 3: The sources are \hii regions produced by
+\subsubsection{Alternative 4: The sources are \hii regions produced by
 recently-formed OB stars}
 \label{sec:theyarehiiregions}
 
@@ -905,36 +918,51 @@ sources associated with these previously-identified \hii regions are among the
 brightest in our catalog.  We address here whether the remaining  sources,
 which are mostly fainter, could also be \hii regions.
 
-For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
-flux density is $S_{95 \mathrm{GHz}} = 4.7$ mJy for a $Q_{lyc}=10^{47}$ \pers
-source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
-as long as the source is optically thin.   We rearrange \citet{Condon2007a}
-equations 4.60 and 4.61 to get the expected flux density as a function of
-temperature, emission measure, and frequency:
+To calculate the expected 3 mm flux density from an \hii region with a central
+source emitting Lyman continuum luminosity $Q_{Lyc}$, we rearrange
+\citet{Condon2007a} equations 4.60 and 4.61.  We get an equation for the
+expected brightness temperature as a function of electron temperature $T_e$,
+emission measure $EM$, and frequency $\nu$:
 \begin{eqnarray}
-S_{\nu}(Q_{lyc})  &=& 4.67 \left[1-\exp\left(c_* T_* \nu_* EM_* \right) \right] \nonumber \\
+T_B(Q_{lyc})  &=& T_e \mathrm{mJy} \left[1-\exp\left(-\tau) \right] \nonumber \\
+\tau &=& c_* T_* \nu_* EM_* \right \\
 \nu_* &=& \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \nonumber \\
 T_* &=& \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \nonumber \\
 c_* &=& -3.28\times10^{-7} \nonumber \\
-EM_* &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_B} \nonumber \\
+EM &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_B} \nonumber \\
+EM_* &=& \frac{EM}{\mathrm{pc~cm}^{-6}} \nonumber \\
 \end{eqnarray}
 where the case-B recombination coefficient $\alpha_B=2\ee{-13}$ cm$^3$
-s$^{-1}$, $Q_{lyc}$ is the count rate of ionizing photons in $s^{-1}$, and $R$
-is the \hii region radius.  The constant $c_*$ was computed by
-\citet{Mezger1967a} as an approximation to the optical depth prefactor in the
-full radiative transfer equation and is never incorrect by more than
-$\approx25\%$.
+s$^{-1}$, $Q_{lyc}$ is the count rate of ionizing photons in $s^{-1}$, $\tau$
+is the optical depth of the \hii region, and $R$
+is the \hii region radius.  The emission measure $EM_*$ assumes the
+\hii region is a uniform-density Str{\"o}mgren sphere.  The constant $c_*$ was
+computed by \citet{Mezger1967a} as an approximation to the optical depth
+prefactor in the full radiative transfer equation and is never incorrect by
+more than $\approx25\%$.
+To convert the above brightness temperature into a flux density, assuming a
+FWHM=0.5\arcsec beam at 95 GHz, 1 K$ =1.85$ mJy/beam.
 
-An extremely compact \hii region,
-e.g., one with $R<100$ AU and corresponding density $n>10^6$ \percc, would be
-optically thick and therefore fainter, $S_{95 \mathrm{GHz}}(R=100 \mathrm{AU},
-Q_{lyc}=10^{47} \pers)=3.4$ mJy.  Even the most luminous O-stars could produce \hii
-regions as faint as 0.5 mJy if embedded in extremely high density gas; above
-$Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would be $\sim0.5$ mJy.
+For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
+flux density is $S_{95 \mathrm{GHz}} = 5.2$ mJy for a $Q_{lyc}=10^{47}$ \pers
+source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
+as long as the source is optically thin.
+
+An extremely compact \hii region, e.g., one with $R<100$ AU and corresponding
+density $n>10^6$ \percc, would be somewhat optically thick ($\tau\approx0.65$)
+and therefore fainter, $S_{95 \mathrm{GHz}}(R=100 \mathrm{AU}, Q_{lyc}=10^{47}
+\pers)=3.4$ mJy.  Even the most luminous O-stars could produce \hii regions as
+faint as 0.5 mJy if embedded in extremely high density gas; above
+$Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would have $S_{95 GHz}\approx0.5$
+mJy ($\tau=10$).
 
 Figure \ref{fig:hiibrightness} shows the predicted brightness for various \hii
 regions produced by OB stars and the density required for those \hii regions
-to be the specified size.  There is a narrow range of late O/early B stars,
+to be the specified size.  There is a narrow range of late O/early B\footnote{We use
+the tabulations of OB star properties from \citet{Vacca1996a} and
+\citet{Pecaut2013a}, via their online table
+\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt}
+to determine the relation between spectral type, luminosity, and mass.} stars,
 $10^{46} < Q_{lyc} < 10^{47}$ \pers, that could be embedded in compact \hii
 regions of almost any size and produce the observed range of flux densities.
 In order for the detected sources to be O-star-driven \hii regions, with $10^{47}
@@ -942,14 +970,42 @@ In order for the detected sources to be O-star-driven \hii regions, with $10^{47
 extremely compact and dense.  
 Anything fainter, i.e., later than $\sim$B0 ($Q_{lyc}<10^{46}$ \pers), would be
 incapable of producing the observed flux densities.
-Such bright stars would have to be embedded in dust that, at 40 K, would
-outshine the \hii region.  Figure \ref{fig:hiibrightness}b shows that the
-highest-luminosity stars would have to be embedded in $n>10^8$ \percc gas to be
-small enough to produce an \hii region with $S_{3 \textrm{mm}}<1$ mJy, which means the
-dust - even if it were cold - would dominate the free-free emission.
-More likely, such sources would have much hotter dust
-and therefore would be much brighter (and more extended) than our observations
-allow.
+
+Since the observed objects are all extremely compact (most have $r<4000$ AU),
+if they are \hii regions, they must be embedded in dense gas (and dust) so that
+they are `ionization-bounded' (their radii are determined by the point where
+all ionizing photons are consumed).  For the most luminous sources to produce
+faint \hii regions ($S_{95 GHz} \sim 0.5-1.5$ mJy), they must reside in very
+compact \hii regions ($r<100$ AU).  Figure \ref{fig:hiibrightness}b shows that,
+if O-stars were confined to such small \hii regions, the emission would in some
+cases be dominated by the warm dust core.  Such sources would be at least twice
+as bright as predicted in Figure \ref{fig:hiibrightness}a.  In short, the
+compactness of the observed sources suggests that the majority of the 100
+\emph{faint} ($S_{95 GHz} < 1.5$ mJy) sources in our sample are probably
+not O-star \hii regions, but they may be B-star \hii regions.
+
+% number faint:
+% ((u.Quantity(tbl['peak'], u.Jy/u.beam) < 1.5*u.mJy/u.beam)).sum()
+% should be 100
+
+% number not hii:
+% ((~hii) & (u.Quantity(tbl['peak'], u.Jy/u.beam) > 1.5*u.mJy/u.beam)).sum()
+% should be 140
+% ((~hii) & (u.Quantity(tbl['peak'], u.Jy/u.beam) > 1.5*u.mJy/u.beam) & ((u.Quantity(tbl['peak'], u.Jy/u.beam) < 10*u.mJy/u.beam))).sum()
+% 119
+The 119 sources with $10 \mathrm{mJy} > S_{95 GHz} > 1.5$ mJy that were not
+previously identified as \hii regions from radio data require a specific set of
+parameters to be \hii regions.  Stars with $10^{47} < Q_{Lyc} < 5\ee{47}$
+could reside in \hii regions spanning a wide range of radii and produce
+flux densities in the observed range (Figure \ref{fig:hiibrightness}a),
+but more luminous stars would again have to be confined to very small \hii
+regions.  Small \hii regions are not impossible, but previously they have
+been observed quite rarely compared to more extended \hii regions, likely
+because their high pressures compared to their surroundings lead to rapid
+expansion.  We cannot strictly rule out that these intermediate-brightness
+sources are \hii regions, but because of the restrictive parameter space
+of radius and luminosity they must occupy, we regard this interpretation
+as unlikely to explain most of the sample.
 
 The luminosity function of the observed sources is apparently steep (power law
 slope $\approx-2$), assuming the flux density distribution (Figure
@@ -960,12 +1016,12 @@ more sources below our detection threshold than above.  This argument is pure
 extrapolation,  but if there is a large population of sources below $<0.5$ mJy,
 they are certainly too faint to be \hii regions (Figure
 \ref{fig:hiibrightness}a).  Again, assuming the luminosity distribution is
-continuous, that implies that we have not detected \hii regions.
+continuous, that implies that our sample is not dominated by \hii regions.
 
-This restrictive parameter space, combined with a steep luminosity function, is
-evidence against the population being dominated by \hii regions.  The spectral
-indices also support this conclusion, since some are steeper than $\alpha>2$
-and are therefore inconsistent with free-free emission.
+A final point against the sample being exclusively \hii regions is the observed
+spectral indices.  While some are consistent with \hii regions, with $\alpha <
+2$, some ($\ngttwo$) are steeper than $\alpha>2$ and are therefore inconsistent
+with free-free emission.
 
 
 
@@ -979,27 +1035,27 @@ within a FWHM=0.5\arcsec beam (right axis) as a function of the Lyman continuum
 luminosity for a variety of source radii.  The grey filled region shows the
 range of our 5-sigma sensitivity limits,
 which vary with location from 0.25 to 0.8 K.
-(right) The density required to produce an \hii region of that radius.  The
+(right) The electron density required to produce an \hii region of that radius.  The
 horizontal dashed line shows the density corresponding to an unresolved dust
 source ($r<0.2\arcsec=1700$ AU) at the 5-$\sigma$ detection limit ($\approx0.5$
-mJy, or about 10 \msun of dust,
-assuming $T=40$ K).    Above this line, dust emission would dominate over
+mJy, or about 10 \msun of dust, assuming $T=40$ K, and assuming $n_e=2
+n(\hh)$).    Above this line, dust emission would dominate over
 free-free emission.  The dotted line shows the density required for dust
 emission to produce a 10 mJy source at $T=40$ K.
-The density has been scaled by a factor of two,
-assumine $n_e = 2 n(\hh)$.
 As seen in the left plot, for
 any moderate-sized \hii region, $R>100$ AU, a high-luminosity star ($Q_{lyc} >
 10^{47}$ \pers) would produce an \hii region brighter than the majority of our
-sample, which includes only a few sources brighter than 10 mJy.  The electron
+sample, which includes only a few sources brighter than 5 mJy.  The electron
 densities required to produce \hii regions within our observed range
-($1<S_\nu<10$ mJy) are fairly extreme, $n_e\gtrsim10^6$ \percc, for O-stars.}
+($0.5<S_{95 GHz}<10$ mJy for the newly detected sources) are fairly extreme,
+$n_e\gtrsim10^6$ \percc, for O-stars (which have $Q_{Lyc} > 10^{48}$).}
 {fig:hiibrightness}{1}{18cm}
 
 
-\subsubsection{Our hypothesis: The sources are (mostly) YSOs}
+\subsubsection{Alternative 5, our hypothesis: The sources are (mostly) YSOs}
 \label{sec:theyareprotostars}
-After ruling out the other possibilities, we test and validate the hypothesis
+After determining that the other possibilities cannot explain
+the whole sample, we test and validate the hypothesis
 that most or all of the sources contain YSOs in this section.
 
 If we assume higher dust temperatures than those used in Section
