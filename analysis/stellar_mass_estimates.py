@@ -113,7 +113,7 @@ tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
                    '$M_{inferred}$', '$M_{inferred, H\\textsc{ii}}$',
                    '$M_{inferred, cores}$', '$M_{count}^s$', '$M_{inf}^s$',
                    'SFR'],
-            dtype=['S10', int, int, int, int, int, int, int, int, float])
+            dtype=['S12', int, int, int, int, int, int, int, int, float])
 
 for col in tbl.colnames:
     if 'M' in col:
@@ -127,6 +127,7 @@ print("Mass fraction M>20 = {0}".format(over20fraction))
 print("Mean mass M>20 = {0}".format(over20mean))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
 print("Mean mass 8<M<20 = {0}".format(over8lt20mean))
+allclusters = np.zeros_like(hii, dtype='bool')
 for reg in clusters:
     mask = reg.contains(core_coords, arbitrary_wcs)
     nhii = (hii & mask).sum()
@@ -154,21 +155,59 @@ for reg in clusters:
         sst_mask = schmiedeke_summary_table['Name'] == 'Sgr B2({0})'.format(name)
         cluster_column[mask] = name
 
-    tbl.add_row([name,
-                 ncores,
-                 nhii,
-                 latex_info.round_to_n(mass,2)*u.M_sun,
-                 latex_info.round_to_n(inferred_mass, 2)*u.M_sun,
-                 latex_info.round_to_n(hii_only_inferred_mass, 2)*u.M_sun,
-                 latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
-                 schmiedeke_summary_table[sst_mask]['M∗ initial']*u.M_sun,
-                 schmiedeke_summary_table[sst_mask]['M∗ all']*1e3*u.M_sun,
-                 latex_info.round_to_n(inferred_mass/sgrb2_age_myr/1e6,2)*u.M_sun/u.yr,
-                ])
+        allclusters += mask
+        print(allclusters.sum())
+
+    row = [name,
+           ncores,
+           nhii,
+           latex_info.round_to_n(mass,2)*u.M_sun,
+           latex_info.round_to_n(inferred_mass, 2)*u.M_sun,
+           latex_info.round_to_n(hii_only_inferred_mass, 2)*u.M_sun,
+           latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
+           schmiedeke_summary_table[sst_mask]['M∗ initial']*u.M_sun,
+           schmiedeke_summary_table[sst_mask]['M∗ all']*1e3*u.M_sun,
+           latex_info.round_to_n(inferred_mass/sgrb2_age_myr/1e6,2)*u.M_sun/u.yr,
+          ]
+
+    if name == 'Total':
+        totalrow = row
+    else:
+        tbl.add_row(row)
+
+# now get the non-clustered total
+mask = ~allclusters
+nhii = (hii & mask).sum()
+ncores = ((~hii) & mask).sum()
+
+mass = ncores * over8lt20mean + nhii * over20mean
+# the fractions are fractions-of-total, so we're estimating the total mass
+# from each independent population assuming they're the same age
+hii_only_inferred_mass = nhii * over20mean / over20fraction
+core_inferred_mass = ncores * over8lt20mean / over8lt20fraction
+inferred_mass = (core_inferred_mass +
+                 hii_only_inferred_mass) / 2.
+
+tbl.add_row(['Unassociated',
+             ncores,
+             nhii,
+             latex_info.round_to_n(mass,2)*u.M_sun,
+             latex_info.round_to_n(inferred_mass, 2)*u.M_sun,
+             latex_info.round_to_n(hii_only_inferred_mass, 2)*u.M_sun,
+             latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
+             -999,
+             -999,
+             latex_info.round_to_n(inferred_mass/sgrb2_age_myr/1e6,2)*u.M_sun/u.yr,
+            ])
+tbl.add_row(totalrow)
 
 
 
-formats = {'SFR': lambda x: latex_info.strip_trailing_zeros(str(x))}
+
+formats = {'SFR': lambda x: latex_info.strip_trailing_zeros(str(x)),
+           '$M_{inf}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{count}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+          }
 
 latexdict = latex_info.latexdict.copy()
 latexdict['header_start'] = '\label{tab:clustermassestimates}'
@@ -192,9 +231,11 @@ latexdict['tablefoot'] = ("\par\n"
                           "\citet{{Kruijssen2015a}} model."
                           "  The \emph{{total}} column represents the total over the whole observed "
                           "region.  "
-                          "  The clusters sum to much less "
-                          "than the \emph{{total}} because the Deep South region is not included, "
-                          "and it dominates the overall core count."
+                          "Note that there are \hii regions included in these counts from \citet{{Schmiedeke2016a}} that are "
+                          "\emph{{not}} included in our table because they are too diffuse or because they are unresolved in "
+                          "our data, but were resolved in the \citet{{De-Pree2014a}} VLA data.  As a result, "
+                          "the unassociated \hii region count is incomplete; it is missing both diffuse \hii "
+                          "regions and possibly unresolved hypercompact \hii regions."
                           .format(over8lt20mean, over20mean, over8lt20fraction,
                                   over20fraction)
                          )

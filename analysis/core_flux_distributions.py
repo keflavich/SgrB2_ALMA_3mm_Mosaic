@@ -68,6 +68,7 @@ ax1 = fig1.gca()
 clusterM = core_phot_tbl['Cluster'] == 'M'
 clusterN = core_phot_tbl['Cluster'] == 'N'
 clusterNE = core_phot_tbl['Cluster'] == 'NE'
+clusterS = core_phot_tbl['Cluster'] == 'S'
 
 #hs,l,p = ax1.hist([core_phot_tbl['peak'][clusterM],
 #                   core_phot_tbl['peak'][clusterN],
@@ -113,13 +114,19 @@ hNE,l,pNE = ax1.hist(core_phot_tbl['peak'][clusterNE], label='Sgr B2 NE',
                      edgecolor='#00AAAA',
                      facecolor=(0, 0xAA/256, 0xAA/256, 0.2),
                      bins=np.logspace(-4,0.2,20),)
-hOther,l,pOther = ax1.hist(core_phot_tbl['peak'][~(clusterNE|clusterM|clusterN)],
+hS,l,pS = ax1.hist(core_phot_tbl['peak'][clusterS], label='Sgr B2 S',
+                     histtype='stepfilled',
+                     linewidth=2,
+                     edgecolor='#AAAA00',
+                     facecolor=(0xAA/256, 0xAA/256, 0, 0.2),
+                     bins=np.logspace(-4,0.2,20),)
+hOther,l,pOther = ax1.hist(core_phot_tbl['peak'][~(clusterNE|clusterM|clusterN|clusterS)],
                            label='No cluster', edgecolor='#DD5522',
                            facecolor=(0xDD/256., 0x55/256., 0x22/256., 0.2),
                            histtype='stepfilled',
                            zorder=-5,
                            bins=np.logspace(-4,0.2,50),)
-hOther,l,p = ax1.hist(core_phot_tbl['peak'][~(clusterNE|clusterM|clusterN)],
+hOther,l,p = ax1.hist(core_phot_tbl['peak'][~(clusterNE|clusterM|clusterN|clusterS)],
                       edgecolor='#DD5522',
                       histtype='step',
                       label=None,
