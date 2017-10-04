@@ -12,13 +12,14 @@ import reproject
 import pyregion
 
 from constants import distance, mass_represented_by_a_source
-import pylab as pl
 
 from gutermuth2011_law import gas_depletion_law, sigma_gas_of_t
 
 import paths
 
 import pylab as pl
+
+pl.close('all')
 pl.rcParams['figure.figsize'] = (12,8)
 pl.rcParams['figure.dpi'] = 75
 pl.rcParams['savefig.dpi'] = 150
@@ -117,6 +118,11 @@ ax1.plot(gas_massdensity25[lostars],
 # 5/3 slope
 #ax1.loglog([1e3,1e6], [3e0, 3e5], 'k--')
 
+
+ax1.axis([1e3,1e5,1e0,1e5])
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal.png"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal.pdf"), bbox_inches='tight')
+
 ax1.fill_between([0.1, 1e5],
                  np.array([0.1, 1e5])**2.67/(100**2.67),
                  np.array([0.1, 1e5])**2.67/(100**2.67)*10,
@@ -134,24 +140,19 @@ ax1.plot([300,300,15],[500,54,0.22],'go')
 ax1.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5),
          'b:', linewidth=3, alpha=0.5)
 
+ax1.axis([1e3,1e5,1e0,1e5])
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel.png"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel.pdf"), bbox_inches='tight')
+
 sigma_gas = np.logspace(1,6) * u.M_sun / u.pc**2
-time = 0.74 * u.Myr
-ax1.loglog(sigma_gas_of_t(sigma_gas, time),
-           gas_depletion_law(sigma_gas, time), label=time, color='orange',
-           linewidth=3, zorder=-5, alpha=0.5)
-time = 0.1 * u.Myr
-ax1.loglog(sigma_gas_of_t(sigma_gas, time),
-           gas_depletion_law(sigma_gas, time), label=time, color='orange',
-           linewidth=3, zorder=-5, alpha=0.5)
-time = 0.01 * u.Myr
-ax1.loglog(sigma_gas_of_t(sigma_gas, time),
-           gas_depletion_law(sigma_gas, time), label=time, color='orange',
-           linewidth=3, zorder=-5, alpha=0.5)
 
 for time in (0.01, 0.1, 0.74)*u.Myr:
     ax1.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
                gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
                color='r', linewidth=3, alpha=0.5, zorder=-10,)
+    ax1.loglog(sigma_gas_of_t(sigma_gas, time),
+               gas_depletion_law(sigma_gas, time), label=time,
+               color='orange', linewidth=3, alpha=0.5, zorder=-10,)
 
 ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
 ax1.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
@@ -195,6 +196,13 @@ ax2.plot(np.nanmax(gas_massdensity25) * np.ones(logas.sum()),
 #          np.nanmin(nn11_msunpersqpc[ok])*0.5*np.ones(lostars.sum()),
 #          'v')
 
+ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
+ax2.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
+
+ax2.axis([1e3,1e5,1e0,1e5])
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal.png"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal.pdf"), bbox_inches='tight')
+
 monr2_lowerline =np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
 ax2.fill_between([0.1, 1e5],
                  monr2_lowerline,
@@ -213,30 +221,27 @@ oph_scalefactor = 50.
 ax2.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
 #ax2.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
 
-time = 0.74 * u.Myr
-ax2.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-           linewidth=3, zorder=-5, alpha=0.5)
-time = 0.1 * u.Myr
-ax2.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-           linewidth=3, zorder=-5, alpha=0.5)
-time = 0.01 * u.Myr
-ax2.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-           linewidth=3, zorder=-5, alpha=0.5)
-
-for time in (0.01, 0.1, 0.74)*u.Myr:
-    ax2.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
-               gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
-               color='r', linewidth=3, alpha=0.5, zorder=-10,)
-
-ax2.set_ylabel("Gridded NN11 Stellar Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
-ax2.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
-
 ax2.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
          fontsize=18,
          verticalalignment='bottom', horizontalalignment='center')
 ax2.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
          fontsize=18,
          verticalalignment='bottom', horizontalalignment='center')
+
+
+ax2.axis([1e3,1e5,1e0,1e5])
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.png"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.pdf"), bbox_inches='tight')
+
+for time in (0.01, 0.1, 0.74)*u.Myr:
+    ax2.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
+               gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
+               color='r', linewidth=3, alpha=0.5, zorder=-10,)
+    ax2.loglog(sigma_gas_of_t(sigma_gas, time),
+               gas_depletion_law(sigma_gas, time), label=time,
+               color='orange', linewidth=3, alpha=0.5, zorder=-10,)
+
+
 
 ax2.axis(lims)
 

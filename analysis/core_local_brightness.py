@@ -439,6 +439,23 @@ def plotit():
     lims = ax7.axis()
     # 5/3 slope
     #ax7.loglog([1e3,1e6], [3e0, 3e5], 'k--')
+
+
+    ax7.set_ylabel("Source-centered NN11 Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]")
+    ax7.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]")
+    ax7.axis(lims)
+
+    # Arrows showing the shift if you subtract off the "most aggressive plausible"
+    # uniform foreground value
+    bg_5e22 = (5e22*u.cm**-2*2.8*u.Da).to(u.M_sun/u.pc**2)
+    ax7.arrow(3e3, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e3-bg_5e22.value), color='k')
+    ax7.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
+    ax7.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
+
+    ax7.axis([1e3,1e5,1e0,1e5])
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_nomodels_nolocal.png"), bbox_inches='tight')
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_nomodels_nolocal.pdf"), bbox_inches='tight')
+
     monr2_lowerline = np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
     ax7.fill_between([0.1, 1e5],
                      monr2_lowerline,
@@ -454,6 +471,7 @@ def plotit():
                      alpha=0.5,
                      label='Ophiucus')
 
+
     ax7.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
              fontsize=18,
              verticalalignment='bottom', horizontalalignment='center')
@@ -461,39 +479,26 @@ def plotit():
              fontsize=18,
              verticalalignment='bottom', horizontalalignment='center')
 
-
     #ax7.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
     oph_scalefactor = 50.
     ax7.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
-    ax7.set_ylabel("Source-centered NN11 Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]")
-    ax7.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]")
-    ax7.axis(lims)
 
-    # Arrows showing the shift if you subtract off the "most aggressive plausible"
-    # uniform foreground value
-    bg_5e22 = (5e22*u.cm**-2*2.8*u.Da).to(u.M_sun/u.pc**2)
-    ax7.arrow(3e3, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e3-bg_5e22.value), color='k')
-    ax7.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
-    ax7.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
+
+    ax7.axis([1e3,1e5,1e0,1e5])
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_nomodels.png"), bbox_inches='tight')
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_nomodels.pdf"), bbox_inches='tight')
 
     sigma_gas = np.logspace(1,6) * u.M_sun / u.pc**2
-    time = 0.74 * u.Myr
-    ax7.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-               linewidth=3, zorder=-5, alpha=0.5)
 
-    time = 0.1 * u.Myr
-    ax7.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-               linewidth=3, zorder=-5, alpha=0.5)
-
-
-    time = 0.01 * u.Myr
-    ax7.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-               linewidth=3, zorder=-5, alpha=0.5)
+    mdlplots = {}
 
     for time in (0.01, 0.1, 0.74)*u.Myr:
-        ax7.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
-                   gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
-                   color='r', linewidth=3, alpha=0.5, zorder=-10,)
+        mdlplots[(1, time)] = ax7.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
+                                         gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
+                                         color='r', linewidth=3, alpha=0.5, zorder=-10,)
+        mdlplots[(2,time)] = ax7.loglog(sigma_gas_of_t(sigma_gas, time),
+                                        gas_depletion_law(sigma_gas, time), label=time,
+                                        color='orange', linewidth=3, zorder=-5, alpha=0.5)
 
 
     ax7.axis([1e3,1e5,1e0,1e5])
@@ -515,20 +520,6 @@ def plotit():
     # 5/3 slope
     #ax8.loglog([1e3,1e6], [3e0, 3e5], 'k--')
 
-    monr2_lowerline = np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
-    ax8.fill_between([0.1, 1e5],
-                     monr2_lowerline,
-                     monr2_lowerline*10,
-                     alpha=0.5,
-                     color='green',
-                     label='Mon R2')
-    oph_lowerline = np.array([0.1, 1e5])**1.87/(100**1.87) * 1.5
-    ax8.fill_between([0.1, 1e5],
-                     oph_lowerline,
-                     oph_lowerline*10,
-                     color='blue',
-                     alpha=0.5,
-                     label='Ophiucus')
     #ax8.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
     ax8.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
     ax8.axis(lims)
@@ -542,33 +533,49 @@ def plotit():
     ax8.arrow(1e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(1e4-bg_5e22.value), color='k')
     ax8.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg_5e22.value), color='k')
 
-    time = 0.74 * u.Myr
-    ax8.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-               linewidth=3, zorder=-5, alpha=0.5)
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_nomodels_nolocal.png"), bbox_inches='tight')
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_nomodels_nolocal.pdf"), bbox_inches='tight')
 
-    time = 0.1 * u.Myr
-    ax8.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-               linewidth=3, zorder=-5, alpha=0.5)
+    monr2_lowerline = np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
+    monr2_fill = ax8.fill_between([0.1, 1e5],
+                                  monr2_lowerline,
+                                  monr2_lowerline*10,
+                                  alpha=0.5,
+                                  color='green',
+                                  label='Mon R2')
+    oph_lowerline = np.array([0.1, 1e5])**1.87/(100**1.87) * 1.5
+    oph_fill = ax8.fill_between([0.1, 1e5],
+                                oph_lowerline,
+                                oph_lowerline*10,
+                                color='blue',
+                                alpha=0.5,
+                                label='Ophiucus')
 
-    time = 0.01 * u.Myr
-    ax8.loglog(sigma_gas_of_t(sigma_gas, time), gas_depletion_law(sigma_gas, time), label=time, color='orange',
-               linewidth=3, zorder=-5, alpha=0.5)
 
-    ax8.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
-             fontsize=18,
-             verticalalignment='bottom', horizontalalignment='center')
-    ax8.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
-             fontsize=18,
-             verticalalignment='bottom', horizontalalignment='center')
+    monr2txt = ax8.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
+                        fontsize=18, verticalalignment='bottom',
+                        horizontalalignment='center')
+    ophtxt = ax8.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+                      fontsize=18, verticalalignment='bottom',
+                      horizontalalignment='center')
 
+    ax8.axis([1e3,1e5,1e0,1e5])
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_nomodels.png"), bbox_inches='tight')
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_nomodels.pdf"), bbox_inches='tight')
+
+
+    mdlplots = {}
 
     for time in (0.01, 0.1, 0.74)*u.Myr:
-        ax8.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
-                   gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
-                   color='r', linewidth=3, alpha=0.5, zorder=-10,)
+        mdlplots[(1, time)] = ax8.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
+                                         gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
+                                         color='r', linewidth=3, alpha=0.5, zorder=-10,)
+        mdlplots[(2,time)] = ax8.loglog(sigma_gas_of_t(sigma_gas, time),
+                                        gas_depletion_law(sigma_gas, time), label=time,
+                                        color='orange', linewidth=3, zorder=-5, alpha=0.5)
 
 
-    ax8.axis(lims)
+    #ax8.axis(lims)
     ax8.axis([1e3,1e5,1e0,1e5])
     fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba.png"), bbox_inches='tight')
     fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba.pdf"), bbox_inches='tight')
