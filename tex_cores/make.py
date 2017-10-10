@@ -17,14 +17,14 @@ parser.add_argument('--texpath', default='/usr/texbin/',
                     help='path to pdflatex')
 parser.add_argument('--infile', default=name+'.tex')
 parser.add_argument('--outfile', default='auto')
-parser.add_argument('--noclean', default=True, action='store_false')
+parser.add_argument('--clean', default=False, action='store_true')
 parser.add_argument('--both', default=False, action='store_true')
 
 args = parser.parse_args()
 
 
 def do_everything():
-    if not args.noclean:
+    if args.clean:
         for globstr in (name+"*.aux", name+"*.bbl", name+"*.blg",
                         name+"*.dvi", name+"*.log", name+"*.lot",
                         name+"*.lof"):
