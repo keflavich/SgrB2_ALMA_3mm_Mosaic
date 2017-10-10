@@ -85,3 +85,24 @@ make_scalebar(ax, scalebarpos,
 
 
 fig3.savefig(paths.fpath("cores_on_SCUBA_column_saturated.png"), bbox_inches='tight')
+
+
+con.set_visible(False)
+
+bottomleft = coordinates.SkyCoord("17:47:36.2", "-28:27:00.0", unit=(u.h, u.deg), frame='fk5')
+topright = coordinates.SkyCoord("17:47:03.1", "-28:20:00.0", unit=(u.h, u.deg), frame='fk5')
+(x1,y1),(x2,y2) = (mywcs.wcs_world2pix([[bottomleft.ra.deg,
+                                         bottomleft.dec.deg]],0)[0],
+                   mywcs.wcs_world2pix([[topright.ra.deg,
+                                         topright.dec.deg]],0)[0]
+                  )
+
+ax.set_aspect(1)
+ax.axis([x1,x2,y1,y2])
+
+fig3.savefig(paths.fpath("cores_on_SCUBA_column_saturated_matchedtooverview.png"), bbox_inches='tight')
+
+for line in coredots:
+    line.set_visible(False)
+
+fig3.savefig(paths.fpath("SCUBA_column_saturated_matchedtooverview.png"), bbox_inches='tight')

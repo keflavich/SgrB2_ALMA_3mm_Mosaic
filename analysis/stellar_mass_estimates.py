@@ -4,6 +4,7 @@ import paths
 from astropy.table import Table,Column
 from astropy import coordinates
 from astropy import units as u
+from astropy import constants
 import regions
 import latex_info
 
@@ -310,6 +311,20 @@ pl.legend(loc='best')
 pl.xlabel("Column Density [N($H_2$) cm$^{-2}$]")
 pl.ylabel("Cumulative Mass at $N>N_{x}$ [M$_{\odot}$]")
 pl.savefig(paths.fpath('cumulative_mass_plot.pdf'), bbox_inches='tight')
+
+reff = ((pix_area * np.arange(sorted_colmap.size-1, -1, -1) / np.pi * distance**2)**(1/2.)).to(u.pc, u.dimensionless_angles())
+neff = (massmap_cumsum / (4/3*np.pi*reff**3) / (2.8*u.Da)).to(u.cm**-3)
+rhoeff = (massmap_cumsum / (4/3*np.pi*reff**3)).to(u.g*u.cm**-3)
+tff = (3 * np.pi / (32 * constants.G * rhoeff))**0.5
+
+tbl = Table.read(paths.tpath("continuum_photometry_plusbackground.ipac"), format='ascii.ipac',)
+
+# this is to try to make an argument about whether M_*(N>Nx) / tff(N>Nx) is getting higher or lower...
+pl.figure(2).clf()
+ax = pl.gca()
+ax.loglog(sorted_colmap, tff.to(u.yr))
+ax.hlines([0.74e6, 0.43e6,], 1e22, 1e25)
+ax.vlines(tbl['ScubaHTemColumn'][(np.array([0.9,0.5])*len(tbl)).astype('int')], 1e3, 1e6,)
 
 
 """
