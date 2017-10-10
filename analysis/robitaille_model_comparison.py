@@ -31,7 +31,12 @@ for modeltype in models:
     luminosities = (constants.sigma_sb * (pars['star.temperature']*u.K)**4 *
                     (4*np.pi*(pars['star.radius']*u.R_sun)**2)).to(u.L_sun)
 
-    flux_sgrb2 = seds.val[:,4,6]*(1/8.4)**2
+    # 2000 AU aperture *radius*
+    apnum = np.argmin(np.abs(seds.apertures - 2000*u.au))
+    wav = (95*u.GHz).to(u.mm, u.spectral())
+    wavnum = np.argmin(np.abs(seds.wav - wav))
+
+    flux_sgrb2 = seds.val[:,wavnum,apnum]*(1/8.4)**2
 
     pars.add_column(Column(data=luminosities, name='Luminosity'))
     pars.add_column(Column(data=flux_sgrb2, name='Flux3mm_8.4kpc'))

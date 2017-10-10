@@ -13,6 +13,7 @@ import pyregion
 
 from constants import distance, mass_represented_by_a_source
 from gutermuth2011_law import gas_depletion_law, sigma_gas_of_t
+import lada2017relation
 
 import paths
 
@@ -456,32 +457,38 @@ def plotit():
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_nomodels_nolocal.png"), bbox_inches='tight')
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_nomodels_nolocal.pdf"), bbox_inches='tight')
 
+
     monr2_lowerline = np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
-    ax7.fill_between([0.1, 1e5],
-                     monr2_lowerline,
-                     monr2_lowerline*10,
-                     alpha=0.5,
-                     color='green',
-                     label='Mon R2')
+    monr2_fill = ax7.fill_between([0.1, 1e5],
+                                  monr2_lowerline,
+                                  monr2_lowerline*10,
+                                  alpha=0.5,
+                                  color='green',
+                                  label='Mon R2')
     oph_lowerline = np.array([0.1, 1e5])**1.87/(100**1.87) * 1.5
-    ax7.fill_between([0.1, 1e5],
-                     oph_lowerline,
-                     oph_lowerline*10,
-                     color='blue',
-                     alpha=0.5,
-                     label='Ophiucus')
+    oph_fill = ax7.fill_between([0.1, 1e5],
+                                oph_lowerline,
+                                oph_lowerline*10,
+                                color='blue',
+                                alpha=0.5,
+                                label='Ophiucus')
+
+    local_plotobjs = [monr2_fill, oph_fill]
 
 
-    ax7.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
-             fontsize=18,
-             verticalalignment='bottom', horizontalalignment='center')
-    ax7.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
-             fontsize=18,
-             verticalalignment='bottom', horizontalalignment='center')
+    T = ax7.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
+                 fontsize=18,
+                 verticalalignment='bottom', horizontalalignment='center')
+    local_plotobjs.append(T)
+    T = ax7.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+                 fontsize=18,
+                 verticalalignment='bottom', horizontalalignment='center')
+    local_plotobjs.append(T)
 
     #ax7.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5), 'b:', linewidth=3, alpha=0.5)
     oph_scalefactor = 50.
-    ax7.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
+    L = ax7.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
+    local_plotobjs += L
 
 
     ax7.axis([1e3,1e5,1e0,1e5])
@@ -505,6 +512,32 @@ def plotit():
     #ax7.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.png"), bbox_inches='tight')
     fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel.pdf"), bbox_inches='tight')
+
+    ax7.loglog(np.logspace(3,5),
+               lada2017relation.sigma_star_california(np.logspace(3,5)*u.M_sun/u.pc**2),
+               linewidth=3, color='m', label='Lada2017_cali')
+    ax7.loglog(np.logspace(3,5),
+               lada2017relation.sigma_star_orionA(np.logspace(3,5)*u.M_sun/u.pc**2),
+               linewidth=3, linestyle='--', color='m', label='Lada2017_orionA')
+    ax7.loglog(np.logspace(3,5),
+               lada2017relation.sigma_star_orionB(np.logspace(3,5)*u.M_sun/u.pc**2),
+               linewidth=3, linestyle=':', color='m', label='Lada2017_orionB')
+
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_withLada2017.png"), bbox_inches='tight')
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_withLada2017.pdf"), bbox_inches='tight')
+
+    for line in mdlplots.values():
+        try:
+            for ll in line:
+                ll.set_visible(False)
+        except TypeError:
+            line.set_visible(False)
+    for obj in local_plotobjs:
+        obj.set_visible(False)
+
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_nomodels_withLada2017.png"), bbox_inches='tight')
+    fig7.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_herschel_nomodels_withLada2017.pdf"), bbox_inches='tight')
+
 
     scubasurfdens = (u.Quantity(tbl['ScubaHTemColumn'], u.cm**-2) * 2.8*u.Da).to(u.M_sun/u.pc**2)
 
@@ -551,6 +584,7 @@ def plotit():
                                 alpha=0.5,
                                 label='Ophiucus')
 
+    local_plotobjs = [monr2_fill, oph_fill]
 
     monr2txt = ax8.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
                         fontsize=18, verticalalignment='bottom',
@@ -558,6 +592,8 @@ def plotit():
     ophtxt = ax8.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
                       fontsize=18, verticalalignment='bottom',
                       horizontalalignment='center')
+    local_plotobjs.append(monr2txt)
+    local_plotobjs.append(ophtxt)
 
     ax8.axis([1e3,1e5,1e0,1e5])
     fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_nomodels.png"), bbox_inches='tight')
@@ -580,6 +616,30 @@ def plotit():
     fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba.png"), bbox_inches='tight')
     fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba.pdf"), bbox_inches='tight')
 
+    ax8.loglog(np.logspace(3,5),
+               lada2017relation.sigma_star(np.logspace(3,5)*u.M_sun/u.pc**2),
+               linewidth=3, color='m', label='Lada2017')
+    ax8.loglog(np.logspace(3,5),
+               lada2017relation.sigma_star_orionA(np.logspace(3,5)*u.M_sun/u.pc**2),
+               linewidth=3, linestyle='--', color='m', label='Lada2017_orionA')
+    ax8.loglog(np.logspace(3,5),
+               lada2017relation.sigma_star_orionB(np.logspace(3,5)*u.M_sun/u.pc**2),
+               linewidth=3, linestyle=':', color='m', label='Lada2017_orionB')
+
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_withLada2017.png"), bbox_inches='tight')
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_withLada2017.pdf"), bbox_inches='tight')
+
+    for line in mdlplots.values():
+        try:
+            for ll in line:
+                ll.set_visible(False)
+        except TypeError:
+            line.set_visible(False)
+    for obj in local_plotobjs:
+        obj.set_visible(False)
+
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_nomodels_withLada2017.png"), bbox_inches='tight')
+    fig8.savefig(paths.fpath("stellar_vs_gas_column_density_starcentered_scuba_nomodels_withLada2017.pdf"), bbox_inches='tight')
 
     # TODO: plot the same (?) histograms for The Brick
     # DONE!

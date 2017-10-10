@@ -14,6 +14,7 @@ import pyregion
 from constants import distance, mass_represented_by_a_source
 
 from gutermuth2011_law import gas_depletion_law, sigma_gas_of_t
+import lada2017relation
 
 import paths
 
@@ -123,18 +124,20 @@ ax1.axis([1e3,1e5,1e0,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal.pdf"), bbox_inches='tight')
 
-ax1.fill_between([0.1, 1e5],
-                 np.array([0.1, 1e5])**2.67/(100**2.67),
-                 np.array([0.1, 1e5])**2.67/(100**2.67)*10,
-                 alpha=0.5,
-                 color='orange',
-                 label='Mon R2')
-ax1.fill_between([0.1, 1e5],
-                 np.array([0.1, 1e5])**1.87/(100**1.87),
-                 np.array([0.1, 1e5])**1.87/(100**1.87)*10,
-                 color='blue',
-                 alpha=0.5,
-                 label='Ophiucus')
+monr2_fill = ax1.fill_between([0.1, 1e5],
+                              np.array([0.1, 1e5])**2.67/(100**2.67),
+                              np.array([0.1, 1e5])**2.67/(100**2.67)*10,
+                              alpha=0.5,
+                              color='orange',
+                              label='Mon R2')
+oph_fill = ax1.fill_between([0.1, 1e5],
+                            np.array([0.1, 1e5])**1.87/(100**1.87),
+                            np.array([0.1, 1e5])**1.87/(100**1.87)*10,
+                            color='blue',
+                            alpha=0.5,
+                            label='Ophiucus')
+local_plotobjs = [monr2_fill, oph_fill]
+
 ax1.plot([550,500,15],[300,30,0.4],'bo')
 ax1.plot([300,300,15],[500,54,0.22],'go')
 ax1.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5),
@@ -146,13 +149,18 @@ fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel
 
 sigma_gas = np.logspace(1,6) * u.M_sun / u.pc**2
 
+model_plotobjs = []
 for time in (0.01, 0.1, 0.74)*u.Myr:
-    ax1.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
-               gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
-               color='r', linewidth=3, alpha=0.5, zorder=-10,)
-    ax1.loglog(sigma_gas_of_t(sigma_gas, time),
-               gas_depletion_law(sigma_gas, time), label=time,
-               color='orange', linewidth=3, alpha=0.5, zorder=-10,)
+    model_plotobjs += ax1.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1,
+                                                k=0.1/u.Myr),
+                                 gas_depletion_law(sigma_gas, time, alpha=1,
+                                                   k=0.1/u.Myr), label=time,
+                                 color='r', linewidth=3, alpha=0.5,
+                                 zorder=-10,)
+    model_plotobjs += ax1.loglog(sigma_gas_of_t(sigma_gas, time),
+                                 gas_depletion_law(sigma_gas, time),
+                                 label=time, color='orange', linewidth=3,
+                                 alpha=0.5, zorder=-10,)
 
 ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
 ax1.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
@@ -162,6 +170,27 @@ fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.png"), 
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.pdf"), bbox_inches='tight')
 ax1.axis([1e0,1e5,1e-1,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_full.png"), bbox_inches='tight')
+
+ax1.axis([1e3,1e5,1e0,1e5])
+ax1.loglog(np.logspace(3,5),
+           lada2017relation.sigma_star_california(np.logspace(3,5)*u.M_sun/u.pc**2),
+           linewidth=3, color='m', label='Lada2017_cali')
+ax1.loglog(np.logspace(3,5),
+           lada2017relation.sigma_star_orionA(np.logspace(3,5)*u.M_sun/u.pc**2),
+           linewidth=3, linestyle='--', color='m', label='Lada2017_orionA')
+ax1.loglog(np.logspace(3,5),
+           lada2017relation.sigma_star_orionB(np.logspace(3,5)*u.M_sun/u.pc**2),
+           linewidth=3, linestyle=':', color='m', label='Lada2017_orionB')
+
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_withLada2017.png"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_withLada2017.pdf"), bbox_inches='tight')
+
+for obj in local_plotobjs+model_plotobjs:
+    obj.set_visible(False)
+
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal_withLada2017.png"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal_withLada2017.pdf"), bbox_inches='tight')
+
 
 nn = 11
 nn11_msunpersqpc = ((nn-1) * mass_represented_by_a_source /
@@ -204,42 +233,49 @@ fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomode
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal.pdf"), bbox_inches='tight')
 
 monr2_lowerline =np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
-ax2.fill_between([0.1, 1e5],
-                 monr2_lowerline,
-                 monr2_lowerline*10,
-                 alpha=0.5,
-                 color='green',
-                 label='Mon R2')
+monr2_fill = ax2.fill_between([0.1, 1e5],
+                              monr2_lowerline,
+                              monr2_lowerline*10,
+                              alpha=0.5,
+                              color='green',
+                              label='Mon R2')
 oph_lowerline = np.array([0.1, 1e5])**1.87/(100**1.87) * 1.5
-ax2.fill_between([0.1, 1e5],
-                 oph_lowerline,
-                 oph_lowerline*10,
-                 color='blue',
-                 alpha=0.5,
-                 label='Ophiucus')
+oph_fill = ax2.fill_between([0.1, 1e5],
+                            oph_lowerline,
+                            oph_lowerline*10,
+                            color='blue',
+                            alpha=0.5,
+                            label='Ophiucus')
 oph_scalefactor = 50.
-ax2.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
+oph_lowerline_line = ax2.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
 #ax2.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
 
-ax2.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
-         fontsize=18,
-         verticalalignment='bottom', horizontalalignment='center')
-ax2.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
-         fontsize=18,
-         verticalalignment='bottom', horizontalalignment='center')
+monr2_text = ax2.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
+                      fontsize=18, verticalalignment='bottom',
+                      horizontalalignment='center')
+oph_text = ax2.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+                    fontsize=18, verticalalignment='bottom',
+                    horizontalalignment='center')
+
+local_plotobjs = [monr2_text, oph_text, monr2_fill, oph_fill,] + oph_lowerline_line
 
 
 ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.pdf"), bbox_inches='tight')
 
+model_plotobjs = []
 for time in (0.01, 0.1, 0.74)*u.Myr:
-    ax2.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1, k=0.1/u.Myr),
-               gas_depletion_law(sigma_gas, time, alpha=1, k=0.1/u.Myr), label=time,
-               color='r', linewidth=3, alpha=0.5, zorder=-10,)
-    ax2.loglog(sigma_gas_of_t(sigma_gas, time),
-               gas_depletion_law(sigma_gas, time), label=time,
-               color='orange', linewidth=3, alpha=0.5, zorder=-10,)
+    model_plotobjs += ax2.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1,
+                                                k=0.1/u.Myr),
+                                 gas_depletion_law(sigma_gas, time, alpha=1,
+                                                   k=0.1/u.Myr), label=time,
+                                 color='r', linewidth=3, alpha=0.5,
+                                 zorder=-10,)
+    model_plotobjs += ax2.loglog(sigma_gas_of_t(sigma_gas, time),
+                                 gas_depletion_law(sigma_gas, time),
+                                 label=time, color='orange', linewidth=3,
+                                 alpha=0.5, zorder=-10,)
 
 
 
@@ -260,6 +296,34 @@ ax2.plot([550,500,15],[300,30,0.4],'bo')
 ax2.plot([300,300,15],[500,54,0.22],'go')
 ax2.axis([1e0,1e5,1e-1,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_full.png"), bbox_inches='tight')
+
+
+ax2.axis([1e3,1e5,1e0,1e5])
+ax2.loglog(np.logspace(3,5),
+           lada2017relation.sigma_star_california(np.logspace(3,5)*u.M_sun/u.pc**2),
+           linewidth=3, color='m', label='Lada2017_cali')
+ax2.loglog(np.logspace(3,5),
+           lada2017relation.sigma_star_orionA(np.logspace(3,5)*u.M_sun/u.pc**2),
+           linewidth=3, linestyle='--', color='m', label='Lada2017_orionA')
+ax2.loglog(np.logspace(3,5),
+           lada2017relation.sigma_star_orionB(np.logspace(3,5)*u.M_sun/u.pc**2),
+           linewidth=3, linestyle=':', color='m', label='Lada2017_orionB')
+
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_withLada2017.png"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_withLada2017.pdf"), bbox_inches='tight')
+
+for obj in local_plotobjs+model_plotobjs:
+    obj.set_visible(False)
+
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal_withLada2017.png"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal_withLada2017.pdf"), bbox_inches='tight')
+
+
+
+
+
+
+
 
 total_gas_mass = np.nansum(cell_size**2 * gas_massdensity25)
 total_gas_mass_bgsub = np.nansum(cell_size**2 * (gas_massdensity25-bg_5e22))
