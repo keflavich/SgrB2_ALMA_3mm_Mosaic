@@ -1505,8 +1505,9 @@ predict that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud
 mass because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2,Lada} = 3\ee{5}$.  As
 seen in Table \ref{tab:clustermassestimates}, the observed $N_{YSO,Sgr B2,obs} = M_{YSO} /
 (0.5 \msun) = 5.2\ee{4}-6.6\ee{4}$ \msun, a factor of five below the extrapolated
-Lada et al relation.  From the observed $N_{YSO,Sgr B2,obs}$, we expect
-$M_{cloud}\approx3\ee{5}$, which corresponds to a threshold $N>10^{24}$ \persc
+Lada et al relation.  If we invert the equation to obtain a cloud mass from our
+observed $N_{YSO,Sgr B2,obs}$, we expect $M_{cloud,Lada}\approx3\ee{5}$, which
+corresponds to the mass above a column density threshold $N>10^{24}$ \persc
 (Figure \ref{fig:cumulativemass}).
 
 However we examine our data, it appears that a higher threshold for star
@@ -1530,20 +1531,35 @@ density, subtracted.}
 
 \paragraph{Comparison to the Lada et al SFR}
 \citet{Lada2010a} also express their $N_{YSO}-M_{cloud}$ relation as a star
-formation rate relationship, $\dot{M}_{*,Lada} = 4.6\ee{-8} M_{dense}$.  Using $M_{Sgr
-B2} = 1.5\ee{6}$ \msun, $\dot{M}_{*,Lada} = 0.069$ \msun \peryr, which is within a
-factor of two of our estimated SFR ($\dot{M}_{*,obs}=0.036$ \msun \peryr, Table
-\ref{tab:clustermassestimates}).  The agreement with the Lada et al relation
-for the SFR, but simultaneous disagreement with the more directly observational
-$\Sigma_{gas}-\Sigma_*$ relations, is driven by the assumed star formation
-timescale.  If we use \citet{Lada2010a} Equation 3, $\dot{M}_{*,Lada_{ff}} = (\epsilon/f)
-\tau_{ff}^{-1} M_{dense}$, where $\epsilon/f=0.018$ is the star formation
-efficiency per free-fall time and $\tau_{ff}$ is the free-fall time, but we
-account for the shorter $\tau_{ff}=0.14$ Myr (for the lower-limit
-average density $n(\hh)=5\ee{4}$ \percc) averaged over the full Sgr B2
-cloud, we obtain $\dot{M}_{*,Lada_{ff}} = 0.20$ \msun \peryr, which is about five
-times greater than the observed rate, similar to the result obtained in the
-previous section.
+formation rate relationship
+\begin{equation}
+    \label{eqn:ladamdot1}
+    \dot{M}_{*,Lada} = 4.6\ee{-8} M_{dense}
+\end{equation}
+Using
+$M_{Sgr B2} = 1.5\ee{6}$ \msun, $\dot{M}_{*,Lada} = 0.069$ \msun \peryr, which
+is within a factor of two of our estimated SFR ($\dot{M}_{*,obs}=0.035$ \msun
+\peryr, Table \ref{tab:clustermassestimates}).  We appear to have
+obtained an agreement with the Lada et
+al relation for the SFR, but simultaneous disagreement with the more directly
+observational $\Sigma_{gas}-\Sigma_*$ relations. This apparent
+discrepancy is driven by the assumed star
+formation timescale.  In Equation \ref{eqn:ladamdot1}, the assumed timescale
+is $t_{ff} = 3.5\ee{5}$ yr.  However, the timescale we have assumed in computing 
+our SFR is $t_{orb} = 7.4\ee{5}$ Myr...
+
+
+If we use \citet{Lada2010a} Equation 3,
+$\dot{M}_{*,Lada_{ff}} = (\epsilon/f) \tau_{ff}^{-1} M_{dense}$, where
+$\epsilon/f=0.018$ is the star formation efficiency per free-fall time and
+$\tau_{ff}$ is the free-fall time, but we account for the shorter
+$\tau_{ff}=0.14$ Myr (for the lower-limit average density $n(\hh)=5\ee{4}$
+\percc) averaged over the component of the Sgr B2 cloud above
+$N(\hh)\gtrsim5\ee{23}$ \persc, we obtain a predicted $\dot{M}_{*,Lada_{ff}} =
+0.20$ \msun \peryr, which is about five times greater than the observed rate using
+the orbital timescale, similar to the result obtained in the previous section.
+The observed star formation rate $\dot{M}_{obs,ff} = M_{*,obs} / t_{ff} = 0.24$
+\msun \peryr.
 
 % If we assume the free-fall time is the relevant timescale for star formation,
 % the discrepancy between the measured SFR and the predicted gets \emph{worse} as
@@ -1567,7 +1583,7 @@ comes from the tighter boundary (and higher mass threshold) they selected.
 If we apply the same analysis as above using $t_{ff} = 0.09$ Myr from
 \citet{Barnes2017b} Table 4, the predicted SFR is
 $\dot{M}_{*,Lada_{ff}} =
-0.018 (6.5\ee{5} \msun) (9\ee{5} \textrm{yr})^{-1} = 0.13 $ \msun \peryr, which
+0.018 (6.5\ee{5} \msun) (9\ee{4} \textrm{yr})^{-1} = 0.13 $ \msun \peryr, which
 is three times greater than Barnes et al's observed value $\dot{M}_{obs}=0.045$
 \msun \peryr.  
 
