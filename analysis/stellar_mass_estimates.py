@@ -114,13 +114,16 @@ tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
                    '$M_{inferred}$', '$M_{inferred, H\\textsc{ii}}$',
                    '$M_{inferred, cores}$', '$M_{count}^s$', '$M_{inf}^s$',
                    'SFR'],
-            dtype=['S12', int, int, int, int, int, int, int, int, float])
+            dtype=['S13', int, int, int, int, int, int, int, int, float])
 
 for col in tbl.colnames:
     if 'M' in col:
         tbl[col].unit = u.Msun
 tbl['SFR'].unit = u.Msun/u.yr
 sgrb2_age_myr = 0.74
+sgrb2_brick_age_myr = 0.43
+
+total_picking_max = 0*u.M_sun
 
 cluster_column = np.array(['--']*len(core_phot_tbl))
 
@@ -159,6 +162,8 @@ for reg in clusters:
         allclusters += mask
         print(allclusters.sum())
 
+        total_picking_max += max([hii_only_inferred_mass, core_inferred_mass])*u.M_sun
+
     row = [name,
            ncores,
            nhii,
@@ -188,6 +193,7 @@ hii_only_inferred_mass = nhii * over20mean / over20fraction
 core_inferred_mass = ncores * over8lt20mean / over8lt20fraction
 inferred_mass = (core_inferred_mass +
                  hii_only_inferred_mass) / 2.
+total_picking_max += max([hii_only_inferred_mass, core_inferred_mass])*u.M_sun
 
 tbl.add_row(['Unassociated',
              ncores,
@@ -201,13 +207,29 @@ tbl.add_row(['Unassociated',
              latex_info.round_to_n(inferred_mass/sgrb2_age_myr/1e6,2)*u.M_sun/u.yr,
             ])
 tbl.add_row(totalrow)
+tbl.add_row(['Total$_{max}$', -999, -999, -999,
+             latex_info.round_to_n(total_picking_max.value,2), -999, -999, -999, -999,
+             latex_info.round_to_n(total_picking_max.value / sgrb2_age_myr / 1e6,2)])
 
 
+print("SFR({1} Myr) = {0}".format(totalrow[-1], sgrb2_age_myr))
+sfrbrickage = (latex_info.round_to_n(total_picking_max.to(u.Msun).value/(sgrb2_age_myr*1e6), 2)*(u.Msun/u.yr))
+print("SFR({1} Myr) = {0}".format(sfrbrickage, sgrb2_brick_age_myr))
+
+with open(paths.texpath('sfr.tex'), 'w') as fh:
+    fh.write("\\newcommand{{\\sfrdynage}}{{{0}\\xspace}}\n".format(totalrow[-1].to(u.Msun/u.yr).value))
+    fh.write("\\newcommand{{\\sfrbrickage}}{{{0}\\xspace}}\n".format(sfrbrickage.to(u.Msun/u.yr).value))
 
 
 formats = {'SFR': lambda x: latex_info.strip_trailing_zeros(str(x)),
            '$M_{inf}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
            '$M_{count}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$N(cores)$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$N(H\\textsc{ii})$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{count}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{inferred}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{inferred, H\\textsc{ii}}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{inferred, cores}$': lambda x: "{0}".format(x) if x != -999 else '-',
           }
 
 latexdict = latex_info.latexdict.copy()
