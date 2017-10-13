@@ -1681,11 +1681,12 @@ spherical symmetry.
 \FigureOneCol{figures/column_density_distribution_with_and_without_SF_withfraction.pdf}
 {Histograms of the column density measured with the combined SCUBA and Herschel
 data using the interpolated Herschel temperatures covering only the region
-observed with ALMA.  The black histogram shows the whole observed region,
+observed with ALMA.  The black histogram (left axis) shows the whole observed region,
 the blue solid line shows the SCUBA pixels that do not contain an ALMA source,
 and the red thick line shows those pixels that are within one beam
-FWHM of an ALMA source.  The thin black line shows the ratio of the red histogram
-to the black histogram, i.e., it shows the fraction of pixels with associated
+FWHM of an ALMA source.  The thin black line (right axis) shows the ratio of
+the red histogram to the black histogram, i.e., it shows the fraction of pixels
+with associated
 YSOs.  While the ALMA sources (high mass YSOs)
 clearly reside in high-column gas, there is abundant high-column-density
 material that shows no signs of ongoing star formation.}
@@ -1725,7 +1726,7 @@ In G0.253+0.016 (The Brick, G0.253), very little star formation
 has been observed
 \citep{Longmore2013a,Johnston2014a,Rathborne2014a,Rathborne2015a} despite most
 of the cloud existing above the locally measured L10 column
-density threshold.  The column density distribution function for G0.253
+density threshold.  The column density distribution for G0.253
 is shown in Figure \ref{fig:bricksgrb2colcompare}.
 
 The \citet{Rathborne2014a} and \citet{Rathborne2015a} ALMA 3 mm data are the
@@ -1735,7 +1736,7 @@ to that shown in Figure \ref{fig:overview}; compare to Figure 2 in both
 Rathborne et al papers).  Despite the higher sensitivity of their data,
 they detected only 3 compact continuum sources.  Similarly,
 \citet{Kauffmann2013a} detected only one compact continuum source in their
-(less sensitive) SMA.  By contrast, even in our coarse resolution data, which
+(less sensitive) SMA data.  By contrast, even in our coarse resolution data, which
 have a worse sensitivity (RMS $\approx 0.25$ mJy beam$^{-1}$, $10\times$ worse
 than Rathborne et al), dozens of compact sources are evident.  Our better
 resolution was critical for identifying the hundreds of sources we have
@@ -1798,7 +1799,7 @@ to the local clouds observed by \citet[][\S
 \ref{sec:gutermuthcomparison}]{Gutermuth2011a}, finding that the local clouds
 and Sgr B2 do not fit on a common relation.  We examine the possible reasons
 for the disagreement (\S \ref{sec:gutermuthdiscrepancy}), concluding that a
-varying threshold for star formation is the most likely explanation.
+varying density threshold for star formation is the most likely explanation.
 
 \subsubsection{Methodological comparison to Gutermuth et al}
 \label{sec:gutermuthmethods}
@@ -1828,13 +1829,13 @@ map, nearly all of the detected sources reside in regions with column densities
 well above the maximum reached in the local cloud sample.  Second, our 3 mm
 source sample is sensitive to only the youngest sources, either the high-mass
 equivalent of Class 0/I sources (`hot cores' or HMYSOs), or deeply embedded
-hypercompact \hii regions.  The Spitzer sample included both Class I sources,
-with estimated ages $t\lesssim0.5$ Myr, and Class II sources, with ages $0.5 <
+hypercompact \hii regions.  The Spitzer sample included both Class~I sources,
+with estimated ages $t\lesssim0.5$ Myr, and Class~II sources, with ages $0.5 <
 t < 5$ Myr.  Our sample is therefore biased young compared to theirs.  If the
 age estimate for Sgr B2 from the dynamical models
 \citep{Longmore2013a,Kruijssen2015a} is accurate, there should be about as many
-Class II sources as Class I, given the standard ages, meaning our total mass
-estimate may be as much as a factor of 2 underestimated.  Third, as noted
+Class II sources as Class I, given the standard ages, meaning our total stellar
+mass estimate may be as much as a factor of 2 underestimated.  Third, as noted
 above, we are sensitive to only high-mass sources, so we infer a significant
 population that is not directly observed.
 
@@ -1849,9 +1850,9 @@ scaling constant (assumed to be the star formation efficiency of a core and
 to have the value 0.3), $\Sigma_{gas,0}$ is the initial gas surface density,  $t_0$
 is the timescale for the gas to be depleted by $2^{\beta}$, $\beta =
 1/(1-\alpha)$, and $\alpha$ is
-the exponent in the star formation relation (i.e., $\alpha=1$ means SFR is
-linearly correlated with gas surface density).
-The initial time $t_0$ is defined by their equation 5:
+the exponent in the star formation relation (i.e., $\alpha=1$ means the SFR is
+initially linearly correlated with gas surface density).
+The depletion timescale $t_0$ is defined by their equation 5:
 \begin{equation}
     t_0 = \frac{1}{k(\alpha-1)} \Sigma_{gas,0}^{1-\alpha}
 \end{equation}
@@ -1884,7 +1885,7 @@ power-law index in the range 1-2, and therefore may be consistent with the
 steep slopes ($\alpha\approx2$) \citet{Gutermuth2011a} derived.
 \citet{Lada2017a} and \citet{Lombardi2014a} derived similarly steep
 slopes ($\alpha=2$ for Orion, $\alpha=3.3$ for the California cloud;
-see Appendix \ref{appendix:lada2017}).
+see Appendix \ref{appendix:ladasurfdensappendix}).
 
 % core_local_brightness.py
 % surface_density_maps.py
@@ -2082,11 +2083,11 @@ local clouds does not match Sgr B2.  We evaluate several possibilities here:
         \ref{sec:otherthresholds} above, forming stars only begin to appear
         above a threshold significantly higher than in local neighborhood
         clouds.  A simplistic model in which star formation simply does not
-        occur below a fixed threshold does not explain the difference between
-        our data and Gutermuth's, however, because the disagreement occurs at
-        the high column densities in which we do observe star formation.
-        On the other hand, a higher \emph{volume} density threshold is
-        plausible.  Such a threshold would imply a lower stellar density at
+        occur below a fixed column threshold does not explain the difference
+        between our data and Gutermuth's, however, because the disagreement
+        occurs at the high column densities in which we do observe star
+        formation.  On the other hand, a higher \emph{volume} density threshold
+        is plausible.  Such a threshold would imply a lower stellar density at
         a given surface density and would  permit variations in the stellar
         surface density depending on how much dense gas is present.
 
