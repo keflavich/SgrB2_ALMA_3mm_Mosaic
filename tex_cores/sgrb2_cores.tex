@@ -192,7 +192,7 @@ Figure \ref{fig:MandNzooms}.
 \subsection{ALMA data}
 Data were acquired as part of ALMA project 2013.1.00269.S (see Table
 \ref{tab:observations}).  Observations were taken in ALMA Band 3 with the 12m
-Total Power array, the ALMA 7m array, and in two
+Total Power array, the ALMA ACA 7m array, and in two
 configurations with the ALMA 12m array.  The setup included the maximum allowed
 number of channels, 30720, across 4 spectral windows in a single polarization;
 the single-polarization mode was adopted to support moderate spectral
@@ -287,8 +287,7 @@ limitations were less significant and because the image cubes are
 computationally expensive to process.
 Before continuum subtraction, dynamic range related artifacts similar to those
 in the continuum images were present, but these structures are nearly identical
-across
-frequencies, and were therefore removable in the image domain.  We use
+across frequencies and were therefore removable in the image domain.  We use
 median-subtracted cubes (i.e., spectral cubes with the median along each spectrum
 treated as continuum and subtracted) for our analysis of the lines, noting that
 the only location in which an error $>5\%$ on the median-estimated continuum is
@@ -349,7 +348,7 @@ The CSO SHARC data were reported in \citet{Bally2010a} and have a nominal
 resolution of 9\arcsec at 350 \um, however, at this resolution, the SHARC data
 display a much higher surface brightness than the Herschel data on the same
 angular scale.  An assumed resolution of 11.5\arcsec gives a better surface
-brightness match and is consistent with the measured scale of Sgr B2 N in the
+brightness match and is consistent with the measured size of Sgr B2 N in the
 image.  This calibration difference is likely to have been produced by a
 combination of blurring by pointing errors, surface imperfections, and the
 gridding process, all of which increase the effective beam size, and flux
@@ -370,17 +369,16 @@ error seems implausible, it can occur if the beam size of the ground-based data
 is larger than expected.  To assess this possibility, we fit 2D Gaussians to
 several sources in the SCUBA CMZ maps, measuring a FWHM toward Sgr B2 N of
 approximately 14\arcsec, which means the observed beam area is about three times larger
-in area than theoretically expected.  Among several other sources fit in the
+than theoretically expected.  Among several other sources fit in the
 SCUBA map, the smallest FWHM measured was $\approx10.5$\arcsec.  Between the
 larger beam area, flux
 calibration errors \citep[quoted at 20\percent in][]{Pierce-Price2000a}, and
 the dust emissivity correction (35-50\percent for dust index $\beta=1-2$, where
-$\beta=\alpha-2$), this large flux
-scaling factor is plausible. This large correction factor is consistent with
-the large error beam found by \citet{di-Francesco2008a}, with effective FWHM
-$\approx17.3$\arcsec, since they used additional smoothing when creating their
-maps.  As with the SHARC data above, we trust the space-based calibration
-over the ground-based.
+$\beta=\alpha-2$), this large $3\times$ flux
+scaling factor is plausible.  The large secondary error beam
+\citep[17.3\arcsec][]{di-Francesco2008a} of the 450 \um SCUBA data may also
+contribute to this effect.  As with the SHARC data above, we trust the
+space-based calibration over the ground-based.
 
 
 We combined the Herschel data with the SHARC and SCUBA data to create
@@ -647,7 +645,7 @@ sources, with no spectral line information or detections at other wavelengths.
 In this section, we employ a variety of arguments to classify the sample of new
 sources.    Plausible emission mechanisms include free-free and thermal dust
 emission, so in this section we explore whether the sources could be different
-classes of dust or free-free sources.  We examine whether they are dusty
+classes of dust or free-free sources.  We examine whether they are
 prestellar cores (\S \ref{sec:alt0}), externally ionized globules (\S
 \ref{sec:alt1}), \hii regions from an extended population of OB stars (\S
 \ref{sec:alt2}), or \hii regions around young massive stars (\S
@@ -688,7 +686,7 @@ highest bin.
 }
 {fig:fluxhist}{1}{0.5\textwidth}
 
-\subsubsection{Alternative 1: The sources are dust-only `prestellar' cores}
+\subsubsection{Alternative 1: The sources are `prestellar' cores}
 \label{sec:alt0}
 The simplest assumption is that all sources we have detected that were not
 detected at longer wavelengths are pure dust emission sources at a constant
@@ -737,7 +735,7 @@ One possibility is that these sources are not dust-dominated, nor pre- or
 protostellar, but are instead externally ionized, mostly neutral gas clumps
 embedded within diffuse \hii regions.  They would then be analogous to the
 heads of cometary clouds, externally ionized globules
-\citep[``EGGs"][]{Sahai2012a}, or proplyds (externally ionized protoplanetary
+\citep[``EGGs"; ][]{Sahai2012a}, or proplyds (externally ionized protoplanetary
 disks), and their observed emission would give little clue to their nature because
 the light source is extrinsic.
 
@@ -919,35 +917,45 @@ sources associated with these previously-identified \hii regions are among the
 brightest in our catalog.  We address here whether the remaining  sources,
 which are mostly fainter, could also be \hii regions.
 
+\begin{sloppypar}
 To calculate the expected 3 mm flux density from an \hii region with a central
 source emitting Lyman continuum luminosity $Q_{lyc}$, we rearrange
 \citet{Condon2007a} equations 4.60 and 4.61.  We get an equation for the
 expected brightness temperature as a function of electron temperature $T_e$,
 emission measure $EM$, and frequency $\nu$:
-\begin{eqnarray}
-T_B &=& T_e  \left[1-\exp\left(-\tau\right) \right] \nonumber \\
-\tau &=& c_* T_* \nu_* EM_* \nonumber \\
-\nu_* &=& \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \nonumber \\
-T_* &=& \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \nonumber \\
-c_* &=& -3.28\times10^{-7} \nonumber \\
-EM &=& \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_B} \nonumber \\
-EM_* &=& \frac{EM}{\mathrm{pc~cm}^{-6}} \nonumber \\
-\end{eqnarray}
-where the case-B recombination coefficient $\alpha_B=2\ee{-13}$ cm$^3$
-s$^{-1}$, $Q_{lyc}$ is the count rate of ionizing photons in $s^{-1}$, $\tau$
-is the optical depth of the \hii region, and $R$
-is the \hii region radius.  The emission measure $EM_*$ assumes the
+\begin{subequations}
+    \label{eqn:hiiregion}
+    \begin{align}
+T_B &= T_e  \left[1-\exp\left(-\tau\right) \right] \\
+\tau &= c_* T_* \nu_* EM_* \\
+\nu_* &= \left(\frac{\nu}{\mathrm{GHz}}\right)^{-2.1} \\
+T_* &= \left(\frac{T_e}{10^4 \mathrm{K}}\right)^{-1.35} \\
+c_* &= -3.28\times10^{-7} \\
+EM &= \frac{3 Q_{lyc}}{4 \pi R^2 \alpha_B} \\
+EM_* &= \frac{EM}{\mathrm{pc~cm}^{-6}} 
+    \end{align}
+\end{subequations}
+where 
+$Q_{lyc}$ is the count rate of ionizing photons in $s^{-1}$,
+$\tau$ is the optical depth of the \hii region,
+${\alpha_B=2\ee{-13}\mathrm{~cm}^3 \mathrm{s}^{-1}}$ 
+is the case-B recombination coefficient,
+and $R$ is the \hii region radius.  The emission measure $EM_*$ assumes the
 \hii region is a uniform-density Str{\"o}mgren sphere.  The constant $c_*$ was
 computed by \citet{Mezger1967a} as an approximation to the optical depth
 prefactor in the full radiative transfer equation and is never incorrect by
 more than $\approx25\%$.
 To convert the above brightness temperature into a flux density, assuming a
-FWHM=0.5\arcsec beam at 95 GHz, 1 K$ =1.85$ mJy/beam.
+${\mathrm{FWHM}=0.5\arcsec}$ beam at 95 GHz, ${1\mathrm{~K} = 1.85
+\mathrm{~mJy~beam}^{-1}}$.
+\end{sloppypar}
 
-For an unresolved spherically symmetric \hii region ($R=4000$ AU), the expected
-flux density is $S_{95 \mathrm{GHz}} = 5.2$ mJy for a $Q_{lyc}=10^{47}$ \pers
-source (assuming $T_e=7000$ K), and that value scales linearly with $Q_{lyc}$
-as long as the source is optically thin.
+For an unresolved spherically symmetric \hii region (${R=4000 \mathrm{~AU}}$),
+the expected flux density is ${S_{95 \mathrm{GHz}} = 5.2 \mathrm{~mJy}}$ for a
+${Q_{lyc}=10^{47}~\pers}$ source (assuming ${T_e=7000\mathrm{~K}}$), and that
+value scales linearly with $Q_{lyc}$ as long as the source is optically thin
+(in the optically thin ${\tau<<1}$ limit, equation \ref{eqn:hiiregion}a expands
+to ${T_B=\tau T_e}$).
 
 An extremely compact \hii region, e.g., one with $R<100$ AU and corresponding
 density $n>10^6$ \percc, would be somewhat optically thick ($\tau\approx0.65$)
@@ -975,15 +983,16 @@ incapable of producing the observed flux densities.
 Since the observed objects are all extremely compact (most have $r<4000$ AU),
 if they are \hii regions, they must be embedded in dense gas (and dust) so that
 they are `ionization-bounded' (their radii are determined by the point where
-all ionizing photons are consumed).  For the most luminous sources to produce
-faint \hii regions ($S_{95 GHz} \sim 0.5-1.5$ mJy), they must reside in very
-compact \hii regions ($r<100$ AU).  Figure \ref{fig:hiibrightness}b shows that,
-if O-stars were confined to such small \hii regions, the emission would in some
-cases be dominated by the warm dust core.  Such sources would be at least twice
-as bright as predicted in Figure \ref{fig:hiibrightness}a.  In short, the
-compactness of the observed sources suggests that the majority of the 100
-\emph{faint} ($S_{95 GHz} < 1.5$ mJy) sources in our sample are probably
-not O-star \hii regions, but they may be B-star \hii regions.
+all ionizing photons are consumed).  For the most luminous stars to produce
+faint \hii regions (${S_{95 GHz} \sim 0.5-1.5 \mathrm{~mJy}}$), they must reside
+in very compact \hii regions ($r<100$ AU).  Figure \ref{fig:hiibrightness}b
+shows that, if O-stars were confined to such small \hii regions, the emission
+would in some cases be dominated by a surrounding warm dust core.  Such sources
+would be at least twice as bright as predicted in Figure
+\ref{fig:hiibrightness}a.  In short, the required compactness of the \hii
+regions to match the data suggests that the majority of the 100 \emph{faint}
+($S_{95 GHz} < 1.5$ mJy) sources in our sample are probably not O-star \hii
+regions, although they may be B-star \hii regions.
 
 % number faint:
 % ((u.Quantity(tbl['peak'], u.Jy/u.beam) < 1.5*u.mJy/u.beam)).sum()
@@ -995,7 +1004,7 @@ not O-star \hii regions, but they may be B-star \hii regions.
 % ((~hii) & (u.Quantity(tbl['peak'], u.Jy/u.beam) > 1.5*u.mJy/u.beam) & ((u.Quantity(tbl['peak'], u.Jy/u.beam) < 10*u.mJy/u.beam))).sum()
 % 119
 The 119 sources with $10 \mathrm{mJy} > S_{95 GHz} > 1.5$ mJy that were not
-previously identified as \hii regions from radio data require a specific set of
+previously identified as \hii regions from radio data require a finely tuned set of
 parameters to be \hii regions.  Stars with $10^{47} < Q_{lyc} < 5\ee{47}$
 could reside in \hii regions spanning a wide range of radii and produce
 flux densities in the observed range (Figure \ref{fig:hiibrightness}a),
@@ -1061,11 +1070,11 @@ After determining that the other possibilities cannot explain
 the whole sample, we test and validate the hypothesis
 that most or all of the sources contain YSOs in this section.
 
-If we assume higher dust temperatures than those used in Section
-\ref{sec:alt0}, the inferred gas mass is lower, but an internal heating source
-- i.e., a protostar or young star - is required.  For example, if we assume
-$T_D=80$ K\footnote{At these dust temperatures, we should be concerned about
-the assumed opacity, since ices will begin to evaporate
+If we assume the sources are dust-dominated and have a higher dust temperature
+than used in Section \ref{sec:alt0}, the inferred gas mass is lower, but an
+internal heating source - i.e., a protostar or young star - is required.  For
+example, if we assume $T_D=80$ K\footnote{At these dust temperatures, we should
+be concerned about the assumed opacity, since ices will begin to evaporate
 \citep[e.g.,][]{Bergin1995a}, reducing the 3 mm opacity and correspondingly
 increasing the required mass required to produce the observed flux
 \citep{Ossenkopf1994a}.  }, our detection limit is only $M(80\mathrm{K}) = 4
@@ -1075,16 +1084,16 @@ high-luminosity central heating source.
 To constrain the required heating source, we examine the protostellar models of
 \citet[][specifically, the \texttt{spubhmi} and \texttt{spubsmi}
 models]{Robitaille2017a} and \citet{Zhang2015f}.  The Robitaille models that
-produce $S_{3 \mathrm{mm}} > 0.5$ mJy within a 5000 AU aperture uniformly have
-$L>10^4$ \lsun.  Such luminosities imply either that an high-mass ($M\gtrsim8$
-\msun) star has already formed and is still surrounded by a massive envelope,
-or a high-mass YSO is present and accreting.
-The models of \citet{Zhang2015f} generally only exhibit $L>10^4$
-\lsun once a star has reached $M\approx10$ \msun as they continue to accrete to
+produce $S_{3 \mathrm{mm}} > 0.5$ mJy within an $r<2500\mathrm{~AU}$ aperture
+uniformly have
+${L>10^4~\lsun}$.  Such luminosities imply either that a high-mass
+(${M\gtrsim8~\msun}$) star has already formed and is still surrounded by a
+massive envelope or a high-mass YSO is present and accreting.
+The models of \citet{Zhang2015f} generally only exhibit $L>10^4~\lsun$ once a star has reached $M\approx10$ \msun as it continues to accrete to
 a higher mass.  Similarly, pre-main-sequence stellar evolution models
-\citep[e.g.,][]{Haemmerle2013a} only reach $L>10^4$ \lsun for stars with
+\citep[e.g.,][]{Haemmerle2013a} only reach $L>10^4~\lsun$ for stars with
 final mass $M\gtrsim8$ \msun.  In the \citet{Robitaille2017a} model grid,
-all sources with $L>10^5$ \lsun produce $S_{3 \textrm{mm}}>0.5$ mJy,
+all sources with $L>10^5~\lsun$ produce $S_{3 \textrm{mm}}>0.5$ mJy,
 so our survey should be nearly complete to such sources, but in the range $10^4
 \lsun < L < 10^5 \lsun$, a substantial fraction may be below our sensitivity
 limit.
@@ -1114,7 +1123,8 @@ were acquired with a $\sim20\arcsec$ FWHM beam, which translates to a
 resolution $\sim1\arcsec$ at $d_{Sgr B2} = $\dsgrb assuming $d_{Orion}=415$ pc,
 so our beam size is somewhat smaller than theirs.
 
-The HOPS sources are all fainter than the Sgr B2 sources.  The most luminous
+The HOPS sources are all fainter than even the faintest Sgr B2 sources.  The
+most luminous
 and brightest HOPS source, with $L_{tot}<2000$ \lsun, would only be 0.2 mJy in
 Sgr B2, or about a 2-$\sigma$ source - below our detection threshold even in
 the noise-free regions of the map.  We  conclude that the Sgr B2 sources are
@@ -1146,7 +1156,7 @@ somewhere in the middle of our sample.  It resides on a background of
 extended emission, and the
 extended component would be readily detected (and resolved) in our data. 
 Source I is the only known high-mass YSO in the Orion cloud, and it would
-be detectable in our survey while no other compact sources in the Orion cloud
+be detectable in our survey, while no other compact sources in the Orion cloud
 would be.  This comparison supports the interpretation that most of the
 non-\hii region sources are massive YSOs.
 %it appears
@@ -1219,15 +1229,12 @@ observed region.
 % that our survey is not complete means that the estimates presented here are not
 % strict limits in either direction, they are just approximate guesses.
 
-We assume the
-stellar masses based on the arguments in Section \ref{sec:theyareprotostars}:
-in order to be detected, the sources must either be active OB stars
-illuminating \hii regions, very compact cores with
-$M>10$ \msun of warm dust within $R<4000$ AU, or
-at least moderately-massive YSOs within warm envelopes.  Note that the
-mass estimates in this section are for the resulting stars, not their
-envelopes.  The cluster affiliation for each source is reported in Table
-\ref{tab:photometry}.
+We assume the stellar masses based on the arguments in Section
+\ref{sec:theyareprotostars}: in order to be detected, the sources must either
+be active OB stars illuminating \hii regions, very compact cores with $M>10$
+\msun of warm dust within $R<4000$ AU, or at least moderately-massive YSOs
+within warm envelopes.  Note that the mass estimates in this section are for
+the resulting stars, not their envelopes.  
 
 %Using a \citet{Kroupa2001a} mass function with $M_{max}=200$ \msun, 23\% of the
 %mass is contained in $M>8\msun$ stars.  Using the lower-limit mass
@@ -1244,14 +1251,6 @@ envelopes.  The cluster affiliation for each source is reported in Table
 %we have undercounted by $\gtrsim2\times$, since high-mass stars have a high
 %multiplicity fraction \citep{Mason2009a}.
 
-% COMPARE TO SCHMIEDEKE
-
-For each subcluster identified in \citet[][see Figure
-\ref{fig:overview}]{Schmiedeke2016a}, we count the number of \hii regions
-identified in our survey plus those identified in previous works
-\citep{Gaume1995a,De-Pree1996a}, and we count the number of protostellar cores
-not associated with \hii regions.  The distributions of source flux densities
-associated with each cluster are shown in Figure \ref{fig:fluxhistclusters}.
 
 \FigureOneCol{figures/core_peak_fluxdensity_coloredbycluster.png}
 {Histograms showing the flux density (the peak intensity converted to flux density
@@ -1262,29 +1261,34 @@ for the unassociated sources.}
 {fig:fluxhistclusters}{1}{0.5\textwidth}
 
 
-We assume each source not associated with an \hii region contains or will form
+To compute the total mass of the forming star populations,
+we assume each source not associated with an \hii region contains or will form
 a star with mass equal to the average over the range 8-20 \msun assuming a
 \citet[][Eqn. 2]{Kroupa2001a} initial
-mass function, $\bar{M}(8-20) = 12$ \msun (in this section, we refer
+mass function, $\bar{M}(8-20) = 12~\msun$ (in this section, we refer
 to these objects as ``cores'').  Based on the arguments in Section
 \ref{sec:theyarehiiregions}, we assume each \hii region contains a star that is
 B0 or earlier, and therefore that they each have a mass equal to the
-average $\bar{M}(>20) = 45$ \msun.  In Table
+average over 20 \msun, $\bar{M}(>20) = 45~\msun$.  In Table
 \ref{tab:clustermassestimates}, the total counted mass estimate is shown as
 $M_{count} = N \bar{M}$, where $N$ is the number of stars with an assumed mass
 $\bar{M}$.
 
 We also compute the \emph{total} stellar mass (i.e., the extrapolated mass
-including low-mass stars) using the mass fractions $f(M>20)
-= 0.14$ and $f(8<M<20)=0.09$.  Assuming the masses are distributed according to
-the Kroupa IMF as above, the total mass inferred by extrapolating our
-measurements with this IMF is then 
-\begin{eqnarray}
-    M_{inferred,\hii}  & = & M_{count}(M>20) / f(M>20) \\
-    M_{inferred,cores} & = & M_{count}(8<M<20) / f(8<M<20) \\
-    M_{inferred}       & = & (M_{inferred,cores} + M_{inferred,\hii})/2 \\
-                       & = & M_{count}(M>8) / f(M>8) 
-\end{eqnarray}
+including low-mass stars) using the mass fractions $f(M>20) = 0.14$ and
+$f(8<M<20)=0.09$ derived from the assumed IMF.   The total mass inferred by
+extrapolating our measurements with this IMF is then 
+%\begin{equation}
+\begin{subequations}
+\begin{align}
+%\begin{eqnarray}
+    M_{inferred,\hii}  & = M_{count}(M>20) / f(M>20) \\
+    M_{inferred,cores} & = M_{count}(8<M<20) / f(8<M<20) \\
+    M_{inferred}       & = (M_{inferred,cores} + M_{inferred,\hii})/2 \\
+                       & = M_{count}(M>8) / f(M>8) 
+%\end{eqnarray}
+\end{align}
+\end{subequations}
 The inferred masses computed from \hii region
 counts and from core counts are shown in columns $M_{inferred,\hii}$ and
 $M_{inferred,cores}$ of Table \ref{tab:clustermassestimates} respectively.
@@ -1292,10 +1296,22 @@ $M_{inferred}$ is the average of these two
 estimates; it is also what would be obtained if all stars were assumed to be
 average stars with $M>8$ \msun.  If our mass range classifications are correct
 and the mass distribution is governed by a power-law IMF, we expect
-$M_{inferred,\hii} = M_{inferred,cores}$.  In Sgr B2 N and S, the core-based
+$M_{inferred,\hii} = M_{inferred,cores}$.  
+
+% COMPARE TO SCHMIEDEKE
+
+We identify each source as belonging to one of the clusters described in in
+\citet[][see Figure \ref{fig:overview}]{Schmiedeke2016a}. In each cluster, we
+count the number of \hii regions identified in our survey plus those identified
+in previous works \citep{Gaume1995a,De-Pree1996a}, and we count the number of
+protostellar cores not associated with \hii regions.  The distributions of
+source flux densities associated with each cluster are shown in Figure
+\ref{fig:fluxhistclusters}.  The cluster affiliation for each source is
+reported in Table \ref{tab:photometry}.
+
+In Sgr B2 N and S, the core-based
 and \hii-region based estimates agree to within a factor of 2, which is about
 as good as expected from Poisson noise in the counting statistics.  
-
 Sgr B2 M contains the largest source sample, and it has a factor of nine
 discrepancy between the `core' and \HII-region based counts. The discrepancy
 may arise from the combined effects of source
@@ -1318,17 +1334,20 @@ since our catalogs are similar.  For S and NE, we differ by a large factor,
 primarily because \citet{Schmiedeke2016a} assumed that $M_{min,YSO}$ and $M_{max}$
 were the smallest and largest observed masses in the cluster, while we assumed
 $M_{min,MYSO}=8$ \msun and $M_{max}=200$ \msun; i.e., we assumed a spatially
-invariant IMF.
+invariant IMF, while they assumed their observed sources represent a smaller
+fraction of the integrated IMF and therefore their assumed mass fraction is
+less than ours; $f(M_{min}< M < M_{max}) < f(M>20)$.
 
 % cluster mass estimates table
 % stellar_mass_estimates.py
 \input{cluster_mass_estimates.tex}
 
 \subsubsection{Sgr B2's star formation rate}
-Finally, we estimate the star formation rate using the above mass estimates.
+We estimate the star formation rate using the above mass estimates.
 To determine the star formation rate, we need to know the age of the current
 star forming burst.  We use the dynamical model of \citet{Kruijssen2015a} to
-get an age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a}.  We divide
+get an age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a},
+the time since pericenter passage.  We divide
 the inferred stellar mass by this age; the results are shown in Table
 \ref{tab:clustermassestimates}.    Our estimated total inferred SFR of the Sgr
 B2 cloud is \sfrdynage \msun \peryr, between one quarter and one half of the total
@@ -1339,14 +1358,16 @@ However, there are several assumptions that go into the above calculations:
     \item The computed rate assumes that star formation was initiated at the
         cloud's most recent pericenter passage following the
         \citet{Kruijssen2015a} orbital model, which is only one among many
-        models \citep[e.g., nuclear spirals;][]{Ridley2017a} that attempt to
-        explain the observed CMZ dust `ring' feature.  If the Kruijssen et al
-        model is not the correct description of the gas streams, the timescale
-        used here is meaningless.
+        models \citep[others include, e.g., nuclear spirals;][]{Ridley2017a}
+        that attempt to explain the observed CMZ dust `ring' feature.  If the
+        Kruijssen et al model is not the correct description of the gas
+        streams, the timescale used here is meaningless.
     \item In the context of the Kruijssen et al model, we have used the time
         since pericenter passage as $t_{sf}$, but G0.253+0.016 shows almost no
         star formation; the appropriate timescale may instead be the time since
         Sgr B2 was at the position of G0.253, approximately $t_{sf}=0.43$ Myr.
+        This shorter age would yield a SFR
+        ${\dot{M}=\sfrbrickage~\msun~\peryr}$.
     \item It  assumes that all stars whose passage was triggered at that event
         are still visible as 3 mm cores to our survey, but it is possible that
         the lifetime of these cores is shorter than 0.74 Myr.  For example,
@@ -1425,7 +1446,8 @@ section.
 \subsubsection{Comparison to the Lada, Lombardi, and Alves 2010 column density threshold}
 \label{sec:ladathreshold}
 In this section, we compare the star formation threshold in Sgr B2 to that in
-local clouds performed by \citet{Lada2010a}.  They determined that all star
+local clouds performed by \citet[][hereafter, L10]{Lada2010a}.  They determined
+that all star
 formation in local clouds occurs above a column density threshold $M_{thresh} >
 116$ \msun pc$^{-2}$, or $N_{thresh}(\hh) > 5.2\ee{21}$ \persc assuming the
 mean particle mass is 2.8 amu \citep{Kauffmann2008a}.  We first note, then,
@@ -1433,7 +1455,7 @@ that \emph{all pixels} in our column density maps (Section \ref{sec:colmaps},
 Battersby et al, in prep) are above this threshold by \emph{at least} a factor
 of 10.
 
-\citet{Lada2010a} identified their star-formation threshold by comparing the
+L10 identified their star-formation threshold by comparing the
 cumulative column density to total YSO count across a range of clouds and
 identifying the point of minimum variance.  Our sample covers only one cloud,
 so we cannot perform the same analysis.  Instead, we examine the column density
@@ -1472,12 +1494,13 @@ because the central pixels around Sgr B2 M and N are saturated (the lower temper
 assumptions result in optical depths $>1$, which cannot be converted to column
 densities using the optically thin assumption).  The vertical
 dashed line shows the $N(\hh)=5.2\ee{21}$ \persc column density threshold from
-\citet{Lada2010a}, and the vertical dotted line shows the the $N(\hh)=2\ee{23}$
+L10, and the vertical dotted line shows the the $N(\hh)=2\ee{23}$
 \persc \citet{Krumholz2008a} threshold for high-mass star formation.}
 {fig:corebackgroundcdf}{1}{0.5\textwidth}
 
-\citet{Lada2010a} suggested that their observed column density threshold
-corresponds to a density $n\approx10^4$ \percc.  If we assume that Sgr B2 is
+L10 suggested that their observed column density threshold
+corresponds to a density $n\approx10^4$ \percc.  If we assume that the dense
+part of the  Sgr B2 cloud is
 approximately a $2 \mathrm{pc}\times2 \mathrm{pc}\times6 \mathrm{pc}$ box
 (i.e., we assume the depth is equal to the shortest observed dimension on the
 sky), the typical column density $N\gtrsim5\ee{23}$ \persc requires a mean
@@ -1499,22 +1522,23 @@ YSOs hints that the discrepancy noted in this section could disappear if a
 complete census of Class II sources were obtained in Sgr B2.}, $N_{YSO,Lada} = 0.2
 M_{cloud,\msun}(A_K>0.8)$, we
 predict that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud
-mass because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2,Lada} = 3\ee{5}$.  As
-seen in Table \ref{tab:clustermassestimates}, the observed $N_{YSO,Sgr B2,obs} = M_{YSO} /
+mass because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2,Lada} =
+3\ee{5}$.  As seen in Table \ref{tab:clustermassestimates}, the observed
+$N_{YSO,Sgr B2,obs} = M_{YSO} /
 (0.5 \msun) = 5.2\ee{4}-6.6\ee{4}$ \msun, a factor of five below the extrapolated
 Lada et al relation.  If we invert the equation to obtain a cloud mass from our
-observed $N_{YSO,Sgr B2,obs}$, we expect $M_{cloud,Lada}\approx3\ee{5}$, which
-corresponds to the mass above a column density threshold $N>10^{24}$ \persc
-(Figure \ref{fig:cumulativemass}).
+observed $N_{YSO,Sgr B2,obs}$, we would predict $M_{cloud,Lada}\approx3\ee{5}$,
+which is equivalent to the mass in Sgr B2 above a column density threshold
+$N>10^{24}~\persc$ (Figure \ref{fig:cumulativemass}).
 
-However we examine our data, it appears that a higher threshold for star
+Any way we examine our data, it appears that a higher threshold for star
 formation is required in Sgr B2 than in local clouds.  The one remaining caveat
 is that the Lada et al study  used Spitzer observations of nearby clouds that
 were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
 discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
 to stars with $M\gtrsim8$ \msun.  It is therefore possible that we have instead
 observed a higher threshold for high-mass star formation than for low-mass star
-formation.
+formation \citep[e.g., as suggested by ]{Krumholz2008a}.
 
 
 % stellar_mass_estimate.py
@@ -1527,12 +1551,14 @@ density, subtracted.}
 
 
 \paragraph{Comparison to the Lada et al SFR}
-\citet{Lada2010a} also express their $N_{YSO}-M_{cloud}$ relation as a star
+L10 also express their $N_{YSO}-M_{cloud}$ relation as a star
 formation rate relationship
 \begin{equation}
     \label{eqn:ladamdot1}
     \dot{M}_{*,Lada} = 4.6\ee{-8} M_{dense}
 \end{equation}
+which has been used by other authors to predict CMZ cloud SFRs
+\citep[e.g.,][]{Kauffmann2017c}.
 Using
 $M_{Sgr B2} = 1.5\ee{6}$ \msun, $\dot{M}_{*,Lada} = 0.069$ \msun \peryr, which
 is within a factor of two of our estimated SFR ($\dot{M}_{*,obs}=\sfrdynage$ \msun
@@ -1542,21 +1568,27 @@ al relation for the SFR, but simultaneous disagreement with the more directly
 observational $\Sigma_{gas}-\Sigma_*$ relations. This apparent
 discrepancy is driven by the assumed star
 formation timescale.  In Equation \ref{eqn:ladamdot1}, the assumed timescale
-is $t_{ff} = 3.5\ee{5}$ yr.  However, the timescale we have assumed in computing 
-our SFR is $t_{orb} = 7.4\ee{5}$ Myr...
+is $t_{sf} = 2\mathrm{~Myr}$.  However, the timescale we have assumed in computing 
+our SFR is ${t_{orb} = 7.4\ee{5} \mathrm{~yr}}$; if we use our timescale in
+Lada et al's Equation
+4, $\dot{M}_{*,Lada}(\tau_{sf}) = \epsilon M_0 \tau_{sf}$, where $\epsilon=0.1$
+is their derived efficiency factor, we again obtain $\dot{M}_{*,Lada}(0.74 Myr)
+= 0.2~\msun~\peryr$, which is discrepant by the same factor as in the purely
+observational derivation above.  
 
-
-If we use \citet{Lada2010a} Equation 3,
-$\dot{M}_{*,Lada_{ff}} = (\epsilon/f) \tau_{ff}^{-1} M_{dense}$, where
-$\epsilon/f=0.018$ is the star formation efficiency per free-fall time and
-$\tau_{ff}$ is the free-fall time, but we account for the shorter
-$\tau_{ff}=0.14$ Myr (for the lower-limit average density $n(\hh)=5\ee{4}$
-\percc) averaged over the component of the Sgr B2 cloud above
+L10 suggest another form of the SFR relation that is density-dependent.  If we
+use L10 Equation 3, $\dot{M}_{*,Lada_{ff}} = (\epsilon/f) \tau_{ff}^{-1}
+M_{dense}$, where $\epsilon/f=0.018$ is the star formation efficiency per
+free-fall time and $\tau_{ff}$ is the free-fall time, but we account for the
+shorter $\tau_{ff}=0.14$ Myr (for the lower-limit average density
+$n(\hh)=5\ee{4}$ \percc) averaged over the component of the Sgr B2 cloud above
 $N(\hh)\gtrsim5\ee{23}$ \persc, we obtain a predicted $\dot{M}_{*,Lada_{ff}} =
-0.20$ \msun \peryr, which is about five times greater than the observed rate using
-the orbital timescale, similar to the result obtained in the previous section.
-The observed star formation rate $\dot{M}_{obs,ff} = M_{*,obs} / t_{ff} = 0.24$
-\msun \peryr.
+0.20$ \msun \peryr, which is about five times greater than the observed rate
+using the orbital timescale, similar to the result obtained in the previous
+section.  The observed star formation rate using this timescale is
+$\dot{M}_{obs,ff} = M_{*,obs} / t_{ff} = 0.24$ \msun \peryr, suggesting that
+a free-fall time based star formation rate estimate may fit both Sgr B2
+and local clouds.
 
 % If we assume the free-fall time is the relevant timescale for star formation,
 % the discrepancy between the measured SFR and the predicted gets \emph{worse} as
@@ -1572,7 +1604,7 @@ The observed star formation rate $\dot{M}_{obs,ff} = M_{*,obs} / t_{ff} = 0.24$
 
 \paragraph{Comparison to Barnes et al 2017}
 \citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the
-\citet{Lada2010a} model matches the observations.  They used a mass $M_{Sgr
+L10 model matches the observations.  They used a mass $M_{Sgr
 B2}=6.5\ee{5}$ \msun, which corresponds to a column density threshold
 $N(\hh)>7.5\ee{23}$ \persc.  As seen in Figure \ref{fig:cumulativemass}, their
 mass estimate is consistent with our own, and the difference of interpretation
@@ -1582,7 +1614,16 @@ If we apply the same analysis as above using $t_{ff} = 0.09$ Myr from
 $\dot{M}_{*,Lada_{ff}} =
 0.018 (6.5\ee{5} \msun) (9\ee{4} \textrm{yr})^{-1} = 0.13 $ \msun \peryr, which
 is three times greater than Barnes et al's observed value $\dot{M}_{obs}=0.045$
-\msun \peryr.  
+\msun \peryr and three times less than the free-fall based SFR, 
+\begin{align}
+    \dot{M}_{obs,ff} &= M_{Sgr B2,gas,Barnes} / t_{ff,Barnes}  \\
+                     &= 3.3\ee{4}~\msun / 0.09~\mathrm{Myr}  \\
+                     &= 0.37~\msun~\peryr
+\end{align}
+{\color{red}  What does this mean, if anything?  This was pretty easy to
+argue when the whole argument was "L10 overpredicts SFR", but that's not
+what we're getting now.}
+
 
 % If
 % we use $t_{ff}=0.09$ Myr from \citet{Barnes2017b} Table 4 instead of the
@@ -1594,13 +1635,16 @@ is three times greater than Barnes et al's observed value $\dot{M}_{obs}=0.045$
 
 
 \paragraph{Comparison to Kauffmann et al 2017}
+\label{sec:kauffcompare}
 \citet{Kauffmann2017c} show the whole Sgr B2 cloud lies within a factor of two
 of the Lada et al relation in their Figure 1.  Their numbers for the star
 formation rate and total mass agree with ours ($M_{Sgr B2}\approx1.5\ee{6}$
-\msun, $\dot{M}\approx 0.035$ \msun \peryr).  As discussed above, this apparent
-agreement is driven primarily by the choice of the star formation timescale.
-Using a timescale more consistent with that used by \citet{Lada2010a} to obtain
-their relationship, there is a factor of five discrepancy.
+\msun, $\dot{M}\approx 0.035$ \msun \peryr).  As discussed above, the apparent
+agreement with L10 in their work is driven primarily by the choice of the star
+formation timescale.  
+%The assumed star formation timescale of 2 Myr that
+%results in the apparent match of Sgr B2 to the L10 relation is implausibly
+%long (see \S\ref{sec:clustersandextended}).
 
 
 \subsubsection{Other Thresholds}
@@ -1612,16 +1656,16 @@ all of the sources we have detected reside above this threshold (independent of
 the assumed foreground contamination), and we determined our sources are all
 likely to be massive YSOs in Section \ref{sec:theyareprotostars}.
 However, not all pixels with $\Sigma > 1$ g \persc are forming high-mass stars
-(Figure \ref{fig:coldistributionwithoutstarformation}).  Again, we have
-inferred the presence of a necessary but not sufficient star formation
-threshold
+(Figure \ref{fig:coldistributionwithoutstarformation}).  It appears
+there is a threshold, but it is a necessary, not a sufficient, criterion
+for high-mass star formation.
 
 However, there is another threshold in our data, $N(\hh)>1\ee{24}$ \persc,
 above which the majority of the gas is associated with ongoing high-mass star
 formation (Figure \ref{fig:coldistributionwithoutstarformation}).  This
 threshold suggests that any gas reaching a column density $N(\hh)>10^{24}$
 \persc over a $\approx0.5$ pc size scale (the resolution of our column density
-maps) has more likely than not begun to form high-mass stars.  This column
+maps) has more likely begun to form high-mass stars.  This column
 density corresponds to a volume density $n(\hh)\approx10^5$ \percc assuming
 spherical symmetry.
 
@@ -1680,7 +1724,7 @@ material that shows no signs of ongoing star formation.}
 In G0.253+0.016 (The Brick, G0.253), very little star formation
 has been observed
 \citep{Longmore2013a,Johnston2014a,Rathborne2014a,Rathborne2015a} despite most
-of the cloud existing above the locally measured \citet{Lada2010a} column
+of the cloud existing above the locally measured L10 column
 density threshold.  The column density distribution function for G0.253
 is shown in Figure \ref{fig:bricksgrb2colcompare}.
 
@@ -2369,7 +2413,7 @@ collapses to form stars.  The three models
 criteria.  Most importantly, the \citet{Krumholz2005a} and \citet{Padoan2011a}
 threshold densities rise with increasing Mach number
 ($n_{crit}\propto\mathcal{M}^2$), while the \citet{Hennebelle2011a} threshold
-decreases with Mach number ($n_{crit}\propto \mathcaL{M}^{-2}$).  Since our
+decreases with Mach number ($n_{crit}\propto \mathcal{M}^{-2}$).  Since our
 observations imply the need for a \emph{higher} threshold density, and Galactic
 center clouds are more turbulent (higher Mach number) than local clouds
 \citep[e.g.,][]{Federrath2016a}, the \citet{Hennebelle2011a} model is
