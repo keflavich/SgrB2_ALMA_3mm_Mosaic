@@ -1343,31 +1343,40 @@ less than ours; $f(M_{min}< M < M_{max}) < f(M>20)$.
 \input{cluster_mass_estimates.tex}
 
 \subsubsection{Sgr B2's star formation rate}
-We estimate the star formation rate using the above mass estimates.
-To determine the star formation rate, we need to know the age of the current
-star forming burst.  We use the dynamical model of \citet{Kruijssen2015a} to
-get an age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a},
-the time since pericenter passage.  We divide
-the inferred stellar mass by this age; the results are shown in Table
+We estimate the star formation rate using the above mass estimates.  To
+determine the star formation rate, we need to know the age of the current star
+forming burst.  We use the dynamical model of \citet{Kruijssen2015a} to get an
+age of the Sgr B2 cloud $t=0.74$ Myr \citep{Longmore2013a}, the time since
+pericenter passage.  We divide the inferred stellar mass by this
+age\footnote{We use the higher of the two masses out of $M_{inferred,\hii}$ and
+$M_{inferred,cores}$ for each row because, as discussed in Section
+\ref{sec:clustersandextended}, Sgr B2 M likely has an underestimated
+$M_{inferred,cores}$ either due to observational effects such as confusion or
+because it is older and the more moderate-mass sources represented by the cores
+have become unobservable.  Similarly, the unassociated sources appear
+to be younger and therefore the \hii-region based mass appears
+to be an underestimate.}; the results are shown in Table
 \ref{tab:clustermassestimates}.    Our estimated total inferred SFR of the Sgr
-B2 cloud is \sfrdynage \msun \peryr, between one quarter and one half of the total
-for the CMZ \citep{Longmore2013a,Barnes2017b}.  
+B2 cloud is \sfrdynagemax \msun \peryr,  at least half of the
+total for the CMZ \citep[$\dot{M}_{CMZ}=0.07-0.12$ \msun
+\peryr;][]{Longmore2013a,Barnes2017b}.  
 
 However, there are several assumptions that go into the above calculations:
 \begin{itemize}
     \item The computed rate assumes that star formation was initiated at the
         cloud's most recent pericenter passage following the
-        \citet{Kruijssen2015a} orbital model, which is only one among many
-        models \citep[others include, e.g., nuclear spirals;][]{Ridley2017a}
-        that attempt to explain the observed CMZ dust `ring' feature.  If the
-        Kruijssen et al model is not the correct description of the gas
-        streams, the timescale used here is meaningless.
+        \citet{Kruijssen2015a} orbital model.  Other models for the CMZ
+        dense gas have been discussed
+        \citep[e.g.,][]{Molinari2011a,Sofue2017b,Ridley2017a}, though 
+        \citet{Henshaw2016a} found that the \citet{Kruijssen2015a} model
+        best fit the data.
     \item In the context of the Kruijssen et al model, we have used the time
         since pericenter passage as $t_{sf}$, but G0.253+0.016 shows almost no
         star formation; the appropriate timescale may instead be the time since
         Sgr B2 was at the position of G0.253, approximately $t_{sf}=0.43$ Myr.
         This shorter age would yield a SFR
-        ${\dot{M}=\sfrbrickage~\msun~\peryr}$.
+        ${\dot{M}=\sfrbrickagemax~\msun~\peryr}$, which would imply that Sgr
+        B2 completely dominates the instantaneous SFR of the CMZ.
     \item It  assumes that all stars whose passage was triggered at that event
         are still visible as 3 mm cores to our survey, but it is possible that
         the lifetime of these cores is shorter than 0.74 Myr.  For example,
@@ -1525,11 +1534,12 @@ predict that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud
 mass because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2,Lada} =
 3\ee{5}$.  As seen in Table \ref{tab:clustermassestimates}, the observed
 $N_{YSO,Sgr B2,obs} = M_{YSO} /
-(0.5 \msun) = 5.2\ee{4}-6.6\ee{4}$ \msun, a factor of five below the extrapolated
-Lada et al relation.  If we invert the equation to obtain a cloud mass from our
-observed $N_{YSO,Sgr B2,obs}$, we would predict $M_{cloud,Lada}\approx3\ee{5}$,
+(0.5 \msun) = 5.2\ee{4}-9.2\ee{4}$ \msun, a factor of three to six below the
+extrapolated Lada et al relation.  If we invert the equation to obtain a cloud
+mass from our
+observed $N_{YSO,Sgr B2,obs}$, we would predict $M_{cloud,Lada}\approx2.6-4.6\ee{5}$,
 which is equivalent to the mass in Sgr B2 above a column density threshold
-$N>10^{24}~\persc$ (Figure \ref{fig:cumulativemass}).
+$N>0.8-1\ee{24}~\persc$ (Figure \ref{fig:cumulativemass}).
 
 Any way we examine our data, it appears that a higher threshold for star
 formation is required in Sgr B2 than in local clouds.  The one remaining caveat
@@ -1538,7 +1548,7 @@ were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
 discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
 to stars with $M\gtrsim8$ \msun.  It is therefore possible that we have instead
 observed a higher threshold for high-mass star formation than for low-mass star
-formation \citep[e.g., as suggested by ]{Krumholz2008a}.
+formation \citep[e.g., as suggested by ][]{Krumholz2008a}.
 
 
 % stellar_mass_estimate.py
@@ -1561,7 +1571,7 @@ which has been used by other authors to predict CMZ cloud SFRs
 \citep[e.g.,][]{Kauffmann2017c}.
 Using
 $M_{Sgr B2} = 1.5\ee{6}$ \msun, $\dot{M}_{*,Lada} = 0.069$ \msun \peryr, which
-is within a factor of two of our estimated SFR ($\dot{M}_{*,obs}=\sfrdynage$ \msun
+is close to our estimated SFR ($\dot{M}_{*,obs}=\sfrdynagemax$ \msun
 \peryr, Table \ref{tab:clustermassestimates}).  We appear to have
 obtained an agreement with the Lada et
 al relation for the SFR, but simultaneous disagreement with the more directly
@@ -1569,26 +1579,26 @@ observational $\Sigma_{gas}-\Sigma_*$ relations. This apparent
 discrepancy is driven by the assumed star
 formation timescale.  In Equation \ref{eqn:ladamdot1}, the assumed timescale
 is $t_{sf} = 2\mathrm{~Myr}$.  However, the timescale we have assumed in computing 
-our SFR is ${t_{orb} = 7.4\ee{5} \mathrm{~yr}}$; if we use our timescale in
+our SFR is ${t_{orb} = 0.074 \mathrm{~Myr}}$; if we use our timescale in
 Lada et al's Equation
 4, $\dot{M}_{*,Lada}(\tau_{sf}) = \epsilon M_0 \tau_{sf}$, where $\epsilon=0.1$
 is their derived efficiency factor, we again obtain $\dot{M}_{*,Lada}(0.74 Myr)
 = 0.2~\msun~\peryr$, which is discrepant by the same factor as in the purely
 observational derivation above.  
 
-L10 suggest another form of the SFR relation that is density-dependent.  If we
-use L10 Equation 3, $\dot{M}_{*,Lada_{ff}} = (\epsilon/f) \tau_{ff}^{-1}
-M_{dense}$, where $\epsilon/f=0.018$ is the star formation efficiency per
-free-fall time and $\tau_{ff}$ is the free-fall time, but we account for the
-shorter $\tau_{ff}=0.14$ Myr (for the lower-limit average density
-$n(\hh)=5\ee{4}$ \percc) averaged over the component of the Sgr B2 cloud above
-$N(\hh)\gtrsim5\ee{23}$ \persc, we obtain a predicted $\dot{M}_{*,Lada_{ff}} =
-0.20$ \msun \peryr, which is about five times greater than the observed rate
-using the orbital timescale, similar to the result obtained in the previous
-section.  The observed star formation rate using this timescale is
-$\dot{M}_{obs,ff} = M_{*,obs} / t_{ff} = 0.24$ \msun \peryr, suggesting that
-a free-fall time based star formation rate estimate may fit both Sgr B2
-and local clouds.
+% L10 suggest another form of the SFR relation that is density-dependent.  If we
+% use L10 Equation 3, $\dot{M}_{*,Lada_{ff}} = (\epsilon/f) \tau_{ff}^{-1}
+% M_{dense}$, where $\epsilon/f=0.018$ is the star formation efficiency per
+% free-fall time and $\tau_{ff}$ is the free-fall time, but we account for the
+% shorter $\tau_{ff}=0.14$ Myr (for the lower-limit average density
+% $n(\hh)=5\ee{4}$ \percc) averaged over the component of the Sgr B2 cloud above
+% $N(\hh)\gtrsim5\ee{23}$ \persc, we obtain a predicted $\dot{M}_{*,Lada_{ff}} =
+% 0.20$ \msun \peryr, which is about five times greater than the observed rate
+% using the orbital timescale, similar to the result obtained in the previous
+% section.  The observed star formation rate using this timescale is
+% $\dot{M}_{obs,ff} = M_{*,obs} / t_{ff} = 0.24$ \msun \peryr, suggesting that
+% a free-fall time based star formation rate estimate may fit both Sgr B2
+% and local clouds.
 
 % If we assume the free-fall time is the relevant timescale for star formation,
 % the discrepancy between the measured SFR and the predicted gets \emph{worse} as
@@ -1603,26 +1613,35 @@ and local clouds.
 % empirical relations to both the Galactic center and local clouds.
 
 \paragraph{Comparison to Barnes et al 2017}
-\citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the
-L10 model matches the observations.  They used a mass $M_{Sgr
-B2}=6.5\ee{5}$ \msun, which corresponds to a column density threshold
-$N(\hh)>7.5\ee{23}$ \persc.  As seen in Figure \ref{fig:cumulativemass}, their
-mass estimate is consistent with our own, and the difference of interpretation
-comes from the tighter boundary (and higher mass threshold) they selected.  
-If we apply the same analysis as above using $t_{ff} = 0.09$ Myr from
-\citet{Barnes2017b} Table 4, the predicted SFR is
-$\dot{M}_{*,Lada_{ff}} =
-0.018 (6.5\ee{5} \msun) (9\ee{4} \textrm{yr})^{-1} = 0.13 $ \msun \peryr, which
-is three times greater than Barnes et al's observed value $\dot{M}_{obs}=0.045$
-\msun \peryr and three times less than the free-fall based SFR, 
-\begin{align}
-    \dot{M}_{obs,ff} &= M_{Sgr B2,gas,Barnes} / t_{ff,Barnes}  \\
-                     &= 3.3\ee{4}~\msun / 0.09~\mathrm{Myr}  \\
-                     &= 0.37~\msun~\peryr
-\end{align}
-{\color{red}  What does this mean, if anything?  This was pretty easy to
-argue when the whole argument was "L10 overpredicts SFR", but that's not
-what we're getting now.}
+\citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the L10 model
+matches the observations.  They used a mass $M_{Sgr B2}=6.5\ee{5}$ \msun, which
+corresponds to a column density threshold $N(\hh)>7.5\ee{23}$ \persc and would
+lead to an L10-predicted SFR $\dot{M}_{Lada}=0.03~\msun~\peryr$.  As seen in
+Figure \ref{fig:cumulativemass}, their mass estimate is consistent with our
+own, and the difference of interpretation comes from the tighter cloud boundary
+(and corresponding higher mass threshold) they selected.  They obtained a SFR
+$\dot{M}_{Sgr B2,Barnes} = 0.045~\msun~\peryr$ based on mass estimates from
+\citet{Schmiedeke2016a} and an age $t_{dyn}=0.74$ Myr.  They concluded that Sgr
+B2 was in better agreement with the L10 relations both because of their smaller
+assumed cloud mass and because of the timescale difference noted above.  
+Nonetheless, their conclusion that Sgr B2 is \emph{more} consistent with the L10
+relation than other CMZ clouds appears to be robust.
+
+% If we apply the same analysis as above using $t_{ff} = 0.09$ Myr from
+% \citet{Barnes2017b} Table 4, the predicted SFR is
+% $\dot{M}_{*,Lada_{ff}} =
+% 0.018 (6.5\ee{5} \msun) (9\ee{4} \textrm{yr})^{-1} = 0.13 $ \msun \peryr, which
+% is three times greater than Barnes et al's observed value $\dot{M}_{obs}=0.045$
+% \msun \peryr
+% and three times less than the free-fall based SFR, 
+% \begin{align}
+%     \dot{M}_{obs,ff} &= M_{Sgr B2,gas,Barnes} / t_{ff,Barnes}  \\
+%                      &= 3.3\ee{4}~\msun / 0.09~\mathrm{Myr}  \\
+%                      &= 0.37~\msun~\peryr
+% \end{align}
+% {\color{red}  What does this mean, if anything?  This was pretty easy to
+% argue when the whole argument was "L10 overpredicts SFR", but that's not
+% what we're getting now.}
 
 
 % If
@@ -1640,7 +1659,7 @@ what we're getting now.}
 of the Lada et al relation in their Figure 1.  Their numbers for the star
 formation rate and total mass agree with ours ($M_{Sgr B2}\approx1.5\ee{6}$
 \msun, $\dot{M}\approx 0.035$ \msun \peryr).  As discussed above, the apparent
-agreement with L10 in their work is driven primarily by the choice of the star
+agreement with L10 in their work is driven largely by the choice of the star
 formation timescale.  
 %The assumed star formation timescale of 2 Myr that
 %results in the apparent match of Sgr B2 to the L10 relation is implausibly
@@ -2347,7 +2366,10 @@ pc, the upper limit on the formation time of the YSOs is $L/\sigma_{1D}<1$ Myr.
 Most of the sources along the ridge are within $r<0.5$ pc of it center (Figures
 \ref{fig:coreson20cmandhc3n} and \ref{fig:hc3nonscuba}), which, assuming they
 formed in the ridge, suggests an upper age limit $t<r/\sigma_{1D}=5\ee{4}$ yr.
-The DS ridge sources appear to be recently formed.
+The DS ridge sources appear to be recently formed, which may explain the
+relative lack of \hii regions in the distributed population (Table
+\ref{tab:clustermassestimates}) - the forming massive stars have not yet had
+time to contract and produce ionizing radiation.
 
 The expanding \hii regions observed around Sgr B2 M and N (and assumed to be
 associated with them) give a lower limit on their ages \citep[assuming steady
@@ -2400,7 +2422,7 @@ the significant ongoing star formation we report here.
 In Sections \ref{sec:thresholds} and \label{sec:gutermuth}, we concluded that a
 varying star formation density threshold is likely to exist in the CMZ.  Other
 authors have come to the same conclusion based on observations of G0.253+0.016
-\citep{Rathborne2014a,Kruijssen2015a}.  Here, we briefly discuss what may drive
+\citep{Rathborne2014a,Kruijssen2014c}.  Here, we briefly discuss what may drive
 such a varying threshold.
 
 \citet{Federrath2012a} summarized and reformulated a variety of

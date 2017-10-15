@@ -213,12 +213,18 @@ tbl.add_row(['Total$_{max}$', -999, -999, -999,
 
 
 print("SFR({1} Myr) = {0}".format(totalrow[-1], sgrb2_age_myr))
-sfrbrickage = (latex_info.round_to_n(total_picking_max.to(u.Msun).value/(sgrb2_age_myr*1e6), 2)*(u.Msun/u.yr))
+sfrbrickage = (latex_info.round_to_n(totalrow[4].to(u.Msun).value/(sgrb2_brick_age_myr*1e6), 2)*(u.Msun/u.yr))
 print("SFR({1} Myr) = {0}".format(sfrbrickage, sgrb2_brick_age_myr))
+sfrdynage_totmax = latex_info.round_to_n(total_picking_max.value / sgrb2_age_myr / 1e6,2)
+print("SFR({1} Myr) = {0}".format(sfrdynage_totmax, sgrb2_age_myr))
+sfrbrickage_totmax = (latex_info.round_to_n(total_picking_max.to(u.Msun).value/(sgrb2_brick_age_myr*1e6), 2)*(u.Msun/u.yr))
+print("SFR({1} Myr) = {0}".format(sfrbrickage_totmax, sgrb2_brick_age_myr))
 
 with open(paths.texpath('sfr.tex'), 'w') as fh:
     fh.write("\\newcommand{{\\sfrdynage}}{{{0}\\xspace}}\n".format(totalrow[-1].to(u.Msun/u.yr).value))
     fh.write("\\newcommand{{\\sfrbrickage}}{{{0}\\xspace}}\n".format(sfrbrickage.to(u.Msun/u.yr).value))
+    fh.write("\\newcommand{{\\sfrdynagemax}}{{{0}\\xspace}}\n".format(sfrdynage_totmax))
+    fh.write("\\newcommand{{\\sfrbrickagemax}}{{{0}\\xspace}}\n".format(sfrbrickage_totmax.to(u.Msun/u.yr).value))
 
 
 formats = {'SFR': lambda x: latex_info.strip_trailing_zeros(str(x)),
