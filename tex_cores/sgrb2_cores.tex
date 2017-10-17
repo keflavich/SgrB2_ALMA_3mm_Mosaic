@@ -1869,19 +1869,20 @@ scaling constant (assumed to be the star formation efficiency of a core and
 to have the value 0.3), $\Sigma_{gas,0}$ is the initial gas surface density,  $t_0$
 is the timescale for the gas to be depleted by $2^{\beta}$, $\beta =
 1/(1-\alpha)$, and $\alpha$ is
-the exponent in the star formation relation (i.e., $\alpha=1$ means the SFR is
-initially linearly correlated with gas surface density).
+the exponent in the star formation relation.
 The depletion timescale $t_0$ is defined by their equation 5:
 \begin{equation}
     t_0 = \frac{1}{k(\alpha-1)} \Sigma_{gas,0}^{1-\alpha}
 \end{equation}
 where $k$ is the star formation rate coefficient.  The constant $k$ has
 different units depending on which value of $\alpha$ is adopted; for
-$\alpha=1$, $k$ is the inverse star formation timescale with units Myr$^{-1}$
-(and the surface density relation simplifies to $\Sigma_*(t) = c
-\Sigma_{gas,0}[1-e^{-kt}]$ and the 50\% depletion timescale $t_0=\ln(2)/k$),
-while for $\alpha=2$, $k$ has units pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$.
+for $\alpha=2$, $k$ has units pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$.
 
+If $\alpha=1$, i.e., the star formation rate is proportional to the intial gas
+surface density, the surface density relation simplifies to $\Sigma_*(t) = c
+\Sigma_{gas,0}[1-e^{-kt}]$ and the 50\% depletion timescale is $t_0=\ln(2)/k$.
+The constant $k$ is then the inverse star formation timescale with units
+Myr$^{-1}$
 
 
 \subsubsection{Results of the comparison to Gutermuth et al}
