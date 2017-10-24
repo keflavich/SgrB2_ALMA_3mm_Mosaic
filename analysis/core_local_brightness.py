@@ -362,6 +362,7 @@ def plotit():
     #pl.savefig(paths.fpath("cumulative_mass_histograms.png"), bbox_inches='tight')
 
     pl.figure(6).clf()
+    ax1 = pl.gca()
     imname = 'ScubaHTemColumn'
     print("fig6: Plotting {0}".format(imname))
     data = files[imname]['file'].data
@@ -370,50 +371,54 @@ def plotit():
     lo = astropy.stats.mad_std(brickdata, ignore_nan=True)
     hi = np.nanmax(data)
     bins = np.logspace(np.log10(lo)-0.5, np.log10(hi), 100)
-    bH,bL,bP = pl.hist(brickdata[np.isfinite(brickdata)], bins=bins,
-                       log=True, alpha=0.5, histtype='step',
-                       bottom=0.1,
-                       linewidth=2,
-                       color='b', zorder=-1)
+    bH,bL,bP = ax1.hist(brickdata[np.isfinite(brickdata)], bins=bins,
+                        log=True, alpha=0.5, histtype='step',
+                        bottom=0.1,
+                        linewidth=2,
+                        color='b', zorder=-1)
     #weights = np.ones(np.isfinite(data).sum(), dtype='float')/np.isfinite(data).sum()
-    H,L,P = pl.hist(data[np.isfinite(data) & mask], bins=bins, log=True,
-                    alpha=0.5, color='k',
-                    linewidth=2,
-                    #normed=True,
-                    histtype='step')
+    H,L,P = ax1.hist(data[np.isfinite(data) & mask], bins=bins, log=True,
+                     alpha=0.5, color='k',
+                     linewidth=2,
+                     #normed=True,
+                     histtype='step')
     # Lada threshold, approximately (116 Msun/pc^2)
-    pl.vlines(5e21, 1.1, H.max(),
-              label='Lada+ 2010 Threshold')
-    pl.vlines(2e23, 0.1, H.max()*2,
-              color='k',
-              linestyle=':',
-              label='Krumholz+ 2008 Threshold')
-    #pl.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
-    pl.xlim(np.min([bL.min(), L.min()]), L.max())
-    pl.ylim(0.5,np.max([bH.max(), H.max()])*1.1)
-    pl.semilogx()
-    pl.yscale('log', nonposy='clip')
-    pl.xlabel("Column Density [N(H$_2$) cm$^{-2}$]")
-    pl.ylabel("Number of pixels")
-    ax1 = pl.gca()
-    ax2 = pl.gca().twinx()
+    ax1.vlines(5e21, 1.1, H.max(),
+               label='Lada+ 2010 Threshold')
+    ax1.vlines(2e23, 0.1, H.max()*2,
+               color='k',
+               linestyle=':',
+               label='Krumholz+ 2008 Threshold')
+    #ax1.hist(tbl[imname], bins=bins, log=True, alpha=0.5)
+    ax1.set_xlim(np.min([bL.min(), L.min()]), L.max())
+    ax1.set_ylim(0.5,np.max([bH.max(), H.max()])*1.1)
+    ax1.semilogx()
+    ax1.set_yscale('log', nonposy='clip')
+    ax1.set_xlabel("Column Density [N(H$_2$) cm$^{-2}$]")
+    ax1.set_ylabel("Number of pixels")
+
+    ax3 = ax1.twiny()
+    print("ax1 xlims: {0}".format(ax1.get_xlim()))
+    pl.draw()
+    ax3.set_xlim(np.array(ax1.get_xlim())*(2.8*u.Da).to(u.g).value)
+    ax3lims = ax3.get_xlim()
+    print("ax2 xlims: {0}".format(ax2.get_xlim()))
+    ax3.set_xscale('log')
+    ax3.set_xlabel("Column Density [g cm$^{-2}$]")
+    pl.draw()
+
+    pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF_nofractions.png"), bbox_inches='tight')
+
+    ax2 = ax1.twinx()
     ax2.plot(np.sort(tbl[imname]), np.arange(len(tbl),
                                              dtype='float')/len(tbl),
              'k-', linewidth=3, alpha=0.5, zorder=10)
     ax2.set_xlim(L.min(), L.max())
     ax2.set_ylim(0,1)
 
-    ax3 = ax1.twiny()
-    print("ax1 xlims: {0}".format(ax1.get_xlim()))
-    pl.draw()
-    ax3.set_xlim(np.array(ax1.get_xlim())*(2.8*u.Da).to(u.g).value)
-    print("ax2 xlims: {0}".format(ax2.get_xlim()))
-    ax3.set_xscale('log')
-    ax3.set_xlabel("Column Density [g cm$^{-2}$]")
-    pl.draw()
-
-
     ax2.set_ylabel("Fraction of point sources below N(H$_2$)")
+    ax3.set_xlim(ax3lims)
+    ax2.set_xlim(L.min(), L.max())
 
     pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.png"), bbox_inches='tight')
 
