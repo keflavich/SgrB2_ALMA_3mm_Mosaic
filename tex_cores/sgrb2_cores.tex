@@ -1,3 +1,6 @@
+% if you can read this text, the comments haven't been sanitized.
+% Unfortunately, they're pretty boring.  Still, go at least check out the
+% acknowledgements.
 \documentclass[twocolumn]{aastex61}
 \usepackage{datetime} % TODO: remove this after submission
 \input{preface}
@@ -17,9 +20,10 @@ We report ALMA observations with resolution $\approx0.5$\arcsec at 3 mm  of the
 extended Sgr B2 cloud in the Central Molecular Zone (CMZ). We detect \ncores
 compact sources, the majority of which have extents smaller than 5000 AU.  By
 ruling out alternative possibilities such as externally ionized globules, we
-conclude that these sources consist of a mix of \hchii regions and YSOs (young
-stellar objects), with most of the newly-detected sources being YSOs.  Based on
-their luminosities, most of these sources must contain objects with stellar
+conclude that these sources consist of a mix of hypercompact \hii regions and
+YSOs (young stellar objects), with most of the newly-detected sources being
+YSOs.  Based on their luminosities, most of these sources must contain objects
+with stellar
 masses $M_*\gtrsim8$ \msun.
 %are predominantly high-mass
 %($M\gtrsim8$ \msun) protostars or centrally condensed prestellar cores.  
@@ -30,7 +34,7 @@ regions Main (M), North (N), and South (S).  Using this new sample, we examine
 star formation thresholds and surface density relations in Sgr B2.  While all
 of the detected sources reside in regions of high column density
 ($N(\hh)\gtrsim2\ee{23}$ \persc), not all regions of high column density
-contain 3 mm sources.  The observed column threshold for star formation is
+contain 3 mm sources.  The observed column density threshold for star formation is
 substantially higher than that in solar vicinity clouds, implying either that
 high-mass star formation requires a higher column density or that the star
 formation threshold in the CMZ is higher than in nearby, low-mass clouds.  The
@@ -256,7 +260,7 @@ The final image used for most of the analysis in this paper was imaged with
 Briggs robust parameter 0.5, achieving a beam size $0.54\arcsec\times0.46\arcsec$.
 Using the same visibility data, we also produce an image with robust parameter
 -1, beam size $0.37\arcsec\times0.32\arcsec$, and average RMS 0.24 mJy/beam or
-0.27 K, and another tapered to exclude the short baselines imaged with robust
+0.27 K, and another tapered to exclude the long baselines imaged with robust
 parameter 2 that achieved a beam size $2.35\arcsec\times1.99\arcsec$ with
 average RMS 0.78 mJy/beam or 0.022 K.  All three images are distributed with
 the paper (\url{https://doi.org/10.11570/17.0007}).
@@ -508,7 +512,7 @@ source.  We include in the analysis only those sources with $|\alpha| > 5
 \sigma(\alpha)$ or $\sigma(\alpha) < 0.1$; the latter include sources with
 $\alpha\sim0$ measured at relatively high precision.  We exclude the lower-precision
 measurements of $\alpha$ because they are not useful for identifying the emission
-mechanism.  \nalphas sources met these
+mechanism.  Of the \ncores detected sources, \nalphas met these
 criteria. Several of the brightest sources did not have significant
 measurements of $\alpha$ because they are in the immediate neighborhood of Sgr
 B2 M or N and therefore have significantly higher background and noise,
@@ -609,7 +613,8 @@ MYSOs based on their \water maser detections alone.  There are 14 masers
 from their catalog that do not have associated sources in our catalog, though
 not all of these maser spots are spatially distinct.  Most of these unassociated
 masers are seen outside of Sgr B2 N and Sgr B2 S and may be associated with
-outflows.
+outflows.  This catalog covers about 10\% of our mapped area with their
+single VLA K-band pointing; their map excludes the many sources in Sgr B2 DS.
 
 \paragraph{X-ray sources}
 Some young stars exhibit X-ray emission, including some MYSOs
@@ -636,6 +641,8 @@ Finally, we searched the \citet{Mehringer1997a} sample of 44 GHz Class I
 \methanol maser sources for associations, finding no matches with any of our
 sources out of the 18 nonthermal \methanol emission sources they reported.
 This methanol maser line apparently does not trace star formation.
+Their maps include two VLA Q-band images pointed at Sgr B2 M and N; these
+maps cover only a very small fraction ($\sim5\%$) of our mapped area.
 
 
 \subsection{Nature of the Continuum Sources}
@@ -718,7 +725,7 @@ than the sources we observe.
 
 At the high implied densities ($n(20 \mathrm{K})>10^8$ \percc), it is unlikely
 that the cores are unbound; these sources have $v_{esc} > 2 \kms (M/10
-\msun)^{1/2}$ from $r=0.5\arcsec=4200$ au.  The high density required for our
+\msun)^{1/2}$ from $r=0.5\arcsec=4200$ AU.  The high density required for our
 sources results in a short free-fall timescale, $t_{ff}<3000 (n/10^8
 \percc)^{-1/2}$ yr.  Assuming such cores do exist, the timescale for them to
 form a central YSO (a central heating source) is short.  While there are
@@ -741,8 +748,8 @@ the light source is extrinsic.
 
 The majority of the detected sources have size $<2000$ AU, i.e., they are
 unresolved\footnote{We consider a source unresolved if its radius is smaller
-than the Gaussian width of our beam, $0.2\arcsec\approx2000$ au, rather than
-the FWHM of $0.5\arcsec\approx4000$ au, since a source with the latter width
+than the Gaussian width of our beam, $0.2\arcsec\approx2000$ AU, rather than
+the FWHM of $0.5\arcsec\approx4000$ AU, since a source with the latter width
 would be measurably extended when convolved with the beam.}.  By contrast, the
 free-floating EGGs (`frEGGs') so far observed have sizes 10,000-20,000 AU
 \citep{Sahai2012a,Sahai2012b}, so they would be resolved in our observations.
@@ -1005,7 +1012,7 @@ regions, although they may be B-star \hii regions.
 % 119
 The 119 sources with $10 \mathrm{mJy} > S_{95 GHz} > 1.5$ mJy that were not
 previously identified as \hii regions from radio data require a finely tuned set of
-parameters to be \hii regions.  Stars with $10^{47} < Q_{lyc} < 5\ee{47}$
+parameters to be \hii regions.  Stars with $10^{47} < Q_{lyc} < 5\ee{47}$ photons
 could reside in \hii regions spanning a wide range of radii and produce
 flux densities in the observed range (Figure \ref{fig:hiibrightness}a),
 but more luminous stars would again have to be confined to very small \hii
@@ -1126,7 +1133,7 @@ so our beam size is somewhat smaller than theirs.
 The HOPS sources are all fainter than even the faintest Sgr B2 sources.  The
 most luminous
 and brightest HOPS source, with $L_{tot}<2000$ \lsun, would only be 0.2 mJy in
-Sgr B2, or about a 2-$\sigma$ source - below our detection threshold even in
+Sgr B2, or about a 2-$\sigma$ source, which is below our detection threshold even in
 the noise-free regions of the map.  We  conclude that the Sgr B2 sources are
 much more luminous than any in the Orion sample, which is consistent with all
 of the sources in our sample being MYSOs.
@@ -1313,7 +1320,7 @@ In Sgr B2 N and S, the core-based
 and \hii-region based estimates agree to within a factor of 2, which is about
 as good as expected from Poisson noise in the counting statistics.  
 Sgr B2 M contains the largest source sample, and it has a factor of nine
-discrepancy between the `core' and \HII-region based counts. The discrepancy
+discrepancy between the `core' and \hii-region based counts. The discrepancy
 may arise from the combined effects of source
 confusion at our 0.5\arcsec resolution and the increased noise around the
 extremely bright central region that makes detection of $<2$ mJy sources
@@ -1513,7 +1520,7 @@ part of the  Sgr B2 cloud is
 approximately a $2 \mathrm{pc}\times2 \mathrm{pc}\times6 \mathrm{pc}$ box
 (i.e., we assume the depth is equal to the shortest observed dimension on the
 sky), the typical column density $N\gtrsim5\ee{23}$ \persc requires a mean
-density $n\gtrsim5\ee{4}$ \percc (which is a lower limit - most of the mass
+density $n\gtrsim5\ee{4}$ \percc (which is a lower limit; most of the mass
 is at higher column densities).  Again, effectively all of the gas associated
 with ongoing star formation is above the locally-determined threshold.
 
@@ -1537,7 +1544,8 @@ $N_{YSO,Sgr B2,obs} = M_{YSO} /
 (0.5 \msun) = 5.2\ee{4}-9.2\ee{4}$ \msun, a factor of three to six below the
 extrapolated LLA10 relation.  If we invert the equation to obtain a cloud
 mass from our
-observed $N_{YSO,Sgr B2,obs}$, we would predict $M_{cloud,Lada}\approx2.6-4.6\ee{5}$,
+observed $N_{YSO,Sgr B2,obs}$, we would predict $M_{cloud,Lada}\approx2.6-4.6\ee{5}$ 
+\msun,
 which is equivalent to the mass in Sgr B2 above a column density threshold
 $N>0.8-1\ee{24}~\persc$ (Figure \ref{fig:cumulativemass}).
 
@@ -1579,7 +1587,7 @@ observational $\Sigma_{gas}-\Sigma_*$ relations. This apparent
 discrepancy is driven by the assumed star
 formation timescale.  In Equation \ref{eqn:ladamdot1}, the assumed timescale
 is $t_{sf} = 2\mathrm{~Myr}$.  However, the timescale we have assumed in computing 
-our SFR is ${t_{orb} = 0.074 \mathrm{~Myr}}$; if we use our timescale in
+our SFR is ${t_{orb} = 0.74 \mathrm{~Myr}}$; if we use our timescale in
 Lada et al's Equation
 4, $\dot{M}_{*,Lada}(\tau_{sf}) = \epsilon M_0 \tau_{sf}$, where $\epsilon=0.1$
 is their derived efficiency factor, we again obtain $\dot{M}_{*,Lada}(0.74 Myr)
@@ -1869,13 +1877,13 @@ scaling constant (assumed to be the star formation efficiency of a core and
 to have the value 0.3), $\Sigma_{gas,0}$ is the initial gas surface density,  $t_0$
 is the timescale for the gas to be depleted by $2^{\beta}$, $\beta =
 1/(1-\alpha)$, and $\alpha$ is
-the exponent in the star formation relation.
+the exponent in the star formation relation ($\alpha\ne 0$).
 The depletion timescale $t_0$ is defined by their equation 5:
 \begin{equation}
     t_0 = \frac{1}{k(\alpha-1)} \Sigma_{gas,0}^{1-\alpha}
 \end{equation}
 where $k$ is the star formation rate coefficient.  The constant $k$ has
-different units depending on which value of $\alpha$ is adopted; for
+different units depending on which value of $\alpha$ is adopted;
 for $\alpha=2$, $k$ has units pc$^{2}$ \msun$^{-1}$ Myr$^{-1}$.
 
 If $\alpha=1$, i.e., the star formation rate is proportional to the intial gas
@@ -2370,13 +2378,13 @@ Most of the sources along the ridge are within $r<0.5$ pc of it center (Figures
 formed in the ridge, suggests an upper age limit $t<r/\sigma_{1D}=5\ee{4}$ yr.
 The DS ridge sources appear to be recently formed, which may explain the
 relative lack of \hii regions in the distributed population (Table
-\ref{tab:clustermassestimates}) - the forming massive stars have not yet had
+\ref{tab:clustermassestimates}): the forming massive stars have not yet had
 time to contract and produce ionizing radiation.
 
 The expanding \hii regions observed around Sgr B2 M and N (and assumed to be
 associated with them) give a lower limit on their ages \citep[assuming steady
 expansion, which may not be a correct model;][]{Peters2010b,De-Pree2014a}.  The
-HII regions I, J, A1, and K4 have radii $r\approx0.1$ pc \citep{Gaume1995a},
+\hii regions I, J, A1, and K4 have radii $r\approx0.1$ pc \citep{Gaume1995a},
 suggesting their ages are at least $t>10^5$ yr assuming they are expanding into
 a density $n\gtrsim10^5$ \percc \citep{De-Pree1995a,Schmiedeke2016a}.  The
 clusters therefore appear to be somewhat older than the ridge sources.
@@ -2421,7 +2429,7 @@ the significant ongoing star formation we report here.
 
 \subsection{Interpretation of a varying threshold for star formation}
 \label{sec:turbsftheory}
-In Sections \ref{sec:thresholds} and \label{sec:gutermuth}, we concluded that a
+In Sections \ref{sec:thresholds} and \ref{sec:gutermuth}, we concluded that a
 varying star formation density threshold is likely to exist in the CMZ.  Other
 authors have come to the same conclusion based on observations of G0.253+0.016
 \citep{Rathborne2014a,Kruijssen2014c}.  Here, we briefly discuss what may drive
@@ -2512,7 +2520,7 @@ package (\url{https://github.com/radio-astro-tools/spectral-cube} and \url{radio
 \textit{Acknowledgements}
 % reading these acknowledgements, you'd think this is the best-funded project
 % ever...
-We thank the anonymous referee for a constructive report.
+We thank the anonymous referee for a very constructive and helpful report.
 The National Radio Astronomy Observatory is a facility of the National Science
 Foundation operated under cooperative agreement by Associated Universities,
 Inc.
