@@ -189,13 +189,15 @@ for pc, hatch in zip(p, ['/','\\','+']):
 #ax5.set_xscale('log')
 ax5.set_xlim(l[:-1][hh>0].min()*1.1, l[1:][hh>0].max()*1.1)
 ax5.set_xlim(-3.0, 5)
-ax5.set_ylim(0, 11)
+ax5.set_ylim(0, 12)
 pl.setp(ax5.get_xticklabels(), rotation='horizontal', fontsize=20)
 pl.setp(ax5.get_yticklabels(), rotation='vertical', fontsize=20)
 ax5.set_xlabel("Spectral Index $\\alpha$", fontsize=22)
 ax5.set_ylabel("$N(cores)$", fontsize=22)
-pl.legend(loc='best', fontsize=20)
-pl.legend(loc='upper left', fontsize=20)
+#pl.legend(loc='best', fontsize=20)
+leg = pl.legend(loc='upper left', fontsize=20)
+leg.set_zorder(-10)
+leg.set_frame_on(False)
 pl.savefig(paths.fpath("core_alpha_coloredbyclass.png"), bbox_inches='tight')
 
 

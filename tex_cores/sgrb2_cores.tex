@@ -536,13 +536,14 @@ that the \emph{relative} spectral index measurements in our catalog should be
 accurate, since all sources come from the same map with identical calibration.
 %This is... a note for the readers of source code...
 % There is some concern about the accuracy of the $\alpha$ maps produced by
-% \texttt{tclean} for extended structures (U. Rao, private communication),
+% \texttt{tclean} for extended structures (U. Rau, private communication),
 % particularly when using the mosaic gridder, but point sources usually are not
-% significantly affected by these concerns.  We performed an additional check
+% significantly affected by these concerns.
+% We performed an additional check
 % by imaging the 90 GHz and 100 GHz sidebands as independent continuum images
 % and used their ratio to measure the spectral index; for the sources we
 % report measurements of, the two measurements are generally consistent within
-% the noise.
+% the noise. ACTUALLY THEY'RE NOT AT ALL.  See compare_spindx...
 
 \Figure{figures/cores_on_continuum_peak_DeepSouth_zoomin_legend.pdf}
 {A close-in look at the Sgr B2 DS region.  Multiple insets show identified sources
@@ -602,10 +603,10 @@ association between HC1 and our source 43 suggests that it is a YSO with a
 massive envelope.  Of the 6 \ammonia (3,3) maser sources identified
 by \citet{Martin-Pintado1999a}, three are in regions with high 3 mm source
 density but lack a clear one-to-one source association, one is coincident with
-an \hii region not in our catalog, and two have no obvious associations.  The
-\ammonia (3,3) masers therefore do not appear to be unambiguous tracers of star
-formation in this environment, consistent with the conclusions of
-\citet{Mills2015a}.  
+an extended \hii region not in our catalog, and two have no obvious
+associations.  The \ammonia (3,3) masers therefore do not appear to be
+unambiguous tracers of star formation in this environment, consistent with the
+conclusions of \citet{Mills2015a}.  
 
 
 \paragraph{6.67 GHz \methanol masers}
@@ -667,7 +668,7 @@ maps cover only a very small fraction ($\sim5\%$) of our mapped area.
 \subsection{Nature of the Continuum Sources}
 \label{sec:classification}
 The majority of the detected sources are observed only as 3 mm continuum
-sources, with no spectral line information or detections at other wavelengths.
+sources, with no spectral line information or detection at other wavelengths.
 In this section, we employ a variety of arguments to classify the sample of new
 sources.    Plausible emission mechanisms include free-free and thermal dust
 emission, so in this section we explore whether the sources could be different
@@ -742,17 +743,17 @@ before \citep[e.g.,][]{Kong2017a}, and few of those reported are so compact
 cores \citep{McKee2003a} suggest they are much larger and less concentrated
 than the sources we observe.
 
-At the high implied densities (${n(20 \mathrm{K})>10^8~\percc}$), it is unlikely
-that the cores are unbound; these sources have ${v_{esc} > 2~\kms (M/10~
-\msun)^{1/2}}$ from ${r=0.5\arcsec=4200\mathrm{~AU}$.  The high density required for our
-sources results in a short free-fall timescale, ${t_{ff}<3000 (n/10^8
-~\percc)^{-1/2}\mathrm{~yr}}$.  Assuming such cores do exist, the timescale for them to
-form a central YSO (a central heating source) is short.  While there are
-few constraints on the accreting lifetime of high-mass YSOs, that timescale is
-almost certainly 1-2 orders of magnitude longer.  For a given population of
-cores, we would expect only of order 1-10\% of them to be starless at any given
-time.  We will revisit the characteristics of centrally heated dust sources in
-Section \ref{sec:theyareprotostars} below.
+At the high implied densities (${n(20 \mathrm{K})>10^8~\percc}$), it is
+unlikely that the cores are unbound; these sources have ${v_{esc} > 2~\kms
+(M/10~ \msun)^{1/2}}$ from ${r=0.5\arcsec=4200\mathrm{~AU}}$.  The high density
+required for our sources results in a short free-fall timescale, ${t_{ff}<3000
+(n/10^8 ~\percc)^{-1/2}\mathrm{~yr}}$.  Assuming such cores do exist, the
+timescale for them to form a central YSO (a central heating source) is short.
+While there are few constraints on the accreting lifetime of high-mass YSOs,
+that timescale is almost certainly 1-2 orders of magnitude longer.  For a given
+population of cores, we would expect only of order 1-10\% of them to be
+starless at any given time.  We will revisit the characteristics of centrally
+heated dust sources in Section \ref{sec:theyareprotostars} below.
 
 
 \subsubsection{Alternative 2: The sources are externally ionized gas blobs}
