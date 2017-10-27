@@ -490,7 +490,7 @@ detections indicating that they are \hii regions).
 
 We measure the local noise for each source by computing the median absolute
 deviation in an annulus 0.5 to 1.5\arcsec around the source center; these noise
-measurements are reported in Table \ref{tab:photometry}.
+measurements are reported in Table~\ref{tab:photometry}.
 
 % %TODO: check
 % All but 7 sources have signal-to-local-noise ratios $S/N>7$.  These
@@ -552,7 +552,7 @@ in some of the richer sub-regions.  The points are colored as in Figure
 {fig:deepsouthzooms}{1}{\textwidth}
 
 We detected \ncores compact continuum sources, and they are listed
-in Table \ref{tab:photometry}.  Their flux distribution is
+in Table~\ref{tab:photometry}.  Their flux distribution is
 shown in Figure \ref{fig:fluxhist}.  The distribution of their measured
 spectral indices $\alpha$ is shown in Figure \ref{fig:alphahist}.
 Generally, spectral indices $\alpha<0$ indicate nonthermal (e.g., synchrotron)
@@ -987,8 +987,8 @@ becomes approximately ${T_B=\tau T_e}$).
 
 An extremely compact \hii region, e.g., one with $R<100$ AU and corresponding
 density $n>10^6$ \percc, would be somewhat optically thick ($\tau\approx0.65$)
-and therefore fainter, $S_{95 \mathrm{GHz}}(R=100 \mathrm{AU}, Q_{lyc}=10^{47}
-\pers)=3.4$ mJy.  Even the most luminous O-stars could produce \hii regions as
+and therefore fainter, ${S_{95 \mathrm{GHz}}(R=100 \mathrm{AU}, Q_{lyc}=10^{47}
+\pers)=3.4\mathrm{~mJy}}$.  Even the most luminous O-stars could produce \hii regions as
 faint as 0.5 mJy if embedded in extremely high density gas; above
 $Q_{lyc}>10^{47}$ \pers, a 25 AU \hii region would have $S_{95 GHz}\approx0.5$
 mJy ($\tau=10$).
@@ -1008,19 +1008,19 @@ extremely compact and dense.
 Anything fainter, i.e., later than $\sim$B0 ($Q_{lyc}<10^{46}$ \pers), would be
 incapable of producing the observed flux densities.
 
-Since the observed objects are all extremely compact (most have $r<4000$ AU),
-if they are \hii regions, they must be embedded in dense gas (and dust) so that
-they are `ionization-bounded' (their radii are determined by the point where
-all ionizing photons are consumed).  For the most luminous stars to produce
-faint \hii regions (${S_{95 GHz} \sim 0.5-1.5 \mathrm{~mJy}}$), they must reside
-in very compact \hii regions ($r<100$ AU).  Figure \ref{fig:hiibrightness}b
-shows that, if O-stars were confined to such small \hii regions, the emission
-would in some cases be dominated by a surrounding warm dust core.  Such sources
-would be at least twice as bright as predicted in Figure
-\ref{fig:hiibrightness}a.  In short, the required compactness of the \hii
-regions to match the data suggests that the majority of the 100 \emph{faint}
-($S_{95 GHz} < 1.5$ mJy) sources in our sample are probably not O-star \hii
-regions, although they may be B-star \hii regions.
+%Since the observed objects are all extremely compact (most have $r<4000$ AU),
+%if they are \hii regions, they must be embedded in dense gas (and dust) so that
+%they are `ionization-bounded' (their radii are determined by the point where
+%all ionizing photons are consumed).
+%redundant w/above paragraph
+% For the most luminous stars to produce
+% faint \hii regions (${S_{95 GHz} \sim 0.5-1.5 \mathrm{~mJy}}$), they must reside
+% in very compact \hii regions ($r<100$ AU).
+
+% In short, the required compactness of the \hii
+% regions to match the data suggests that the majority of the 100 \emph{faint}
+% ($S_{95 GHz} < 1.5$ mJy) sources in our sample are probably not O-star \hii
+% regions, although they may be B-star \hii regions.
 
 % number faint:
 % ((u.Quantity(tbl['peak'], u.Jy/u.beam) < 1.5*u.mJy/u.beam)).sum()
@@ -1055,6 +1055,17 @@ extrapolation,  but if there is a large population of sources below $<0.5$ mJy,
 they are certainly too faint to be \hii regions (Figure
 \ref{fig:hiibrightness}a).  Again, assuming the luminosity distribution is
 continuous, that implies that our sample is not dominated by \hii regions.
+
+For completeness, we assess the emission properties of the dust surrounding
+hypercompact \hii regions, since, in order to remain hypercompact, the stars
+must be surrounded by very dense gas.  Figure \ref{fig:hiibrightness}b shows
+that, if O-stars were confined to \hii regions small enough to produce the
+median source flux density (2 mJy), the emission could be dominated by a
+surrounding warm (40 K) dust core.  Such sources would be at least twice as
+bright as predicted in Figure \ref{fig:hiibrightness}a.  Only the most luminous
+O-stars are affected by this consideration, however, this plot also illustrates
+that O-stars will almost certainly be detected in our data no matter how dense
+their surroundings.
 
 A final point against the sample being exclusively \hii regions is the observed
 spectral indices.  While some are consistent with \hii regions, with $\alpha <
@@ -1117,14 +1128,15 @@ uniformly have
 ${L>10^4~\lsun}$.  Such luminosities imply either that a high-mass
 (${M\gtrsim8~\msun}$) star has already formed and is still surrounded by a
 massive envelope or a high-mass YSO is present and accreting.
-The models of \citet{Zhang2015f} generally only exhibit $L>10^4~\lsun$ once a star has reached $M\approx10$ \msun as it continues to accrete to
-a higher mass.  Similarly, pre-main-sequence stellar evolution models
-\citep[e.g.,][]{Haemmerle2013a} only reach $L>10^4~\lsun$ for stars with
-final mass $M\gtrsim8$ \msun.  In the \citet{Robitaille2017a} model grid,
-all sources with $L>10^5~\lsun$ produce $S_{3 \textrm{mm}}>0.5$ mJy,
-so our survey should be nearly complete to such sources, but in the range $10^4
-\lsun < L < 10^5 \lsun$, a substantial fraction may be below our sensitivity
-limit.
+The models of \citet{Zhang2015f} generally only exhibit $L>10^4~\lsun$ once a
+star has reached $M\approx10$ \msun as it continues to accrete to a higher
+mass.  Similarly, pre-main-sequence stellar evolution models
+\citep[e.g.,][]{Haemmerle2013a} only reach $L>10^4~\lsun$ at any point in their
+evolution for stars with final mass $M\gtrsim8$ \msun.  In the
+\citet{Robitaille2017a} model grid, all sources with $L>10^5~\lsun$ produce
+$S_{3 \textrm{mm}}>0.5$ mJy, so our survey should be nearly complete to such
+sources, but in the range $10^4 \lsun < L < 10^5 \lsun$, a substantial fraction
+may be below our sensitivity limit.
 
 
 
@@ -1143,10 +1155,10 @@ $d=d_{Sgr B2}$ and 3 mm assuming a dust opacity index $\beta=1.5$,
 which is shallower than usually inferred, so the extrapolated
 fluxes may be slightly overestimated\footnote{\label{footnote:beta}
 We err on the shallower side,
-implying that the extrapolated 3 mm fluxes are brighter, since this approach
-gives a more conservative view of the detectability of the Orion sources.
-In reality, such sources are likely even fainter than predicted here.}.  The
-870\um data
+implying that the extrapolated 3 mm fluxes are brighter than they should be,
+since this approach gives a more conservative view of the detectability of the
+Orion sources.  In reality, such sources are likely even fainter than predicted
+here.}.  The 870\um data
 were acquired with a $\sim20\arcsec$ FWHM beam, which translates to a
 resolution $\sim1\arcsec$ at $d_{Sgr B2} = $\dsgrb assuming $d_{Orion}=415$ pc,
 so our beam size is somewhat smaller than theirs.
@@ -1155,7 +1167,7 @@ The HOPS sources are all fainter than even the faintest Sgr B2 sources.  The
 most luminous
 and brightest HOPS source, with $L_{tot}<2000$ \lsun, would only be 0.2 mJy in
 Sgr B2, or about a 2-$\sigma$ source, which is below our detection threshold even in
-the noise-free regions of the map.  We  conclude that the Sgr B2 sources are
+the artifact-free regions of the map.  We  conclude that the Sgr B2 sources are
 much more luminous than any in the Orion sample, which is consistent with all
 of the sources in our sample being MYSOs.
 
@@ -1223,9 +1235,9 @@ primarily because of their high measurement error.}, though \ngttwo of the
 sources with $\alpha$ measurements have $\alpha>2$, indicating that their
 emission is dust-dominated.  A shallower $\beta$ implies free-free
 contamination, large dust grains, or optically thick surfaces are present
-within our sources.  Since the above arguments suggest that the sources are
-high-mass YSOs, the free-free contamination and optically
-thick inner region models are both plausible.
+within our sources.  Since the arguments in previous sections suggest that the
+sources are high-mass YSOs, the free-free contamination and optically thick
+inner region models are both plausible.
 
 \section{Analysis and discussion of star formation in Sgr B2}
 \label{sec:sfdiscussion}
@@ -1319,7 +1331,7 @@ extrapolating our measurements with this IMF is then
 \end{subequations}
 The inferred masses computed from \hii region
 counts and from core counts are shown in columns $M_{inferred,\hii}$ and
-$M_{inferred,cores}$ of Table \ref{tab:clustermassestimates} respectively.
+$M_{inferred,cores}$ of Table~\ref{tab:clustermassestimates} respectively.
 $M_{inferred}$ is the average of these two
 estimates; it is also what would be obtained if all stars were assumed to be
 average stars with $M>8$ \msun.  If our mass range classifications are correct
@@ -1335,13 +1347,13 @@ in previous works \citep{Gaume1995a,De-Pree1996a}, and we count the number of
 protostellar cores not associated with \hii regions.  The distributions of
 source flux densities associated with each cluster are shown in Figure
 \ref{fig:fluxhistclusters}.  The cluster affiliation for each source is
-reported in Table \ref{tab:photometry}.
+reported in Table~\ref{tab:photometry}.
 
 In Sgr B2 N and S, the core-based
 and \hii-region based estimates agree to within a factor of 2, which is about
 as good as expected from Poisson noise in the counting statistics.  
 Sgr B2 M contains the largest source sample, and it has a factor of nine
-discrepancy between the `core' and \hii-region based counts. The discrepancy
+discrepancy between the core and \hii-region based counts. The discrepancy
 may arise from the combined effects of source
 confusion at our 0.5\arcsec resolution and the increased noise around the
 extremely bright central region that makes detection of $<2$ mJy sources
@@ -1355,7 +1367,7 @@ effect.
 
 We compare our mass estimates to those of \citet{Schmiedeke2016a}, who inferred
 stellar masses from \hii region counts.  The  two columns of Table
-\ref{tab:clustermassestimates} with superscript $S$ show the observed and
+\ref{tab:clustermassestimates} with superscript $S$ show their observed and
 estimated masses based on
 \hii region counts.  For Sgr B2 M and N, our results are similar, as expected
 since our catalogs are similar.  For S and NE, we differ by a large factor,
@@ -1384,9 +1396,9 @@ $M_{inferred,cores}$ either due to observational effects such as confusion or
 because it is older and the more moderate-mass sources represented by the cores
 have become unobservable.  Similarly, the unassociated sources appear
 to be younger and therefore the \hii-region based mass appears
-to be an underestimate.}; the results are shown in Table
-\ref{tab:clustermassestimates}.    Our estimated total inferred SFR of the Sgr
-B2 cloud is \sfrdynagemax \msun \peryr,  at least half of the
+to be an underestimate.}; the results are shown in
+Table~\ref{tab:clustermassestimates}.    Our estimated total inferred SFR of
+the Sgr B2 cloud is \sfrdynagemax \msun \peryr,  at least half of the
 total for the CMZ \citep[$\dot{M}_{CMZ}=0.07-0.12$ \msun
 \peryr;][]{Longmore2013b,Barnes2017b}.  
 
@@ -1561,7 +1573,7 @@ complete census of Class II sources were obtained in Sgr B2.}, $N_{YSO,Lada} = 0
 M_{cloud,\msun}(A_K>0.8)$, we
 predict that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud
 mass because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2,Lada} =
-3\ee{5}$.  As seen in Table \ref{tab:clustermassestimates}, the observed
+3\ee{5}$.  As seen in Table~\ref{tab:clustermassestimates}, the observed
 $N_{YSO,Sgr B2,obs} = M_{YSO} /
 (0.5 \msun) = 5.2\ee{4}-9.2\ee{4}$ \msun, a factor of three to six below the
 extrapolated LLA10 relation.  If we invert the equation to obtain a cloud
@@ -1571,14 +1583,14 @@ observed $N_{YSO,Sgr B2,obs}$, we would predict $M_{cloud,Lada}\approx2.6-4.6\ee
 which is equivalent to the mass in Sgr B2 above a column density threshold
 $N>0.8-1\ee{24}~\persc$ (Figure \ref{fig:cumulativemass}).
 
-Any way we examine our data, it appears that a higher threshold for star
-formation is required in Sgr B2 than in local clouds.  The one remaining caveat
-is that the LLA10 study  used Spitzer observations of nearby clouds that
-were nearly complete to stars at least as small as 0.5 \msun.  By contrast, as
-discussed in Section \ref{sec:theyareprotostars}, our survey is sensitive only
-to stars with $M\gtrsim8$ \msun.  It is therefore possible that we have instead
-observed a higher threshold for high-mass star formation than for low-mass star
-formation \citep[e.g., as suggested by ][]{Krumholz2008a}.
+Any way we examine our data, it appears that a higher column density threshold
+for star formation is required in Sgr B2 than in local clouds.  The one
+remaining caveat is that the LLA10 study  used Spitzer observations of nearby
+clouds that were nearly complete to stars at least as small as 0.5 \msun.  By
+contrast, as discussed in Section \ref{sec:theyareprotostars}, our survey is
+sensitive only to stars with $M\gtrsim8$ \msun.  It is therefore possible that
+we have instead observed a higher threshold for high-mass star formation than
+for low-mass star formation \citep[e.g., as suggested by ][]{Krumholz2008a}.
 
 
 % stellar_mass_estimate.py
@@ -1602,7 +1614,7 @@ which has been used by other authors to predict CMZ cloud SFRs
 Using
 $M_{Sgr B2} = 1.5\ee{6}$ \msun, $\dot{M}_{*,Lada} = 0.069$ \msun \peryr, which
 is close to our estimated SFR ($\dot{M}_{*,obs}=\sfrdynagemax$ \msun
-\peryr, Table \ref{tab:clustermassestimates}).  We appear to have
+\peryr, Table~\ref{tab:clustermassestimates}).  We appear to have
 obtained an agreement with the Lada et
 al relation for the SFR, but simultaneous disagreement with the more directly
 observational $\Sigma_{gas}-\Sigma_*$ relations. This apparent
@@ -1643,17 +1655,16 @@ observational derivation above.
 % empirical relations to both the Galactic center and local clouds.
 
 \paragraph{Comparison to Barnes et al 2017}
-\citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the LLA10 model
-matches the observations.  They used a mass $M_{Sgr B2}=6.5\ee{5}$ \msun, which
-corresponds to a column density threshold $N(\hh)>7.5\ee{23}$ \persc and would
-lead to an LLA10-predicted SFR $\dot{M}_{Lada}=0.03~\msun~\peryr$.  As seen in
-Figure \ref{fig:cumulativemass}, their mass estimate is consistent with our
-own, and the difference of interpretation comes from the tighter cloud boundary
-(and corresponding higher mass threshold) they selected.  They obtained a SFR
-$\dot{M}_{Sgr B2,Barnes} = 0.045~\msun~\peryr$ based on mass estimates from
-\citet{Schmiedeke2016a} and an age $t_{dyn}=0.74$ Myr.  They concluded that Sgr
-B2 was in better agreement with the LLA10 relations both because of their smaller
-assumed cloud mass and because of the timescale difference noted above.  
+\citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the LLA10
+model matches the observations better than in other CMZ clouds.  They used a
+mass $M_{Sgr B2}=6.5\ee{5}$ \msun, which corresponds to a column density
+threshold $N(\hh)>7.5\ee{23}$ \persc and would lead to an LLA10-predicted SFR
+$\dot{M}_{Lada}=0.03~\msun~\peryr$, close to their SFR $\dot{M}_{Sgr B2,Barnes}
+= 0.045~\msun~\peryr$.  As seen in Figure \ref{fig:cumulativemass}, their mass
+estimate is consistent with our own, and the difference of interpretation comes 
+in part from the tighter cloud boundary they selected, while results in a lower
+predicted SFR.  They also did not account for the different timescale assumed
+in the LLA10 equation, as we discussed in the previous section.
 Nonetheless, their conclusion that Sgr B2 is \emph{more} consistent with the LLA10
 relation than other CMZ clouds appears to be robust.
 
@@ -1689,7 +1700,7 @@ relation than other CMZ clouds appears to be robust.
 of the Lada et al relation in their Figure 1.  Their numbers for the star
 formation rate and total mass agree with ours ($M_{Sgr B2}\approx1.5\ee{6}$
 \msun, $\dot{M}\approx 0.035$ \msun \peryr).  As discussed above, the apparent
-agreement with LLA10 in their work is driven largely by the choice of the star
+agreement with LLA10 in their work is driven primarily by the choice of the star
 formation timescale.  
 %The assumed star formation timescale of 2 Myr that
 %results in the apparent match of Sgr B2 to the LLA10 relation is implausibly
@@ -1797,7 +1808,7 @@ Comparing Sgr B2 to G0.253, the majority of the Sgr B2 cloud is at higher
 column than G0.253.  Star formation in Sgr B2 nearly all occurs
 at a higher column than exists within G0.253 (Figure
 \ref{fig:bricksgrb2colcompare}).  The dearth of observed cores in G0.253 is
-therefore easily explained if there is a column density threshold for star
+therefore easily explained if there is a density threshold for star
 formation that is not reached in G0.253.  Given that the G0.253 observations
 were deeper than our own, yet still identified almost no forming stars, it
 appears more likely that there is a lack of star formation rather than simply a
@@ -1848,7 +1859,8 @@ to the local clouds observed by \citet[][\S
 \ref{sec:gutermuthcomparison}]{Gutermuth2011a}, finding that the local clouds
 and Sgr B2 do not fit on a common relation.  We examine the possible reasons
 for the disagreement (\S \ref{sec:gutermuthdiscrepancy}), concluding that a
-varying density threshold for star formation is the most likely explanation.
+varying volume density threshold for star formation is the most likely
+explanation.
 
 \subsubsection{Methodological comparison to Gutermuth et al}
 \label{sec:gutermuthmethods}
@@ -2672,7 +2684,7 @@ corresponding residual images.}
 \label{sec:catalog}
 We include the full catalog in digital form
 (\url{https://github.com/keflavich/SgrB2_ALMA_3mm_Mosaic/blob/master/tables/continuum_photometry_withSIMBAD_andclusters.ipac}).
-Table \ref{tab:photometry} shows
+Table~\ref{tab:photometry} shows
 the brightest 35 sources; the rest are included in a digital-only catalog.
 Sources are labeled based on an arbitrary source
 number plus any pre-existing catalog name.  If a source is associated with a cluster,
