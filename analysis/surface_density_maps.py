@@ -135,7 +135,7 @@ oph_fill = ax1.fill_between([0.1, 1e5],
                             np.array([0.1, 1e5])**1.87/(100**1.87)*10,
                             color='blue',
                             alpha=0.5,
-                            label='Ophiucus')
+                            label='Ophiuchus')
 local_plotobjs = [monr2_fill, oph_fill]
 
 ax1.plot([550,500,15],[300,30,0.4],'bo')
@@ -245,7 +245,7 @@ oph_fill = ax2.fill_between([0.1, 1e5],
                             oph_lowerline*10,
                             color='blue',
                             alpha=0.5,
-                            label='Ophiucus')
+                            label='Ophiuchus')
 oph_scalefactor = 50.
 oph_lowerline_line = ax2.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', linewidth=3, alpha=0.5)
 #ax2.plot([0.1, 1e5], np.array([0.1, 1e5])*4e-2, 'r-', linewidth=3, alpha=0.5, zorder=-10)
@@ -253,7 +253,7 @@ oph_lowerline_line = ax2.plot([0.1, 1e5], oph_lowerline/oph_scalefactor, 'b:', l
 monr2_text = ax2.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
                       fontsize=18, verticalalignment='bottom',
                       horizontalalignment='center')
-oph_text = ax2.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+oph_text = ax2.text(2.5e3, 4.5e2, "Ophiuchus", color='k', rotation=38,
                     fontsize=18, verticalalignment='bottom',
                     horizontalalignment='center')
 

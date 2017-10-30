@@ -476,7 +476,7 @@ def plotit():
                                 oph_lowerline*10,
                                 color='blue',
                                 alpha=0.5,
-                                label='Ophiucus')
+                                label='Ophiuchus')
 
     local_plotobjs = [monr2_fill, oph_fill]
 
@@ -485,7 +485,7 @@ def plotit():
                  fontsize=18,
                  verticalalignment='bottom', horizontalalignment='center')
     local_plotobjs.append(T)
-    T = ax7.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+    T = ax7.text(2.5e3, 4.5e2, "Ophiuchus", color='k', rotation=38,
                  fontsize=18,
                  verticalalignment='bottom', horizontalalignment='center')
     local_plotobjs.append(T)
@@ -587,14 +587,14 @@ def plotit():
                                 oph_lowerline*10,
                                 color='blue',
                                 alpha=0.5,
-                                label='Ophiucus')
+                                label='Ophiuchus')
 
     local_plotobjs = [monr2_fill, oph_fill]
 
     monr2txt = ax8.text(2.3e3, 9e3, "Mon R2", color='k', rotation=50,
                         fontsize=18, verticalalignment='bottom',
                         horizontalalignment='center')
-    ophtxt = ax8.text(2.5e3, 4.5e2, "Ophiucus", color='k', rotation=38,
+    ophtxt = ax8.text(2.5e3, 4.5e2, "Ophiuchus", color='k', rotation=38,
                       fontsize=18, verticalalignment='bottom',
                       horizontalalignment='center')
     local_plotobjs.append(monr2txt)
