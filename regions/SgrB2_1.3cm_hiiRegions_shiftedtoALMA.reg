@@ -1,0 +1,48 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+circle(17:47:22.665,-28:21:55.900,2.039") # color=black width=2 text={L}
+circle(17:47:19.997,-28:22:04.710,0.739") # color=black width=2 text={K4}
+circle(17:47:20.572,-28:22:08.950,5.869") # color=black width=2 text={K6}
+circle(17:47:20.041,-28:22:10.080,4.461") # color=black width=2 text={K7}
+circle(17:47:20.270,-28:22:14.800,3.995") # color=black width=2 text={K5}
+circle(17:47:19.901,-28:22:17.200,0.377") # color=black width=2 text={K3}
+circle(17:47:19.878,-28:22:18.500,0.282") # color=black width=2 text={K2}
+circle(17:47:19.806,-28:22:20.840,0.628") # color=black width=2 text={K1}
+circle(17:47:17.367,-28:22:03.871,0.367") # color=black width=2 text={X}
+circle(17:47:20.042,-28:22:41.310,0.198") # color=black width=2 text={Z10.24}
+circle(17:47:19.566,-28:22:55.950,0.931") # color=black width=2 text={A2}
+circle(17:47:20.574,-28:22:56.170,2.995") # color=black width=2 text={J}
+circle(17:47:20.511,-28:23:06.080,2.589") # color=black width=2 text={I}
+circle(17:47:20.287,-28:23:03.070,0.344") # color=black width=2 text={G}
+circle(17:47:19.907,-28:23:02.910,0.615") # color=black width=2 text={B}
+circle(17:47:19.868,-28:23:01.410,0.222") # color=black width=2 text={B10.06}
+circle(17:47:20.135,-28:23:00.260,0.225") # color=black width=2 text={F10.32}
+circle(17:47:20.274,-28:23:02.380,0.225") # color=black width=2 text={G10.47}
+circle(17:47:20.246,-28:23:03.360,0.161") # color=black width=2 text={G10.44}
+circle(17:47:20.170,-28:23:03.750,0.329") # color=black width=2 text={F2}
+circle(17:47:20.128,-28:23:02.400,0.483") # color=black width=2 text={F10.318}
+circle(17:47:19.436,-28:23:01.360,2.283") # color=black width=2 text={A1}
+circle(17:47:19.699,-28:23:05.910,0.235") # color=black width=2 text={B9.89}
+circle(17:47:19.802,-28:23:06.900,0.413") # color=black width=2 text={B9.99}
+circle(17:47:20.071,-28:23:08.650,0.918") # color=black width=2 text={E}
+circle(17:47:20.053,-28:23:12.870,0.517") # color=black width=2 text={D}
+circle(17:47:19.776,-28:23:10.180,0.235") # color=black width=2 text={B9.96}
+circle(17:47:20.329,-28:23:08.140,0.233") # color=black width=2 text={I10.52}
+circle(17:47:20.195,-28:23:06.650,0.217") # color=black width=2 text={F10.39}
+circle(17:47:20.249,-28:23:06.350,0.308") # color=black width=2 text={F10.44}
+circle(17:47:20.308,-28:23:04.580,0.235") # color=black width=2 text={I10.49}
+circle(17:47:20.219,-28:23:04.340,0.302") # color=black width=2 text={F4}
+circle(17:47:20.120,-28:23:04.260,0.290") # color=black width=2 text={F1}
+circle(17:47:20.176,-28:23:04.810,0.435") # color=black width=2 text={F3}
+circle(17:47:20.079,-28:23:05.350,0.207") # color=black width=2 text={F10.27}
+circle(17:47:20.112,-28:23:03.700,0.257") # color=black width=2 text={F10.303}
+circle(17:47:20.179,-28:23:05.950,0.266") # color=black width=2 text={F10.37}
+circle(17:47:20.140,-28:23:06.100,0.180") # color=black width=2 text={F10.33}
+circle(17:47:20.156,-28:23:06.730,0.170") # color=black width=2 text={F10.35}
+circle(17:47:20.005,-28:23:18.320,0.711") # color=black width=2
+circle(17:47:20.430,-28:23:44.750,1.089") # color=black width=2 text={H}
+circle(17:47:19.908,-28:23:02.130,0.169") # color=black width=2 text={B10.10}
+circle(17:47:19.994,-28:23:02.780,0.161") # color=black width=2 text={B1}
+circle(17:47:18.661,-28:22:54.640,0.662") # color=black width=2 text={Y}
+circle(17:47:20.111,-28:23:03.150,0.102") # color=black width=2 text={F10.30}
