@@ -63,7 +63,6 @@ ok = tbl['AMPLITUDE0'] > tbl['e_AMPLITUDE0']*3
 tbl[ok].write(paths.tpath('H41a_fits.ipac'), format='ascii.ipac', overwrite=True)
 
 center = coordinates.SkyCoord('17:47:20.174', '-28:23:04.233', frame='fk5', unit=(u.hour, u.deg))
-dist = coordinates.SkyCoord(ra, dec, frame='fk5').separation(center)
 
 depree = table.Table.read(paths.tpath('DePree2011.txt'), format='ascii.fixed_width', delimiter='|')
 
@@ -81,3 +80,22 @@ std66 = np.nanstd(depree_merged['VLSR66'][ok41])
 std52 = np.nanstd(depree_merged['VLSR52'][ok41])
 std41 = np.nanstd(depree_merged['VLSR41'][ok41])
 print("1D Velocity Dispersion of 41a: {0}, 52a: {1}, 66a: {2}".format(std41, std52, std66))
+
+# some plots
+fig = pl.figure(4)
+fig.clf()
+ax = fig.gca()
+sc = ax.scatter(depree_merged['RA'], depree_merged['Dec'], c=depree_merged['VLSR41'], vmin=35, vmax=80, s=150)
+pl.colorbar(mappable=sc)
+
+ra, dec = depree_merged['RA'], depree_merged['Dec']
+dist = coordinates.SkyCoord(ra, dec, frame='fk5').separation(center)
+
+fig = pl.figure(2)
+fig.clf()
+ax = fig.gca()
+ax.plot((dist*8500*u.pc).to(u.pc, u.dimensionless_angles())[ok41], depree_merged['VLSR41'][ok41], 'o')
+
+fig = pl.figure(1)
+fig.clf()
+pl.hist(depree_merged['VLSR41'][ok41])

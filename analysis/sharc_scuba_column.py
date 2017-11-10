@@ -24,9 +24,11 @@ ratio_map_sharc_to_scuba = sharc_data/scuba_data
 # brightness
 imagecube = u.Quantity([sharc_data,scuba_data], u.MJy/u.sr)
 
-pixelfitter = higal_sedfitter.fit.PixelFitter(bfixed=True)
 
 if False:
+    # don't need to fit it myself
+    pixelfitter = higal_sedfitter.fit.PixelFitter(bfixed=True)
+
     tem,beta,col = higal_sedfitter.fit.fit_modified_blackbody_to_imagecube(
         imagecube, outheader=scuba_hdr, wavelengths=[350,450],
         pixelfitter=pixelfitter,
