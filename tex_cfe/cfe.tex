@@ -1,16 +1,23 @@
+\documentclass[twocolumn]{aastex61}
+\input{preface}
+\begin{document}
 Sgr B2 Cluster Formation Efficiency
 
-Introduction
+\section{Introduction}
 
 The cluster formation efficiency is an important measurement...
 Kruijssen+ 2012
 
-- mass of stars, gas in M, N, distributed population, S?
-- virial parameters?  Use DePree's data for velocity dispersion?
-- cluster definition: purely radial.  Is S a cluster?  Is NE?
-- Age difference.  What (maximal) errors can this impose?
+Notes to self:
+\begin{itemize}
+    \item mass of stars, gas in M, N, distributed population, S? [mostly taken from Schmiedeke]
+    \item virial parameters?  Use DePree's data for velocity dispersion?  [added my own H41a; DePree's are useful though]
+    \item cluster definition: purely radial.  Is S a cluster?  Is NE?  [assuming "No" below]
+    \item Age difference.  What (maximal) errors can this impose?
+\end{itemize}
 
-Observational Summary
+\section{Observational Summary}
+
 
 We use the catalogs described in Ginsburg et al 2017, De-Pree et al 2015
 
@@ -63,4 +70,20 @@ The escape speed from the 0.4 pc cluster is $v_{esc} = 18~\kms$.
 \subsection{Velocity Dispersion Measurements - boundedness}
 
 We compare our velocity measurements to those of \citet{De-Pree2011a}.
-1D Velocity Dispersion of 41a: 11.773405291227526, 52a: 9.013305133051228, 66a: 9.52127673916695
+With the new H41$\alpha$ data, we have several new RRL measurements, which increases the velocity dispersion ($\sigma_{1D}$)
+from 9 \kms to 12 \kms.  This is significantly lower than the escape velocity.
+%1D Velocity Dispersion of 41a: 11.773405291227526, 52a: 9.013305133051228, 66a: 9.52127673916695
+
+However, some individual sources are moving at high velocity with respect to
+the average ($\bar{v}_{LSR}(H41\alpha) = 58.5 \kms$,
+$\bar{v}_{LSR}(H52\alpha) = 65.8 \kms$), the fastest being G10.47 at
+$v_{LSR}=34$ \kms or $v_{center}=24--32$ \kms.  There is a small group
+at these highly negative velocities and a projected distance from the center $r<0.1$ pc;
+these may be bound to a higher potential than we have inferred above, or they
+could be a separate cluster moving along the line of sight.
+
+The \hii region J is separated by 0.4 pc and 16--24 \kms and is a diffuse \hii region.... is it a blowout?   an unconnected star?  hmm.
+
+\input{solobib.tex}
+
+\end{document}
