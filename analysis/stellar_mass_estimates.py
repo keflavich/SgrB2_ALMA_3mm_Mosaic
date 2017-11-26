@@ -75,10 +75,11 @@ for row in hii_regions:
     #nm = reg.meta['text'].strip("{}")
     nm = row['ID']
     if (hasattr(nm,'mask') and nm.mask):
-        print("Skipping row {0} because masked.".format(row))
+        pass
+        #print("Skipping row {0} because masked.".format(row))
     elif not obj_in_tbl(nm):
         if row['robs'] > 5:
-            print("Skipping row {0} because it's too large".format(row))
+            #print("Skipping row {0} because it's too large".format(row))
             continue
         coord = coordinates.SkyCoord(row['RA'], row['Dec'], frame='fk5', unit=(u.hour, u.deg))
         core_phot_tbl.add_row({'name': nm, 'SIMBAD_OTYPE':'HII',
@@ -92,7 +93,8 @@ for row in hii_regions:
                                #'Dec': reg.center.dec[0]
                               })
     else:
-        print('{0} found in table'.format(nm))
+        pass
+        #print('{0} found in table'.format(nm))
 hii = core_phot_tbl['SIMBAD_OTYPE'] == 'HII'
 core_coords = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
                                    frame='fk5')
