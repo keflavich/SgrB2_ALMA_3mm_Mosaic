@@ -995,7 +995,7 @@ regions of almost any size and produce the observed range of flux densities.
 In order for the detected sources to be O-star-driven \hii regions, with $10^{47}
 < Q_{lyc} < 10^{50}$ \pers, they must be optically thick and therefore
 extremely compact and dense.  
-Anything fainter, i.e., later than $\sim$B0 ($Q_{lyc}<10^{46}$ \pers), would be
+Anything fainter, i.e., later than $\sim$B2 ($Q_{lyc}<10^{46}$ \pers), would be
 incapable of producing the observed flux densities.
 
 %Since the observed objects are all extremely compact (most have $r<4000$ AU),
@@ -1023,15 +1023,16 @@ incapable of producing the observed flux densities.
 % 119
 The 119 sources with $1.5 \mathrm{~mJy} < S_{95 GHz} < 10$ mJy that were not
 previously identified as \hii regions from radio data require a finely tuned set of
-parameters to be \hii regions.  Stars with $10^{47} < Q_{lyc} < 5\ee{47}$
-(B1-B1.5 main sequence stars, with $M=10-11$ \msun) photons could reside in
-\hii regions spanning a wide range of radii and produce flux densities in the
-observed range (Figure \ref{fig:hiibrightness}a).  More luminous stars
-could reside in 50-100 AU \hii regions, but such small regions are expected
-to be very short-lived and therefore rare.  It is unlikely that nearly half of
-the stars are between 10-11 \msun, since such a local mass peak would imply a
-highly abnormal IMF.  We therefore assume that the newly detected sources are
-not predominantly \hii regions, though a subset likely are.
+parameters to be \hii regions.  Stars emitting $10^{47} < Q_{lyc} < 5\ee{47}$
+photons per second (B1-B1.5 main sequence stars, with $M=10-11$ \msun) could
+reside in \hii regions spanning a wide range of radii and produce flux
+densities in the observed range (Figure \ref{fig:hiibrightness}a).  More
+luminous stars could reside in 50-100 AU \hii regions and produce the observed
+flux densities, but such small regions
+are expected to be very short-lived and therefore rare.  It is unlikely that
+nearly half of the stars are between 10-11 \msun, since such a local mass peak
+would imply a highly abnormal IMF.  We therefore assume that the newly detected
+sources are not predominantly \hii regions, though some likely are.
 %but more luminous stars
 %would again have to be confined to very small \hii regions that .
 % Small \hii regions are not impossible, but previously they have
@@ -1042,16 +1043,17 @@ not predominantly \hii regions, though a subset likely are.
 % of radius and luminosity they must occupy, we regard this interpretation
 % as unlikely to explain most of the sample.
 
-The luminosity function of the observed sources is apparently steep (power law
-slope $\approx-2$), assuming the flux density distribution (Figure
-\ref{fig:fluxhist}) represents the luminosity distribution.  The observed
-distribution cuts off near our sensitivity limit, which implies that the steep
-spectrum should continue to lower luminosities, and therefore there are many
-more sources below our detection threshold than above.  This argument is pure
-extrapolation,  but if there is a large population of sources below $<0.5$ mJy,
-they are certainly too faint to be \hii regions (Figure
-\ref{fig:hiibrightness}a).  Again, assuming the luminosity distribution is
-continuous, that implies that our sample is not dominated by \hii regions.
+%I like this argument but it's not that compelling.
+% The luminosity function of the observed sources is apparently steep (power law
+% slope $\approx-2$), assuming the flux density distribution (Figure
+% \ref{fig:fluxhist}) represents the luminosity distribution.  The observed
+% distribution cuts off near our sensitivity limit, which implies that the steep
+% spectrum should continue to lower luminosities, and therefore there are many
+% more sources below our detection threshold than above.  This argument is pure
+% extrapolation,  but if there is a large population of sources below $<0.5$ mJy,
+% they are certainly too faint to be \hii regions (Figure
+% \ref{fig:hiibrightness}a).  Again, assuming the luminosity distribution is
+% continuous, that implies that our sample is not dominated by \hii regions.
 
 For completeness, we assess the emission properties of the dust surrounding
 hypercompact \hii regions, since, in order to remain hypercompact, the stars
@@ -1672,9 +1674,12 @@ using only stars embedded in gas with $A_K>0.5$.  They obtained a linear
 relation about 0.6$\times$ lower than that shown in their paper (C. Lada,
 private communication).  The better agreement when including only embedded
 YSOs hints that the discrepancy noted in this section could disappear if a
-complete census of Class II sources were obtained in Sgr B2.}, $N_{YSO,Lada} = 0.2
-M_{cloud,\msun}(A_K>0.8)$, we
-predict that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud
+complete census of Class II sources were obtained in Sgr B2.}, 
+%\begin{equation}
+%   \label{eqn:nysomdense}
+$N_{YSO,Lada} = 0.2 M_{cloud,\msun}(A_K>0.8)$,
+%end{equation}
+we predict that for $M_{Sgr B2}=1.5\ee{6}$ \msun (where we use the whole cloud
 mass because all of the cloud is at $A_K>0.8$), $N_{YSO,Sgr B2,Lada} =
 3\ee{5}$.  As seen in Table~\ref{tab:clustermassestimates}, the observed
 $N_{YSO,Sgr B2,obs} = M_{YSO} /
@@ -1705,42 +1710,56 @@ density, subtracted.}
 {fig:cumulativemass}{1}{0.5\textwidth}
 
 
-\paragraph{Comparison to the Lada et al SFR}
-LLA10 also express their $N_{YSO}-M_{cloud}$ relation as a star
-formation rate relationship
-\begin{equation}
-    \label{eqn:ladamdot1}
-    \dot{M}_{*,Lada} = 4.6\ee{-8} M_{dense}
-\end{equation}
-which has been used by other authors to predict CMZ cloud SFRs
-\citep[e.g.,][]{Kauffmann2017c}.
-Using
-$M_{Sgr B2} = 1.5\ee{6}$ \msun, $\dot{M}_{*,Lada} = 0.069$ \msun \peryr, which
-is close to our estimated SFR ($\dot{M}_{*,obs}=\sfrdynagemax$ \msun
-\peryr, Table~\ref{tab:clustermassestimates}).  We appear to have
-obtained an agreement with the Lada et
-al relation for the SFR, but simultaneous disagreement with the more directly
-observational $\Sigma_{gas}-\Sigma_*$ relations. This apparent
-discrepancy is driven by the assumed star
-formation timescale.  In Equation \ref{eqn:ladamdot1}, the assumed timescale
-is $t_{sf} = 2\mathrm{~Myr}$.  However, the timescale we have assumed in computing 
-our SFR is ${t_{orb} = 0.74 \mathrm{~Myr}}$; if we use our timescale in
-Lada et al's Equation
-4, $\dot{M}_{*,Lada}(\tau_{sf}) = \epsilon M_0 \tau_{sf}$, where $\epsilon=0.1$
-is their derived efficiency factor, we again obtain $\dot{M}_{*,Lada}(0.74 Myr)
-= 0.2~\msun~\peryr$, which is discrepant by the same factor as in the purely
-observational derivation above.  
+% \paragraph{Comparison to the Lada et al SFR}
+% LLA10 also express their $N_{YSO}-M_{cloud}$ relation as a star
+% formation rate relationship
+% \begin{equation}
+%     \label{eqn:ladamdot1}
+%     \dot{M}_{*,Lada}[\msun \peryr] = 4.6\ee{-8} \frac{M_{dense}}{\msun}  
+% \end{equation}
+% which has been used by other authors to predict CMZ cloud SFRs
+% \citep[e.g.,][]{Kauffmann2017c}.
+% Using
+% $M_{Sgr B2} = 1.5\ee{6}$ \msun, $\dot{M}_{*,Lada} = 0.069$ \msun \peryr, which
+% is close to our estimated SFR ($\dot{M}_{*,obs}=\sfrdynagemax$ \msun
+% \peryr, Table~\ref{tab:clustermassestimates}).  We appear to have
+% obtained an agreement with the Lada et
+% al relation for the SFR, but simultaneous disagreement with the more directly
+% observational $M_{gas} - N_{YSO}$ relation (Eqn. \ref{eqn:nysomdense}).
+% This  discrepancy is driven either by the assumed star formation timescale
+% or the star formation efficiency.  Since the timescale for the local clouds
+% is well-established by the age of the YSO populations and for Sgr B2 by
+% orbital models, the free parameter is the star formation efficiency.
 
-% LLA10 suggest another form of the SFR relation that is density-dependent.  If we
-% use LLA10 Equation 3, $\dot{M}_{*,Lada_{ff}} = (\epsilon/f) \tau_{ff}^{-1}
-% M_{dense}$, where $\epsilon/f=0.018$ is the star formation efficiency per
-% free-fall time and $\tau_{ff}$ is the free-fall time, but we account for the
-% shorter $\tau_{ff}=0.14$ Myr (for the lower-limit average density
-% $n(\hh)=5\ee{4}$ \percc) averaged over the component of the Sgr B2 cloud above
-% $N(\hh)\gtrsim5\ee{23}$ \persc, we obtain a predicted $\dot{M}_{*,Lada_{ff}} =
-% 0.20$ \msun \peryr, which is about five times greater than the observed rate
-% using the orbital timescale, similar to the result obtained in the previous
-% section.  The observed star formation rate using this timescale is
+% This apparent
+% discrepancy is driven by the assumed star
+% formation timescale.  In Equation \ref{eqn:ladamdot1}, the assumed timescale
+% is $t_{sf} = 2\mathrm{~Myr}$.  However, the timescale we have assumed in computing 
+% our SFR is ${t_{orb} = 0.74 \mathrm{~Myr}}$; if we use our timescale in
+% Lada et al's Equation
+% 4, $\dot{M}_{*,Lada}(\tau_{sf}) = \epsilon M_0 / \tau_{sf}$, where $\epsilon=0.1$
+% is their derived efficiency factor, we again obtain $\dot{M}_{*,Lada}(0.74 Myr)
+% = 0.2~\msun~\peryr$, which is discrepant by the same factor as in the purely
+% observational derivation above.  
+
+% LLA10 suggest another form of the SFR relation that is density-dependent.  LLA10 Equation 3
+% gives the SFR as a function of the free-fall time,
+% \begin{equation}
+%     \label{eqn:sfrff}
+%     \dot{M}_{*,Lada_{ff}}[\mysun \peryr] = (\epsilon/f) \tau_{ff}^{-1} M_{dense}
+% \end{equation}
+% where $\epsilon=0.1$ is the star formation efficiency, $f$ is the number of
+% free-fall times, and $\tau_{ff}$ is the free-fall time.  In Sgr B2, the
+% free-fall time is shorter ($\tau_{ff}=0.14$ Myr for the lower-limit average
+% density $n(\hh)=5\ee{4}$ \percc) than in local clouds ($\tau_{ff,local}=0.35$
+% Myr), so the number of free-fall times is about the same ($f=0.74~\mathrm{Myr}
+% / 0.14\mathrm{~Myr} = 5.3$).  We obtain a predicted $\dot{M}_{*,Lada_{ff}} =
+% 0.20$ \msun \peryr, which is about three times greater than the observed rate
+% using the orbital timescale, similar to the discrepancy seen in the
+% $N_{YSO}-M_{gas}$ relation (i.e., there are too few stars in Sgr B2 given the
+% dense gas mass).
+
+% The observed star formation rate using this timescale is
 % $\dot{M}_{obs,ff} = M_{*,obs} / t_{ff} = 0.24$ \msun \peryr, suggesting that
 % a free-fall time based star formation rate estimate may fit both Sgr B2
 % and local clouds.
@@ -1757,19 +1776,20 @@ observational derivation above.
 % This analysis highlights the problem of applying the same interpretation of the
 % empirical relations to both the Galactic center and local clouds.
 
-\paragraph{Comparison to Barnes et al 2017}
-\citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the LLA10
-model matches the observations better than in other CMZ clouds.  They used a
-mass $M_{Sgr B2}=6.5\ee{5}$ \msun, which corresponds to a column density
-threshold $N(\hh)>7.5\ee{23}$ \persc and would lead to an LLA10-predicted SFR
-$\dot{M}_{Lada}=0.03~\msun~\peryr$, close to their SFR $\dot{M}_{Sgr B2,Barnes}
-= 0.045~\msun~\peryr$.  As seen in Figure \ref{fig:cumulativemass}, their mass
-estimate is consistent with our own, and the difference of interpretation comes 
-in part from the tighter cloud boundary they selected, while results in a lower
-predicted SFR.  They also did not account for the different timescale assumed
-in the LLA10 equation, as we discussed in the previous section.
-Nonetheless, their conclusion that Sgr B2 is \emph{more} consistent with the LLA10
-relation than other CMZ clouds appears to be robust.
+% \paragraph{Comparison to Barnes et al 2017}
+% \citet{Barnes2017b} concluded that the Sgr B2 SFR predicted using the LLA10
+% model matches the observations better than in other CMZ clouds.  They used a
+% mass $M_{Sgr B2}=6.5\ee{5}$ \msun, which corresponds to a column density
+% threshold $N(\hh)>7.5\ee{23}$ \persc and would lead to an LLA10-predicted SFR
+% $\dot{M}_{Lada}=0.03~\msun~\peryr$, close to their SFR $\dot{M}_{Sgr B2,Barnes}
+% = 0.045~\msun~\peryr$.  As seen in Figure \ref{fig:cumulativemass}, their mass
+% estimate is consistent with our own, and the difference of interpretation comes 
+% in part from the tighter cloud boundary they selected, which results in a lower
+% predicted SFR.
+%They also did not account for the different efficiency assumed
+%in the LLA10 equation, as we discussed in the previous section.
+%Nonetheless, their conclusion that Sgr B2 is \emph{more} consistent with the LLA10
+%relation than other CMZ clouds appears to be robust.
 
 % If we apply the same analysis as above using $t_{ff} = 0.09$ Myr from
 % \citet{Barnes2017b} Table 4, the predicted SFR is
@@ -1797,14 +1817,15 @@ relation than other CMZ clouds appears to be robust.
 % $\dot{M}_{*,Lada} = 0.028$ \msun \peryr.  
 
 
-\paragraph{Comparison to Kauffmann et al 2017}
-\label{sec:kauffcompare}
-\citet{Kauffmann2017c} show the whole Sgr B2 cloud lies within a factor of two
-of the Lada et al relation in their Figure 1.  Their numbers for the star
-formation rate and total mass agree with ours ($M_{Sgr B2}\approx1.5\ee{6}$
-\msun, $\dot{M}\approx 0.035$ \msun \peryr).  As discussed above, the apparent
-agreement with LLA10 in their work is driven primarily by the choice of the star
-formation timescale.  
+% \paragraph{Comparison to Kauffmann et al 2017}
+% \label{sec:kauffcompare}
+% \citet{Kauffmann2017c} show the whole Sgr B2 cloud lies within a factor of two
+% of the Lada et al relation in their Figure 1.  Their numbers for the star
+% formation rate and total mass agree with ours ($M_{Sgr B2}\approx1.5\ee{6}$
+% \msun, $\dot{M}\approx 0.035$ \msun \peryr).
+% As discussed above, the apparent
+% agreement with LLA10 in their work is driven primarily by the choice of the star
+% formation efficiency.  
 %The assumed star formation timescale of 2 Myr that
 %results in the apparent match of Sgr B2 to the LLA10 relation is implausibly
 %long (see \S\ref{sec:clustersandextended}).
