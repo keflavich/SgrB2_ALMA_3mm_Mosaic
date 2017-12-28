@@ -81,7 +81,7 @@ make_scalebar(ax, scalebarpos,
               text_offset=1.0*u.arcsec,
              )
 
-fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column.png"), bbox_inches='tight')
+fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column.pdf"), bbox_inches='tight')
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry.ipac"), format='ascii.ipac')
 cores = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
@@ -92,5 +92,5 @@ coredots, = ax.plot(cores.ra, cores.dec, '.', color='lime', transform=tr_fk5,
                     markersize=markersize, zorder=50)
 ax.axis([195,340,180,320])
 
-fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column_withcores.png"),
+fig.savefig(paths.fpath("HC3N_contours_on_SCUBA_column_withcores.pdf"),
             bbox_inches='tight')

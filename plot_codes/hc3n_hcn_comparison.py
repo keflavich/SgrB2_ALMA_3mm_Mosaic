@@ -58,7 +58,7 @@ dec.ticklabels.set_fontsize(tick_fontsize)
 dec.set_ticks(exclude_overlapping=True)
 
 
-fig.savefig(paths.fpath("HC3N_grayscale_with_HCN_red_filled_contours.png"), dpi=300, bbox_inches='tight')
+fig.savefig(paths.fpath("HC3N_grayscale_with_HCN_red_filled_contours.pdf"), dpi=300, bbox_inches='tight')
 
 tr_fk5 = ax.get_transform("fk5")
 tr_pix = ax.get_transform("pixel")
@@ -69,4 +69,4 @@ print((xmin_,xmax_,ymin_,ymax_))
 for blah in (xmin_,xmax_,ymin_,ymax_):
     assert blah > 0 and blah < 4096
 ax.axis([xmax_,xmin_,ymin_,ymax_])
-fig.savefig(paths.fpath("HC3N_grayscale_with_HCN_red_filled_contours_zoom.png"), dpi=300, bbox_inches='tight')
+fig.savefig(paths.fpath("HC3N_grayscale_with_HCN_red_filled_contours_zoom.pdf"), dpi=300, bbox_inches='tight')

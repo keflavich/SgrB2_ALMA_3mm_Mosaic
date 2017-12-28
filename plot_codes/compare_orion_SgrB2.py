@@ -78,4 +78,4 @@ cax_bbox = [x1 + 0.02, y0, 0.02, height]
 print(cax_bbox)
 cb = pl.colorbar(mappable=im, cax=pl.axes(cax_bbox))
 cb.set_label('mJy/beam')
-pl.savefig(paths.fpath("Orion_SgrB2HII_side_by_side.png"), bbox_inches='tight')
+pl.savefig(paths.fpath("Orion_SgrB2HII_side_by_side.pdf"), bbox_inches='tight')

@@ -86,7 +86,7 @@ lat.ticklabels.set_fontsize(tick_fontsize)
 lat.set_ticks(exclude_overlapping=True)
 
 
-fig.savefig(paths.fpath("cores_on_1.3cm_continuum.png"), bbox_inches='tight')
+fig.savefig(paths.fpath("cores_on_1.3cm_continuum.pdf"), bbox_inches='tight')
 
 H,bx,by = np.histogram2d(cores.ra, cores.dec, bins=bins)
 H2 = convolve(H, Gaussian2DKernel(2))
@@ -113,11 +113,11 @@ cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
 cb = fig.colorbar(mappable=im, cax=cax)
 cb.set_label("$S_{1.3 cm}$ [mJy beam$^{-1}$]")
 
-fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum_withdots.png"), bbox_inches='tight')
+fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum_withdots.pdf"), bbox_inches='tight')
 #coredots.set_visible(False)
 for cd in coredots:
     cd.set_visible(False)
-fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum.png"), bbox_inches='tight')
+fig.savefig(paths.fpath("coredensity_on_1.3cm_continuum.pdf"), bbox_inches='tight')
 
 hdu2 = fits.open('/Users/adam/work/sgrb2/continuumdata/sgrb2_20cm_12as.fits')[0]
 mywcs = wcs.WCS(hdu2.header).celestial
@@ -169,7 +169,7 @@ cax = fig.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
 cb = fig.colorbar(mappable=im, cax=cax)
 cb.set_label("$S_{20 \mathrm{cm}}$ [mJy beam$^{-1}$]")
 
-fig.savefig(paths.fpath("cores_on_20cm_continuum.png"), bbox_inches='tight')
+fig.savefig(paths.fpath("cores_on_20cm_continuum.pdf"), bbox_inches='tight')
 
 
 hdu_h41a = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.H41a.image.pbcor_max_medsub.fits'))[0]
@@ -202,11 +202,11 @@ ax.axis([x1,x2,y1,y2])
 #                    zorder=50, )
 coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
                      alpha=0.5)
-fig3.savefig(paths.fpath("cores_on_h41a_peak.png"), bbox_inches='tight')
+fig3.savefig(paths.fpath("cores_on_h41a_peak.pdf"), bbox_inches='tight')
 
 ax.imshow(hdu_h41a.data.squeeze(), transform=ax.get_transform(wcs.WCS(hdu_h41a.header).celestial),
           vmin=-0.0001, vmax=0.05, cmap=pl.cm.gray_r, origin='lower', norm=asinh_norm.AsinhNorm())
-fig3.savefig(paths.fpath("cores_on_h41a_peak_saturated.png"), bbox_inches='tight')
+fig3.savefig(paths.fpath("cores_on_h41a_peak_saturated.pdf"), bbox_inches='tight')
 
 
 
@@ -269,16 +269,16 @@ for line in ("HC3N","HCN","HNC","HCOp"):
         markersize = 0.5
     #coredots, = ax.plot(cores.ra, cores.dec, 'r.', transform=tr_fk5,
     #                    markersize=markersize, alpha=0.5, zorder=50, )
-    fig3.savefig(paths.fpath("{0}_peak.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("{0}_peak.pdf".format(line)), bbox_inches='tight')
     coredots = plotcores(ax, transform=tr_fk5, markersize=markersize, zorder=50,
                          alpha=0.5)
-    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak.pdf".format(line)), bbox_inches='tight')
 
     im = ax.imshow(hdu_line.data.squeeze()*1e3,
                    transform=ax.get_transform(wcs.WCS(hdu_line.header).celestial),
                    vmin=-0.001*1e3, vmax=0.1*1e3, cmap=pl.cm.gray_r,
                    origin='lower', norm=asinh_norm.AsinhNorm())
-    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_saturated.png".format(line)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_saturated.pdf".format(line)), bbox_inches='tight')
 
     for cd in coredots:
         cd.set_visible(False)

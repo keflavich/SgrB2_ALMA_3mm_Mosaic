@@ -59,7 +59,7 @@ pl.setp(ax1.get_yticklabels(), rotation='vertical', fontsize=20)
 ax1.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=22)
 ax1.set_ylabel("$N(cores)$", fontsize=22)
 pl.legend(loc='best', fontsize=20)
-pl.savefig(paths.fpath("core_peak_fluxdensity_coloredbyclass.png"), bbox_inches='tight')
+pl.savefig(paths.fpath("core_peak_fluxdensity_coloredbyclass.pdf"), bbox_inches='tight')
 
 fig1 = pl.figure(1)
 fig1.clf()
@@ -149,7 +149,7 @@ ax1.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=22)
 ax1.set_ylabel("$N(cores)$", fontsize=22)
 pl.legend(loc='best', fontsize=20)
 
-pl.savefig(paths.fpath("core_peak_fluxdensity_coloredbycluster.png"), bbox_inches='tight')
+pl.savefig(paths.fpath("core_peak_fluxdensity_coloredbycluster.pdf"), bbox_inches='tight')
 
 
 
@@ -167,7 +167,7 @@ ax1.set_ylim(0.5,30)
 ax1.set_yscale('linear')
 ax1.set_xlim(0.0003, 2)
 
-fig1.savefig(paths.fpath('core_peak_fluxdensity_powerlawfit.png'), bbox_inches='tight')
+fig1.savefig(paths.fpath('core_peak_fluxdensity_powerlawfit.pdf'), bbox_inches='tight')
 p,ksv = plf.test_pl()
 print("All Data Consistent with power-law? p={0}".format(p))
 
@@ -180,7 +180,7 @@ p,ksv = plfhi.test_pl()
 print("High-confidence Consistent with power-law? p={0}".format(p))
 ax1.set_xlim(0.0003, 2)
 
-fig1.savefig(paths.fpath('core_peak_fluxdensity_powerlawfit_justhi.png'), bbox_inches='tight')
+fig1.savefig(paths.fpath('core_peak_fluxdensity_powerlawfit_justhi.pdf'), bbox_inches='tight')
 
 
 pl_alstott = powerlaw.Fit(peak_fluxdens[~hii])

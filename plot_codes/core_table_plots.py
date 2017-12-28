@@ -33,7 +33,7 @@ ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 ax1.set_xlabel("$S_{3 mm}$ (Jy)")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_peak_intensity_histogram.png'), bbox_inches='tight')
+fig1.savefig(paths.fpath('core_peak_intensity_histogram.pdf'), bbox_inches='tight')
 
 fig1 = pl.figure(1)
 fig1.clf()
@@ -48,7 +48,7 @@ ax1.set_xlim(l[:-1][hh>0].min()/1.1, l[1:][hh>0].max()*1.1)
 ax1.set_xlabel("$T_{B,3 mm}$ [K]")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_peak_brightness_histogram.png'), bbox_inches='tight')
+fig1.savefig(paths.fpath('core_peak_brightness_histogram.pdf'), bbox_inches='tight')
 
 
 fig1 = pl.figure(1)
@@ -69,7 +69,7 @@ ax1.set_ylim(0, 25)
 ax1.set_xlabel("S/N")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_SN_histogram.png'), bbox_inches='tight')
+fig1.savefig(paths.fpath('core_SN_histogram.pdf'), bbox_inches='tight')
 
 
 
@@ -87,7 +87,7 @@ ax1.set_xlim(l[:-1][h>0].min()/1.1, l[1:][h>0].max()*1.1)
 ax1.set_xlabel("$M(T=40$ K, $\\beta=1.75$) [$M_\odot$]")
 ax1.set_ylabel("$N(cores)$")
 
-fig1.savefig(paths.fpath('core_mass_histogram_40K.png'), bbox_inches='tight')
+fig1.savefig(paths.fpath('core_mass_histogram_40K.pdf'), bbox_inches='tight')
 
 
 fig2 = pl.figure(2)
@@ -101,7 +101,7 @@ ax2.set_xlim(*ax2.get_xlim()[::-1])
 ax2.set_ylabel('Galactic Latitude')
 ax2.set_xlabel('Galactic Longitude')
 ax2.set_aspect(1)
-fig2.savefig(paths.fpath('core_spatial_distribution.png'), bbox_inches='tight')
+fig2.savefig(paths.fpath('core_spatial_distribution.pdf'), bbox_inches='tight')
 
 
 # spectral index derivation and plotting
@@ -198,7 +198,7 @@ ax5.set_ylabel("$N(cores)$", fontsize=22)
 leg = pl.legend(loc='upper left', fontsize=20)
 leg.set_zorder(-10)
 leg.set_frame_on(False)
-pl.savefig(paths.fpath("core_alpha_coloredbyclass.png"), bbox_inches='tight')
+pl.savefig(paths.fpath("core_alpha_coloredbyclass.pdf"), bbox_inches='tight')
 
 
 fig6 = pl.figure(6)
@@ -236,7 +236,7 @@ pl.setp(ax6.get_yticklabels(), rotation='vertical', fontsize=20)
 ax6.set_xlabel("$S_{3 mm}$ (Jy)", fontsize=22)
 ax6.set_ylabel("$N(cores)$", fontsize=22)
 pl.legend(loc='best', fontsize=20)
-pl.savefig(paths.fpath("core_peak_withalphameasurements_coloredbyclass.png"), bbox_inches='tight')
+pl.savefig(paths.fpath("core_peak_withalphameasurements_coloredbyclass.pdf"), bbox_inches='tight')
 
 
 
@@ -256,7 +256,7 @@ pl.plot([-2,4],[-2,4], 'k--')
 pl.xlabel("CASA Alpha")
 pl.ylabel("90-100 GHz spectral index")
 pl.axis([-2,4,-2,4])
-pl.savefig(paths.fpath("compare_spindx_measurements.png"), bbox_inches='tight')
+pl.savefig(paths.fpath("compare_spindx_measurements.pdf"), bbox_inches='tight')
 
 fig8 = pl.figure(8)
 fig8.clf()

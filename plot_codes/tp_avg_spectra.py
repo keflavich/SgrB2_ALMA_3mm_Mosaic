@@ -4,6 +4,7 @@ import glob
 import pyspeckit
 from astropy import units as u
 from spectral_cube import SpectralCube
+import radio_beam
 import paths
 
 from restfreqs import restfreqs
@@ -11,7 +12,7 @@ from restfreqs import restfreqs
 import pylab as pl
 pl.close('all')
 
-
+apertures = ((1,2,3,4)*u.pc / (8.4*u.kpc)).to
 
 velo = 62.5*u.km/u.s
 
@@ -36,10 +37,15 @@ for fn in glob.glob(paths.Fpath('tp/tp_concat*fits')):
     basefn = os.path.basename(fn)
     #spw = pyspeckit.Spectrum('avspec/weighted_avg_{0}'.format(fn))
     sp = pyspeckit.Spectrum(paths.Fpath('tp/avgspectra/avg_{0}'.format(basefn)))
+    beam = radio_beam.Beam.from_fits_header(sp.header)
+    sp.data *= beam.jtok(sp.xarr).value
+    sp.unit = u.K
     sp.plotter()
     #spw.plotter(axis=sp.plotter.axis, clear=False, color='b')
-    sp.plotter.axis.set_ylim(-0.5, 4.0)
     sp.plotter.savefig(paths.fpath('tpavgspectra/avg_{0}'
+                       .format(basefn.replace(".fits",".png"))))
+    sp.plotter.axis.set_ylim(-0.1, 1.0)
+    sp.plotter.savefig(paths.fpath('tpavgspectra/avg_yzoom_{0}'
                        .format(basefn.replace(".fits",".png"))))
 
 

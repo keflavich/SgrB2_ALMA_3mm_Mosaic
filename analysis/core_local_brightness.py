@@ -282,7 +282,7 @@ def plotit():
 
     pl.figure(1)
     pl.tight_layout()
-    pl.savefig(paths.fpath("flux_histograms_with_core_location_CDF.png"), bbox_inches='tight')
+    pl.savefig(paths.fpath("flux_histograms_with_core_location_CDF.pdf"), bbox_inches='tight')
 
 
     pl.figure(3)
@@ -290,13 +290,13 @@ def plotit():
               label='Lada+ 2010 Threshold')
     pl.tight_layout()
     pl.legend(loc='best')
-    pl.savefig(paths.fpath("mass_cdf_histograms.png"), bbox_inches='tight')
+    pl.savefig(paths.fpath("mass_cdf_histograms.pdf"), bbox_inches='tight')
     pl.figure(4)
     pl.vlines(5e21, 0.5, 1e6, color='k', linestyle='--', linewidth=1,
               label='Lada+ 2010 Threshold')
     pl.legend(loc='best')
     pl.tight_layout()
-    pl.savefig(paths.fpath("mass_cdf_histograms_bgsubd.png"), bbox_inches='tight')
+    pl.savefig(paths.fpath("mass_cdf_histograms_bgsubd.pdf"), bbox_inches='tight')
 
     pl.figure(5).clf()
     for imname,color in [('HerschelColumn25', 'k'), ('HerschelColumn36','g'),
@@ -355,11 +355,11 @@ def plotit():
     ax2.set_xscale('log')
     ax2.set_xlabel("Column Density [g cm$^{-2}$]")
     pl.draw()
-    pl.savefig(paths.fpath("core_background_column_cdf.png"), bbox_inches='tight')
+    pl.savefig(paths.fpath("core_background_column_cdf.pdf"), bbox_inches='tight')
 
     #pl.figure(3)
     #pl.tight_layout()
-    #pl.savefig(paths.fpath("cumulative_mass_histograms.png"), bbox_inches='tight')
+    #pl.savefig(paths.fpath("cumulative_mass_histograms.pdf"), bbox_inches='tight')
 
     pl.figure(6).clf()
     ax1 = pl.gca()
@@ -407,7 +407,7 @@ def plotit():
     ax3.set_xlabel("Column Density [g cm$^{-2}$]")
     pl.draw()
 
-    pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF_nofractions.png"), bbox_inches='tight')
+    pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF_nofractions.pdf"), bbox_inches='tight')
 
     ax2 = ax1.twinx()
     ax2.plot(np.sort(tbl[imname]), np.arange(len(tbl),
@@ -420,7 +420,7 @@ def plotit():
     ax3.set_xlim(ax3lims)
     ax2.set_xlim(L.min(), L.max())
 
-    pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.png"), bbox_inches='tight')
+    pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.pdf"), bbox_inches='tight')
 
 
     nn11_pc = (u.Quantity(tbl['nn11'], u.arcsec) * distance).to(u.pc,
