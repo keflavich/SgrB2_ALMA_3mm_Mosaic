@@ -107,7 +107,7 @@ for hdu_line, suffix, (vmin,vmax) in [
                        text_offset=1.0*u.arcsec,
                       )
 
-    fig3.savefig(paths.fpath("{0}_peak{1}.png".format(line, suffix)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("{0}_peak{1}.pdf".format(line, suffix)), bbox_inches='tight')
 
     bubble_ellipses = []
     for bb in bubbles:
@@ -117,7 +117,7 @@ for hdu_line, suffix, (vmin,vmax) in [
         ax.add_artist(ell)
         bubble_ellipses.append(ell)
 
-    fig3.savefig(paths.fpath("bubbles_on_{0}_peak{1}.png".format(line, suffix)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("bubbles_on_{0}_peak{1}.pdf".format(line, suffix)), bbox_inches='tight')
 
     for bb in bubble_ellipses:
         bb.set_visible(False)
@@ -130,4 +130,4 @@ for hdu_line, suffix, (vmin,vmax) in [
         ax.add_artist(ell)
         mpbubble_ellipses.append(ell)
 
-    fig3.savefig(paths.fpath("martinpintado_bubbles_on_{0}_peak{1}.png".format(line, suffix)), bbox_inches='tight')
+    fig3.savefig(paths.fpath("martinpintado_bubbles_on_{0}_peak{1}.pdf".format(line, suffix)), bbox_inches='tight')
