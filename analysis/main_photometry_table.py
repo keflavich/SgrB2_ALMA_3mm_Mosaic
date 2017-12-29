@@ -13,6 +13,7 @@ latexdict = latexdict.copy()
 
 sgrb2contfile = fits.open(contfilename)
 
+orig_cont_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipac"), format='ascii.ipac')
 cont_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipac"), format='ascii.ipac')
 
 for row in cont_tbl:
@@ -46,7 +47,7 @@ cont_tbl.remove_column('peak_col_40K')
 
 cont_tbl.remove_column('color')
 
-for colname in ['SIMBAD_ID', 'SIMBAD_OTYPE', 'Caswell_Name', 'npix',
+for colname in ['SIMBAD_OTYPE', 'Caswell_Name', 'npix',
                 'beam_area', 'peak_90GHz', 'sum_90GHz', 'bgmad_90GHz',
                 'peak_100GHz', 'sum_100GHz', 'bgmad_100GHz', 'Caswell_V_CH3OH',
                 'Caswell_matchdistance', 'Muno_xray_ID', 'Muno_xray_Counts',
@@ -81,6 +82,7 @@ coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'])
 cont_tbl.remove_column('RA')
 cont_tbl.remove_column('Dec')
 cont_tbl.add_column(Column(name="Coordinates", data=coords))
+cont_tbl.remove_column('SIMBAD_ID')
 
 
 # caption needs to be *before* preamble.
