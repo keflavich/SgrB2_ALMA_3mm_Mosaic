@@ -1,6 +1,7 @@
 import numpy as np
 from imf import imf
 import paths
+import copy
 from astropy.table import Table,Column
 from astropy import coordinates
 from astropy import units as u
@@ -54,6 +55,14 @@ clusters.append(regions.CircleSkyRegion(clusters[0].center,
                                         radius=1*u.deg,
                                         meta={'text':'Total'})
                )
+#this can be used to determine n_cores and n_hii in a bigger region,
+#but is incompatible with something else below...
+# clusters.append(regions.CircleSkyRegion(clusters[0].center,
+#                                         radius=35*u.arcsec,
+#                                         meta={'text':'M Bigger'})
+#                )
+# Cluster M Bigger: N(cores)= 52 N(HII)= 49 counted mass=   2852.28 inferred mass=  11522.81 HII-only inferred mass:   16003.53 core-inferred mass=   7042.09
+
 
 # add in DePree HII regions based on whether or not their names
 # are already in the table, since we didn't count the larger HII regions
@@ -116,7 +125,7 @@ tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
                    '$M_{inferred}$', '$M_{inferred, H\\textsc{ii}}$',
                    '$M_{inferred, cores}$', '$M_{count}^s$', '$M_{inf}^s$',
                    'SFR'],
-            dtype=['S13', int, int, int, int, int, int, int, int, float])
+            dtype=['S17', int, int, int, int, int, int, int, int, float])
 
 for col in tbl.colnames:
     if 'M' in col:
@@ -182,6 +191,10 @@ for reg in clusters:
         totalrow = row
     else:
         tbl.add_row(row)
+
+
+# right now, the total_picking_max is only the clustered
+clustered_picking_max = copy.copy(total_picking_max)
 
 # now get the non-clustered total
 mask = ~allclusters
@@ -278,6 +291,49 @@ latexdict['tablefoot'] = ("\par\n"
 tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
           formats=formats,
           latexdict=latexdict, overwrite=True)
+
+
+tbl.add_row(['Clustered$_{max}$', -999, -999, -999,
+             latex_info.round_to_n(clustered_picking_max.value,2), -999, -999, -999, -999,
+             latex_info.round_to_n(clustered_picking_max.value / sgrb2_age_myr / 1e6,2)])
+
+latexdict['tablefoot'] = ("\par\n"
+                          "Reproduction and expansion of Table 2 in \citet{{Ginsburg2017c}}. "
+                          "$M_{{count}}$ is the mass of directly counted protostars, "
+                          "assuming each millimeter source is {0:0.1f} \msun, or "
+                          "{1:0.1f} \msun "
+                          "if it is also an \hii region.  "
+                          "$M_{{inferred,cores}}$ and $M_{{inferred,\hii}}$ are the inferred "
+                          "total stellar masses assuming the counted objects represent "
+                          "fractions of the total mass {2:0.2f} (cores) and "
+                          "{3:0.2f} (\hii regions).  $M_{{inferred}}$ is the average "
+                          "of these two.  "
+                          "$M_{{count}}^s$ and $M_{{inf}}^s$ are the counted and inferred "
+                          "masses reported in \citet{{Schmiedeke2016a}}.  "
+                          "The star formation rate is computed using $M_{{inferred}}$ and"
+                          " an age $t=0.74$ Myr, "
+                          "which is the time of the last pericenter passage in the "
+                          "\citet{{Kruijssen2015a}} model."
+                          "  The \emph{{Total}} column represents the total over the whole observed "
+                          "region.  "
+                          "The \emph{{Total}}$_{{max}}$ column takes the higher of $M_{{inferred,\hii}}$ "
+                          "and $M_{{inferred,cores}}$ from each row and sums them.  "
+                          "We have included \hii regions in the $N(\hii)$ counts  that are "
+                          "\emph{{not}} included in our source table \\ref{{tab:photometry}} because "
+                          "they are too diffuse, or because they are unresolved in "
+                          "our data but were resolved in the \citet{{De-Pree2014a}} VLA data.  As a result, "
+                          "the total source count is greater than the source count reported in Table \\ref{{tab:photometry}}. "
+                          "Also, the unassociated \hii region count is incomplete; it is missing both diffuse \hii "
+                          "regions and possibly unresolved hypercompact \hii regions, since there are no "
+                          "VLA observations comparable to \citet{{De-Pree2014a}} in the unassociated regions."
+                          .format(over8lt20mean, over20mean, over8lt20fraction,
+                                  over20fraction)
+                         )
+
+tbl.write(paths.cfepath('cluster_mass_estimates_cfe.tex'), format='ascii.latex',
+          formats=formats,
+          latexdict=latexdict, overwrite=True)
+
 
 core_phot_tbl.add_column(Column(name='Cluster', data=cluster_column))
 

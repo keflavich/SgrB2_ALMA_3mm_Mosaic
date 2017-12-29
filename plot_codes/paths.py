@@ -56,5 +56,8 @@ def cpath(x):
 def texpath(x):
     return os.path.join(root, 'tex_cores', x)
 
+def cfepath(x):
+    return os.path.join(root, 'tex_cfe', x)
+
 def fspath(x):
     return os.path.join(root,'FITS/full_spectra',x)

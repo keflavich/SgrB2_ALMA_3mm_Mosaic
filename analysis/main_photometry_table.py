@@ -15,13 +15,8 @@ sgrb2contfile = fits.open(contfilename)
 
 cont_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD_andclusters.ipac"), format='ascii.ipac')
 
-coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'])
-cont_tbl.remove_column('RA')
-cont_tbl.remove_column('Dec')
-cont_tbl.add_column(Column(name="Coordinates", data=coords))
-
 for row in cont_tbl:
-    row['name'] = row['name'][5:].replace("_"," ")
+    row['name'] = row['name'].replace("core_","").replace("_"," ")
 
 cont_tbl.rename_column('name','ID')
 
@@ -74,6 +69,19 @@ formats = {'Coordinates': lambda x: x.to_string('hmsdms', sep=":"),
 # shorter-form units
 cont_tbl['$S_{\\nu,max}$'].unit = 'mJy bm$^{-1}$'
 cont_tbl['$\sigma_{bg}$'].unit = 'mJy bm$^{-1}$'
+
+for col in formats:
+    if col == 'Coordinates':
+        continue
+    cont_tbl[col] = list(map(lambda x: round_to_n(x, 3), cont_tbl[col]))
+
+cont_tbl.write(paths.tpath('continuum_photometry_forpub.tsv'), format='ascii.csv', delimiter='\t', overwrite=True)
+
+coords = coordinates.SkyCoord(cont_tbl['RA'], cont_tbl['Dec'])
+cont_tbl.remove_column('RA')
+cont_tbl.remove_column('Dec')
+cont_tbl.add_column(Column(name="Coordinates", data=coords))
+
 
 # caption needs to be *before* preamble.
 #latexdict['caption'] = 'Continuum Source IDs and photometry'
