@@ -1,2 +1,15 @@
-fk4; point(17:44:10.307, -28:22:02.78) # point=cross text={Morita1992} color=purple
-fk5; point(17:47:19.86, -28:22:18.5) # point=cross text={Higuchi2015} color=purple
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+icrs
+point(266.8338027,-28.38474185) # point=cross color=purple text={Morita1992}
+point(266.8327402,-28.37181257) # point=cross color=purple text={Higuchi2015}
+point(266.8327841,-28.37177939) # point=x text={lb_siov2_N}
+point(266.8339225,-28.38444473) # point=x text={lb_siov1_M}
+fk4
+point(17:43:46.3, -28:30:05) # point=x text={Shiki97 1} color=orange
+point(17:43:58.5, -28:28:45) # point=x text={Shiki97 2} color=orange
+point(17:44:10.6, -28:22:05) # point=x text={Shiki97 3} color=orange
+point(17:45:02.1, -28:17:25) # point=x text={Shiki97 4} color=orange
+point(17:45:14.2, -28:19:05) # point=x text={Shiki97 5} color=orange
+point(17:45:05.0, -28:08:05) # point=x text={Shiki97 6} color=orange
+point(17:45:03.0, -28:18:45) # point=x text={Shiki97 7} color=orange
