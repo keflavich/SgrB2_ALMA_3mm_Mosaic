@@ -432,6 +432,9 @@ def plotit():
     herschelsurfdens = (u.Quantity(tbl['HerschelColumn25']).to(u.cm**-2) *
                         2.8*u.Da).to(u.M_sun/u.pc**2)
 
+    tbl.add_column(table.Column(name='HerschelSurfDens', data=herschelsurfdens))
+    tbl.add_column(table.Column(name='nn11_starcentered_surfdens', data=nn11_msunpersqpc_starcentered))
+
     assert herschelsurfdens.min() < 10**5*u.M_sun/u.pc**2
     assert herschelsurfdens.max() > 10**3*u.M_sun/u.pc**2
 
@@ -648,6 +651,9 @@ def plotit():
 
     # TODO: plot the same (?) histograms for The Brick
     # DONE!
+    tbl.write(paths.tpath("continuum_photometry_plusbackground.ipac"), format='ascii.ipac',
+              overwrite=True)
+
 
 if __name__ == "__main__":
     import matplotlib
