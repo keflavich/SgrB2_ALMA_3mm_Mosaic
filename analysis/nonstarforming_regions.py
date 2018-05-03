@@ -16,6 +16,7 @@ import radio_beam
 
 warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
 
+import elmegreen2018
 from constants import distance
 
 import paths
@@ -107,3 +108,15 @@ ax3.set_ylabel("Fraction of pixels with stars")
 
 pl.savefig(paths.fpath("column_density_distribution_with_and_without_SF_withfraction.pdf"),
            bbox_inches='tight')
+
+pl.figure(2).clf()
+ax = pl.gca()
+assumed_density = (midpts*u.cm**-2 / u.pc).to(u.cm**-3)
+ax.semilogx(assumed_density, H3/H, linestyle='-', color='k', linewidth=0.5, zorder=-21,)
+for Tstar in (3e4, 1e5, 3e5)*u.yr:
+    m0 = 1e6*u.M_sun
+    r0 = 10*u.pc
+    probs = [elmegreen2018.Pstar(rho, Tstar, m0, r0) for rho in assumed_density*2.8*u.Da]
+    pl.semilogx(u.Quantity(assumed_density), probs, label='$T_*={0:0.2f}$ Myr'.format(Tstar.to(u.Myr).value))
+ax.set_ylabel("Fraction of pixels with stars")
+
