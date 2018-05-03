@@ -15,6 +15,7 @@ from constants import distance, mass_represented_by_a_source
 
 from gutermuth2011_law import gas_depletion_law, sigma_gas_of_t
 import lada2017relation
+import elmegreen2018
 
 import paths
 
@@ -299,15 +300,17 @@ fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_full.p
 
 
 ax2.axis([1e3,1e5,1e0,1e5])
-ax2.loglog(np.logspace(3,5),
-           lada2017relation.sigma_star_california(np.logspace(3,5)*u.M_sun/u.pc**2),
-           linewidth=3, color='m', label='Lada2017_cali')
-ax2.loglog(np.logspace(3,5),
-           lada2017relation.sigma_star_orionA(np.logspace(3,5)*u.M_sun/u.pc**2),
-           linewidth=3, linestyle='--', color='m', label='Lada2017_orionA')
-ax2.loglog(np.logspace(3,5),
-           lada2017relation.sigma_star_orionB(np.logspace(3,5)*u.M_sun/u.pc**2),
-           linewidth=3, linestyle=':', color='m', label='Lada2017_orionB')
+lada_cali = ax2.loglog(np.logspace(3,5),
+                       lada2017relation.sigma_star_california(np.logspace(3,5)*u.M_sun/u.pc**2),
+                       linewidth=3, color='m', label='Lada2017_cali')
+lada_oria = ax2.loglog(np.logspace(3,5),
+                       lada2017relation.sigma_star_orionA(np.logspace(3,5)*u.M_sun/u.pc**2),
+                       linewidth=3, linestyle='--', color='m',
+                       label='Lada2017_orionA')
+lada_orib = ax2.loglog(np.logspace(3,5),
+                       lada2017relation.sigma_star_orionB(np.logspace(3,5)*u.M_sun/u.pc**2),
+                       linewidth=3, linestyle=':', color='m',
+                       label='Lada2017_orionB')
 
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_withLada2017.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_withLada2017.pdf"), bbox_inches='tight')
@@ -319,7 +322,14 @@ fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomode
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal_withLada2017.pdf"), bbox_inches='tight')
 
 
-
+#can't plot this: don't have a prediction for sigma_star, just sigma_sfr
+# for obj in [lada_cali, lada_orib, lada_oria]:
+#     obj.set_visible(False)
+# 
+# 
+# ax2.loglog(np.logspace(3,5),
+#            elmegreen2018.
+# 
 
 
 

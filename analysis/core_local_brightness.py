@@ -213,6 +213,8 @@ def plotit():
     pl.figure(3).clf()
     pl.figure(4).clf()
     pl.figure(5, figsize=(12,8), dpi=75).clf()
+    fig9 = pl.figure(9)
+    fig9.clf()
     for ii,imname in enumerate(f for f in files if 'column' in f.lower()):
 
 
@@ -357,10 +359,6 @@ def plotit():
     pl.draw()
     pl.savefig(paths.fpath("core_background_column_cdf.pdf"), bbox_inches='tight')
 
-    #pl.figure(3)
-    #pl.tight_layout()
-    #pl.savefig(paths.fpath("cumulative_mass_histograms.pdf"), bbox_inches='tight')
-
     pl.figure(6).clf()
     ax1 = pl.gca()
     imname = 'ScubaHTemColumn'
@@ -409,6 +407,7 @@ def plotit():
 
     pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF_nofractions.pdf"), bbox_inches='tight')
 
+
     ax2 = ax1.twinx()
     ax2.plot(np.sort(tbl[imname]), np.arange(len(tbl),
                                              dtype='float')/len(tbl),
@@ -420,7 +419,27 @@ def plotit():
     ax3.set_xlim(ax3lims)
     ax2.set_xlim(L.min(), L.max())
 
+
     pl.savefig(paths.fpath("compare_brick_sgrb2_colPDF.pdf"), bbox_inches='tight')
+
+
+    ax9 = fig9.gca()
+
+    ax9.loglog(np.sort(tbl[imname]), 1-np.arange(len(tbl),
+                                                 dtype='float')/len(tbl), 'k-',
+               linewidth=3, alpha=0.5, zorder=10, label='Stars')
+    ax9.set_ylabel("Fraction of point sources above N(H$_2$)")
+    ax9.set_xlabel("Column Density [N(H$_2$) cm$^{-2}$]")
+    fig9.savefig(paths.fpath("cdf_of_point_sources.pdf"), bbox_inches='tight')
+
+    ax9.set_ylabel("Fraction above N(H$_2$)")
+    dmask = np.isfinite(data) & mask
+    ax9.loglog(np.sort(data[dmask]),
+               1-np.arange(dmask.sum(), dtype='float')/dmask.sum(),
+               alpha=0.5,
+               color='b', linewidth=2, label='Gas')
+    fig9.legend(loc='best')
+    fig9.savefig(paths.fpath("cdf_of_point_sources_and_column.pdf"), bbox_inches='tight')
 
 
     nn11_pc = (u.Quantity(tbl['nn11'], u.arcsec) * distance).to(u.pc,
