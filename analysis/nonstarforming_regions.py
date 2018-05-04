@@ -113,10 +113,28 @@ pl.figure(2).clf()
 ax = pl.gca()
 assumed_density = (midpts*u.cm**-2 / u.pc).to(u.cm**-3)
 ax.semilogx(assumed_density, H3/H, linestyle='-', color='k', linewidth=0.5, zorder=-21,)
-for Tstar in (3e4, 1e5, 3e5)*u.yr:
+for Tstar in (5e4, 2e5, 4e5)*u.yr:
     m0 = 1e6*u.M_sun
     r0 = 10*u.pc
+    # using Diederik's fiducial #'s from Kruijssen+ 2014
+    m0 = (200*u.M_sun/u.pc**2 * np.pi * r0**2)
     probs = [elmegreen2018.Pstar(rho, Tstar, m0, r0) for rho in assumed_density*2.8*u.Da]
-    pl.semilogx(u.Quantity(assumed_density), probs, label='$T_*={0:0.2f}$ Myr'.format(Tstar.to(u.Myr).value))
-ax.set_ylabel("Fraction of pixels with stars")
+    L, = pl.semilogx(u.Quantity(assumed_density), probs, linestyle='-',
+                     label='$T_*={0:0.2f}$ Myr'.format(Tstar.to(u.Myr).value,))
+    r0 = 10*u.pc
+    m0 = 2e6*u.M_sun
+    probs = [elmegreen2018.Pstar(rho, Tstar, m0, r0) for rho in assumed_density*2.8*u.Da]
+    pl.semilogx(u.Quantity(assumed_density), probs, linestyle='--',
+                color=L.get_color())
 
+    #m0 = 2e6*u.M_sun
+    #probs = [elmegreen2018.Pstar(rho, Tstar, m0, r0) for rho in assumed_density*2.8*u.Da]
+    #pl.semilogx(u.Quantity(assumed_density), probs, linestyle=':',
+    #            color=L.get_color())
+
+ax.set_ylabel("Fraction of pixels with stars")
+ax.set_xlabel("Density of H$_2$ [cm$^{-3}$]")
+#ax.set_title("Pressureless Collapse of a 10 pc, 10$^6$ M$_\odot$ cloud")
+pl.legend(loc='best', fontsize=14)
+pl.savefig(paths.fpath("stellarfraction_with_elmegreen_overlays.pdf"),
+           bbox_inches='tight')

@@ -73,6 +73,8 @@ gridded_stars = np.histogram2d(sgrb2_coords.ra.deg, sgrb2_coords.dec.deg,
 hdu = fits.PrimaryHDU(data=gridded_stars, header=header)
 
 hdu.writeto(paths.Fpath('stellar_density_grid.fits'), overwrite=True)
+hdu.data *= mass_represented_by_a_source.value
+hdu.writeto(paths.Fpath('stellar_mass_density_grid.fits'), overwrite=True)
 
 _,nn11_grid,_ = coordinates.match_coordinates_sky(grid_coords, sgrb2_coords,
                                                   nthneighbor=11)
@@ -322,11 +324,11 @@ fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomode
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal_withLada2017.pdf"), bbox_inches='tight')
 
 
-#can't plot this: don't have a prediction for sigma_star, just sigma_sfr
 # for obj in [lada_cali, lada_orib, lada_oria]:
 #     obj.set_visible(False)
 # 
 # 
+#can't plot this: don't have a prediction for sigma_star, just sigma_sfr
 # ax2.loglog(np.logspace(3,5),
 #            elmegreen2018.
 # 
@@ -348,3 +350,53 @@ print("Total SFE = {0} / {1} = {2}".format(total_stellar_mass, total_mass,
 print("Total SFE BGsub = {0} / {1} = {2}"
       .format(total_stellar_mass, total_mass_bgsub,
               total_stellar_mass/total_mass_bgsub,))
+
+
+
+
+fig3 = pl.figure(3, figsize=(10,10))
+fig3.clf()
+ax3 = fig3.gca()
+
+timescale = elmegreen2018.tff(2 * 200*u.M_sun/u.pc**2 / (10*u.pc))
+#timescale = 1.8*u.Myr
+
+ax3.loglog(gas_massdensity25.ravel().value,
+           (nn11_msunpersqpc.ravel()/u.Myr).to(u.Msun/u.pc**2/u.Myr).value,
+           'k.', alpha=0.5, markeredgecolor=(0,0,0,0.5))
+lims = ax3.axis()
+# 5/3 slope
+#ax2.loglog([1e3,1e6], [3e0, 3e5], 'k--')
+
+# Handle lower limits
+logas = (~np.isfinite(gas_massdensity25)) & (nn11_msunpersqpc > 0)
+ax3.plot(np.nanmax(gas_massdensity25) * np.ones(logas.sum()),
+         (nn11_msunpersqpc[logas].ravel()/u.Myr).to(u.Msun/u.pc**2/u.Myr).value,
+         markeredgecolor='k',
+         markerfacecolor='none',
+         linestyle='none',
+         marker='>')
+
+ax3.plot(np.logspace(3,5),
+         elmegreen2018.Sigma_sfr_eqn21(np.logspace(3,5)*u.M_sun/u.pc**2, epsilon_ff=0.001).to(u.Msun/u.pc**2/u.Myr),
+         label='$\epsilon_{ff}=0.001$',
+         linestyle='--',
+        )
+ax3.plot(np.logspace(3,5),
+         elmegreen2018.Sigma_sfr_eqn21(np.logspace(3,5)*u.M_sun/u.pc**2, epsilon_ff=0.01).to(u.Msun/u.pc**2/u.Myr),
+         label='$\epsilon_{ff}=0.01$',
+         linestyle=':',
+        )
+ax3.plot(np.logspace(3,5),
+         elmegreen2018.Sigma_sfr_eqn21(np.logspace(3,5)*u.M_sun/u.pc**2, epsilon_ff=0.1).to(u.Msun/u.pc**2/u.Myr),
+         label='$\epsilon_{ff}=0.1$',
+         linewidth=2, alpha=0.5,
+        )
+ax3.set_xlabel("Column Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]")
+ax3.set_ylabel("SFR Surface Density $\Sigma_{SFR}$ [M$_\odot$ pc$^{-2}$ Myr$^{-1}$]"
+               "\nassuming $t_{sf} = t_{ff}(\\rho_{midplane}) = "+
+               "{0:0.1f}".format(timescale.value)+"$ Myr")
+ax3.axis(lims)
+
+pl.legend(loc='best', fontsize=18)
+fig3.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_Elmegreen2018_SFR_models.pdf"), bbox_inches='tight')

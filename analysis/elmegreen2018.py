@@ -5,13 +5,13 @@ from astropy import constants
 
 epsilon_ff = 0.005 # quoted anywhere from 0.004-0.1
 
-# estimate sigma_vdisp based on equatio 17:
+# estimate sigma_vdisp based on equation 17:
 mcloud = 1e6 * u.M_sun
 rcloud = 10 * u.pc
 sigma_vdisp = ((constants.G*mcloud/(3*rcloud))**0.5).to(u.km/u.s)
 
 # eqn21
-def Sigma_sfr_eqn21(Sigma_gas):
+def Sigma_sfr_eqn21(Sigma_gas, epsilon_ff=0.005):
     return (2.31 * epsilon_ff * constants.G * Sigma_gas**2 / sigma_vdisp).to(u.M_sun/u.pc**2/u.yr)
 
 def Pstar(rho, Tstar, m_0, r_0):
