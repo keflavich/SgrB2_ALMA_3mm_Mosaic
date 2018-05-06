@@ -7,6 +7,7 @@ import numpy as np
 import imf
 from scipy import spatial
 import pylab as pl
+import paths
 
 
 # compute some basic fractions first
@@ -41,7 +42,7 @@ for ii,(rand, name, gridlims) in enumerate([(np.random.rand, 'Uniform', (0,1)),
     gridx, gridy = np.meshgrid(np.linspace(gridlims[0], gridlims[1], gsz), np.linspace(gridlims[0], gridlims[1], gsz))
     gridxy = np.array([gridx.ravel(), gridy.ravel()]).T
 
-    nsources = 20000
+    nsources = 50000
 
     xpos = rand(nsources)
     ypos = rand(nsources)
@@ -74,15 +75,19 @@ for ii,(rand, name, gridlims) in enumerate([(np.random.rand, 'Uniform', (0,1)),
     pl.plot(distancesm1.mean(axis=0), label="M>1")
     pl.plot(distancesm10.mean(axis=0), label="M>10")
     pl.legend(loc='best')
+    pl.savefig(paths.fpath('nndensity_experiments/{0}_mean_neighbor_distance_sample_size_effect.pdf').format(name),
+               bbox_inches='tight')
 
 
     pl.figure(1+nplots*ii)
     pl.clf()
     pl.title("{0} random distribution".format(name))
-    pl.hist(nn11, label='Full sample', normed=True, bins=25)#np.linspace(gridlims[0], gridlims[1], 20))
-    pl.hist(nn11m1, label='>1 Msun', alpha=0.5, normed=True, bins=25)#np.linspace(gridlims[0], gridlims[1], 20))
-    pl.hist(nn11m10, label='>10 Msun', alpha=0.5, normed=True, bins=25)#np.linspace(gridlims[0], gridlims[1], 20))
+    pl.hist(nn11, label='Full sample', density=True, bins=25)#np.linspace(gridlims[0], gridlims[1], 20))
+    pl.hist(nn11m1, label='>1 Msun', alpha=0.5, density=True, bins=25)#np.linspace(gridlims[0], gridlims[1], 20))
+    pl.hist(nn11m10, label='>10 Msun', alpha=0.5, density=True, bins=25)#np.linspace(gridlims[0], gridlims[1], 20))
     pl.legend(loc='best')
+    pl.savefig(paths.fpath('nndensity_experiments/{0}_mean_neighbor_distance_histogram.pdf').format(name),
+               bbox_inches='tight')
 
     nn = 11
     density = (nn-1) * meanmass / (np.pi*nn11**2)
@@ -92,39 +97,62 @@ for ii,(rand, name, gridlims) in enumerate([(np.random.rand, 'Uniform', (0,1)),
     pl.figure(2+nplots*ii)
     pl.clf()
     pl.title("{0} random distribution".format(name))
-    pl.hist(density, label='Full sample', normed=True, bins=50)
-    pl.hist(density_m1, label='>1 Msun', alpha=0.5, normed=True, bins=50)
-    pl.hist(density_m10, label='>10 Msun', alpha=0.5, normed=True, bins=50)
+    pl.hist(density, label='Full sample', density=True, bins=25)
+    pl.hist(density_m1, label='>1 Msun', alpha=0.5, density=True, bins=25)
+    pl.hist(density_m10, label='>10 Msun', alpha=0.5, density=True, bins=25)
     pl.legend(loc='best')
     pl.xlabel("Mass density")
+    pl.savefig(paths.fpath('nndensity_experiments/{0}_mass_surface_density_histogram.pdf').format(name),
+               bbox_inches='tight')
 
     distances_g, indices_g = kdt.query(gridxy, 11)
     nn11_g = distances_g[:,10]
     nn11_gridded = nn11_g.reshape([gsz, gsz])
-    #nn11_gridded_density = np.pi*nn11_gridded**2
+    # assume area=1
+    nn11_gridded_density = nn11_gridded**-2 * (nn-1) * meanmass
 
-    kdt_m1 = KDTree(xy.T[masses>1, :])
-    distances_g_m1, indices_g_m1 = kdt_m1.query(gridxy, 11)
+    distances_g_m1, indices_g_m1 = kdtm1.query(gridxy, 11)
     nn11_g_m1 = distances_g_m1[:,10]
     nn11_gridded_m1 = nn11_g_m1.reshape([gsz, gsz])
+    nn11_gridded_m1_density = nn11_gridded_m1**-2 * (nn-1) * over1mean / over1fraction
 
-    kdt_m10 = KDTree(xy.T[masses>10, :])
-    distances_g_m10, indices_g_m10 = kdt_m10.query(gridxy, 11)
+    distances_g_m10, indices_g_m10 = kdtm10.query(gridxy, 11)
     nn11_g_m10 = distances_g_m10[:,10]
     nn11_gridded_m10 = nn11_g_m10.reshape([gsz, gsz])
+    nn11_gridded_m10_density = nn11_gridded_m10**-2 * (nn-1) * over10mean / over10fraction
 
     vmax = max([nn11_g_m10.max(), nn11_g_m1.max(), nn11_g.max()])
 
     pl.figure(3+nplots*ii).clf()
     pl.suptitle("{0} random distribution".format(name))
-    pl.subplot(1,3,1).imshow(nn11_gridded, extent=[-2, 2, -2, 2], origin='lower', interpolation='none', vmin=0, vmax=vmax)
-    pl.subplot(1,3,2).imshow(nn11_gridded_m1, extent=[-2, 2, -2, 2], origin='lower', interpolation='none', vmin=0, vmax=vmax)
-    pl.subplot(1,3,3).imshow(nn11_gridded_m10, extent=[-2, 2, -2, 2], origin='lower', interpolation='none', vmin=0, vmax=vmax)
+    #pl.subplot(1,3,1).imshow(nn11_gridded, extent=[-2, 2, -2, 2], origin='lower', interpolation='none', vmin=0, vmax=vmax)
+    #pl.subplot(1,3,2).imshow(nn11_gridded_m1, extent=[-2, 2, -2, 2], origin='lower', interpolation='none', vmin=0, vmax=vmax)
+    #pl.subplot(1,3,3).imshow(nn11_gridded_m10, extent=[-2, 2, -2, 2], origin='lower', interpolation='none', vmin=0, vmax=vmax)
+    pl.subplot(1,2,1).plot(nn11_gridded_density.ravel(),
+                           nn11_gridded_m1_density.ravel(),
+                           ',')
+    pl.subplot(1,2,1).plot([nn11_gridded_density.min(), nn11_gridded_density.max()], 
+                           [nn11_gridded_density.min(), nn11_gridded_density.max()], 
+                          )
+    pl.xlabel("Density - All stars")
+    pl.ylabel("Density - M>1")
+    pl.subplot(1,2,2).plot(nn11_gridded_density.ravel(),
+                           nn11_gridded_m10_density.ravel(),
+                           ',')
+    pl.subplot(1,2,2).plot([nn11_gridded_density.min(), nn11_gridded_density.max()], 
+                           [nn11_gridded_density.min(), nn11_gridded_density.max()], 
+                          )
+    pl.xlabel("Density - All stars")
+    pl.ylabel("Density - M>10")
+    pl.savefig(paths.fpath('nndensity_experiments/{0}_gridded_density_comparison.pdf').format(name),
+               bbox_inches='tight')
 
     pl.figure(4+nplots*ii).clf()
     pl.scatter(xpos, ypos, s=masses, alpha=0.4, color='k')
     pl.scatter(selxy1[0,:], selxy1[1,:], s=masses[masses>1], alpha=0.4, color='b')
     pl.scatter(selxy10[0,:], selxy10[1,:], s=masses[masses>10], alpha=0.6, color='r')
+    pl.savefig(paths.fpath('nndensity_experiments/{0}_position_scatterplots.png').format(name),
+               bbox_inches='tight')
 
     pl.figure(5+nplots*ii).clf()
     pl.subplot(3, 1, 1).plot(masses, density, '.')
