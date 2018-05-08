@@ -16,6 +16,7 @@ from constants import distance, mass_represented_by_a_source
 from gutermuth2011_law import gas_depletion_law, sigma_gas_of_t
 import lada2017relation
 import elmegreen2018
+import label_lines
 
 import paths
 
@@ -107,8 +108,8 @@ ax1 = fig1.gca()
 ok = np.isfinite(herschel25reproj) & (gridded_stars > 0)
 gridded_star_massdensity = (gridded_stars * mass_represented_by_a_source / (cell_size**2)).to(u.M_sun/u.pc**2)
 
-ax1.loglog(gas_massdensity25[ok], gridded_star_massdensity[ok], 'k.',
-           alpha=0.7, markeredgecolor=(0,0,0,0.5))
+pixdots, = ax1.loglog(gas_massdensity25[ok], gridded_star_massdensity[ok],
+                      'k.', alpha=0.7, markeredgecolor=(0,0,0,0.5))
 
 logas = (~np.isfinite(herschel25reproj)) & (gridded_stars > 0)
 ax1.plot(np.nanmax(gas_massdensity25) * np.ones(logas.sum()),
@@ -116,9 +117,9 @@ ax1.plot(np.nanmax(gas_massdensity25) * np.ones(logas.sum()),
          '>')
 
 lostars = (np.isfinite(herschel25reproj)) & (gridded_stars == 0)
-ax1.plot(gas_massdensity25[lostars],
-         np.nanmin(gridded_star_massdensity[ok])*0.5*np.ones(lostars.sum()),
-         'v')
+lostarvs = ax1.plot(gas_massdensity25[lostars],
+                    np.nanmin(gridded_star_massdensity[ok])*0.5*np.ones(lostars.sum()),
+                    '^')
 # 5/3 slope
 #ax1.loglog([1e3,1e6], [3e0, 3e5], 'k--')
 
@@ -153,6 +154,7 @@ fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel
 sigma_gas = np.logspace(1,6) * u.M_sun / u.pc**2
 
 model_plotobjs = []
+model_labels = []
 for time in (0.01, 0.1, 0.74)*u.Myr:
     model_plotobjs += ax1.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1,
                                                 k=0.1/u.Myr),
@@ -164,6 +166,7 @@ for time in (0.01, 0.1, 0.74)*u.Myr:
                                  gas_depletion_law(sigma_gas, time),
                                  label=time, color='orange', linewidth=3,
                                  alpha=0.5, zorder=-10,)
+    model_labels.append(time)
 
 ax1.set_ylabel("Gridded NN11 Stellar Surface Density\n$\Sigma_*$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
 ax1.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=24)
@@ -173,6 +176,18 @@ fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.png"), 
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.pdf"), bbox_inches='tight')
 ax1.axis([1e0,1e5,1e-1,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_full.png"), bbox_inches='tight')
+
+
+for obj in local_plotobjs:
+    obj.set_visible(False)
+
+
+ax1.axis([1e3,1e5,1e0,1e5])
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nolocal.pdf"), bbox_inches='tight')
+
+for obj in local_plotobjs:
+    obj.set_visible(True)
+
 
 ax1.axis([1e3,1e5,1e0,1e5])
 ax1.loglog(np.logspace(3,5),
@@ -267,6 +282,7 @@ ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.pdf"), bbox_inches='tight')
 
+model_labels = []
 model_plotobjs = []
 for time in (0.01, 0.1, 0.74)*u.Myr:
     model_plotobjs += ax2.loglog(sigma_gas_of_t(sigma_gas, time, alpha=1,
@@ -280,6 +296,7 @@ for time in (0.01, 0.1, 0.74)*u.Myr:
                                  label=time, color='orange', linewidth=3,
                                  alpha=0.5, zorder=-10,)
 
+    model_labels.append(time)
 
 
 ax2.axis(lims)
@@ -299,6 +316,25 @@ ax2.plot([550,500,15],[300,30,0.4],'bo')
 ax2.plot([300,300,15],[500,54,0.22],'go')
 ax2.axis([1e0,1e5,1e-1,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_full.png"), bbox_inches='tight')
+
+for obj in local_plotobjs:
+    obj.set_visible(False)
+
+line_labels = label_lines.label_lines(model_plotobjs,
+                                      xvals=[7e4, 5e4, 7e4, 6e3, 7e4, 1.2e3],
+                                      backgroundcolor=(1,1,1,0.8),
+                                      fontsize=14)
+line_labels.append(ax2.text(3e4, 4e0, '$\\alpha=1$', color='r', fontsize=20, alpha=0.9))
+line_labels.append(ax2.text(1.1e4, 4e4, '$\\alpha=2$', color='orange', fontsize=20, alpha=0.9))
+
+ax2.axis([1e3,1e5,1e0,1e5])
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nolocal.pdf"), bbox_inches='tight')
+
+for obj in line_labels:
+    obj.set_visible(False)
+
+for obj in local_plotobjs:
+    obj.set_visible(True)
 
 
 ax2.axis([1e3,1e5,1e0,1e5])
@@ -359,10 +395,12 @@ fig3.clf()
 ax3 = fig3.gca()
 
 timescale = elmegreen2018.tff(2 * 200*u.M_sun/u.pc**2 / (10*u.pc))
+# Diederik says  use higher density
+timescale = elmegreen2018.tff(2 * 1000*u.M_sun/u.pc**2 / (10*u.pc))
 #timescale = 1.8*u.Myr
 
 ax3.loglog(gas_massdensity25.ravel().value,
-           (nn11_msunpersqpc.ravel()/u.Myr).to(u.Msun/u.pc**2/u.Myr).value,
+           (nn11_msunpersqpc.ravel()/timescale).to(u.Msun/u.pc**2/u.Myr).value,
            'k.', alpha=0.5, markeredgecolor=(0,0,0,0.5))
 lims = ax3.axis()
 # 5/3 slope

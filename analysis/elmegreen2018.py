@@ -8,6 +8,7 @@ epsilon_ff = 0.005 # quoted anywhere from 0.004-0.1
 # estimate sigma_vdisp based on equation 17:
 mcloud = 1e6 * u.M_sun
 rcloud = 10 * u.pc
+# 11 km/s, ish
 sigma_vdisp = ((constants.G*mcloud/(3*rcloud))**0.5).to(u.km/u.s)
 
 # eqn21
@@ -98,6 +99,7 @@ if __name__ == "__main__":
     pl.figure(2).clf()
     pl.figure(3).clf()
     pl.figure(4).clf()
+    pl.figure(5).clf()
 
     for Tstar in (3e4, 1e5, 3e5)*u.yr:
 
@@ -138,4 +140,9 @@ if __name__ == "__main__":
         pl.figure(4)
         pl.semilogx(u.Quantity(densities), t_dens)
         pl.ylabel("Time of density")
+        pl.xlabel("$\\rho$ cm$^{-3}$")
+
+        pl.figure(5)
+        pl.loglog(u.Quantity(densities), (u.Quantity(densities)*radii).to(u.Da*u.cm**-2))
+        pl.ylabel("$\\Sigma$ cm$^{-2}$")
         pl.xlabel("$\\rho$ cm$^{-3}$")
