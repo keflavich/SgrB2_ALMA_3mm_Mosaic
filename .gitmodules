@@ -1,0 +1,3 @@
+[submodule "SgrB2_CFE"]
+	path = SgrB2_CFE
+	url = git@github.com:keflavich/SgrB2_CFE.git
