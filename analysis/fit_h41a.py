@@ -97,7 +97,7 @@ latexdict['header_start'] = '\label{tab:h41afits}'#\n\\footnotesize'
 latexdict['preamble'] = '\caption{H41$\\alpha$ Line Fits}\n'
 latexdict['col_align'] = 'l'*len(depree_merged.columns)
 latexdict['tabletype'] = 'table'
-latexdict['tablefoot'] = ("\par\nCAPTION GOES HERE")
+latexdict['tablefoot'] = ("\par\nFits to the H41$\\alpha$ line from \citet{Ginsburg2018a}.")
 
 for key in depree_merged_tex.colnames:
     newname = key

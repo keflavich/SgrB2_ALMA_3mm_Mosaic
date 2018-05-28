@@ -293,6 +293,7 @@ tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
           latexdict=latexdict, overwrite=True)
 
 
+
 tbl.add_row(['Clustered$_{max}$', -999, -999, -999,
              latex_info.round_to_n(clustered_picking_max.value,2), -999, -999, -999, -999,
              latex_info.round_to_n(clustered_picking_max.value / sgrb2_age_myr / 1e6,2)])
@@ -333,6 +334,13 @@ latexdict['tablefoot'] = ("\par\n"
 tbl.write(paths.cfepath('cluster_mass_estimates_cfe.tex'), format='ascii.latex',
           formats=formats,
           latexdict=latexdict, overwrite=True)
+tbl.write(paths.cfepath('cluster_mass_estimates_cfe.csv'), format='ascii.csv',
+          formats=formats,
+          overwrite=True)
+tbl.write(paths.tpath('cluster_mass_estimates_cfe.csv'), format='ascii.csv',
+          formats=formats,
+          overwrite=True)
+
 
 
 core_phot_tbl.add_column(Column(name='Cluster', data=cluster_column))

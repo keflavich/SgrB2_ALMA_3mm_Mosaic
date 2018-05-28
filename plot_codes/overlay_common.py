@@ -29,7 +29,10 @@ print("Found {0} HII regions, {1} strong sources, {2} weak sources, {3} X-ray so
               (measured&maser).sum()))
 
 def plotcores(ax, alpha=0.5, show_unmeasured=False,
+              dot=None,
               markersize=None, markersize_override=False, **kwargs):
+
+
 
     all_coredots = []
     for (mask, color, marker, markersize_, label) in [
@@ -41,6 +44,11 @@ def plotcores(ax, alpha=0.5, show_unmeasured=False,
                                   (measured & methanolmaser, 'magenta', '+', None, "CH$_3$OH Masers"),
                                   (measured & watermaser, 'blue', '+', None, "H$_2$O Masers"),
     ]:
+
+        # at some point I programmed this in as a possible override, maybe?  But I don't think I wanted it?
+        # (see pointsource_overlay_insets_vlaproposal...)
+        #if dot is not None:
+        #    marker = dot
 
         if (not markersize_override) and (markersize_ is not None):
             markersize = markersize_

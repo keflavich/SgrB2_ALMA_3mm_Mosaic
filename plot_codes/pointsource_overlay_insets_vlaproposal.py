@@ -165,8 +165,8 @@ filenames = {'continuum': contfilename,
              #'1.3cm': '/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000.fits',
             }
 
-data_1pt3 = fits.getdata('/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000.fits')
-wcs_1pt3 = wcs.WCS(fits.getheader('/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000.fits'))
+data_1pt3 = fits.getdata('/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000_realigned.fits')
+wcs_1pt3 = wcs.WCS(fits.getheader('/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000_realigned.fits'))
 mask = cropreg[0].to_pixel(wcs_1pt3).to_mask()
 cutout1pt3 = mask.cutout(data_1pt3)
 print(wcs_1pt3.wcs.crpix)

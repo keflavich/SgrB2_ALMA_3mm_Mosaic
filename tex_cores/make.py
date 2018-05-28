@@ -8,7 +8,7 @@ import update_bibentries
 
 assert os.path.exists('bibdesk.bib')
 
-name = 'sgrb2_cores'
+name = 'cfe'
 
 parser = argparse.ArgumentParser(description='Make latex files.')
 parser.add_argument('--referee', default=False,
@@ -66,7 +66,7 @@ def do_everything():
     if not os.system('bibexport')==0:
         print("bibexport is not installed.")
     else:
-        assert os.system('bibexport -o extracted.bib sgrb2_cores.aux') == 0
+        assert os.system('bibexport -o extracted.bib cfe.aux') == 0
         print("bibexport created extracted.bib")
         
         try:

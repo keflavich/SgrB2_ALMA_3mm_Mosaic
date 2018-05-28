@@ -39,6 +39,8 @@ else:
     pl.rcParams['savefig.dpi'] = 300.
     tick_fontsize = 10
     markersize = 3
+pl.rcParams['xtick.direction'] = 'in'
+pl.rcParams['ytick.direction'] = 'in'
 
 zoomregions = {'SouthOfSouth':
                {'bottomleft': coordinates.SkyCoord("17:47:21.352",
@@ -155,7 +157,7 @@ zoomregions_order = ['M', 'N', 'M_inner', 'SouthOfSouth', 'MidDS', 'LowerDS']
 
 
 filenames = {'continuum': contfilename,
-             '1.3cm': '/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000.fits',
+             '1.3cm': '/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000_realigned.fits',
             }
 
 
@@ -175,6 +177,8 @@ for regionname in ('MandN', 'DeepSouth', ):
     vmin_lo['continuum'] = -0.0002*1e3
 
     for line in ("continuum", "1.3cm"):#"HC3N",):
+    #for line in ("1.3cm",):#"HC3N",):
+    #for line in ("continuum",):#"HC3N",):
 
 
         if regionname == 'DeepSouth':
@@ -266,7 +270,7 @@ for regionname in ('MandN', 'DeepSouth', ):
                                       axes_kwargs=dict(wcs=wcsaxes))
             ZR['axins'] = axins
             imz = axins.imshow(hdu_line.data.squeeze()*1e3,
-                               transform=parent_ax.get_transform(mywcs),
+                               #transform=parent_ax.get_transform(mywcs),
                                vmin=ZR['min'], vmax=ZR['max'], cmap=pl.cm.gray_r,
                                interpolation='nearest',
                                origin='lower', norm=asinh_norm.AsinhNorm())
