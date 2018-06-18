@@ -1,14 +1,18 @@
 import numpy as np
 from spectral_cube import SpectralCube
+from spectral_cube.utils import PossiblySlowWarning
 from astropy import units as u, table, coordinates
 import pyspeckit
 import pyregion
 import paths
 import pylab as pl
+import warnings
 
 from latex_info import (latexdict, format_float, round_to_n,
                         strip_trailing_zeros, exp_to_tex)
 latexdict = latexdict.copy()
+
+warnings.filterwarnings('ignore', category=PossiblySlowWarning)
 
 regs = pyregion.open(paths.rpath('SgrB2_1.3cm_hiiRegions_shiftedtoALMA.reg'))
 
@@ -189,19 +193,34 @@ sc = ax.scatter(depree_merged['RA'], depree_merged['Dec'],
 cb = pl.colorbar(mappable=sc)
 cb.set_label("VLSR(H41$\\alpha$)")
 pl.title("Location of sources colored by VLSR")
+ax.axis((266.83024487828254, 266.83633585695191, -28.387526053054252, -28.381531312329216))
+pl.savefig(paths.fpath('H41a_locations_colored_by_velocity.png'))
 
 ra, dec = depree_merged['RA'], depree_merged['Dec']
 dist = coordinates.SkyCoord(ra, dec, frame='fk5').separation(center)
+dist_pc = (dist*8500*u.pc).to(u.pc, u.dimensionless_angles())
 
 fig = pl.figure(2)
 fig.clf()
 ax = fig.gca()
-ax.plot((dist*8500*u.pc).to(u.pc, u.dimensionless_angles())[ok41],
+ax.plot(dist_pc[ok41],
         depree_merged['VLSR41'][ok41], 'o')
 ax.set_xlabel("Distance from 'center' (pc)")
 ax.set_ylabel("$V_{\mathrm{LSR}}(\mathrm{H}41\\alpha)$ [km s$^{-1}$]")
+pl.savefig(paths.fpath('H41a_velocity_vs_distance.png'))
 
 fig = pl.figure(3)
 fig.clf()
 pl.hist(depree_merged['VLSR41'][ok41])
 pl.xlabel("VLSR(H41$\\alpha$)")
+pl.savefig(paths.fpath('H41a_fit_velocities.png'))
+
+fig5 = pl.figure(5)
+fig5.clf()
+ax = fig5.gca()
+sorted_vlsr = depree_merged['VLSR41'][ok41][np.argsort(dist[ok41])]
+sorted_vdisp = [sorted_vlsr[:ii].std() for ii in range(3, len(sorted_vlsr))]
+pl.plot(np.sort(dist_pc[ok41][3:]), sorted_vdisp)
+ax.set_xlabel("Distance from 'center' (pc)")
+ax.set_ylabel("$\sigma(V_{\mathrm{LSR}}(\mathrm{H}41\\alpha))$ [km s$^{-1}$]")
+pl.savefig(paths.fpath('H41a_vdisp_vs_r.png'))
