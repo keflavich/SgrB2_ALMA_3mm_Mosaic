@@ -115,6 +115,25 @@ zoomregions = {'SouthOfSouth':
                 'max': 50,
                 'zoom': 3,
                },
+               'Mfull':
+               {'bottomleft': coordinates.SkyCoord("17:47:20.929",
+                                                   "-28:23:12.9",
+                                                   unit=(u.h, u.deg),
+                                                   frame='fk5'),
+                'topright': coordinates.SkyCoord("17:47:18.469",
+                                                 "-28:22:49.5",
+                                                 unit=(u.h, u.deg),
+                                                 frame='fk5'),
+                'inregion': 'full',
+                'bbox': [0.0,0.6],
+                #'bbox':[-0.024,0.425],
+                'loc': 2,
+                'l1':1,
+                'l2':4,
+                'min': -1,
+                'max': 50,
+                'zoom': 5,
+               },
                'N':
                {'bottomleft': coordinates.SkyCoord("17:47:21.006",
                                                    "-28:22:24.555",
@@ -153,7 +172,7 @@ zoomregions = {'SouthOfSouth':
                 'inset_axes': 'M',
                },
               }
-zoomregions_order = ['M', 'N', 'M_inner', 'SouthOfSouth', 'MidDS', 'LowerDS']
+zoomregions_order = ['Mfull', 'M', 'N', 'M_inner', 'SouthOfSouth', 'MidDS', 'LowerDS']
 
 
 filenames = {'continuum': contfilename,
@@ -161,7 +180,7 @@ filenames = {'continuum': contfilename,
             }
 
 
-for regionname in ('MandN', 'DeepSouth', ):
+for regionname in ('full', ):#'MandN', 'DeepSouth', ):
 
     legloc = 'upper right' if regionname == 'MandN' else 'upper left'
     leg_bbox = [0.5, -0.10] if regionname == 'DeepSouth' else (1,1)
@@ -194,6 +213,16 @@ for regionname in ('MandN', 'DeepSouth', ):
             #else:
             topright = coordinates.SkyCoord("17:47:14.666", "-28:21:04.980", unit=(u.h, u.deg), frame='fk5')
             scalebarpos = coordinates.SkyCoord("17:47:17.0", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
+        elif regionname == 'full':
+            mylims_fk5 = ((266.8744477, -28.44946601), (266.7838311, -28.33589021))
+            topright = coordinates.SkyCoord(*mylims_fk5[1],
+                                            unit=(u.deg, u.deg),
+                                            frame='fk5')
+            bottomleft = coordinates.SkyCoord(*mylims_fk5[0],
+                                              unit=(u.deg, u.deg),
+                                              frame='fk5')
+            scalebarpos = coordinates.SkyCoord("17:47:27", "-28:26:15.0",
+                                               unit=(u.h, u.deg), frame='fk5')
         else:
             raise Exception
 
@@ -243,6 +272,13 @@ for regionname in ('MandN', 'DeepSouth', ):
                       text_offset=1.0*u.arcsec,
                      )
 
+        if regionname == 'full':
+
+            markersize = 1
+            coredots = plotcores(ax, alpha=1,
+                                 transform=ax.get_transform('fk5'),
+                                 markerfacecolor='none',
+                                 markersize=markersize, zorder=50)
 
         ax.set_aspect(1)
         ax.axis([x1,x2,y1,y2])
@@ -310,7 +346,9 @@ for regionname in ('MandN', 'DeepSouth', ):
                    .format(line,regionname,zoomregion)))
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_zoomin.png"
                                  .format(line,regionname)),
-                     bbox_inches='tight')
+                     bbox_inches='tight',
+                     dpi=200
+                    )
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_zoomin.pdf"
                                  .format(line,regionname)),
                      bbox_inches='tight')
