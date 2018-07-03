@@ -61,3 +61,6 @@ def cfepath(x):
 
 def fspath(x):
     return os.path.join(root,'FITS/full_spectra',x)
+
+def lbpath(x):
+    return os.path.join(root,'../alma_lb/FITS/',x)

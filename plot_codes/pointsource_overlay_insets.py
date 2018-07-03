@@ -17,8 +17,10 @@ import warnings
 from visualization import make_scalebar
 from constants import distance
 from overlay_common import core_phot_tbl, plotcores
-from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
+from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes, inset_axes
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset
+from mpl_toolkits.axes_grid1.inset_locator import TransformedBbox, BboxPatch, BboxConnector 
+from matplotlib.transforms import Bbox
 
 warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning, append=True)
 
@@ -117,22 +119,22 @@ zoomregions = {'SouthOfSouth':
                },
                'Mfull':
                {'bottomleft': coordinates.SkyCoord("17:47:20.929",
-                                                   "-28:23:12.9",
+                                                   "-28:23:14.0",
                                                    unit=(u.h, u.deg),
                                                    frame='fk5'),
-                'topright': coordinates.SkyCoord("17:47:18.469",
-                                                 "-28:22:49.5",
+                'topright': coordinates.SkyCoord("17:47:18.8",
+                                                 "-28:22:51.5",
                                                  unit=(u.h, u.deg),
                                                  frame='fk5'),
                 'inregion': 'full',
-                'bbox': [0.0,0.6],
+                'bbox': [-0.15,0.75],
                 #'bbox':[-0.024,0.425],
                 'loc': 2,
                 'l1':1,
                 'l2':4,
                 'min': -1,
                 'max': 50,
-                'zoom': 5,
+                'zoom': 9,
                },
                'N':
                {'bottomleft': coordinates.SkyCoord("17:47:21.006",
@@ -151,6 +153,29 @@ zoomregions = {'SouthOfSouth':
                 'min': -1,
                 'max': 50,
                 'zoom': 3,
+               },
+               'Nhires':
+               {'bottomleft': coordinates.SkyCoord("17:47:20.072",
+                                                   "-28:22:22.0",
+                                                   unit=(u.h, u.deg),
+                                                   frame='icrs'),
+                'topright': coordinates.SkyCoord("17:47:19.706",
+                                                 "-28:22:15.6",
+                                                 unit=(u.h, u.deg),
+                                                 frame='icrs'),
+                'inregion': 'fullN',
+                'fitsfile':paths.lbpath('sgr_b2m.N.B6.allspw.continuum.r0.5.clean1000.image.tt0.pbcor.fits'),
+                'bbox':[-0.15,0.95],
+                'loc': 2,
+                'l1':1,
+                'l2':4,
+                'min': -1, # mJy
+                'max': 25,
+                'width': 2.5,
+                'height': 4,
+                'scalebarpos': coordinates.SkyCoord("17:47:20.004", "-28:22:20.9",
+                                               unit=(u.h, u.deg), frame='icrs')
+
                },
                'M_inner':
                {'bottomleft': coordinates.SkyCoord("17:47:20.364",
@@ -172,7 +197,10 @@ zoomregions = {'SouthOfSouth':
                 'inset_axes': 'M',
                },
               }
-zoomregions_order = ['Mfull', 'M', 'N', 'M_inner', 'SouthOfSouth', 'MidDS', 'LowerDS']
+
+
+zoomregions_order = ['Nhires', 'Mfull', 'M', 'N', 'M_inner', 'SouthOfSouth',
+                     'MidDS', 'LowerDS']
 
 
 filenames = {'continuum': contfilename,
@@ -180,7 +208,7 @@ filenames = {'continuum': contfilename,
             }
 
 
-for regionname in ('full', ):#'MandN', 'DeepSouth', ):
+for regionname in ('fullN', ):#'full', ):#'MandN', 'DeepSouth', ):
 
     legloc = 'upper right' if regionname == 'MandN' else 'upper left'
     leg_bbox = [0.5, -0.10] if regionname == 'DeepSouth' else (1,1)
@@ -195,7 +223,7 @@ for regionname in ('full', ):#'MandN', 'DeepSouth', ):
     vmin_lo = defaultdict(lambda: -0.001*1e3)
     vmin_lo['continuum'] = -0.0002*1e3
 
-    for line in ("continuum", "1.3cm"):#"HC3N",):
+    for line in ("continuum", ):#"1.3cm"):#"HC3N",):
     #for line in ("1.3cm",):#"HC3N",):
     #for line in ("continuum",):#"HC3N",):
 
@@ -213,7 +241,7 @@ for regionname in ('full', ):#'MandN', 'DeepSouth', ):
             #else:
             topright = coordinates.SkyCoord("17:47:14.666", "-28:21:04.980", unit=(u.h, u.deg), frame='fk5')
             scalebarpos = coordinates.SkyCoord("17:47:17.0", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
-        elif regionname == 'full':
+        elif regionname in ('full', 'fullN'):
             mylims_fk5 = ((266.8744477, -28.44946601), (266.7838311, -28.33589021))
             topright = coordinates.SkyCoord(*mylims_fk5[1],
                                             unit=(u.deg, u.deg),
@@ -272,7 +300,7 @@ for regionname in ('full', ):#'MandN', 'DeepSouth', ):
                       text_offset=1.0*u.arcsec,
                      )
 
-        if regionname == 'full':
+        if regionname in ('full', 'fullN'):
 
             markersize = 1
             coredots = plotcores(ax, alpha=1,
@@ -290,6 +318,21 @@ for regionname in ('full', ):#'MandN', 'DeepSouth', ):
             if ZR['inregion'] != regionname:
                 continue
 
+            if 'fitsfile' in ZR:
+                inset_hdu = fits.open(ZR['fitsfile'])[0]
+                mywcs = wcs.WCS(inset_hdu.header).celestial
+                #if mywcs.wcs.radesys != wcsaxes.wcs.radesys:
+                #    cntr = coordinates.SkyCoord(mywcs.wcs.crval[0]*u.deg,
+                #                                mywcs.wcs.crval[1]*u.deg,
+                #                                frame=mywcs.wcs.radesys.lower())
+                #    cntr_new = cntr.transform_to(wcsaxes.wcs.radesys.lower())
+                #    mywcs.wcs.radesys = wcsaxes.wcs.radesys
+                #    mywcs.wcs.crval = [cntr_new.ra.deg,
+                #                       cntr_new.dec.deg]
+
+            else:
+                inset_hdu = hdu_line
+
             parent_ax = zoomregions[ZR['inset_axes']]['axins'] if 'inset_axes' in ZR else ax
 
             bl, tr = ZR['bottomleft'],ZR['topright'],
@@ -299,13 +342,24 @@ for regionname in ('full', ):#'MandN', 'DeepSouth', ):
                                                          tr.dec.deg]],0)[0]
                                   )
 
-            axins = zoomed_inset_axes(parent_ax, zoom=ZR['zoom'], loc=ZR['loc'],
-                                      bbox_to_anchor=ZR['bbox'],
-                                      bbox_transform=fig3.transFigure,
-                                      axes_class=astropy.visualization.wcsaxes.core.WCSAxes,
-                                      axes_kwargs=dict(wcs=wcsaxes))
+            if 'fitsfile' in ZR:
+                axins = inset_axes(parent_ax,
+                                   loc=ZR['loc'],
+                                   width=ZR['width'],
+                                   height=ZR['height'],
+                                   bbox_to_anchor=ZR['bbox'],
+                                   bbox_transform=fig3.transFigure,
+                                   axes_class=astropy.visualization.wcsaxes.core.WCSAxes,
+                                   axes_kwargs=dict(wcs=mywcs))
+            else:
+                axins = zoomed_inset_axes(parent_ax, zoom=ZR['zoom'], loc=ZR['loc'],
+                                          bbox_to_anchor=ZR['bbox'],
+                                          bbox_transform=fig3.transFigure,
+                                          axes_class=astropy.visualization.wcsaxes.core.WCSAxes,
+                                          axes_kwargs=dict(wcs=wcsaxes))
+
             ZR['axins'] = axins
-            imz = axins.imshow(hdu_line.data.squeeze()*1e3,
+            imz = axins.imshow(inset_hdu.data.squeeze()*1e3,
                                #transform=parent_ax.get_transform(mywcs),
                                vmin=ZR['min'], vmax=ZR['max'], cmap=pl.cm.gray_r,
                                interpolation='nearest',
@@ -327,10 +381,41 @@ for regionname in ('full', ):#'MandN', 'DeepSouth', ):
             lon.set_ticklabel_visible(False)
             lat.set_ticklabel_visible(False)
 
-            # draw a bbox of the region of the inset axes in the parent axes and
-            # connecting lines between the bbox and the inset axes area
-            mark_inset(parent_axes=parent_ax, inset_axes=axins,
-                       loc1=ZR['l1'], loc2=ZR['l2'], fc="none", ec="0.5")
+            if 'fitsfile' not in ZR:
+                # draw a bbox of the region of the inset axes in the parent axes and
+                # connecting lines between the bbox and the inset axes area
+                mark_inset(parent_axes=parent_ax, inset_axes=axins,
+                           loc1=ZR['l1'], loc2=ZR['l2'], fc="none", ec="0.5")
+            else:
+                blt = bl.transform_to(wcsaxes.wcs.radesys.lower())
+                trt = tr.transform_to(wcsaxes.wcs.radesys.lower())
+                (rx1,ry1),(rx2,ry2) = (wcsaxes.wcs_world2pix([[blt.ra.deg,
+                                                               blt.dec.deg]],0)[0],
+                                       wcsaxes.wcs_world2pix([[trt.ra.deg,
+                                                               trt.dec.deg]],0)[0]
+                                      )
+                bbox = Bbox(np.array([(rx1,ry1),(rx2,ry2)]))
+                rect = TransformedBbox(bbox, parent_ax.transData)
+
+                markinkwargs = dict(fc='none', ec='0.5')
+
+                pp = BboxPatch(rect, fill=False, **markinkwargs)
+                parent_ax.add_patch(pp)
+
+                p1 = BboxConnector(axins.bbox, rect, loc1=ZR['l1'], **markinkwargs)
+                axins.add_patch(p1)
+                p1.set_clip_on(False)
+                p2 = BboxConnector(axins.bbox, rect, loc1=ZR['l2'], **markinkwargs)
+                axins.add_patch(p2)
+                p2.set_clip_on(False)
+
+                make_scalebar(axins, ZR['scalebarpos'],
+                              length=(5000*u.au / distance).to(u.arcsec,
+                                                               u.dimensionless_angles()),
+                              color='k',
+                              label='5000 AU',
+                              text_offset=0.08*u.arcsec,
+                             )
 
 
             fig3.canvas.draw()
