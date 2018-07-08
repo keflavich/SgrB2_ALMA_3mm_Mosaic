@@ -155,6 +155,7 @@ pl.savefig(paths.fpath("core_peak_fluxdensity_coloredbycluster.pdf"), bbox_inche
 
 #fig1.clf()
 ax1 = fig1.gca()
+print("Fitting a power-law distribution to the peak flux density, excluding HII regions:")
 plf = plfit.plfit(peak_fluxdens[~hii])
 plf.plfit(discrete=False, verbose=True)
 plf.plotpdf(dohist=False, histcolor='none', plcolor='navy')
@@ -171,8 +172,14 @@ fig1.savefig(paths.fpath('core_peak_fluxdensity_powerlawfit.pdf'), bbox_inches='
 p,ksv = plf.test_pl()
 print("All Data Consistent with power-law? p={0}".format(p))
 
+print()
+pl_alstott = powerlaw.Fit(peak_fluxdens[~hii])
+print("Powerlaw from Alstott: xmin={0}, alpha={1}".format(pl_alstott.xmin, pl_alstott.alpha))
+print()
 
 
+print()
+print("Fitting a power-law distribution to the peak flux density, excluding HII regions and low-confidence regions:")
 plfhi = plfit.plfit(peak_fluxdens[highconf & ~hii])
 plfhi.plfit(discrete=False, verbose=True)
 plfhi.plotpdf(fill=True, histcolor='none', plcolor='k')
@@ -183,7 +190,28 @@ ax1.set_xlim(0.0003, 2)
 fig1.savefig(paths.fpath('core_peak_fluxdensity_powerlawfit_justhi.pdf'), bbox_inches='tight')
 
 
-pl_alstott = powerlaw.Fit(peak_fluxdens[~hii])
-print("Powerlaw from Alstott: xmin={0}, alpha={1}".format(pl_alstott.xmin, pl_alstott.alpha))
 #pl.figure(2).clf()
 #pl_alstott.plot_pdf()
+
+"""
+PYTHON plfit executed in 0.010981 seconds
+The lowest value included in the power-law fit,  xmin: 0.00113035
+The number of values above xmin,  n(>xmin): 180
+The derived power-law alpha (p(x)~x^-alpha) with MLE-derived error,  alpha: 1.98559 +/- 0.0734614
+The log of the Likelihood (the maximized parameter; you minimized the negative log likelihood),  Log-Likelihood: 856.096
+The KS-test statistic between the best-fit power-law and the data,  ks: 0.0389581  occurs with probability   p(ks): 0.564474
+p(1000) = 0.993
+All Data Consistent with power-law? p=0.993
+PYTHON plfit executed in 0.007115 seconds
+xmin: 0.00115794 n(>xmin): 144 alpha: 1.89598 +/- 0.0746654   Log-Likelihood: 653.068   ks: 0.0636941 p(ks): 0.298159
+PYTHON plfit executed in 0.007191 seconds
+The lowest value included in the power-law fit,  xmin: 0.00115794
+The number of values above xmin,  n(>xmin): 144
+The derived power-law alpha (p(x)~x^-alpha) with MLE-derived error,  alpha: 1.89598 +/- 0.0746654
+The log of the Likelihood (the maximized parameter; you minimized the negative log likelihood),  Log-Likelihood: 653.068
+The KS-test statistic between the best-fit power-law and the data,  ks: 0.0636941  occurs with probability   p(ks): 0.298159
+p(1000) = 0.964
+High-confidence Consistent with power-law? p=0.964
+Calculating best minimal value for power law fit
+Powerlaw from Alstott: xmin=0.00113034946844, alpha=1.9855875343878864
+"""
