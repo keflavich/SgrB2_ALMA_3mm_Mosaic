@@ -106,19 +106,22 @@ latexdict['tablefoot'] = ("\par\nFits to the H41$\\alpha$ line from \citet{Ginsb
 for key in depree_merged_tex.colnames:
     newname = key
     if key[0].lower() == 'e':
-        del depree_merged_tex[key]
-        continue
+        pfx = 'e'
+        key_ = key[1:]
+    else:
+        key_ = key
+        pfx = ''
     #if 'e_' in key:
     #    newname = key.replace("_","")
-    if 'LSR' in key:
-        newname = key.split("LSR")[0] + "$_\mathrm{LSR}$(" + key.split("LSR")[1] +")"
-    if 'FWHM' in key:
-        newname = "$\mathrm{FWHM}$(" + key.split("FWHM")[1] + ")"
-    if 'AMPLITUDE' in key:
-        #newname = key.replace("AMPLITUDE","Peak")
+    if 'LSR' in key_:
+        newname = key_.split("LSR")[0] + "$_\mathrm{LSR}$(" + key_.split("LSR")[1] +")"
+    if 'FWHM' in key_:
+        newname = "$\mathrm{FWHM}$(" + key_.split("FWHM")[1] + ")"
+    if 'AMPLITUDE' in key_:
+        #newname = key_.replace("AMPLITUDE","Peak")
         del depree_merged_tex[key]
         continue
-    depree_merged_tex.rename_column(key, newname)
+    depree_merged_tex.rename_column(key, pfx+newname)
 
 merged_tex_ok = (np.isfinite(depree_merged_tex['RA']) &
                  (np.isfinite(depree_merged_tex['V$_\\mathrm{LSR}$(41)']) | 
@@ -127,8 +130,11 @@ merged_tex_ok = (np.isfinite(depree_merged_tex['RA']) &
                 )
 depree_merged_tex = depree_merged_tex[merged_tex_ok]
 
-formats = {key: lambda x: (strip_trailing_zeros('{0:0.2f}'.format(round_to_n(x,2)))
-                           if not np.isnan(x) else '-')
+formats = {key: (lambda x: (strip_trailing_zeros('{0:0.1f}'.format(round_to_n(x,2)))
+                           if not np.isnan(x) else '-'))
+           if key[0] == 'e' else
+           (lambda x: (strip_trailing_zeros('{0:0.3f}'.format(round_to_n(x,3)))
+                       if not np.isnan(x) else '-'))
            for key in depree_merged_tex.colnames}
 del formats['Source']
 del formats['RA']
@@ -148,18 +154,30 @@ def cformat(x):
 formats['Coordinates'] = cformat
 
 column_order = ['Source',
- 'Coordinates',
- 'V$_\\mathrm{LSR}$(41)',
- '$\\mathrm{FWHM}$(41)',
- 'V$_\\mathrm{LSR}$(52)',
- '$\\mathrm{FWHM}$(52)',
- 'V$_\\mathrm{LSR}$(66)',
- '$\\mathrm{FWHM}$(66)',
+                'Coordinates',
+                'V$_\\mathrm{LSR}$(41)',
+                'eV$_\\mathrm{LSR}$(41)',
+                '$\\mathrm{FWHM}$(41)',
+                'e$\\mathrm{FWHM}$(41)',
+ #'V$_\\mathrm{LSR}$(52)',
+ #'$\\mathrm{FWHM}$(52)',
+ #'V$_\\mathrm{LSR}$(66)',
+ #'$\\mathrm{FWHM}$(66)',
                ]
-depree_merged_tex = depree_merged_tex[column_order]
 
-depree_merged_tex.write(paths.cfepath('h41afits.tex'), format='ascii.latex',
-                        overwrite=True, latexdict=latexdict, formats=formats,)
+#'V$_\\mathrm{LSR}$(52)', '$\\mathrm{FWHM}$(52)',]
+latexdict['tablefoot'] = ("\par\n"
+                          "Velocities measured from radio recombination line "
+                          "fits for the HII regions in Sgr B2.  The "
+                          "H41$\\alpha$ line comes from the ALMA data of "
+                          "\citet{Ginsburg2018a}.")
+                          #while the H52$\\alpha$ line "
+                          #"is from \citet{De-Pree2011a}.  Both are shown to "
+                          #"illustrate the consistency of the data sets.
+
+depree_merged_tex[column_order].write(paths.cfepath('h41afits.tex'),
+                                      format='ascii.latex', overwrite=True,
+                                      latexdict=latexdict, formats=formats,)
 
 
 ok41 = depree_merged['AMPLITUDE0'] > depree_merged['e_AMPLITUDE0']*3

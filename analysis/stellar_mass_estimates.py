@@ -120,12 +120,13 @@ y = kroupa(x)
 over20mean = (x*y).sum()/y.sum()
 over20fraction = (kroupa.m_integrate(hii_cutoff, mmax)[0] /
                   kroupa.m_integrate(kroupa.mmin, mmax)[0])
+over20representative = over20mean/over20fraction
 
 tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
-                   '$M_{inferred}$', '$M_{inferred, H\\textsc{ii}}$',
+                   '$M_{inferred}$', '$M_{inferred,max}$', '$M_{inferred, H\\textsc{ii}}$',
                    '$M_{inferred, cores}$', '$M_{count}^s$', '$M_{inf}^s$',
                    'SFR'],
-            dtype=['S17', int, int, int, int, int, int, int, int, float])
+            dtype=['S23', int, int, int, int, int, int, int, int, int, float])
 
 for col in tbl.colnames:
     if 'M' in col:
@@ -143,6 +144,7 @@ print("Mean mass M>20 = {0}".format(over20mean))
 print("Mass fraction 8<M<20 = {0}".format(over8lt20fraction))
 print("Mean mass 8<M<20 = {0}".format(over8lt20mean))
 allclusters = np.zeros_like(hii, dtype='bool')
+NandM = np.zeros_like(hii, dtype='bool')
 for reg in clusters:
     mask = reg.contains(core_coords, arbitrary_wcs)
     nhii = (hii & mask).sum()
@@ -171,15 +173,23 @@ for reg in clusters:
         cluster_column[mask] = name
 
         allclusters += mask
-        print(allclusters.sum())
+        print("total stars in clusters: ",allclusters.sum())
+        if name in ('M','N'):
+            NandM += mask
+            if name == "M":
+                maskM = mask
+            elif name == "N":
+                maskN = mask
 
-        total_picking_max += max([hii_only_inferred_mass, core_inferred_mass])*u.M_sun
+        rowmax = max([hii_only_inferred_mass, core_inferred_mass])*u.M_sun
+        total_picking_max += rowmax
 
     row = [name,
            ncores,
            nhii,
            latex_info.round_to_n(mass,2)*u.M_sun,
            latex_info.round_to_n(inferred_mass, 2)*u.M_sun,
+           latex_info.round_to_n(rowmax.value, 2)*u.M_sun,
            latex_info.round_to_n(hii_only_inferred_mass, 2)*u.M_sun,
            latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
            schmiedeke_summary_table[sst_mask]['M∗ initial']*u.M_sun,
@@ -189,32 +199,55 @@ for reg in clusters:
 
     if name == 'Total':
         totalrow = row
+        totalrow[5] = latex_info.round_to_n(total_picking_max.value, 2)*u.M_sun
     else:
         tbl.add_row(row)
 
 
 # right now, the total_picking_max is only the clustered
 clustered_picking_max = copy.copy(total_picking_max)
+# but, we need to subtract off NE and S...
+NEandS = allclusters & ~NandM
+
 
 # now get the non-clustered total
 mask = ~allclusters
+
 nhii = (hii & mask).sum()
 ncores = ((~hii) & mask).sum()
 
-mass = ncores * over8lt20mean + nhii * over20mean
+nhii_clustered = (hii & ~mask).sum()
+ncores_clustered = ((~hii) & ~mask).sum()
+
+nhii_NM = (hii & NandM).sum()
+ncores_NM = ((~hii) & NandM).sum()
+
+# not meaningful mass = ncores * over8lt20mean + nhii * over20mean
 # the fractions are fractions-of-total, so we're estimating the total mass
 # from each independent population assuming they're the same age
 hii_only_inferred_mass = nhii * over20mean / over20fraction
 core_inferred_mass = ncores * over8lt20mean / over8lt20fraction
 inferred_mass = (core_inferred_mass +
                  hii_only_inferred_mass) / 2.
+print("Clustered_picking_max: {0} = {1}".format(clustered_picking_max, total_picking_max))
 total_picking_max += max([hii_only_inferred_mass, core_inferred_mass])*u.M_sun
+print("Total picking max: {0}".format(clustered_picking_max))
+totalrow[5] = latex_info.round_to_n(total_picking_max.value, 2)*u.M_sun
+
+clustered_hii_only_inferred_mass = nhii_clustered * over20mean / over20fraction
+clustered_core_inferred_mass = ncores_clustered * over8lt20mean / over8lt20fraction
+
+NMclustered_hii_only_inferred_mass = nhii_NM * over20mean / over20fraction
+NMclustered_core_inferred_mass = ncores_NM * over8lt20mean / over8lt20fraction
+NMclustered_total = (hii & maskM).sum() * over20mean/over20fraction + ((~hii) & maskN).sum() * over8lt20mean/over8lt20fraction
+
 
 tbl.add_row(['Unassociated',
              ncores,
              nhii,
              latex_info.round_to_n(mass,2)*u.M_sun,
              latex_info.round_to_n(inferred_mass, 2)*u.M_sun,
+             latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
              latex_info.round_to_n(hii_only_inferred_mass, 2)*u.M_sun,
              latex_info.round_to_n(core_inferred_mass, 2)*u.M_sun,
              -999,
@@ -222,9 +255,11 @@ tbl.add_row(['Unassociated',
              latex_info.round_to_n(inferred_mass/sgrb2_age_myr/1e6,2)*u.M_sun/u.yr,
             ])
 tbl.add_row(totalrow)
-tbl.add_row(['Total$_{max}$', -999, -999, -999,
-             latex_info.round_to_n(total_picking_max.value,2), -999, -999, -999, -999,
-             latex_info.round_to_n(total_picking_max.value / sgrb2_age_myr / 1e6,2)])
+#tbl.add_row(['Total$_{max}$', -999, -999, -999,
+#             latex_info.round_to_n(total_picking_max.value,2),
+#             latex_info.round_to_n(total_picking_max.value,2), -999, -999,
+#             -999, -999,
+#             latex_info.round_to_n(total_picking_max.value / sgrb2_age_myr / 1e6,2)])
 
 
 print("SFR({1} Myr) = {0}".format(totalrow[-1], sgrb2_age_myr))
@@ -294,46 +329,77 @@ tbl.write(paths.texpath('cluster_mass_estimates.tex'), format='ascii.latex',
 
 
 
-tbl.add_row(['Clustered$_{max}$', -999, -999, -999,
-             latex_info.round_to_n(clustered_picking_max.value,2), -999, -999, -999, -999,
+tbl.add_row(['Clustered with NE, S', ncores_clustered, nhii_clustered, -999,
+             latex_info.round_to_n(clustered_picking_max.value,2),
+             latex_info.round_to_n(clustered_picking_max.value,2),
+             latex_info.round_to_n(clustered_hii_only_inferred_mass, 2),
+             latex_info.round_to_n(clustered_core_inferred_mass, 2),
+             -999, -999,
+             latex_info.round_to_n(clustered_picking_max.value / sgrb2_age_myr / 1e6,2)])
+tbl.add_row(['Clustered only M, N', ncores_NM, nhii_NM, -999,
+             latex_info.round_to_n(NMclustered_total,2),
+             latex_info.round_to_n(NMclustered_total,2),
+             latex_info.round_to_n(NMclustered_hii_only_inferred_mass, 2),
+             latex_info.round_to_n(NMclustered_core_inferred_mass, 2),
+             -999, -999,
              latex_info.round_to_n(clustered_picking_max.value / sgrb2_age_myr / 1e6,2)])
 
 latexdict['tablefoot'] = ("\par\n"
-                          "Reproduction and expansion of Table 2 in \citet{{Ginsburg2017c}}. "
-                          "$M_{{count}}$ is the mass of directly counted protostars, "
-                          "assuming each millimeter source is {0:0.1f} \msun, or "
-                          "{1:0.1f} \msun "
-                          "if it is also an \hii region.  "
+                          "Partial reproduction of Table 2 in \citet{{Ginsburg2018a}}. "
+                          #"$M_{{count}}$ is the mass of directly counted protostars, "
+                          #"assuming each millimeter source is {0:0.1f} \msun, or "
+                          #"{1:0.1f} \msun "
+                          #"if it is also an \hii region.  "
                           "$M_{{inferred,cores}}$ and $M_{{inferred,\hii}}$ are the inferred "
                           "total stellar masses assuming the counted objects represent "
                           "fractions of the total mass {2:0.2f} (cores) and "
-                          "{3:0.2f} (\hii regions).  $M_{{inferred}}$ is the average "
+                          "{3:0.2f} (\hii regions)."
+                          "$M_{{inferred,max}}$ is the greater "
                           "of these two.  "
-                          "$M_{{count}}^s$ and $M_{{inf}}^s$ are the counted and inferred "
-                          "masses reported in \citet{{Schmiedeke2016a}}.  "
-                          "The star formation rate is computed using $M_{{inferred}}$ and"
-                          " an age $t=0.74$ Myr, "
-                          "which is the time of the last pericenter passage in the "
-                          "\citet{{Kruijssen2015a}} model."
-                          "  The \emph{{Total}} column represents the total over the whole observed "
+                          #"$M_{{inferred}}$ is the average "
+                          #"of these two.  "
+                          #"$M_{{count}}^s$ and $M_{{inf}}^s$ are the counted and inferred "
+                          #"masses reported in \citet{{Schmiedeke2016a}}.  "
+                          #"The star formation rate is computed using $M_{{inferred}}$ and"
+                          #" an age $t=0.74$ Myr, "
+                          #"which is the time of the last pericenter passage in the "
+                          #"\citet{{Kruijssen2015a}} model."
+                          "  The \emph{{Total}} row represents the total over the whole observed "
                           "region.  "
-                          "The \emph{{Total}}$_{{max}}$ column takes the higher of $M_{{inferred,\hii}}$ "
-                          "and $M_{{inferred,cores}}$ from each row and sums them.  "
-                          "We have included \hii regions in the $N(\hii)$ counts  that are "
-                          "\emph{{not}} included in our source table \\ref{{tab:photometry}} because "
-                          "they are too diffuse, or because they are unresolved in "
-                          "our data but were resolved in the \citet{{De-Pree2014a}} VLA data.  As a result, "
-                          "the total source count is greater than the source count reported in Table \\ref{{tab:photometry}}. "
-                          "Also, the unassociated \hii region count is incomplete; it is missing both diffuse \hii "
-                          "regions and possibly unresolved hypercompact \hii regions, since there are no "
-                          "VLA observations comparable to \citet{{De-Pree2014a}} in the unassociated regions."
+                          "  The two Clustered rows show the total inferred mass of clusters "
+                          "including all "
+                          "four candidate clusters including NE and S, then the mass of clusters "
+                          "including only Sgr B2 M and N."
+                          #"The \emph{{Total}}$_{{max}}$ column takes the higher of $M_{{inferred,\hii}}$ "
+                          #"and $M_{{inferred,cores}}$ from each row and sums them.  "
+                          #"We have included \hii regions in the $N(\hii)$ counts  that are "
+                          #"\emph{{not}} included in our source table \\ref{{tab:photometry}} because "
+                          #"they are too diffuse, or because they are unresolved in "
+                          #"our data but were resolved in the \citet{{De-Pree2014a}} VLA data.  As a result, "
+                          #"the total source count is greater than the source count reported in Table \\ref{{tab:photometry}}. "
+                          #"Also, the unassociated \hii region count is incomplete; it is missing both diffuse \hii "
+                          #"regions and possibly unresolved hypercompact \hii regions, since there are no "
+                          #"VLA observations comparable to \citet{{De-Pree2014a}} in the unassociated regions."
                           .format(over8lt20mean, over20mean, over8lt20fraction,
                                   over20fraction)
                          )
 
-tbl.write(paths.cfepath('cluster_mass_estimates_cfe.tex'), format='ascii.latex',
-          formats=formats,
-          latexdict=latexdict, overwrite=True)
+formats = {'SFR': lambda x: latex_info.strip_trailing_zeros(str(x)),
+           '$M_{inf}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{count}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$N(cores)$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$N(H\\textsc{ii})$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{count}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{inferred}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{inferred,max}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{inferred, H\\textsc{ii}}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{inferred, cores}$': lambda x: "{0}".format(x) if x != -999 else '-',
+          }
+cols = ['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{inferred, cores}$', '$M_{inferred, H\\textsc{ii}}$', '$M_{inferred,max}$', ]
+
+tbl[cols].write(paths.cfepath('cluster_mass_estimates_cfe.tex'),
+                format='ascii.latex', formats=formats, latexdict=latexdict,
+                overwrite=True)
 tbl.write(paths.cfepath('cluster_mass_estimates_cfe.csv'), format='ascii.csv',
           formats=formats,
           overwrite=True)
@@ -416,14 +482,14 @@ neff = (massmap_cumsum / (4/3*np.pi*reff**3) / (2.8*u.Da)).to(u.cm**-3)
 rhoeff = (massmap_cumsum / (4/3*np.pi*reff**3)).to(u.g*u.cm**-3)
 tff = (3 * np.pi / (32 * constants.G * rhoeff))**0.5
 
-tbl = Table.read(paths.tpath("continuum_photometry_plusbackground.ipac"), format='ascii.ipac',)
+tbl2 = Table.read(paths.tpath("continuum_photometry_plusbackground.ipac"), format='ascii.ipac',)
 
 # this is to try to make an argument about whether M_*(N>Nx) / tff(N>Nx) is getting higher or lower...
 pl.figure(2).clf()
 ax = pl.gca()
 ax.loglog(sorted_colmap, tff.to(u.yr))
 ax.hlines([0.74e6, 0.43e6,], 1e22, 1e25)
-ax.vlines(tbl['ScubaHTemColumn'][(np.array([0.9,0.5])*len(tbl)).astype('int')], 1e3, 1e6,)
+ax.vlines(tbl2['ScubaHTemColumn'][(np.array([0.9,0.5])*len(tbl2)).astype('int')], 1e3, 1e6,)
 
 
 """
