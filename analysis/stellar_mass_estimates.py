@@ -114,6 +114,8 @@ y = kroupa(x)
 over8lt20mean = (x*y).sum()/y.sum()
 over8lt20fraction = (kroupa.m_integrate(o_mmin, hii_cutoff)[0] /
                      kroupa.m_integrate(kroupa.mmin, mmax)[0])
+over8lt20representative = over8lt20mean/over8lt20fraction
+print("Representative mass for 20>M>8: {0}".format(over8lt20representative))
 # Mean of "HII regions"
 x = np.linspace(hii_cutoff,mmax,50000)
 y = kroupa(x)
@@ -121,10 +123,11 @@ over20mean = (x*y).sum()/y.sum()
 over20fraction = (kroupa.m_integrate(hii_cutoff, mmax)[0] /
                   kroupa.m_integrate(kroupa.mmin, mmax)[0])
 over20representative = over20mean/over20fraction
+print("Representative mass for M>20: {0}".format(over20representative))
 
-tbl = Table(names=['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{count}$',
-                   '$M_{inferred}$', '$M_{inferred,max}$', '$M_{inferred, H\\textsc{ii}}$',
-                   '$M_{inferred, cores}$', '$M_{count}^s$', '$M_{inf}^s$',
+tbl = Table(names=['Name', '$N({\\rm cores})$', '$N({\\rm H\\textsc{ii}})$', '$M_{\\rm count}$',
+                   '$M_{\\rm inferred}$', '$M_{\\rm inferred,max}$', '$M_{\\rm inferred, H\\textsc{ii}}$',
+                   '$M_{\\rm inferred, cores}$', '$M_{\\rm count}^s$', '$M_{\\rm inf}^s$',
                    'SFR'],
             dtype=['S23', int, int, int, int, int, int, int, int, int, float])
 
@@ -159,7 +162,7 @@ for reg in clusters:
                      hii_only_inferred_mass) / 2.
 
 
-    name = reg.meta['text'].strip("{}")
+    name = reg.meta.get('text', reg.meta.get('label')).strip("{}")
     print("Cluster {0:4s}: N(cores)={1:3d} N(HII)={2:3d} counted mass={3:10.2f}"
           " inferred mass={4:10.2f} HII-only inferred mass: {5:10.2f}"
           " core-inferred mass={6:10.2f}"
@@ -278,40 +281,40 @@ with open(paths.texpath('sfr.tex'), 'w') as fh:
 
 
 formats = {'SFR': lambda x: latex_info.strip_trailing_zeros(str(x)),
-           '$M_{inf}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{count}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$N(cores)$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$N(H\\textsc{ii})$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{count}$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{inferred}$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{inferred, H\\textsc{ii}}$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{inferred, cores}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inf}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm count}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$N({\\rm cores})$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$N({\\rm H\\textsc{ii}})$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm count}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inferred}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inferred, H\\textsc{ii}}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inferred, cores}$': lambda x: "{0}".format(x) if x != -999 else '-',
           }
 
 latexdict = latex_info.latexdict.copy()
 latexdict['header_start'] = '\label{tab:clustermassestimates}'
 latexdict['caption'] = 'Cluster Masses'
-latexdict['preamble'] = '\centering'
+latexdict['preamble'] = '\centering\n\\begin{minipage}{130mm}'
 latexdict['tablefoot'] = ("\par\n"
-                          "$M_{{count}}$ is the mass of directly counted protostars, "
+                          "$M_{{\\rm count}}$ is the mass of directly counted protostars, "
                           "assuming each millimeter source is {0:0.1f} \msun, or "
                           "{1:0.1f} \msun "
                           "if it is also an \hii region.  "
-                          "$M_{{inferred,cores}}$ and $M_{{inferred,\hii}}$ are the inferred "
+                          "$M_{{\\rm inferred,cores}}$ and $M_{{\\rm inferred,\hii}}$ are the inferred "
                           "total stellar masses assuming the counted objects represent "
                           "fractions of the total mass {2:0.2f} (cores) and "
-                          "{3:0.2f} (\hii regions).  $M_{{inferred}}$ is the average "
+                          "{3:0.2f} (\hii regions).  $M_{{\\rm inferred}}$ is the average "
                           "of these two.  "
-                          "$M_{{count}}^s$ and $M_{{inf}}^s$ are the counted and inferred "
+                          "$M_{{\\rm count}}^s$ and $M_{{\\rm inf}}^s$ are the counted and inferred "
                           "masses reported in \citet{{Schmiedeke2016a}}.  "
-                          "The star formation rate is computed using $M_{{inferred}}$ and"
+                          "The star formation rate is computed using $M_{{\\rm inferred}}$ and"
                           " an age $t=0.74$ Myr, "
                           "which is the time of the last pericenter passage in the "
                           "\citet{{Kruijssen2015a}} model."
                           "  The \emph{{Total}} column represents the total over the whole observed "
                           "region.  "
-                          "The \emph{{Total}}$_{{max}}$ column takes the higher of $M_{{inferred,\hii}}$ "
-                          "and $M_{{inferred,cores}}$ from each row and sums them.  "
+                          "The \emph{{Total}}$_{{\\rm max}}$ column takes the higher of $M_{{\\rm inferred,\hii}}$ "
+                          "and $M_{{\\rm inferred,cores}}$ from each row and sums them.  "
                           "We have included \hii regions in the $N(\hii)$ counts  that are "
                           "\emph{{not}} included in our source table \\ref{{tab:photometry}} because "
                           "they are too diffuse, or because they are unresolved in "
@@ -344,17 +347,17 @@ tbl.add_row(['Clustered only M, N', ncores_NM, nhii_NM, -999,
              -999, -999,
              latex_info.round_to_n(clustered_picking_max.value / sgrb2_age_myr / 1e6,2)])
 
-latexdict['tablefoot'] = ("\par\n"
+latexdict['tablefoot'] = ("\\\\\n"
                           "Partial reproduction of Table 2 in \citet{{Ginsburg2018a}}. "
                           #"$M_{{count}}$ is the mass of directly counted protostars, "
                           #"assuming each millimeter source is {0:0.1f} \msun, or "
                           #"{1:0.1f} \msun "
                           #"if it is also an \hii region.  "
-                          "$M_{{inferred,cores}}$ and $M_{{inferred,\hii}}$ are the inferred "
+                          "$M_{{\\rm inferred,cores}}$ and $M_{{\\rm inferred,\hii}}$ are the inferred "
                           "total stellar masses assuming the counted objects represent "
-                          "fractions of the total mass {2:0.2f} (cores) and "
-                          "{3:0.2f} (\hii regions)."
-                          "$M_{{inferred,max}}$ is the greater "
+                          "fractions of the total mass of {2:0.2f} (cores) and "
+                          "{3:0.2f} (\hii regions).  "
+                          "$M_{{\\rm inferred,max}}$ is the greater "
                           "of these two.  "
                           #"$M_{{inferred}}$ is the average "
                           #"of these two.  "
@@ -364,12 +367,13 @@ latexdict['tablefoot'] = ("\par\n"
                           #" an age $t=0.74$ Myr, "
                           #"which is the time of the last pericenter passage in the "
                           #"\citet{{Kruijssen2015a}} model."
-                          "  The \emph{{Total}} row represents the total over the whole observed "
+                          "The \emph{{Total}} row represents the total over the whole observed "
                           "region.  "
-                          "  The two Clustered rows show the total inferred mass of clusters "
+                          "The two \emph{{Clustered}} rows show the total inferred mass of clusters "
                           "including all "
-                          "four candidate clusters including NE and S, then the mass of clusters "
-                          "including only Sgr B2 M and N."
+                          "four candidate clusters M, N, NE and S, then the mass of clusters "
+                          "including only M and N."
+                          "\n\end{{minipage}}"
                           #"The \emph{{Total}}$_{{max}}$ column takes the higher of $M_{{inferred,\hii}}$ "
                           #"and $M_{{inferred,cores}}$ from each row and sums them.  "
                           #"We have included \hii regions in the $N(\hii)$ counts  that are "
@@ -385,17 +389,17 @@ latexdict['tablefoot'] = ("\par\n"
                          )
 
 formats = {'SFR': lambda x: latex_info.strip_trailing_zeros(str(x)),
-           '$M_{inf}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{count}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$N(cores)$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$N(H\\textsc{ii})$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{count}$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{inferred}$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{inferred,max}$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{inferred, H\\textsc{ii}}$': lambda x: "{0}".format(x) if x != -999 else '-',
-           '$M_{inferred, cores}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inf}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm count}^s$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$N({\\rm cores})$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$N({\\rm H\\textsc{ii}})$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm count}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inferred}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inferred,max}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inferred, H\\textsc{ii}}$': lambda x: "{0}".format(x) if x != -999 else '-',
+           '$M_{\\rm inferred, cores}$': lambda x: "{0}".format(x) if x != -999 else '-',
           }
-cols = ['Name', '$N(cores)$', '$N(H\\textsc{ii})$', '$M_{inferred, cores}$', '$M_{inferred, H\\textsc{ii}}$', '$M_{inferred,max}$', ]
+cols = ['Name', '$N({\\rm cores})$', '$N({\\rm H\\textsc{ii}})$', '$M_{\\rm inferred, cores}$', '$M_{\\rm inferred, H\\textsc{ii}}$', '$M_{\\rm inferred,max}$', ]
 
 tbl[cols].write(paths.cfepath('cluster_mass_estimates_cfe.tex'),
                 format='ascii.latex', formats=formats, latexdict=latexdict,
@@ -436,6 +440,21 @@ for cutoff in np.linspace(8,100,10):
     print("Mass fraction M>{1} = {0}".format(over20fraction, cutoff))
     print("Mean mass M>{1} = {0}".format(over20mean, cutoff))
     print("Represented mass M>{1} = {0}".format(over20mean/over20fraction, cutoff))
+
+
+print()
+print(">x, <20")
+
+for low_cutoff in [8,10,12,14,15]:
+    x = np.linspace(low_cutoff,hii_cutoff,50000)
+    y = kroupa(x)
+    over8lt20mean = (x*y).sum()/y.sum()
+    over8lt20fraction = (kroupa.m_integrate(low_cutoff, hii_cutoff)[0] /
+                         kroupa.m_integrate(kroupa.mmin, mmax)[0])
+    over8lt20representative = over8lt20mean/over8lt20fraction
+    print("Mass fraction 20>M>{1} = {0}".format(over8lt20fraction, low_cutoff))
+    print("Mean mass 20>M>{1} = {0}".format(over8lt20mean, low_cutoff))
+    print("Represented mass 20>M>{1} = {0}".format(over8lt20mean/over8lt20fraction, low_cutoff))
 
 
 # cloud mass estimate

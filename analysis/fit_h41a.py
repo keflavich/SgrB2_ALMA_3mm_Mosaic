@@ -98,7 +98,8 @@ depree_merged.write(paths.tpath('DePree2011_plus_H41afits.ipac'), format='ascii.
 depree_merged_tex = depree_merged.copy()
 
 latexdict['header_start'] = '\label{tab:h41afits}'#\n\\footnotesize'
-latexdict['preamble'] = '\caption{H41$\\alpha$ Line Fits}\n'
+latexdict['preamble'] = ('\caption{H41$\\alpha$ Line Fits}\n'
+                         r'\begin{minipage}{130mm}')
 latexdict['col_align'] = 'l'*len(depree_merged.columns)
 latexdict['tabletype'] = 'table'
 latexdict['tablefoot'] = ("\par\nFits to the H41$\\alpha$ line from \citet{Ginsburg2018a}.")
@@ -153,12 +154,27 @@ def cformat(x):
         return '-'
 formats['Coordinates'] = cformat
 
+column_renaming = {
+    'V$_\\mathrm{LSR}$(41)': '$v_\\mathrm{LSR}$(41)',
+    'eV$_\\mathrm{LSR}$(41)': '$\sigma\left[v_\\mathrm{LSR}(41)\\right]$',
+    '$\\mathrm{FWHM}$(41)': '$\\mathrm{FWHM}$(41)',
+    'e$\\mathrm{FWHM}$(41)': '$\sigma\left[\\mathrm{FWHM}(41)\\right]$',
+}
+
+for orig, new in column_renaming.items():
+    depree_merged_tex.rename_column(orig, new)
+    formats[new] = formats[orig]
+
 column_order = ['Source',
                 'Coordinates',
-                'V$_\\mathrm{LSR}$(41)',
-                'eV$_\\mathrm{LSR}$(41)',
+                #'V$_\\mathrm{LSR}$(41)',
+                #'eV$_\\mathrm{LSR}$(41)',
+                #'$\\mathrm{FWHM}$(41)',
+                #'e$\\mathrm{FWHM}$(41)',
+                '$v_\\mathrm{LSR}$(41)',
+                '$\sigma\left[v_\\mathrm{LSR}(41)\\right]$',
                 '$\\mathrm{FWHM}$(41)',
-                'e$\\mathrm{FWHM}$(41)',
+                '$\sigma\left[\\mathrm{FWHM}(41)\\right]$',
  #'V$_\\mathrm{LSR}$(52)',
  #'$\\mathrm{FWHM}$(52)',
  #'V$_\\mathrm{LSR}$(66)',
@@ -166,11 +182,13 @@ column_order = ['Source',
                ]
 
 #'V$_\\mathrm{LSR}$(52)', '$\\mathrm{FWHM}$(52)',]
-latexdict['tablefoot'] = ("\par\n"
+latexdict['tablefoot'] = ("\\\\\n"
                           "Velocities measured from radio recombination line "
                           "fits for the HII regions in Sgr B2.  The "
                           "H41$\\alpha$ line comes from the ALMA data of "
-                          "\citet{Ginsburg2018a}.")
+                          "\citet{Ginsburg2018a}.\n"
+                          "\end{minipage}"
+                         )
                           #while the H52$\\alpha$ line "
                           #"is from \citet{De-Pree2011a}.  Both are shown to "
                           #"illustrate the consistency of the data sets.
