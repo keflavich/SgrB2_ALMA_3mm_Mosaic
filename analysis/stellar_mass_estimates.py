@@ -19,6 +19,7 @@ arbitrary_wcs = wcs.WCS(fits.getheader(paths.Fpath('merge/continuum/SgrB2_selfca
 
 core_phot_tbl = Table.read(paths.tpath("continuum_photometry_withSIMBAD.ipac"),
                            format='ascii.ipac')
+core_phot_tbl.add_column(Column(name='radius', data=np.zeros(len(core_phot_tbl))+np.nan))
 
 # measured from core_flux_distributions
 core_powerlaw_index = 1.94
@@ -27,6 +28,16 @@ kroupa = imf.Kroupa()
 
 o_mmin = 8
 hii_cutoff = 20
+
+mmax = 150
+over8fraction150 = (kroupa.m_integrate(o_mmin, mmax)[0] /
+                    kroupa.m_integrate(kroupa.mmin, mmax)[0])
+x = np.linspace(o_mmin,mmax,50000)
+y = kroupa(x)
+over8mean150 = (x*y).sum()/y.sum()
+print("150mmax,  >8 fraction: {0}, mean = {1}".format(over8fraction150, over8mean150))
+
+
 mmax = 200
 over8fraction = (kroupa.m_integrate(o_mmin, mmax)[0] /
                  kroupa.m_integrate(kroupa.mmin, mmax)[0])
@@ -40,6 +51,7 @@ over8median = 2**(1/(1.94-1)) * o_mmin
 x = np.linspace(o_mmin,mmax,50000)
 y = kroupa(x)
 over8mean = (x*y).sum()/y.sum()
+print("200mmax,  >8 fraction: {0}, mean = {1}".format(over8fraction, over8mean))
 
 nsources = len(core_phot_tbl)
 
@@ -72,9 +84,9 @@ schmiedeke_dust_regions = Table.read(paths.tpath("Schmiedeke2016_dustsources_tab
 schmiedeke_summary_table = Table.read(paths.tpath("Schmiedeke2016_HIIregions_table2.txt"), format='ascii.fixed_width')
 
 def obj_in_tbl(objname):
-    for name in core_phot_tbl['name']:
+    for ii,name in enumerate(core_phot_tbl['name']):
         if str(objname).lower() in str(name).lower():
-            return True
+            return ii
     return False
 
 
@@ -86,7 +98,7 @@ for row in hii_regions:
     if (hasattr(nm,'mask') and nm.mask):
         pass
         #print("Skipping row {0} because masked.".format(row))
-    elif not obj_in_tbl(nm):
+    elif obj_in_tbl(nm) is False:
         if row['robs'] > 5:
             #print("Skipping row {0} because it's too large".format(row))
             continue
@@ -97,12 +109,14 @@ for row in hii_regions:
                                'color': 'green',
                                'Muno_xray_ID': '-',
                                'Caswell_Name': '-',
+                               'radius': u.Quantity(row['robs'], unit=1000*u.au).to(u.pc),
                                #'Classification': 'HII',
                                #'RA': reg.center.ra[0],
                                #'Dec': reg.center.dec[0]
                               })
     else:
-        pass
+        match = obj_in_tbl(nm)
+        core_phot_tbl[match]['radius'] = u.Quantity(row['robs'], unit=1000*u.au).to(u.pc).value
         #print('{0} found in table'.format(nm))
 hii = core_phot_tbl['SIMBAD_OTYPE'] == 'HII'
 core_coords = coordinates.SkyCoord(core_phot_tbl['RA'], core_phot_tbl['Dec'],
@@ -448,13 +462,13 @@ print(">x, <20")
 for low_cutoff in [8,10,12,14,15]:
     x = np.linspace(low_cutoff,hii_cutoff,50000)
     y = kroupa(x)
-    over8lt20mean = (x*y).sum()/y.sum()
-    over8lt20fraction = (kroupa.m_integrate(low_cutoff, hii_cutoff)[0] /
+    overXlt20mean = (x*y).sum()/y.sum()
+    overXlt20fraction = (kroupa.m_integrate(low_cutoff, hii_cutoff)[0] /
                          kroupa.m_integrate(kroupa.mmin, mmax)[0])
-    over8lt20representative = over8lt20mean/over8lt20fraction
-    print("Mass fraction 20>M>{1} = {0}".format(over8lt20fraction, low_cutoff))
-    print("Mean mass 20>M>{1} = {0}".format(over8lt20mean, low_cutoff))
-    print("Represented mass 20>M>{1} = {0}".format(over8lt20mean/over8lt20fraction, low_cutoff))
+    overXlt20representative = overXlt20mean/overXlt20fraction
+    print("Mass fraction 20>M>{1} = {0}".format(overXlt20fraction, low_cutoff))
+    print("Mean mass 20>M>{1} = {0}".format(overXlt20mean, low_cutoff))
+    print("Represented mass 20>M>{1} = {0}".format(overXlt20mean/overXlt20fraction, low_cutoff))
 
 
 # cloud mass estimate
