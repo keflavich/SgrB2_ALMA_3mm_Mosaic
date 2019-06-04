@@ -261,7 +261,7 @@ for regionname in ('MandN', 'DeepSouth', ):
 
         for pp in maparea:#qpointings:#+kapointings+kpointings:
             ppp = pp.to_pixel(mywcs)
-            patch = ppp.as_patch(facecolor='none', edgecolor=pp.visual['color'])
+            patch = ppp.as_artist(facecolor='none', edgecolor=pp.visual['color'])
             ax.add_patch(patch)
 
         for zoomregion in zoomregions_order:

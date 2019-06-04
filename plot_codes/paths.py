@@ -64,3 +64,6 @@ def fspath(x):
 
 def lbpath(x):
     return os.path.join(root,'../alma_lb/FITS/',x)
+
+def dspath(x):
+    return os.path.join(root,'../alma_ds/FITS/',x)
