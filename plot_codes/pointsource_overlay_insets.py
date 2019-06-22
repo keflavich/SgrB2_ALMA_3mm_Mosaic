@@ -44,6 +44,11 @@ else:
 pl.rcParams['xtick.direction'] = 'in'
 pl.rcParams['ytick.direction'] = 'in'
 
+filenames = {'continuum': contfilename,
+             '1.3cm': '/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000_realigned.fits',
+            }
+
+
 zoomregions = {'SouthOfSouth':
                {'bottomleft': coordinates.SkyCoord("17:47:21.352",
                                                    "-28:24:06.985",
@@ -197,7 +202,7 @@ zoomregions = {'SouthOfSouth':
                 'inset_axes': 'M',
                },
                'LowerDS_1mm':
-               {'bottomleft': coordinates.SkyCoord("17:47:23.43",
+               {'bottomleft': coordinates.SkyCoord("17:47:23.63",
                                                    "-28:25:58",
                                                    unit=(u.h, u.deg),
                                                    frame='fk5'),
@@ -207,14 +212,14 @@ zoomregions = {'SouthOfSouth':
                                                  frame='fk5'),
                 'inregion': 'DeepestSouth',
                 'fitsfile':paths.dspath('member.uid___A001_X1290_X48.Sgr_B2_DS_sci.spw25_27_29_31.cont.I.pbcor.fits'),
-                'bbox':[0.1,0.35],
+                'bbox':[0.1,0.33],
                 'loc': 2,
                 'l1':1,
                 'l2':2,
                 'min': -0.2,
                 'max': 5.0,
                 'zoom': 4,
-                'width': 5,
+                'width': 6,
                 'height': 4,
                },
                'LowerDS_1mm_hires':
@@ -229,34 +234,79 @@ zoomregions = {'SouthOfSouth':
                 'inregion': 'DeepestSouth',
                 'inset_axes': 'LowerDS_1mm',
                 'fitsfile':paths.dspath('downsampled_minimal_member.uid___A001_X1290_X46.Sgr_B2_DS_sci.spw0_1_2_3.mfs.I.manual.image.pbcor.fits'),
-                'bbox':[0.1,-0.15],
+                'bbox':[0.1,-1.25],
                 'loc': 3,
                 'l1':1,
                 'l2':2,
                 'min': -0.2,
-                'max': 1.5,
-                'zoom': 2,
-                'width': 2,
-                'height': 2,
+                'max': 1.0,
+                'zoom': 4,
+                'width': 4,
+                'height': 4,
                },
+               'LowerDS_1mm_higherres':
+               {'bottomleft': coordinates.SkyCoord("17:47:21.358",
+                                                   "-28:25:55.262",
+                                                   unit=(u.h, u.deg),
+                                                   frame='fk5'),
+                'topright': coordinates.SkyCoord("17:47:21.008",
+                                                 "-28:25:51.605",
+                                                 unit=(u.h, u.deg),
+                                                 frame='fk5'),
+                'inregion': 'DeepestSouth',
+                'inset_axes': 'LowerDS_1mm_hires',
+                'fitsfile':paths.dspath('downsampled_minimal_member.uid___A001_X1290_X46.Sgr_B2_DS_sci.spw0_1_2_3.mfs.I.manual.image.pbcor.fits'),
+                'bbox':[0.75,-0.55],
+                'contour':{'fn':filenames['continuum'],
+                           'kwargs': {'levels': np.array([0.25, 0.5, 1, 1.5])/1e3,
+                                      'colors': ['g']*5},
+                          },
+                'loc': 2,
+                'l1':2,
+                'l2':3,
+                'min': -0.2,
+                'max': 2.5,
+                'zoom': 2,
+                'width': 4,
+                'height': 3,
+               },
+               #'LowerDS_1mm_higherres':
+               #{'bottomleft': coordinates.SkyCoord("17:47:21.78",
+               #                                    "-28:25:45.871",
+               #                                    unit=(u.h, u.deg),
+               #                                    frame='fk5'),
+               # 'topright': coordinates.SkyCoord("17:47:21.442",
+               #                                  "-28:25:42.000",
+               #                                  unit=(u.h, u.deg),
+               #                                  frame='fk5'),
+               # 'inregion': 'DeepestSouth',
+               # 'inset_axes': 'LowerDS_1mm_hires',
+               # 'fitsfile':paths.dspath('downsampled_minimal_member.uid___A001_X1290_X46.Sgr_B2_DS_sci.spw0_1_2_3.mfs.I.manual.image.pbcor.fits'),
+               # 'bbox':[0.7,-0.55],
+               # 'loc': 2,
+               # 'l1':1,
+               # 'l2':3,
+               # 'min': -0.2,
+               # 'max': 2.5,
+               # 'zoom': 2,
+               # 'width': 4,
+               # 'height': 3,
+               #},
               }
 
 
-zoomregions_order = ['LowerDS_1mm', 'LowerDS_1mm_hires', 'Nhires', 'Mfull',
+zoomregions_order = ['LowerDS_1mm', 'LowerDS_1mm_hires', 'LowerDS_1mm_higherres', 'Nhires', 'Mfull',
                      'M', 'N', 'M_inner', 'SouthOfSouth',
                      'MidDS', 'LowerDS']
 #zoomregions_order = zoomregions_order[:2]
 
 
-filenames = {'continuum': contfilename,
-             '1.3cm': '/Users/adam/work/sgrb2/continuumdata/SGRB2_1.3CM_J2000_realigned.fits',
-            }
-
 
 for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth', ):
+#for regionname in ('MandN',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth', ):
 
     legloc = 'upper right' if regionname == 'MandN' else 'upper left'
-    leg_bbox = [0.5, -0.10] if regionname == 'DeepSouth' else (1,1)
+    leg_bbox = [0.5, -0.10] if regionname in ('DeepSouth', 'DeepestSouth') else (1,1)
 
     vmax_hi = defaultdict(lambda: 0.25*1e3)
     vmax_hi['continuum'] = 0.01*1e3
@@ -309,13 +359,13 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
             hdu_line = fits.open(filenames[line])[0]
         else:
             hdu_line = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_max_medsub.fits'.format(line)))[0]
-        mywcs = wcs.WCS(hdu_line.header).celestial
+        toplevel_wcs = wcs.WCS(hdu_line.header).celestial
         #wcsaxes = WCSaxes(mywcs.to_header())
-        wcsaxes = mywcs # hack for newer version of wcsaxes that is included in astropy
+        #toplevel_wcs = mywcs # hack for newer version of toplevel_wcs that is included in astropy
 
         fig3 = pl.figure(3)
         fig3.clf()
-        ax = fig3.add_axes([0.15, 0.1, 0.8, 0.8], projection=wcsaxes)
+        ax = fig3.add_axes([0.15, 0.1, 0.8, 0.8], projection=toplevel_wcs)
 
         ra = ax.coords['ra']
         ra.set_major_formatter('hh:mm:ss.s')
@@ -329,16 +379,16 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
 
 
         im = ax.imshow(hdu_line.data.squeeze()*1e3,
-                       transform=ax.get_transform(mywcs),
+                       transform=ax.get_transform(toplevel_wcs),
                        vmin=vmin_hi[line], vmax=vmax_hi[line], cmap=pl.cm.gray_r,
                        interpolation='nearest',
                        origin='lower', norm=asinh_norm.AsinhNorm())
         tr_fk5 = ax.get_transform("fk5")
         #(x1,y1),(x2,y2) = (1200,434),(2142,1743)
         # wrong (x1,y1),(x2,y2) = tr_fk5.transform_point([bottomleft.ra.deg, bottomleft.dec.deg]),tr_fk5.transform_point([topright.ra.deg, topright.dec.deg])
-        (x1,y1),(x2,y2) = (mywcs.wcs_world2pix([[bottomleft.ra.deg,
+        (x1,y1),(x2,y2) = (toplevel_wcs.wcs_world2pix([[bottomleft.ra.deg,
                                                  bottomleft.dec.deg]],0)[0],
-                           mywcs.wcs_world2pix([[topright.ra.deg,
+                           toplevel_wcs.wcs_world2pix([[topright.ra.deg,
                                                  topright.dec.deg]],0)[0]
                           )
 
@@ -371,26 +421,28 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
 
             if 'fitsfile' in ZR:
                 inset_hdu = fits.open(ZR['fitsfile'])[0]
-                mywcs = wcs.WCS(inset_hdu.header).celestial
+                ff_zr_wcs = wcs.WCS(inset_hdu.header).celestial
                 # this was commented out, but it might be needed?
-                if mywcs.wcs.radesys != wcsaxes.wcs.radesys:
-                    cntr = coordinates.SkyCoord(mywcs.wcs.crval[0]*u.deg,
-                                                mywcs.wcs.crval[1]*u.deg,
-                                                frame=mywcs.wcs.radesys.lower())
-                    cntr_new = cntr.transform_to(wcsaxes.wcs.radesys.lower())
-                    mywcs.wcs.radesys = wcsaxes.wcs.radesys
-                    mywcs.wcs.crval = [cntr_new.ra.deg,
+                if ff_zr_wcs.wcs.radesys != toplevel_wcs.wcs.radesys:
+                    cntr = coordinates.SkyCoord(ff_zr_wcs.wcs.crval[0]*u.deg,
+                                                ff_zr_wcs.wcs.crval[1]*u.deg,
+                                                frame=ff_zr_wcs.wcs.radesys.lower())
+                    cntr_new = cntr.transform_to(toplevel_wcs.wcs.radesys.lower())
+                    ff_zr_wcs.wcs.radesys = toplevel_wcs.wcs.radesys
+                    ff_zr_wcs.wcs.crval = [cntr_new.ra.deg,
                                        cntr_new.dec.deg]
 
+                zr_wcs = ff_zr_wcs
             else:
                 inset_hdu = hdu_line
+                zr_wcs = toplevel_wcs
 
             parent_ax = zoomregions[ZR['inset_axes']]['axins'] if 'inset_axes' in ZR else ax
 
             bl, tr = ZR['bottomleft'],ZR['topright'],
-            (zx1,zy1),(zx2,zy2) = (mywcs.wcs_world2pix([[bl.ra.deg,
+            (zx1,zy1),(zx2,zy2) = (zr_wcs.wcs_world2pix([[bl.ra.deg,
                                                          bl.dec.deg]],0)[0],
-                                   mywcs.wcs_world2pix([[tr.ra.deg,
+                                   zr_wcs.wcs_world2pix([[tr.ra.deg,
                                                          tr.dec.deg]],0)[0]
                                   )
 
@@ -402,13 +454,13 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
                                    bbox_to_anchor=ZR['bbox'],
                                    bbox_transform=fig3.transFigure,
                                    axes_class=astropy.visualization.wcsaxes.core.WCSAxes,
-                                   axes_kwargs=dict(wcs=mywcs))
+                                   axes_kwargs=dict(wcs=zr_wcs))
             else:
                 axins = zoomed_inset_axes(parent_ax, zoom=ZR['zoom'], loc=ZR['loc'],
                                           bbox_to_anchor=ZR['bbox'],
                                           bbox_transform=fig3.transFigure,
                                           axes_class=astropy.visualization.wcsaxes.core.WCSAxes,
-                                          axes_kwargs=dict(wcs=wcsaxes))
+                                          axes_kwargs=dict(wcs=toplevel_wcs))
 
             ZR['axins'] = axins
             imz = axins.imshow(inset_hdu.data.squeeze()*1e3,
@@ -438,12 +490,12 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
                 # connecting lines between the bbox and the inset axes area
                 mark_inset(parent_axes=parent_ax, inset_axes=axins,
                            loc1=ZR['l1'], loc2=ZR['l2'], fc="none", ec="0.5")
-            else:
-                blt = bl.transform_to(wcsaxes.wcs.radesys.lower())
-                trt = tr.transform_to(wcsaxes.wcs.radesys.lower())
-                (rx1,ry1),(rx2,ry2) = (wcsaxes.wcs_world2pix([[blt.ra.deg,
+            else: # if 'fitsfile' in ZR
+                blt = bl.transform_to(parent_ax.wcs.wcs.radesys.lower())
+                trt = tr.transform_to(parent_ax.wcs.wcs.radesys.lower())
+                (rx1,ry1),(rx2,ry2) = (parent_ax.wcs.wcs_world2pix([[blt.ra.deg,
                                                                blt.dec.deg]],0)[0],
-                                       wcsaxes.wcs_world2pix([[trt.ra.deg,
+                                       parent_ax.wcs.wcs_world2pix([[trt.ra.deg,
                                                                trt.dec.deg]],0)[0]
                                       )
                 bbox = Bbox(np.array([(rx1,ry1),(rx2,ry2)]))
@@ -469,6 +521,27 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
                                   label='5000 AU',
                                   text_offset=0.08*u.arcsec,
                                  )
+
+            if 'contour' in ZR:
+                cfh = fits.open(ZR['contour']['fn'])
+                cont_wcs = wcs.WCS(cfh[0].header)
+
+
+                blt = bl.transform_to(cont_wcs.wcs.radesys.lower())
+                trt = tr.transform_to(cont_wcs.wcs.radesys.lower())
+                (rx1,ry1),(rx2,ry2) = (cont_wcs.wcs_world2pix([[blt.ra.deg,
+                                                               blt.dec.deg]],0)[0],
+                                       cont_wcs.wcs_world2pix([[trt.ra.deg,
+                                                               trt.dec.deg]],0)[0]
+                                      )
+
+                cutout_dat = cfh[0].data[int(ry1)-5:int(ry2)+5, int(rx1)-5:int(rx2)+5]
+                cutout_wcs = cont_wcs[int(ry1)-5:int(ry2)+5, int(rx1)-5:int(rx2)+5]
+
+                cont_transform = axins.get_transform(cutout_wcs)
+
+                axins.contour(cutout_dat, transform=cont_transform,
+                              **ZR['contour']['kwargs'])
 
 
             fig3.canvas.draw()
