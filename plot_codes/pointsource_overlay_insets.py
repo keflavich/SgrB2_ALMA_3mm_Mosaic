@@ -270,6 +270,83 @@ zoomregions = {'SouthOfSouth':
                 'width': 4,
                 'height': 3,
                },
+               'LowerDS_1mm_infullwide':
+               {'bottomleft': coordinates.SkyCoord("17:47:24.274",
+                                                   "-28:26:05.011",
+                                                   unit=(u.h, u.deg),
+                                                   frame='fk5'),
+                'topright': coordinates.SkyCoord("17:47:18.026",
+                                                 "-28:23:27.725",
+                                                 unit=(u.h, u.deg),
+                                                 frame='fk5'),
+                'inregion': 'fullwide',
+                #'inset_axes': 'LowerDS_1mm_hires',
+                'fitsfile':paths.dspath('downsampled_minimal_member.uid___A001_X1290_X46.Sgr_B2_DS_sci.spw25_27_29_31.mfs.I.manual.image.pbcor.fits'),
+                'bbox':[0.00,0.68],
+                #'contour':{'fn':filenames['continuum'],
+                #           'kwargs': {'levels': np.array([0.25, 0.5, 1, 1.5])/1e3,
+                #                      'colors': ['g']*5},
+                #          },
+                'loc': 2,
+                'l1':1,
+                'l2':4,
+                'min': -0.2,
+                'max': 2.5,
+                'zoom': 2,
+                'width': 5,
+                'height': 8,
+                'hide_axes': True,
+                'show_cores': False,
+               },
+               'Nhires_fullwide':
+               {'bottomleft': coordinates.SkyCoord("17:47:20.072",
+                                                   "-28:22:22.0",
+                                                   unit=(u.h, u.deg),
+                                                   frame='icrs'),
+                'topright': coordinates.SkyCoord("17:47:19.706",
+                                                 "-28:22:15.6",
+                                                 unit=(u.h, u.deg),
+                                                 frame='icrs'),
+                'inregion': 'fullwide',
+                'fitsfile':paths.lbpath('sgr_b2m.N.B6.allspw.continuum.r0.5.clean1000.image.tt0.pbcor.fits'),
+                'bbox':[0.75,0.75],
+                'loc': 2,
+                'l1':2,
+                'l2':3,
+                'min': -1, # mJy
+                'max': 25,
+                'width': 4,
+                'height': 4,
+                'hide_axes': True,
+                'show_cores': False,
+                #'scalebarpos': coordinates.SkyCoord("17:47:20.004", "-28:22:20.9",
+                #                               unit=(u.h, u.deg), frame='icrs')
+
+               },
+               'M_inner_fullwide':
+               {'bottomleft': coordinates.SkyCoord("17:47:20.364",
+                                                   "-28:23:08.792",
+                                                   unit=(u.h, u.deg),
+                                                   frame='fk5'),
+                'topright': coordinates.SkyCoord("17:47:19.886",
+                                                 "-28:22:59.814",
+                                                 unit=(u.h, u.deg),
+                                                 frame='fk5'),
+                'fitsfile': paths.lbpath('sgr_b2m.M.B6.allspw.continuum.r0.5.clean1000.image.tt0.pbcor.fits'),
+                'inregion': 'fullwide',
+                'bbox':[0.75,0.43],
+                'loc': 2,
+                'l1':2,
+                'l2':3,
+                'min': -1,
+                'max': 100,
+                'zoom': 5,
+                'width': 4,
+                'height': 4,
+                'hide_axes': True,
+                'show_cores': False,
+                #'inset_axes': 'M',
+               },
                #'LowerDS_1mm_higherres':
                #{'bottomleft': coordinates.SkyCoord("17:47:21.78",
                #                                    "-28:25:45.871",
@@ -295,14 +372,22 @@ zoomregions = {'SouthOfSouth':
               }
 
 
-zoomregions_order = ['LowerDS_1mm', 'LowerDS_1mm_hires', 'LowerDS_1mm_higherres', 'Nhires', 'Mfull',
+zoomregions_order = ['LowerDS_1mm_infullwide', 'Nhires_fullwide', 'M_inner_fullwide',
+                     'LowerDS_1mm', 'LowerDS_1mm_hires', 'LowerDS_1mm_higherres', 'Nhires', 'Mfull',
                      'M', 'N', 'M_inner', 'SouthOfSouth',
                      'MidDS', 'LowerDS']
 #zoomregions_order = zoomregions_order[:2]
 
+bigregion_parameters = {'fullwide': {'hide_axes': True, 'dpi':600, 'figsize':(12,17)},
+                        'DeepestSouth': {'dpi':200, 'figsize':None},
+                        'fullN': {'dpi':200, 'figsize':None},
+                        'full': {'dpi':200, 'figsize':None},
+                        'MandN': {'dpi':200, 'figsize':None},
+                        'DeepSouth': {'dpi':200, 'figsize':None},
+                       }
 
 
-for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth', ):
+for regionname in ('fullwide',):#('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth', ):
 #for regionname in ('MandN',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth', ):
 
     legloc = 'upper right' if regionname == 'MandN' else 'upper left'
@@ -341,6 +426,16 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
             #else:
             topright = coordinates.SkyCoord("17:47:14.666", "-28:21:04.980", unit=(u.h, u.deg), frame='fk5')
             scalebarpos = coordinates.SkyCoord("17:47:17.0", "-28:23:25.0", unit=(u.h, u.deg), frame='fk5')
+        elif regionname in ('fullwide',):
+            mylims_fk5 = ((266.8989023, -28.44894567), (266.7627384, -28.33548893))
+            topright = coordinates.SkyCoord(*mylims_fk5[1],
+                                            unit=(u.deg, u.deg),
+                                            frame='fk5')
+            bottomleft = coordinates.SkyCoord(*mylims_fk5[0],
+                                              unit=(u.deg, u.deg),
+                                              frame='fk5')
+            scalebarpos = coordinates.SkyCoord("17:47:11", "-28:26:15.0",
+                                               unit=(u.h, u.deg), frame='fk5')
         elif regionname in ('full', 'fullN'):
             mylims_fk5 = ((266.8744477, -28.44946601), (266.7838311, -28.33589021))
             topright = coordinates.SkyCoord(*mylims_fk5[1],
@@ -363,7 +458,7 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
         #wcsaxes = WCSaxes(mywcs.to_header())
         #toplevel_wcs = mywcs # hack for newer version of toplevel_wcs that is included in astropy
 
-        fig3 = pl.figure(3)
+        fig3 = pl.figure(3, figsize=bigregion_parameters[regionname]['figsize'])
         fig3.clf()
         ax = fig3.add_axes([0.15, 0.1, 0.8, 0.8], projection=toplevel_wcs)
 
@@ -446,6 +541,10 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
                                                          tr.dec.deg]],0)[0]
                                   )
 
+            # cut out the inset image before plotting to reduce time
+            data = inset_hdu.data.squeeze()[int(zy1)-5:int(zy2)+5, int(zx1)-5:int(zx2)+5]
+            zr_wcs = zr_wcs[int(zy1)-5:int(zy2)+5, int(zx1)-5:int(zx2)+5]
+
             if 'fitsfile' in ZR:
                 axins = inset_axes(parent_ax,
                                    loc=ZR['loc'],
@@ -463,19 +562,22 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
                                           axes_kwargs=dict(wcs=toplevel_wcs))
 
             ZR['axins'] = axins
-            imz = axins.imshow(inset_hdu.data.squeeze()*1e3,
+            imz = axins.imshow(data*1e3,
                                #transform=parent_ax.get_transform(mywcs),
                                vmin=ZR['min'], vmax=ZR['max'], cmap=pl.cm.gray_r,
                                interpolation='nearest',
                                origin='lower', norm=asinh_norm.AsinhNorm())
 
 
-            coredots = plotcores(axins, alpha=1,
-                                 transform=axins.get_transform('fk5'),
-                                 markerfacecolor='none',
-                                 markersize=markersize, zorder=50)
+            if 'show_cores' not in ZR or ZR['show_cores']:
+                coredots = plotcores(axins, alpha=1,
+                                     transform=axins.get_transform('fk5'),
+                                     markerfacecolor='none',
+                                     markersize=markersize, zorder=50)
             ax.axis([x1,x2,y1,y2])
-            axins.axis([zx1,zx2,zy1,zy2])
+            #axins.axis([zx1,zx2,zy1,zy2])
+            # no need for this; should already be zoomed
+            #axins.axis([0,zx2-zx1,0,zy2-zy1])
 
             axins.set_xticklabels([])
             axins.set_yticklabels([])
@@ -484,6 +586,22 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
             lat = axins.coords['dec']
             lon.set_ticklabel_visible(False)
             lat.set_ticklabel_visible(False)
+
+            if 'hide_axes' in ZR and ZR['hide_axes']:
+                axins.xaxis.set_visible(False)
+                axins.yaxis.set_visible(False)
+                axins.xaxis.set_ticks([])
+                axins.yaxis.set_ticks([])
+                axins.set_facecolor('none')
+                axins.axis('off')
+                for spine in axins.spines.values():
+                    spine.set_visible(False)
+                for crd in axins.coords:
+                    crd.set_ticklabel_visible(False)
+                    crd.set_axislabel('')
+                    crd.set_ticks_visible(False)
+                    #crd.frame.set_visible(False)
+
 
             if 'fitsfile' not in ZR:
                 # draw a bbox of the region of the inset axes in the parent axes and
@@ -548,28 +666,42 @@ for regionname in ('DeepestSouth',): #'fullN', ):#'full', ):#'MandN', 'DeepSouth
 
             #assert np.abs(ax.bbox._bbox.x1 - 0.95) > 1e-4
 
-            cax = fig3.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
-                                 ax.bbox._bbox.y1-ax.bbox._bbox.y0])
-            cb = fig3.colorbar(mappable=im, cax=cax)
-            cb.set_label("$S_{3 mm}$ [mJy beam$^{-1}$]")
+            if 'hide_axes' in bigregion_parameters[regionname] and bigregion_parameters[regionname]['hide_axes']:
+                ax.set_xticklabels([])
+                ax.set_yticklabels([])
+                ax.xaxis.set_visible(False)
+                ax.yaxis.set_visible(False)
+                ra.set_ticks_visible(False)
+                dec.set_ticks_visible(False)
+                ra.set_axislabel('')
+                dec.set_axislabel('')
+                ra.ticklabels.set_visible(False)
+                dec.ticklabels.set_visible(False)
+            else:
+                cax = fig3.add_axes([ax.bbox._bbox.x1+0.01, ax.bbox._bbox.y0, 0.02,
+                                     ax.bbox._bbox.y1-ax.bbox._bbox.y0])
+                cb = fig3.colorbar(mappable=im, cax=cax)
+                cb.set_label("$S_{3 mm}$ [mJy beam$^{-1}$]")
 
 
             print(("core_overlays/cores_on_{0}_peak_{1}_zoomin: {2}"
                    .format(line,regionname,zoomregion)))
+        print("Saving figures")
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_zoomin.png"
                                  .format(line, regionname, )),
                      bbox_inches='tight',
-                     dpi=200
+                     dpi=bigregion_parameters[regionname]['dpi']
                     )
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_zoomin.pdf"
                                  .format(line, regionname, )),
                      bbox_inches='tight')
 
-        leg = ax.legend(handles=coredots, labels=[cd.get_label() for cd in
-                                                  coredots],
-                        bbox_to_anchor=leg_bbox,
-                        loc=legloc,
-                        fontsize=8)
+        if 'coredots' in locals():
+            leg = ax.legend(handles=coredots, labels=[cd.get_label() for cd in
+                                                      coredots],
+                            bbox_to_anchor=leg_bbox,
+                            loc=legloc,
+                            fontsize=8)
 
         fig3.savefig(paths.fpath("core_overlays/cores_on_{0}_peak_{1}_zoomin_legend.png"
                                  .format(line,regionname, )),

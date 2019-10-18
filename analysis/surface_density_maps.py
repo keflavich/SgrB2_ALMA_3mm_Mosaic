@@ -127,6 +127,7 @@ lostarvs = ax1.plot(gas_massdensity25[lostars],
 ax1.axis([1e3,1e5,1e0,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal.pdf"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal.svg"), bbox_inches='tight')
 
 monr2_fill = ax1.fill_between([0.1, 1e5],
                               np.array([0.1, 1e5])**2.67/(100**2.67),
@@ -150,6 +151,7 @@ ax1.plot([0.1, 1e5], np.array([0.1, 1e5])**1.87/(1e4**1.87)*(1e4**(5/3.)/1e5),
 ax1.axis([1e3,1e5,1e0,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel.pdf"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel.svg"), bbox_inches='tight')
 
 sigma_gas = np.logspace(1,6) * u.M_sun / u.pc**2
 
@@ -174,6 +176,7 @@ ax1.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fonts
 ax1.axis([1e3,1e5,1e0,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.pdf"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel.svg"), bbox_inches='tight')
 ax1.axis([1e0,1e5,1e-1,1e5])
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_full.png"), bbox_inches='tight')
 
@@ -202,12 +205,14 @@ ax1.loglog(np.logspace(3,5),
 
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_withLada2017.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_withLada2017.pdf"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_withLada2017.svg"), bbox_inches='tight')
 
 for obj in local_plotobjs+model_plotobjs:
     obj.set_visible(False)
 
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal_withLada2017.png"), bbox_inches='tight')
 fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal_withLada2017.pdf"), bbox_inches='tight')
+fig1.savefig(paths.fpath("stellar_vs_gas_column_density_gridded_herschel_nomodel_nolocal_withLada2017.svg"), bbox_inches='tight')
 
 
 nn = 11
@@ -249,6 +254,7 @@ ax2.set_xlabel("Gas Surface Density $\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fonts
 ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal.pdf"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal.svg"), bbox_inches='tight')
 
 monr2_lowerline =np.array([0.1, 1e5])**2.67/(100**2.67) * 2.5
 monr2_fill = ax2.fill_between([0.1, 1e5],
@@ -281,6 +287,7 @@ local_plotobjs = [monr2_text, oph_text, monr2_fill, oph_fill,] + oph_lowerline_l
 ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.pdf"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel.svg"), bbox_inches='tight')
 
 model_labels = []
 model_plotobjs = []
@@ -311,6 +318,7 @@ ax2.arrow(3e4, 1.1, -bg_5e22.value, 0, head_width=0.1, head_length=0.033*(3e4-bg
 ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.pdf"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel.svg"), bbox_inches='tight')
 
 ax2.plot([550,500,15],[300,30,0.4],'bo')
 ax2.plot([300,300,15],[500,54,0.22],'go')
@@ -329,6 +337,7 @@ line_labels.append(ax2.text(1.1e4, 4e4, '$\\alpha=2$', color='orange', fontsize=
 
 ax2.axis([1e3,1e5,1e0,1e5])
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nolocal.pdf"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nolocal.svg"), bbox_inches='tight')
 
 for obj in line_labels:
     obj.set_visible(False)
@@ -352,12 +361,14 @@ lada_orib = ax2.loglog(np.logspace(3,5),
 
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_withLada2017.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_withLada2017.pdf"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_withLada2017.svg"), bbox_inches='tight')
 
 for obj in local_plotobjs+model_plotobjs:
     obj.set_visible(False)
 
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal_withLada2017.png"), bbox_inches='tight')
 fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal_withLada2017.pdf"), bbox_inches='tight')
+fig2.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_nomodel_nolocal_withLada2017.svg"), bbox_inches='tight')
 
 
 # for obj in [lada_cali, lada_orib, lada_oria]:
@@ -438,3 +449,4 @@ ax3.axis(lims)
 
 pl.legend(loc='best', fontsize=18)
 fig3.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_Elmegreen2018_SFR_models.pdf"), bbox_inches='tight')
+fig3.savefig(paths.fpath("stellar_vs_gas_column_density_gridNN11_herschel_Elmegreen2018_SFR_models.svg"), bbox_inches='tight')
