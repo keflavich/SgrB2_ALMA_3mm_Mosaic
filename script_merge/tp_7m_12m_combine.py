@@ -14,6 +14,9 @@ import socket
 if 'nmpost' in socket.gethostname():
     dpath = lambda x: os.path.join("/lustre/aoc/users/aginsbur/sgrb2/2013.1.00269.S/merge",x)
     tppath = lambda x: os.path.join("/lustre/aoc/users/aginsbur/sgrb2/2013.1.00269.S/tp",x)
+elif 'ufhpc' in socket.gethostname():
+    dpath = lambda x: os.path.join("/orange/adamginsburg/sgrb2/2013.1.00269.S/merge",x)
+    tppath = lambda x: os.path.join("/orange/adamginsburg/sgrb2/2013.1.00269.S/tp",x)
 else:
     raise ValueError("No match to socket hostname {0}.".format(socket.gethostname()))
 
@@ -210,7 +213,7 @@ for interferometer_fn in (
             pb.update()
 
         fh.close()
-            
+
         #combhdu = fourier_combine_cubes(cube_k, cube_tpkrg, return_hdu=True,
         #                                lowresfwhm=cube_tpkrg.beam.major)
         #combcube = SpectralCube.read(combhdu).with_spectral_unit(u.km/u.s,
