@@ -11,7 +11,7 @@ from astropy.convolution import convolve, Gaussian2DKernel
 from mpl_plot_templates import asinh_norm
 import matplotlib
 from collections import defaultdict
-from files import contfilename
+from files import contfilename,dscontfilename
 import warnings
 from visualization import make_scalebar
 from constants import distance
@@ -41,12 +41,16 @@ for regionname in ('DeepSouth', 'MandN'):
 
     vmax_hi = defaultdict(lambda: 0.25*1e3)
     vmax_hi['continuum'] = 0.01*1e3
+    vmax_hi['continuumds'] = 0.001*1e3
     vmin_hi = defaultdict(lambda: -0.0001*1e3)
     vmin_hi['continuum'] = -0.0005*1e3
+    vmin_hi['continuumds'] = -0.00008*1e3
     vmax_lo = defaultdict(lambda: 0.1*1e3)
     vmax_lo['continuum'] = 0.0025*1e3
+    vmax_lo['continuumds'] = 0.0005*1e3
     vmin_lo = defaultdict(lambda: -0.001*1e3)
     vmin_lo['continuum'] = -0.0002*1e3
+    vmin_lo['continuumds'] = -0.00005*1e3
 
     if regionname == 'DeepSouth':
         # Deep South
@@ -62,9 +66,11 @@ for regionname in ('DeepSouth', 'MandN'):
     else:
         raise Exception
 
-    for line in ("continuum","HC3N","HCN","HNC","HCOp"):
+    for line in ("continuumds",):#"continuum","continuumds","HC3N","HCN","HNC","HCOp"):
         if line == 'continuum':
             hdu_line = fits.open(contfilename)[0]
+        elif line == 'continuumds':
+            hdu_line = fits.open(dscontfilename)[0]
         else:
             hdu_line = fits.open(paths.Fpath('merge/max/SgrB2_b3_7M_12M.{0}.image.pbcor_max_medsub.fits'.format(line)))[0]
         mywcs = wcs.WCS(hdu_line.header).celestial

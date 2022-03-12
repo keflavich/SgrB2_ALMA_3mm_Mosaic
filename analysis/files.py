@@ -10,3 +10,6 @@ import paths
 contfilename = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_try2_selfcal6_ampphase_deeper_mask1.5mJy.image.tt0.pbcor.fits')
 alphafilename = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_try2_selfcal6_ampphase_deeper_mask1.5mJy.alpha.fits')
 alphaerrorfilename = paths.Fpath('merge/continuum/SgrB2_selfcal_full_TCTE7m_try2_selfcal6_ampphase_deeper_mask1.5mJy.alpha.error.fits')
+
+dscontfilename = paths.dspath('member.uid___A001_X1290_X48.Sgr_B2_DS_sci.spw25_27_29_31.cont.I.pbcor.fits')
+dscontfilename = paths.dspath('Sgr_B2_DS_B6_uid___A001_X1290_X46_continuum_merged_12M_robust0_selfcal4_finaliter.image.tt0.fits')
